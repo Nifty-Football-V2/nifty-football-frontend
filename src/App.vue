@@ -79,7 +79,7 @@
 
         .card-title {
             color: $black;
-            font-size: 1.15rem;
+            font-size: 1rem;
         }
     }
 </style>

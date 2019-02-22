@@ -24,7 +24,8 @@ export default {
         common: {
             futball_cards: 'サッカーカード',
             collect_trade_play: '集める。トレード。遊びます。',
-            buy: '購入'
+            buy: '購入',
+            loading: 'ローディング',
         },
         message: {
             hello_world: 'こんにちは、世界'
@@ -39,7 +40,8 @@ export default {
         common: {
             futball_cards: '足球卡',
             collect_trade_play: '收集贸易游戏',
-            buy: '购买'
+            buy: '购买',
+            loading: '装载',
         },
         message: {
             hello_world: '你好，世界'

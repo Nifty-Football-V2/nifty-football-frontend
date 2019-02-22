@@ -7,16 +7,17 @@
             </div>
         </div>
 
-        <div class="row pb-4">
-            <div class="loading" v-if="loading">
-                <p>{{ $t('common.loading') }}</p>
-            </div>
+        <div class="loading" v-if="loading">
+            <p>{{ $t('common.loading') }}</p>
+        </div>
 
-            <div class="col-3 mt-2" v-if="cards" v-for="card in cards">
+        <div class="row pb-4" v-if="cards">
+            <div class="col-3 mt-5" v-for="card in cards">
                 <div class="card" style="min-height: 250px">
+                    <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" style="max-width: 100px;" class="mx-auto m-3"/>
                     <div class="card-body">
+                        <span class="float-right badge badge-primary">{{ card.attributeAvg }}</span>
                         <h5 class="card-title">{{ card.fullName }}</h5>
-                        <p class="card-text"></p>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">{{ card.positionText }}</small>
