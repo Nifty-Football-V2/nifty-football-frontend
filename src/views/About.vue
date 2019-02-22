@@ -1,15 +1,13 @@
 <template>
-    <div class="about">
-        <h1>This is an about page</h1>
-        <p>{{ $t('message.hello_world') }}</p>
-
-        <locale-changer></locale-changer>
+    <div class="container mb-5">
+        <div class="row pb-4">
+            <div class="col text-center">
+                <h1 class="mt-5">{{ $t('nav.about') }}</h1>
+                <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
+            </div>
+        </div>
     </div>
 </template>
 <script>
-    import LocaleChanger from '../components/LocaleChanger';
-
-    export default {
-        components: {LocaleChanger}
-    };
+    export default {};
 </script>

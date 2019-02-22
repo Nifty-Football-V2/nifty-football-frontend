@@ -4,7 +4,9 @@ import router from './router';
 import store from './store';
 import VueI18n from 'vue-i18n';
 import messages from './messages';
+import BootstrapVue from 'bootstrap-vue'
 
+Vue.use(BootstrapVue)
 Vue.use(VueI18n);
 
 Vue.config.productionTip = false;
