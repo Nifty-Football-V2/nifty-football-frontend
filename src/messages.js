@@ -19,6 +19,7 @@ export default {
         nav: {
             home: 'ホーム',
             about: '約',
+            account: 'アカウント',
         },
         common: {
             futball_cards: 'サッカーカード',
@@ -33,6 +34,7 @@ export default {
         nav: {
             home: '家',
             about: '关于',
+            account: '帐户',
         },
         common: {
             futball_cards: '足球卡',
