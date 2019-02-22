@@ -12,7 +12,7 @@
         </div>
 
         <div class="row pb-4" v-if="cards">
-            <div class="col-3 mt-5" v-for="card in cards">
+            <div class="col-3 mt-5" v-for="card in cards" v-bind:key="card.tokenId">
                 <div class="card" style="min-height: 250px">
                     <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" style="max-width: 100px;" class="mx-auto m-3"/>
                     <div class="card-body">

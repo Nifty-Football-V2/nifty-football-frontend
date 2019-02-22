@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
+    "ethers": "^4.0.26",
     "vue": "^2.6.7",
     "vue-i18n": "^8.8.2",
     "vue-router": "^3.0.1",

@@ -76,7 +76,6 @@
     }
 
     .card {
-
         .card-title {
             color: $black;
             font-size: 1rem;
@@ -84,9 +83,26 @@
     }
 </style>
 <script>
+    /* global web3 */
     import LocaleChanger from './components/LocaleChanger';
+    import { ethers } from 'ethers';
+    import futballCardsBlindPackAbi from './abi/futballCardsBlindPack'
 
     export default {
-        components: {LocaleChanger}
+        components: {LocaleChanger},
+        created: async function () {
+            const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+            const signer = provider.getSigner();
+
+            // 5777
+            this.blindPackContract = new ethers.Contract(
+                '0x790c7E699107A39b08E195AdAa09eA20D5E867B9',
+                futballCardsBlindPackAbi,
+                signer
+            );
+
+            this.priceInWei = (await this.blindPackContract.priceInWei()).toNumber();
+            console.log(this.priceInWei);
+        }
     };
 </script>
