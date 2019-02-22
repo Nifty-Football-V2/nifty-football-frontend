@@ -4,7 +4,8 @@
             <locale-changer></locale-changer>
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -14,6 +15,9 @@
                         </li>
                         <li class="nav-item">
                             <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -27,7 +31,6 @@
     @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
     @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
     @import "colours";
-
     @import '../node_modules/bootstrap/scss/bootstrap';
     @import '../node_modules/bootstrap-vue/src/index.scss';
 
@@ -71,9 +74,18 @@
     .btn-primary {
         color: $body-bg;
     }
+
+    .card {
+
+        .card-title {
+            color: $black;
+            font-size: 1.15rem;
+        }
+    }
 </style>
 <script>
-    import LocaleChanger from './components/LocaleChanger'
+    import LocaleChanger from './components/LocaleChanger';
+
     export default {
         components: {LocaleChanger}
     };

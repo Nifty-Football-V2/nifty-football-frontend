@@ -1,13 +1,15 @@
-module.exports = {
+export default {
     en: {
         nav: {
             home: 'Home',
             about: 'About',
+            account: 'Account',
         },
         common: {
             futball_cards: 'Futball Cards',
             collect_trade_play: 'Collect. Trade. Play.',
-            buy: 'Buy'
+            buy: 'Buy',
+            loading: 'loading',
         },
         message: {
             hello_world: 'hello world'
