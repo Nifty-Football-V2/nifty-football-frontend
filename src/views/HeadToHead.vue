@@ -12,27 +12,27 @@
         </div>
 
         <div class="row" v-if="cards">
-            <div class="col">
+            <div class="col-3">
                 <h4>{{ dotDotDot(`0x0df0cC6576Ed17ba870D6FC271E20601e3eE176e`) }}</h4>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <h4>Vs</h4>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <h4>Ell's Angels</h4>
             </div>
         </div>
 
         <div class="row" v-if="cards">
-            <div class="col">
+            <div class="col-3">
                 <card :card="cards[0]"></card>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <h2 class="mt-5">Head to Head</h2>
                 <br/>
                 <button class="btn btn-primary btn-lg pl-4 pr-4">{{ $t('common.play') }}</button>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <card :card="cards[1]"></card>
             </div>
         </div>

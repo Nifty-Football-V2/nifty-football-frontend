@@ -2,7 +2,7 @@
     <div class="container mb-5">
         <div class="row pb-4">
             <div class="col">
-                <h1 class="mt-5">{{ $t('nav.account') }}</h1>
+                <h1 class="mt-5">{{ $t('nav.marketplace') }}</h1>
                 <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
             </div>
         </div>
@@ -13,7 +13,7 @@
 
         <div class="row" v-if="cards">
             <div class="col text-left">
-                <h4>Transfer Market</h4>
+                <h4>&nbsp;</h4>
             </div>
             <div class="col text-right">
                 Sort by:
