@@ -2,23 +2,98 @@
     <div class="container mb-5">
         <div class="row pb-4">
             <div class="col">
-                <h1 class="mt-5">{{ $t('nav.marketplace') }}</h1>
+                <h1 class="mt-5">{{ $t('nav.account') }}</h1>
                 <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
             </div>
         </div>
-        <div class="row pb-4">
+
+        <div class="loading" v-if="loading">
+            <p>{{ $t('common.loading') }}...</p>
+        </div>
+
+        <div class="row" v-if="cards">
             <div class="col text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <h4>Transfer Market</h4>
             </div>
-            <div class="col text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <div class="col text-right">
+                Sort by:
+                <a href="#" @click="setOrder('position')" class="edit">High-Low</a>
+                <a href="#" @click="setOrder('position')" class="edit">Low-High</a>
+                <a href="#" @click="setOrder('position')" class="edit">Position</a>
+                <a href="#" @click="setOrder('attributeAvg')" class="edit">Rating</a>
             </div>
-            <div class="col text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+
+        <div class="row" v-if="cards">
+            <div class="col-3 mb-5" v-for="card in orderBy(cards, order,  -1)" v-bind:key="card.tokenId">
+                <card :card="card"></card>
+                <div class="row mt-2">
+                    <div class="col">
+                        <h5>0.834 ETH</h5>
+                    </div>
+                    <div class="col">
+                        <router-link to="/headtohead" class="btn btn-primary pl-4 pr-4">{{ $t('common.buy') }}</router-link>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </template>
 <script>
-    export default {};
+    /* global web3 */
+    import axios from 'axios';
+    import Vue2Filters from 'vue2-filters';
+    import Card from '../components/Card';
+
+    export default {
+        components: {Card},
+        mixins: [Vue2Filters.mixin],
+        data () {
+            return {
+                loading: false,
+                cards: null,
+                error: null,
+                account: null,
+                order: 'position',
+            };
+        },
+        created () {
+            // fetch the data when the view is created and the data is
+            this.fetchData();
+        },
+        watch: {
+            // call again the method if the route changes
+            '$route': 'fetchData'
+        },
+        methods: {
+            async fetchData () {
+                this.error = this.post = null;
+                this.loading = true;
+
+                this.account = web3.eth.accounts[0];
+
+                const res = await axios.get(`http://localhost:5000/futbol-cards/us-central1/api/network/5777/token/account/${this.account}`);
+                this.loading = false;
+                this.cards = res.data.tokenDetails;
+                console.log(res.data);
+            },
+            editAccountName () {
+                this.account = `Real Madras`;
+                console.log(`edit`, this.account);
+            },
+            dotDotDot: function (account) {
+                if (account && account.startsWith(`0x`)) {
+                    return account.substr(0, 4) + '...' + account.substr(account.length - 4, account.length);
+                }
+                return account;
+            },
+            setOrder: function (field) {
+                return this.order ? this.order = field : this.order;
+            },
+        }
+    };
 </script>
+
+<style lang="scss">
+</style>

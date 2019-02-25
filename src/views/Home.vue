@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="row pb-4">
+        <div class="row">
             <div class="col text-center">
                 <button class="btn btn-primary btn-lg pl-4 pr-4" @click="buyCard">{{ $t('common.buy') }}</button>
             </div>

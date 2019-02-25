@@ -11,7 +11,7 @@
             <p>{{ $t('common.loading') }}...</p>
         </div>
 
-        <div class="row pb-4 mt-5" v-else v-for="(card, index) in orderBy(limitBy(cards, 10), order,  -1)" v-bind:key="card.tokenId">
+        <div class="row mb-5" v-else v-for="(card, index) in orderBy(limitBy(cards, 10), order,  -1)" v-bind:key="card.tokenId">
             <div class="col-5 text-right">
                <h1>{{ index + 1 }}</h1>
             </div>

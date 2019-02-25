@@ -24,8 +24,8 @@
             </div>
         </div>
 
-        <div class="row pb-4" v-if="cards">
-            <div class="col-3 mt-5" v-for="card in orderBy(cards, order,  -1)" v-bind:key="card.tokenId">
+        <div class="row" v-if="cards">
+            <div class="col-3 mb-5" v-for="card in orderBy(cards, order,  -1)" v-bind:key="card.tokenId">
                 <card :card="card"></card>
             </div>
         </div>

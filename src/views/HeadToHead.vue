@@ -22,7 +22,8 @@
                 <h4>Ell's Angels</h4>
             </div>
         </div>
-        <div class="row pb-4" v-if="cards">
+
+        <div class="row" v-if="cards">
             <div class="col">
                 <card :card="cards[0]"></card>
             </div>
