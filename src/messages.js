@@ -3,6 +3,9 @@ export default {
         nav: {
             home: 'Home',
             about: 'About',
+            play: 'Play',
+            marketplace: 'Transfer Market',
+            leaderboards: 'Leaderboards',
             account: 'Account',
         },
         common: {
@@ -10,6 +13,8 @@ export default {
             collect_trade_play: 'Collect. Trade. Play.',
             buy: 'Buy',
             loading: 'loading',
+            play: 'Play',
+            head_to_head: 'Head to Head',
         },
         message: {
             hello_world: 'hello world'

@@ -17,6 +17,15 @@
                             <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>
                         </li>
                     </ul>
