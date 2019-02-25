@@ -8,16 +8,34 @@
         </div>
 
         <div class="loading" v-if="loading">
-            <p>{{ $t('common.loading') }}</p>
+            <p>{{ $t('common.loading') }}...</p>
+        </div>
+
+        <div class="row" v-if="cards">
+            <div class="col text-left">
+                <h4>{{ dotDotDot(account) }} <a href="#" @click="editAccountName" class="edit">edit</a></h4>
+            </div>
+            <div class="col text-right">
+                Sort by:
+                <a href="#" @click="setOrder('position')" class="edit">Position</a>
+                <a href="#" @click="setOrder('attributeAvg')" class="edit">Rating</a>
+                <a href="#" @click="setOrder('nationality')" class="edit">Nationality</a>
+                <a href="#" @click="setOrder('fullName')" class="edit">Name</a>
+            </div>
         </div>
 
         <div class="row pb-4" v-if="cards">
-            <div class="col-3 mt-5" v-for="card in cards" v-bind:key="card.tokenId">
-                <div class="card" style="min-height: 250px">
+            <div class="col-3 mt-5" v-for="card in orderBy(cards, order,  -1)" v-bind:key="card.tokenId">
+                <div class="card" style="min-height: 280px">
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-8 text-dark brand">Futball Cards</div>
+                            <div class="col-4 text-right"><span class="badge badge-primary">{{ card.attributeAvg }}</span></div>
+                        </div>
+                    </div>
                     <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" style="max-width: 100px;" class="mx-auto m-3"/>
                     <div class="card-body">
-                        <span class="float-right badge badge-primary">{{ card.attributeAvg }}</span>
-                        <h5 class="card-title">{{ card.fullName }}</h5>
+                        <h5 class="card-title">{{ card.fullName | uppercase }}</h5>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">{{ card.positionText }}</small>
@@ -30,13 +48,17 @@
 <script>
     /* global web3 */
     import axios from 'axios';
+    import Vue2Filters from 'vue2-filters';
 
     export default {
+        mixins: [Vue2Filters.mixin],
         data () {
             return {
                 loading: false,
                 cards: null,
-                error: null
+                error: null,
+                account: null,
+                order: 'position',
             };
         },
         created () {
@@ -52,16 +74,43 @@
                 this.error = this.post = null;
                 this.loading = true;
 
-                console.log(web3.eth.accounts[0]);
+                this.account = web3.eth.accounts[0];
 
-                const res = await axios.get(`http://localhost:5000/futbol-cards/us-central1/api/network/5777/token/account/${web3.eth.accounts[0]}`);
+                const res = await axios.get(`http://localhost:5000/futbol-cards/us-central1/api/network/5777/token/account/${this.account}`);
                 this.loading = false;
                 this.cards = res.data.tokenDetails;
                 console.log(res.data);
-            }
+            },
+            editAccountName () {
+                this.account = `Real Madras`;
+                console.log(`edit`, this.account);
+            },
+            dotDotDot: function (account) {
+                if (account && account.startsWith(`0x`)) {
+                    return account.substr(0, 4) + '...' + account.substr(account.length - 4, account.length);
+                }
+                return account;
+            },
+            setOrder: function (field) {
+                return this.order ? this.order = field : this.order;
+            },
         }
     };
 </script>
 
 <style lang="scss">
+    .edit {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        padding-left: 15px;
+    }
+
+    .badge {
+        font-size: 1.25rem;
+    }
+
+    .brand {
+        font-size: 0.75rem;
+        letter-spacing: 0.15rem;
+    }
 </style>

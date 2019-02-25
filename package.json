@@ -17,6 +17,7 @@
     "vue-i18n": "^8.8.2",
     "vue-router": "^3.0.1",
     "vue-snotify": "^3.2.1",
+    "vue2-filters": "^0.4.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

@@ -41,7 +41,7 @@
     }
 
     body {
-
+        color: $white;
     }
 
     h1 {
@@ -61,6 +61,11 @@
     h3 {
         color: $white;
         letter-spacing: 0.15rem;
+    }
+
+    h4 {
+        font-family: 'Bungee Inline', cursive;
+        color: $white;
     }
 
     h5 {

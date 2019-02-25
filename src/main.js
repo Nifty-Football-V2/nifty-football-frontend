@@ -5,10 +5,12 @@ import store from './store';
 import VueI18n from 'vue-i18n';
 import messages from './messages';
 import BootstrapVue from 'bootstrap-vue';
-import Snotify, {SnotifyPosition} from 'vue-snotify';
+import Snotify, { SnotifyPosition } from 'vue-snotify';
+import Vue2Filters from 'vue2-filters';
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
+Vue.use(Vue2Filters);
 
 Vue.use(Snotify, {
     toast: {
@@ -19,7 +21,7 @@ Vue.use(Snotify, {
 });
 
 const i18n = new VueI18n({
-    locale: 'ja',
+    locale: 'en',
     fallbackLocale: 'en',
     messages,
 });
@@ -30,7 +32,8 @@ new Vue({
     router,
     store,
     i18n,
-    beforeCreate() {
+    mixins: [Vue2Filters.mixin],
+    beforeCreate () {
         Vue.$snotify = this.$snotify;
     },
     render: h => h(App),
