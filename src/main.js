@@ -5,11 +5,18 @@ import store from './store';
 import VueI18n from 'vue-i18n';
 import messages from './messages';
 import BootstrapVue from 'bootstrap-vue';
+import Snotify, {SnotifyPosition} from 'vue-snotify';
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 
-Vue.config.productionTip = false;
+Vue.use(Snotify, {
+    toast: {
+        position: SnotifyPosition.leftTop,
+        titleMaxLength: 150,
+        bodyMaxLength: 300,
+    },
+});
 
 const i18n = new VueI18n({
     locale: 'ja',
@@ -17,9 +24,14 @@ const i18n = new VueI18n({
     messages,
 });
 
+Vue.config.productionTip = false;
+
 new Vue({
     router,
     store,
     i18n,
-    render: h => h(App)
+    beforeCreate() {
+        Vue.$snotify = this.$snotify;
+    },
+    render: h => h(App),
 }).$mount('#app');

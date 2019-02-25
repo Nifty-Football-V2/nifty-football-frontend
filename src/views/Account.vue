@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+    /* global web3 */
     import axios from 'axios';
 
     export default {
@@ -51,9 +52,12 @@
                 this.error = this.post = null;
                 this.loading = true;
 
-                const res = await axios.get('http://localhost:5000/futbol-cards/us-central1/api/network/5777/token/account/0x0df0cc6576ed17ba870d6fc271e20601e3ee176e');
+                console.log(web3.eth.accounts[0]);
+
+                const res = await axios.get(`http://localhost:5000/futbol-cards/us-central1/api/network/5777/token/account/${web3.eth.accounts[0]}`);
                 this.loading = false;
                 this.cards = res.data.tokenDetails;
+                console.log(res.data);
             }
         }
     };

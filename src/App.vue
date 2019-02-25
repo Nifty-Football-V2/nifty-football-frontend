@@ -24,6 +24,7 @@
             </div>
         </nav>
         <router-view class="text-center"/>
+        <vue-snotify></vue-snotify>
     </div>
 </template>
 
@@ -40,8 +41,7 @@
     }
 
     body {
-        background-color: #247209;
-        font-family: 'Roboto', sans-serif;
+
     }
 
     h1 {
@@ -81,28 +81,74 @@
             font-size: 1rem;
         }
     }
+
+
+    /**************************************/
+    /* vue-snotify notification overrides */
+    /**************************************/
+
+    .snotify {
+        max-width: 370px !important;
+    }
+
+    $snotify-success: $body-bg;
+    $snotify-success-bg: $primary;
+    $snotify-success-color: $body-bg;
+
+    $snotify-warning: #F0F0F0;
+    $snotify-warning-bg: #F5A623;
+    $snotify-warning-color: #F0F0F0;
+
+    $snotify-info: #F0F0F0;
+    $snotify-info-bg: #2D2935;
+    $snotify-info-color: #F0F0F0;
+
+    $snotify-simple: $black;
+    $snotify-simple-bg: $white;
+    $snotify-simple-color: $black;
+
+    @import "~vue-snotify/styles/material";
+
+    .snotifyToast__body {
+        width: 240px !important;
+    }
+
+    .notification-icon {
+        width: 40px;
+        float: left;
+        font-size: 24px;
+    }
+
+    .notification-msg {
+        padding-left: 30px;
+
+        a {
+            color: #F0F0F0;
+            text-decoration: underline;
+        }
+    }
 </style>
 <script>
-    /* global web3 */
+    // /* global web3 */
     import LocaleChanger from './components/LocaleChanger';
-    import { ethers } from 'ethers';
-    import futballCardsBlindPackAbi from './abi/futballCardsBlindPack'
+    // import { ethers } from 'ethers';
+    // import futballCardsBlindPackAbi from './abi/futballCardsBlindPack'
 
     export default {
         components: {LocaleChanger},
         created: async function () {
-            const provider = new ethers.providers.Web3Provider(web3.currentProvider);
-            const signer = provider.getSigner();
-
-            // 5777
-            this.blindPackContract = new ethers.Contract(
-                '0x790c7E699107A39b08E195AdAa09eA20D5E867B9',
-                futballCardsBlindPackAbi,
-                signer
-            );
-
-            this.priceInWei = (await this.blindPackContract.priceInWei()).toNumber();
-            console.log(this.priceInWei);
+            // const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+            // const signer = provider.getSigner();
+            //
+            // // 5777
+            // this.blindPackContract = new ethers.Contract(
+            //     '0x790c7E699107A39b08E195AdAa09eA20D5E867B9',
+            //     futballCardsBlindPackAbi,
+            //     signer
+            // );
+            //
+            // this.priceInWei = (await this.blindPackContract.priceInWei()).toNumber();
+            // console.log(this.priceInWei);
         }
     };
 </script>
