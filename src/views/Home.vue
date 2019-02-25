@@ -50,14 +50,15 @@
 
                 let receipt = await tx.wait(1);
 
+                // for local DEMO purposes!!!
                 function sleep(ms) {
                     return new Promise(resolve => setTimeout(resolve, ms));
                 }
                 await sleep(2000);
 
                 const secondEvent = receipt.events[1];
-                console.log(secondEvent);
                 this.buildingTokenId = web3.toDecimal(secondEvent.topics[1]);
+
                 console.log(`Token ID:`, this.buildingTokenId);
                 noficationService.showConfirmedNotification(this.buildingTokenId);
 

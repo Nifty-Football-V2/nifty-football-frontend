@@ -104,7 +104,7 @@
     $snotify-info-color: #F0F0F0;
 
     $snotify-simple: $black;
-    $snotify-simple-bg: $white;
+    $snotify-simple-bg: $secondary;
     $snotify-simple-color: $black;
 
     @import "~vue-snotify/styles/material";
