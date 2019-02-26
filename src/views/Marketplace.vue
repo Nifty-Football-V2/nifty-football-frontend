@@ -16,11 +16,11 @@
                 <h4>&nbsp;</h4>
             </div>
             <div class="col text-right">
-                Sort by:
+                {{ $t('common.sort_by') }}:
                 <a href="#" @click="setOrder('position')" class="edit">High-Low</a>
                 <a href="#" @click="setOrder('position')" class="edit">Low-High</a>
-                <a href="#" @click="setOrder('position')" class="edit">Position</a>
-                <a href="#" @click="setOrder('attributeAvg')" class="edit">Rating</a>
+                <a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>
+                <a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>
             </div>
         </div>
 
@@ -77,16 +77,6 @@
                 this.loading = false;
                 this.cards = res.data.tokenDetails;
                 console.log(res.data);
-            },
-            editAccountName () {
-                this.account = `Real Madras`;
-                console.log(`edit`, this.account);
-            },
-            dotDotDot: function (account) {
-                if (account && account.startsWith(`0x`)) {
-                    return account.substr(0, 4) + '...' + account.substr(account.length - 4, account.length);
-                }
-                return account;
             },
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;

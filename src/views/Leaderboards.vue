@@ -11,14 +11,41 @@
             <p>{{ $t('common.loading') }}...</p>
         </div>
 
-        <div class="row mb-5" v-else v-for="(card, index) in orderBy(limitBy(cards, 10), order,  -1)" v-bind:key="card.tokenId">
-            <div class="col-5 text-right">
-               <h1>{{ index + 1 }}</h1>
+        <div class="row" v-if="cards">
+            <div class="col text-left">
+                <h4>&nbsp;</h4>
             </div>
-            <div class="col-3">
-                <card :card="card"></card>
+
+            <div class="col text-right">
+                <a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>
+                <a href="#" @click="setOrder('team')" class="edit">{{ $t('common.team') }}</a>
             </div>
         </div>
+
+        <div v-if="cards && order === 'attributeAvg'">
+            <div class="row mb-5" v-for="(card, index) in orderBy(limitBy(cards, 10), order,  -1)" v-bind:key="card.tokenId">
+                <div class="col-5 text-right">
+                    <h1>{{ index + 1 }}</h1>
+                </div>
+                <div class="col-3">
+                    <card :card="card"></card>
+                </div>
+            </div>
+        </div>
+        <div v-if="cards && order === 'team'">
+            <div class="row mb-5" v-for="(team, index) in teamArray" v-bind:key="team[0]">
+                <div class="col-4 text-right">
+                    <h1>{{ index + 1 }}</h1>
+                </div>
+                <div class="col-4 text-right">
+                    <h4>{{ team[0] }}</h4>
+                </div>
+                <div class="col-4 text-left">
+                    <span class="numberCircle">{{ team[1] }}</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
@@ -37,6 +64,7 @@
                 error: null,
                 account: null,
                 order: 'attributeAvg',
+                teamArray: [['Ell\'s Angels', 93], ['Real Madras', 91], ['Athletico Berlin', 86], ['Super Reds', 86], ['Yellow Submarine', 84]],
             };
         },
         created () {
@@ -59,12 +87,27 @@
                 this.cards = res.data.tokenDetails;
                 console.log(res.data);
             },
-            dotDotDot: function (account) {
-                if (account && account.startsWith(`0x`)) {
-                    return account.substr(0, 4) + '...' + account.substr(account.length - 4, account.length);
-                }
-                return account;
+            setOrder: function (field) {
+                return this.order ? this.order = field : this.order;
             },
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../colours";
+
+    .numberCircle {
+        font-size: 1.3rem;
+        border-radius: 50%;
+
+        width: 45px;
+        height: 45px;
+        padding: 10px;
+
+        background: $tertiary;
+        border: 2px solid $primary;
+        color: $secondary;
+        text-align: center;
+    }
+</style>

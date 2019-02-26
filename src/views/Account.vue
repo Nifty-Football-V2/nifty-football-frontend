@@ -13,14 +13,15 @@
 
         <div class="row" v-if="cards">
             <div class="col text-left">
-                <h4>{{ dotDotDot(account) }} <a href="#" @click="editAccountName" class="edit">edit</a></h4>
+                <h4>{{ dotDotDot(account) }} <a href="#" @click="editAccountName" class="edit">{{ $t('common.edit') }}</a></h4>
             </div>
+
             <div class="col text-right">
-                Sort by:
-                <a href="#" @click="setOrder('position')" class="edit">Position</a>
-                <a href="#" @click="setOrder('attributeAvg')" class="edit">Rating</a>
-                <a href="#" @click="setOrder('nationality')" class="edit">Nationality</a>
-                <a href="#" @click="setOrder('fullName')" class="edit">Name</a>
+                {{ $t('common.sort_by') }}:
+                <a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>
+                <a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>
+                <a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>
+                <a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>
             </div>
         </div>
 

@@ -6,7 +6,7 @@ export default {
             play: 'Play',
             marketplace: 'Transfer Market',
             leaderboards: 'Leaderboards',
-            account: 'Account',
+            account: 'Squad',
         },
         common: {
             futball_cards: 'Futball Cards',
@@ -15,6 +15,13 @@ export default {
             loading: 'Loading',
             play: 'Play',
             head_to_head: 'Head to Head',
+            sort_by: 'Sort by',
+            position: 'Position',
+            rating: 'Rating',
+            nationality: 'Nationality',
+            name: 'Name',
+            edit: 'Edit',
+            team: 'Team',
         },
         message: {
             hello_world: 'hello world'
@@ -46,7 +53,7 @@ export default {
             play: '玩',
             marketplace: '转会市场',
             leaderboards: '排行榜',
-            account: '帐户',
+            account: '队',
         },
         common: {
             futball_cards: '足球卡',
@@ -55,6 +62,12 @@ export default {
             loading: '装载',
             play: '玩',
             head_to_head: '头对头',
+            sort_by: '排序方式',
+            position: '位置',
+            rating: '评分',
+            nationality: '国籍',
+            name: '名称',
+            edit: '编辑',
         },
         message: {
             hello_world: '你好，世界'
