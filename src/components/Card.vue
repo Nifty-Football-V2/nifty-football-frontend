@@ -2,8 +2,9 @@
     <div class="card" style="min-height: 280px">
         <div class="card-footer bg-dark m-2">
             <div class="row">
-                <div class="col-8 text-light brand">Futball Cards</div>
-                <div class="col-4 text-right">
+                <div class="col-5 text-primary text-left small">#{{ ('00000' + card.tokenId).slice(-6) | uppercase }}</div>
+                <div class="col-7 text-center brand">
+                    Futball Cards
                 </div>
             </div>
         </div>
@@ -35,7 +36,7 @@
     .attribute-holder {
         position: absolute;
         right: 10px;
-        top: 65px
+        top: 70px
     }
 
     .numberCircle {
@@ -53,7 +54,7 @@
     }
 
     .brand {
-        font-size: 0.85rem;
+        font-size: 0.65rem;
         letter-spacing: 0.15rem;
     }
 
