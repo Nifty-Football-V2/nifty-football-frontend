@@ -7,11 +7,7 @@
             </div>
         </div>
 
-        <div class="loading" v-if="loading">
-            <p>{{ $t('common.loading') }}...</p>
-        </div>
-
-        <div class="row" v-if="cards">
+        <div class="row" v-if="account && ethAccount">
             <div class="col text-left">
                 <h4>&nbsp;</h4>
             </div>
@@ -22,8 +18,8 @@
             </div>
         </div>
 
-        <div v-if="cards && order === 'attributeAvg'">
-            <div class="row mb-5" v-for="(card, index) in orderBy(limitBy(cards, 10), order,  -1)" v-bind:key="card.tokenId">
+        <div v-if="account && order === 'attributeAvg'">
+            <div class="row mb-5" v-for="(card, index) in orderBy(limitBy(account.tokenDetails, 10), order,  -1)" v-bind:key="card.tokenId">
                 <div class="col-5 text-right">
                     <h1>{{ index + 1 }}</h1>
                 </div>
@@ -32,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="cards && order === 'team'">
+        <div v-if="account && order === 'team'">
             <div class="row mb-5" v-for="(team, index) in teamArray" v-bind:key="team[0]">
                 <div class="col-4 text-right">
                     <h1>{{ index + 1 }}</h1>
@@ -49,44 +45,23 @@
     </div>
 </template>
 <script>
-    /* global web3 */
-    import axios from 'axios';
     import Vue2Filters from 'vue2-filters';
     import Card from '../components/Card';
+    import { mapState } from 'vuex';
 
     export default {
         components: {Card},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
-                loading: false,
-                cards: null,
-                error: null,
-                account: null,
                 order: 'attributeAvg',
                 teamArray: [['Ell\'s Angels', 93], ['Real Madras', 91], ['Athletico Berlin', 86], ['Super Reds', 86], ['Yellow Submarine', 84]],
             };
         },
-        created () {
-            // fetch the data when the view is created and the data is
-            this.fetchData();
-        },
-        watch: {
-            // call again the method if the route changes
-            '$route': 'fetchData'
+        computed: {
+            ...mapState(['account', 'ethAccount']),
         },
         methods: {
-            async fetchData () {
-                this.error = this.post = null;
-                this.loading = true;
-
-                this.account = web3.eth.accounts[0];
-
-                const res = await axios.get(`http://localhost:5000/futbol-cards/us-central1/api/network/5777/token/account/${this.account}`);
-                this.loading = false;
-                this.cards = res.data.tokenDetails;
-                console.log(res.data);
-            },
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;
             },

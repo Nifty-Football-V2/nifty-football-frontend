@@ -37,6 +37,18 @@
     </div>
 </template>
 
+<script>
+    import LocaleChanger from './components/LocaleChanger';
+
+    export default {
+        components: {LocaleChanger},
+        created: async function () {
+            // presume we can pick up a eth account from DEMO!
+            this.$store.dispatch('loadAccount');
+        }
+    };
+</script>
+
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
     @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
@@ -142,27 +154,3 @@
         }
     }
 </style>
-<script>
-    // /* global web3 */
-    import LocaleChanger from './components/LocaleChanger';
-    // import { ethers } from 'ethers';
-    // import futballCardsBlindPackAbi from './abi/futballCardsBlindPack'
-
-    export default {
-        components: {LocaleChanger},
-        created: async function () {
-            // const provider = new ethers.providers.Web3Provider(web3.currentProvider);
-            // const signer = provider.getSigner();
-            //
-            // // 5777
-            // this.blindPackContract = new ethers.Contract(
-            //     '0x790c7E699107A39b08E195AdAa09eA20D5E867B9',
-            //     futballCardsBlindPackAbi,
-            //     signer
-            // );
-            //
-            // this.priceInWei = (await this.blindPackContract.priceInWei()).toNumber();
-            // console.log(this.priceInWei);
-        }
-    };
-</script>
