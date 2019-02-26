@@ -7,6 +7,7 @@ export default {
             marketplace: 'Transfer Market',
             leaderboards: 'Leaderboards',
             account: 'Squad',
+            team: 'Best Team',
         },
         common: {
             futball_cards: 'Futball Cards',

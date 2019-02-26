@@ -115,7 +115,7 @@
         font-size: 0.65rem;
         letter-spacing: 0.15rem;
     }
-    
+
     .card {
         height: 32rem;
 

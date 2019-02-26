@@ -9,7 +9,13 @@
 
         <div class="row" v-if="account && ethAccount">
             <div class="col text-left">
-                <h4>{{ nickname || dotDotDot(ethAccount) }} <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a></h4>
+                <h4>{{ nickname || dotDotDot(ethAccount) }}
+                    <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
+                </h4>
+            </div>
+
+            <div class="col">
+                <router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>
             </div>
 
             <div class="col text-right">

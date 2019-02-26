@@ -7,6 +7,7 @@ import Play from './views/Play.vue';
 import Marketplace from './views/Marketplace.vue';
 import Leaderboards from './views/Leaderboards.vue';
 import HeadToHead from './views/HeadToHead.vue';
+import Team from './views/Team.vue';
 
 Vue.use(Router);
 
@@ -48,6 +49,11 @@ export default new Router({
             path: '/account',
             name: 'account',
             component: Account
+        },
+        {
+            path: '/team',
+            name: 'team',
+            component: Team
         }
     ]
 });
