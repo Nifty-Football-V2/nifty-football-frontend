@@ -14,7 +14,7 @@ Vue.use(Vue2Filters);
 
 Vue.use(Snotify, {
     toast: {
-        position: SnotifyPosition.leftTop,
+        position: SnotifyPosition.rightCenter,
         titleMaxLength: 150,
         bodyMaxLength: 300,
     },

@@ -55,6 +55,7 @@ export default {
             marketplace: '转会市场',
             leaderboards: '排行榜',
             account: '队',
+            team: '最好的团队',
         },
         common: {
             futball_cards: '足球卡',

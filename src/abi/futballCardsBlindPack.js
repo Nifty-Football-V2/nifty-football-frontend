@@ -407,4 +407,4 @@ export default [
         "type": "function",
         "signature": "0x3ccfd60b"
     }
-]
+];

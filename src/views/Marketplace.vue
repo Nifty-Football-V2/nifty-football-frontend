@@ -37,9 +37,12 @@
     </div>
 </template>
 <script>
+    /* global web3 */
     import Vue2Filters from 'vue2-filters';
     import Card from '../components/Card';
     import { mapState } from 'vuex';
+    import buyNowMarketplaceAbi from '../abi/buyNowMarketplace';
+    import { ethers } from 'ethers';
 
     export default {
         components: {Card},
@@ -56,6 +59,21 @@
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;
             },
+        },
+        created: async function () {
+            const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+            const signer = provider.getSigner();
+
+            // 5777
+            this.buyNowContract = new ethers.Contract(
+                '0xccFdbA3880d42a0De4c7407631a0066EE61996aA',
+                buyNowMarketplaceAbi,
+                signer
+            );
+
+            // use API for this..
+            this.listed = await this.buyNowContract.listedTokens();
+            console.log(this.listed);
         }
     };
 </script>
