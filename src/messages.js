@@ -10,7 +10,7 @@ export default {
             team: 'Best Team',
         },
         common: {
-            futball_cards: 'Futball Cards',
+            nifty_football: 'Nifty Football',
             collect_trade_play: 'Collect. Trade. Play.',
             buy: 'Buy',
             loading: 'Loading',
@@ -58,7 +58,7 @@ export default {
             team: '最好的团队',
         },
         common: {
-            futball_cards: '足球卡',
+            nifty_football: '足球卡',
             collect_trade_play: '收集贸易游戏',
             buy: '购买',
             loading: '装载',

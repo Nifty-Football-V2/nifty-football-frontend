@@ -32,7 +32,7 @@
                 </div>
             </div>
         </nav>
-        <router-view class="text-center"/>
+        <router-view class="text-center pb-5"/>
         <vue-snotify></vue-snotify>
     </div>
 </template>
