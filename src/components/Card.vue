@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-5 text-primary text-left small">#{{ ('00000' + card.tokenId).slice(-6) | uppercase }}</div>
                         <div class="col-7 text-center brand">
-                            Futball Cards
+                            {{ $t('common.nifty_football') }}
                         </div>
                     </div>
                 </div>

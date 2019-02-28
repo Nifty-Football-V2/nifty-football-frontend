@@ -14,7 +14,7 @@
 
             <div class="col text-right">
                 <a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>
-                <a href="#" @click="setOrder('team')" class="edit">{{ $t('common.team') }}</a>
+                <a href="#" @click="setOrder('team')" class="edit">{{ $t('nav.team') }}</a>
             </div>
         </div>
 
