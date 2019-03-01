@@ -10,7 +10,11 @@
 
         <div class="row">
             <div class="col text-center">
-                <button class="btn btn-primary btn-lg pl-4 pr-4" @click="buyCard">{{ $t('common.buy') }}</button>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(1)">{{ $t('common.buy') }} 1 Card</button>
+                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(3)">{{ $t('common.buy') }} 3 Pack</button>
+                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(6)">{{ $t('common.buy') }} 6 Pack</button>
+                </div>
             </div>
         </div>
     </div>
@@ -20,15 +24,17 @@
     /* global web3 */
     import { ethers } from 'ethers';
     import futballCardsBlindPackAbi from '../abi/futballCardsBlindPack';
-    import NotificationService from "../services/notification.service";
+    import NotificationService from '../services/notification.service';
 
     export default {
         name: 'home',
         components: {},
         methods: {
-            buyCard: async function () {
+            buyCard: async function (num) {
 
-                const noficationService =  new NotificationService();
+                console.log(num, this.packPrices[num]);
+
+                const noficationService = new NotificationService();
                 let overrides = {
 
                     // The maximum units of gas for the transaction to use
@@ -38,22 +44,23 @@
                     gasPrice: 1000000000,
 
                     // The amount to send with the transaction (i.e. msg.value)
-                    value: this.priceInWei,
+                    value: this.packPrices[num],
                 };
 
                 noficationService.showPurchaseNotification();
 
                 // wait for tx to be mined
-                let tx = await this.blindPackContract.blindPack(overrides);
+                let tx = await this.blindPackContract.buyBatch(num, overrides);
 
                 noficationService.showProcessingNotification();
 
                 let receipt = await tx.wait(1);
 
                 // for local DEMO purposes!!!
-                function sleep(ms) {
+                function sleep (ms) {
                     return new Promise(resolve => setTimeout(resolve, ms));
                 }
+
                 await sleep(2000);
 
                 const secondEvent = receipt.events[1];
@@ -75,7 +82,15 @@
                 signer
             );
 
-            this.priceInWei = (await this.blindPackContract.priceInWei()).toNumber();
+            const priceInWei1Card = (await this.blindPackContract.totalPrice(1)).toNumber();
+            const priceInWei3Pack = (await this.blindPackContract.totalPrice(3)).toNumber();
+            const priceInWei6Pack = (await this.blindPackContract.totalPrice(6)).toNumber();
+
+            this.packPrices = {
+                1: priceInWei1Card,
+                3: priceInWei3Pack,
+                6: priceInWei6Pack
+            }
         }
     };
 </script>

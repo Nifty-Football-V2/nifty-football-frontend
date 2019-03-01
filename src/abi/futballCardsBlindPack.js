@@ -16,8 +16,13 @@ export default [
     },
     {
         "constant": true,
-        "inputs": [],
-        "name": "priceInWei",
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "pricePerCard",
         "outputs": [
             {
                 "name": "",
@@ -27,7 +32,37 @@ export default [
         "payable": false,
         "stateMutability": "view",
         "type": "function",
-        "signature": "0x3c8da588"
+        "signature": "0x17a5e03f"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "unpause",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x3f4ba83a"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "isPauser",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x46fbf68e"
     },
     {
         "constant": true,
@@ -43,6 +78,21 @@ export default [
         "stateMutability": "view",
         "type": "function",
         "signature": "0x542820e7"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "paused",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x5c975abb"
     },
     {
         "constant": true,
@@ -77,12 +127,47 @@ export default [
     {
         "constant": false,
         "inputs": [],
+        "name": "renouncePauser",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x6ef8d66d"
+    },
+    {
+        "constant": false,
+        "inputs": [],
         "name": "renounceOwnership",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
         "signature": "0x715018a6"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "addPauser",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x82dc1ec4"
+    },
+    {
+        "constant": false,
+        "inputs": [],
+        "name": "pause",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x8456cb59"
     },
     {
         "constant": true,
@@ -263,6 +348,58 @@ export default [
         "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "Paused",
+        "type": "event",
+        "signature": "0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "Unpaused",
+        "type": "event",
+        "signature": "0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "PauserAdded",
+        "type": "event",
+        "signature": "0x6719d08c1888103bea251a4ed56406bd0c3e69723c8a1686e017e7bbe159b6f8"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "PauserRemoved",
+        "type": "event",
+        "signature": "0xcd265ebaf09df2871cc7bd4133404a235ba12eff2041bb89d9c714a2621c7c7e"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "previousOwner",
                 "type": "address"
@@ -316,6 +453,50 @@ export default [
         "constant": false,
         "inputs": [
             {
+                "name": "_numberOfCards",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyBatch",
+        "outputs": [
+            {
+                "name": "_tokenIds",
+                "type": "uint256[]"
+            }
+        ],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function",
+        "signature": "0x746d1e57"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "name": "_numberOfCards",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyBatchTo",
+        "outputs": [
+            {
+                "name": "_tokenIds",
+                "type": "uint256[]"
+            }
+        ],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function",
+        "signature": "0x830b5089"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "name": "_newDefaultCardType",
                 "type": "uint256"
             }
@@ -356,11 +537,15 @@ export default [
         "constant": false,
         "inputs": [
             {
-                "name": "_newPriceInWei",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "name": "_priceInWei",
                 "type": "uint256"
             }
         ],
-        "name": "setPriceInWei",
+        "name": "updatePricePerCardAtIndex",
         "outputs": [
             {
                 "name": "",
@@ -370,7 +555,7 @@ export default [
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function",
-        "signature": "0x8774e5d0"
+        "signature": "0xff2b09bc"
     },
     {
         "constant": false,
@@ -394,6 +579,30 @@ export default [
     },
     {
         "constant": false,
+        "inputs": [
+            {
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "name": "_creditsToAdd",
+                "type": "uint256"
+            }
+        ],
+        "name": "addCredits",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x871ff405"
+    },
+    {
+        "constant": false,
         "inputs": [],
         "name": "withdraw",
         "outputs": [
@@ -406,5 +615,25 @@ export default [
         "stateMutability": "nonpayable",
         "type": "function",
         "signature": "0x3ccfd60b"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_numberOfCards",
+                "type": "uint256"
+            }
+        ],
+        "name": "totalPrice",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x221f2285"
     }
 ];

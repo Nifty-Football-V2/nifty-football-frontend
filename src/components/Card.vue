@@ -15,13 +15,15 @@
                         <span class="numberCircle">{{ card.attributeAvg }}</span>
                     </div>
                     <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" style="max-width: 100px;" class="mx-auto m-3"/>
+                    <div class="flag-holder">
+                        <img :src="require(`../assets/flags/${card.nationality}.png`)" style="height: 50px">
+                    </div>
                 </div>
                 <div class="card-body bg-dark m-2">
                     <h5 class="card-title text-light">{{ card.fullName | uppercase }}</h5>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">{{ card.positionText }}</small>
-                    <small class="text-muted">{{ card.ethenicity }}</small>
                 </div>
             </div>
         </div>
@@ -54,7 +56,8 @@
                     </div>
                     <div class="row mt-5">
                         <div class="col">
-                            <small class="text-muted">Owner: </small><code>{{ dotDotDot(card.owner) }}</code>
+                            <small class="text-muted">Owner:</small>
+                            <code>{{ dotDotDot(card.owner) }}</code>
                         </div>
                     </div>
                 </div>
@@ -96,6 +99,12 @@
         position: absolute;
         right: 10px;
         top: 70px
+    }
+
+    .flag-holder {
+        position: absolute;
+        top: 335px;
+        left: 10px;
     }
 
     .numberCircle {
