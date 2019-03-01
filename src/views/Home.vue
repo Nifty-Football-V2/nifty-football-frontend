@@ -13,7 +13,7 @@
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(1)">{{ $t('common.buy') }} 1 Card</button>
                     <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(3)">{{ $t('common.buy') }} 3 Pack</button>
-                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(6)">{{ $t('common.buy') }} 6 Pack</button>
+                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(6)">{{ $t('common.buy') }} 2 Pack</button>
                 </div>
             </div>
         </div>

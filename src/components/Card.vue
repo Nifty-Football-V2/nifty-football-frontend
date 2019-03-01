@@ -103,7 +103,7 @@
 
     .flag-holder {
         position: absolute;
-        top: 335px;
+        top: 340px;
         left: 10px;
     }
 
