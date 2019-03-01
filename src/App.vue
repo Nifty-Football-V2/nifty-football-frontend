@@ -1,51 +1,51 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
-            <locale-changer></locale-changer>
-            <div class="container">
-                <a class="navbar-brand" href="#">&nbsp;</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">-->
+            <!--<locale-changer></locale-changer>-->
+            <!--<div class="container">-->
+                <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
+                        <!--aria-label="Toggle navigation">-->
+                    <!--<span class="navbar-toggler-icon"></span>-->
+                <!--</button>-->
+                <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
+                    <!--<ul class="navbar-nav ml-auto">-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</nav>-->
         <router-view class="text-center pb-5"/>
         <vue-snotify></vue-snotify>
     </div>
 </template>
 
 <script>
-    import LocaleChanger from './components/LocaleChanger';
+    // import LocaleChanger from './components/LocaleChanger';
 
     export default {
-        components: {LocaleChanger},
-        created: async function () {
-            // presume we can pick up a eth account from DEMO!
-            this.$store.dispatch('loadAccount');
-        }
+        // components: {LocaleChanger},
+        // created: async function () {
+        //     // presume we can pick up a eth account from DEMO!
+        //     this.$store.dispatch('loadAccount');
+        // }
     };
 </script>
 

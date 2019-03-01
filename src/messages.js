@@ -10,7 +10,7 @@ export default {
             team: 'Best Team',
         },
         common: {
-            nifty_football: 'Nifty Football',
+            nifty_football: 'Galacticos',
             collect_trade_play: 'Collect. Trade. Play.',
             buy: 'Buy',
             loading: 'Loading',

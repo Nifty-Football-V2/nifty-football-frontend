@@ -8,74 +8,39 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col text-center">
-                <button class="btn btn-primary btn-lg pl-4 pr-4" @click="buyCard">{{ $t('common.buy') }}</button>
+        <div class="row m-5 justify-content-sm-center">
+            <div class="col col-md-6">
+
+                <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
+                      name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" name="b_f7fcffd059cde2df667ed71e0_b59497a580" tabindex="-1" value="">
+                    </div>
+
+                    <div class="mc-field-group">
+                        <div class="form-group">
+                            <p class="small">For updates, alpha access, and to receive one free card</p>
+                            <label for="mce-EMAIL" class="sr-only">Email Address</label>
+                            <div class="input-group">
+                                <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Your email">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mce-responses">
+                        <div class="response text-warning" id="mce-error-response" style="display:none"></div>
+                        <div class="response text-success" id="mce-success-response" style="display:none"></div>
+                    </div>
+                </form>
+
             </div>
         </div>
+        <!--End mc_embed_signup-->
     </div>
 </template>
 
-<script>
-    /* global web3 */
-    import { ethers } from 'ethers';
-    import futballCardsBlindPackAbi from '../abi/futballCardsBlindPack';
-    import NotificationService from "../services/notification.service";
 
-    export default {
-        name: 'home',
-        components: {},
-        methods: {
-            buyCard: async function () {
-
-                const noficationService =  new NotificationService();
-                let overrides = {
-
-                    // The maximum units of gas for the transaction to use
-                    gasLimit: 6721975,
-
-                    // The price (in wei) per unit of gas
-                    gasPrice: 1000000000,
-
-                    // The amount to send with the transaction (i.e. msg.value)
-                    value: this.priceInWei,
-                };
-
-                noficationService.showPurchaseNotification();
-
-                // wait for tx to be mined
-                let tx = await this.blindPackContract.blindPack(overrides);
-
-                noficationService.showProcessingNotification();
-
-                let receipt = await tx.wait(1);
-
-                // for local DEMO purposes!!!
-                function sleep(ms) {
-                    return new Promise(resolve => setTimeout(resolve, ms));
-                }
-                await sleep(2000);
-
-                const secondEvent = receipt.events[1];
-                this.buildingTokenId = web3.toDecimal(secondEvent.topics[1]);
-
-                console.log(`Token ID:`, this.buildingTokenId);
-                noficationService.showConfirmedNotification(this.buildingTokenId);
-
-            }
-        },
-        created: async function () {
-            const provider = new ethers.providers.Web3Provider(web3.currentProvider);
-            const signer = provider.getSigner();
-
-            // 5777
-            this.blindPackContract = new ethers.Contract(
-                '0x790c7E699107A39b08E195AdAa09eA20D5E867B9',
-                futballCardsBlindPackAbi,
-                signer
-            );
-
-            this.priceInWei = (await this.blindPackContract.priceInWei()).toNumber();
-        }
-    };
-</script>
