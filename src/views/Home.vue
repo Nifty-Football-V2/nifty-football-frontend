@@ -10,11 +10,19 @@
 
         <div class="row">
             <div class="col text-center">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(1)">{{ $t('common.buy') }} 1 Card</button>
-                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(3)">{{ $t('common.buy') }} 3 Pack</button>
-                    <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(6)">{{ $t('common.buy') }} 2 Pack</button>
-                </div>
+                <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(1)">{{ $t('common.buy') }} 1 Card</button>
+                <br/>
+                <span v-if="packPrices && packPrices[1]" class="text-muted">{{ packPrices[1] }} WEI</span>
+            </div>
+            <div class="col text-center">
+                <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(3)">{{ $t('common.buy') }} 3 Pack</button>
+                <br/>
+                <span v-if="packPrices && packPrices[3]" class="text-muted">{{ packPrices[3] }} WEI</span>
+            </div>
+            <div class="col text-center">
+                <button type="button" class="btn btn-primary btn-lg m-4" @click="buyCard(6)">{{ $t('common.buy') }} 6 Pack</button>
+                <br/>
+                <span v-if="packPrices && packPrices[6]" class="text-muted">{{ packPrices[6] }} WEI</span>
             </div>
         </div>
     </div>
@@ -28,6 +36,11 @@
 
     export default {
         name: 'home',
+        data () {
+            return {
+                packPrices: {},
+            };
+        },
         components: {},
         methods: {
             buyCard: async function (num) {
@@ -90,7 +103,7 @@
                 1: priceInWei1Card,
                 3: priceInWei3Pack,
                 6: priceInWei6Pack
-            }
+            };
         }
     };
 </script>
