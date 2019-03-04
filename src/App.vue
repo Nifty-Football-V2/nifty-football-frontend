@@ -4,7 +4,8 @@
             <locale-changer></locale-changer>
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false"
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,12 +40,50 @@
 
 <script>
     import LocaleChanger from './components/LocaleChanger';
+    import Web3 from 'web3';
 
     export default {
         components: {LocaleChanger},
         created: async function () {
-            // presume we can pick up a eth account from DEMO!
-            this.$store.dispatch('loadAccount');
+
+            if (typeof window.ethereum === 'undefined') {
+
+                // FIXME handle this
+
+                alert('Looks like you need a Dapp browser to get started.');
+                alert('Consider installing MetaMask!');
+
+            } else {
+
+                // In the case the user has MetaMask installed, you can easily
+                // ask them to sign in and reveal their accounts:
+                ethereum.enable()
+                    .catch((reason) => {
+                        // FIXME handle this
+                        if (reason === 'User rejected provider access') {
+                            // The user didn't want to sign in!
+                        } else {
+                            // This shouldn't happen, so you might want to log this...
+                            alert('There was an issue signing you in.');
+                        }
+                    })
+                    // In the case they approve the log-in request, you'll receive their accounts:
+                    .then((accounts) => {
+
+                        const account = accounts[0];
+                        this.$store.commit('ethAccount', account);
+                        this.$store.dispatch('loadAccount');
+
+                        // Reload the account logic if we see a change
+                        ethereum.on('accountsChanged', (accounts) => {
+                            console.log('accountsChanged', accounts);
+
+                            const account = accounts[0];
+                            this.$store.commit('ethAccount', account);
+                            this.$store.dispatch('loadAccount');
+                        });
+                    });
+            }
         }
     };
 </script>
