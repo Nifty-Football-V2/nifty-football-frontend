@@ -8,17 +8,22 @@
         </div>
         <div class="row">
             <div class="col text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <p>{{ $t('games.head_to_head.short_intro_1') }}</p>
+                <p>{{ $t('games.head_to_head.short_intro_2') }}</p>
                 <hr/>
-                <router-link to="/headtohead" class="btn btn-primary btn-lg pl-4 pr-4 mt-5">{{ $t('common.head_to_head') }}</router-link>
+                <router-link to="/headtohead" class="btn btn-primary btn-lg pl-4 pr-4 mt-5">
+                    {{ $t('common.head_to_head') }}
+                </router-link>
             </div>
             <div class="col text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
                 <hr/>
                 <button class="btn btn-primary btn-lg pl-4 pr-4 mt-5" disabled>Prediction Game</button>
             </div>
             <div class="col text-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
                 <hr/>
                 <button class="btn btn-primary btn-lg pl-4 pr-4 mt-5" disabled>Management Game</button>
             </div>

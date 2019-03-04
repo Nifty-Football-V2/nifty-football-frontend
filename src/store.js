@@ -2,10 +2,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import {ethers} from 'ethers';
 
-import CardsApiService from "./services/cardsApi.service";
+import CardsApiService from "./services/api/cardsApi.service";
 import {lookupEtherscanAddress} from "./utils";
-import futballCardsBlindPackAbi from './abi/futballCardsBlindPack';
-import BlindPackContractService from "./services/blindPackContract.service";
+
+import BlindPackContractService from "./services/contracts/blindPackContract.service";
+import FootballCardsContractService from "./services/contracts/footballCardsContract.service";
+import HeadToHeadContractService from "./services/contracts/headToHeadContract.service";
+
+import HeadToHeadGameApiService from "./services/api/headToHeadGameApi.service";
 
 Vue.use(Vuex);
 
@@ -22,9 +26,12 @@ export default new Vuex.Store({
 
         // API Services
         cardsApiService: new CardsApiService(),
+        headToHeadApiService: new HeadToHeadGameApiService(),
 
         // Contract Service
-        blindPackService: null
+        blindPackService: null,
+        footballCardsContractService: null,
+        headToHeadContractService: null,
     },
     mutations: {
         ethAccount(state, ethAccount) {
@@ -40,18 +47,21 @@ export default new Vuex.Store({
             state.provider = provider;
             state.providerSigner = provider.getSigner();
             state.blindPackService = new BlindPackContractService(state.networkId, state.providerSigner);
+            state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
+            state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
         },
         networkId(state, networkId) {
             state.networkId = networkId;
             // Override the default network of mainnet if we are switching
             if (state.networkId !== 1) {
+                console.log(`Setting new network ID on service [${state.networkId}]`);
                 state.cardsApiService.setNetworkId(networkId);
+                state.headToHeadApiService.setNetworkId(networkId);
             }
         },
     },
     actions: {
         async loadAccount({commit, state}) {
-
             const provider = new ethers.providers.Web3Provider(web3.currentProvider);
 
             const {chainId, name} = await provider.getNetwork();

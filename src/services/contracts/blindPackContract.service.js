@@ -1,19 +1,11 @@
 import {ethers} from "ethers";
-import futballCardsBlindPackAbi from "../abi/futballCardsBlindPack";
-
-const getContractAddress = (network) => {
-    switch (network) {
-        // FIXME
-        case 5777:
-            return "0x790c7E699107A39b08E195AdAa09eA20D5E867B9";
-    }
-};
+import futballCardsBlindPackAbi from "../../abi/futballCardsBlindPack";
 
 export default class BlindPackContractService {
 
     constructor(network, providerSigner) {
         this.providerSigner = providerSigner;
-        this.contract = new ethers.Contract(getContractAddress(network), futballCardsBlindPackAbi, this.providerSigner);
+        this.contract = new ethers.Contract(this.getContractAddress(network), futballCardsBlindPackAbi, this.providerSigner);
     }
 
     async getPriceModel() {
@@ -50,5 +42,14 @@ export default class BlindPackContractService {
         });
 
     }
+
+    getContractAddress(network) {
+        switch (network) {
+            // FIXME
+            case 5777:
+                return "0x790c7E699107A39b08E195AdAa09eA20D5E867B9";
+        }
+    };
+
 
 }

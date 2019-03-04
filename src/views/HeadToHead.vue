@@ -1,5 +1,6 @@
 <template>
     <div class="container mb-5">
+
         <div class="row pb-4">
             <div class="col">
                 <h1 class="mt-5">{{ $t('nav.play') }}</h1>
@@ -7,52 +8,54 @@
             </div>
         </div>
 
-        <div class="row" v-if="account">
-            <div class="col-3">
-                <h4>{{ dotDotDot(`0x0df0cC6576Ed17ba870D6FC271E20601e3eE176e`) }}</h4>
-            </div>
-            <div class="col-6">
-                <h4>Vs</h4>
-            </div>
-            <div class="col-3">
-                <h4>Ell's Angels</h4>
+        <div class="row">
+            <div class="col">
+
             </div>
         </div>
 
-        <div class="row" v-if="account">
-            <div class="col-3">
-                <card :card="account.tokenDetails[0]"></card>
-            </div>
-            <div class="col-6">
-                <h2 class="mt-5">Head to Head</h2>
-                <br/>
-                <button class="btn btn-primary btn-lg pl-4 pr-4">{{ $t('common.play') }}</button>
-            </div>
-            <div class="col-3">
-                <card :card="account.tokenDetails[1]"></card>
-            </div>
+
+        <div class="row">
+
+            {{openGames}}
+
         </div>
+
     </div>
 </template>
 <script>
     import Card from '../components/Card';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
 
     export default {
         components: {Card},
-        data () {
-            return {};
+        data() {
+            return {
+                openGames: []
+            };
         },
         computed: {
-            ...mapState(['account', 'ethAccount']),
+            ...mapState([
+                'account',
+                'ethAccount',
+                'headToHeadApiService',
+                'headToHeadContractService',
+            ]),
         },
         methods: {
-            dotDotDot: function (account) {
-                if (account && account.startsWith(`0x`)) {
-                    return account.substr(0, 4) + '...' + account.substr(account.length - 4, account.length);
-                }
-                return account;
-            },
+            
+        },
+        created() {
+
+            const loadData = async () => {
+                this.openGames = await this.headToHeadApiService.getOpenGames();
+            };
+
+            this.$store.watch(
+                () => this.$store.state.networkId,
+                () => loadData()
+            );
+
         }
     };
 </script>

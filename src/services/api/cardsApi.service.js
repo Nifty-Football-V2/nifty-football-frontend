@@ -1,6 +1,6 @@
 import axios from 'axios';
 import BaseApiService from "./baseApi.service";
-import {AXIOS_CONFIG} from "../utils";
+import {AXIOS_CONFIG} from "../../utils";
 
 
 export default class CardsApiService extends BaseApiService {

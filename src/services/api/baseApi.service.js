@@ -1,4 +1,4 @@
-import {getApi} from "../utils";
+import {getApi} from "../../utils";
 
 export default class BaseApiService {
 
