@@ -1,8 +1,10 @@
 <template>
     <div>
-        <span v-for="t in times">
-            {{ t.time }}
-        </span>
+        <div class="row m-5 pb-4 justify-content-sm-center">
+            <div class="col" v-for="t in times" v-bind:key="t.text">
+                <span class="countdown-label mr-3">{{ t.text }}:</span> <span class="countdown-text">{{ ('00' + t.time).slice(-2) | uppercase }}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -11,7 +13,7 @@
         name: 'countdown-timer',
         data () {
             return {
-                endTime: 'April 5, 2019 14:30:00',
+                endTime: 1554476400000,
                 times: [
                     {id: 0, text: 'Days', time: 45},
                     {id: 1, text: 'Hours', time: 35},
@@ -42,3 +44,20 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import "../colours";
+
+    .countdown-text {
+        font-family: 'Bungee Inline', cursive;
+        font-size: 1.75rem;
+        color: $white;
+        letter-spacing: 0.15rem;
+    }
+
+    .countdown-label {
+        font-size: 1.25rem;
+        color: $white;
+        letter-spacing: 0.15rem;
+    }
+</style>

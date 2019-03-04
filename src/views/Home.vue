@@ -8,11 +8,9 @@
             </div>
         </div>
 
-        <div class="row m-5 justify-content-sm-center">
-            <div class="col col-md-6">
-                <countdown-timer></countdown-timer>
-            </div>
-        </div>
+
+        <countdown-timer></countdown-timer>
+
 
         <div class="row m-5 justify-content-sm-center">
             <div class="col col-md-6">
@@ -58,6 +56,7 @@
 
 <script>
     import CountdownTimer from '../components/Countdown';
+
     export default {
         components: {CountdownTimer}
     };
