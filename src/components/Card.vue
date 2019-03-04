@@ -10,7 +10,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body bg-light m-2 svg-holder">
+                <div class="card-body bg-primary m-2 svg-holder">
                     <div class="attribute-holder">
                         <span class="numberCircle">{{ card.attributeAvg }}</span>
                     </div>
