@@ -25,7 +25,20 @@
 
         <div class="row">
             <div class="col">
-                Games you have been part of: {{ownerTokensInGames}}
+                <h5>Games you have been part of</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4" v-for="game in ownerTokensInGames">
+                <strong>
+                    {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
+                </strong>
+                <h4>VS</h4>
+                <strong>
+                    {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
+                </strong>
+                <hr />
             </div>
         </div>
 
@@ -49,11 +62,8 @@
                         </option>
                     </select>
                 </div>
-                <div class="form-group">
-                    Selected Player: {{selectedCard}}
-                </div>
                 <div class="form-group" v-if="selectedCard">
-                    <button class="btn btn-info" @click="createNewGame">
+                    <button class="btn btn-info" @click="createNewGame" :disabled="!ethAccount || !isApprovedForAll">
                         Create Game
                     </button>
                 </div>
@@ -61,9 +71,36 @@
         </div>
 
         <div class="row">
+            <div class="col">
+                <h5>All games</h5>
+            </div>
+        </div>
 
-            {{openGames}}
-
+        <div class="row">
+            <div class="col-4" v-for="game in openGames">
+                <!--<p>-->
+                <!--<strong>Game ID {{game.game.gameId}}</strong>-->
+                <!--</p>-->
+                <!--<h6>Home</h6>-->
+                <strong>
+                    {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
+                </strong>
+                <div>
+                    <small>{{game.cards.homeCard.positionText}} avg. {{game.cards.homeCard.attributeAvg}}</small>
+                </div>
+                <h4>VS</h4>
+                <!--<h6>Away</h6>-->
+                <strong>
+                    {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
+                </strong>
+                <div>
+                    <small>{{game.cards.awayCard.positionText}} avg. {{game.cards.awayCard.attributeAvg}}</small>
+                </div>
+                <strong>
+                    {{game.game.state | toHumanState}}
+                </strong>
+                <hr/>
+            </div>
         </div>
 
     </div>
@@ -131,7 +168,8 @@
                 }
             },
             async loadOpenGames() {
-                this.openGames = await this.headToHeadApiService.getOpenGames();
+                const {openGames} = await this.headToHeadApiService.getOpenGames();
+                this.openGames = openGames;
             },
             async loadGamesSquadArePlaying() {
                 this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
