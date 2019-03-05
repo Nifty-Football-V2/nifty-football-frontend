@@ -22,12 +22,12 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label col-form-label-sm">Your Squad</label>
                         <div class="col-sm-10">
-                            <select class="form-control form-control" v-model="selectedCard">
+                            <select class="form-control form-control" v-model="selectedCard" v-if="squad">
                                 <option>--</option>
                                 <option v-for="card in squad.tokenDetails"
                                         :value="card"
                                         :key="card.tokenId"
-                                        v-if="playerNotInGameAlready(card)">
+                                        v-if="playerNotInGameAlready(card.tokenId)">
                                     {{card.fullName | uppercase}} |
                                     {{card.nationalityText | uppercase}} |
                                     {{card.positionText}} |
@@ -64,6 +64,10 @@
                 <strong>
                     {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
                 </strong>
+                <!-- Game DRAW -->
+                <div>
+                    <button class="btn btn-primary" @click="withdrawFromGame(game.game.gameId)">Withdraw</button>
+                </div>
                 <hr/>
             </div>
             <div class="col mx-auto" v-if="ownerTokensInGames.length < 1">
@@ -81,10 +85,6 @@
 
         <div class="row">
             <div class="col-4" v-for="game in openGames">
-                <!--<p>-->
-                <!--<strong>Game ID {{game.game.gameId}}</strong>-->
-                <!--</p>-->
-                <!--<h6>Home</h6>-->
                 <strong>
                     {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
                 </strong>
@@ -92,7 +92,6 @@
                     <small>{{game.cards.homeCard.positionText}} avg. {{game.cards.homeCard.attributeAvg}}</small>
                 </div>
                 <h4>VS</h4>
-                <!--<h6>Away</h6>-->
                 <strong>
                     {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
                 </strong>
@@ -102,6 +101,19 @@
                 <strong>
                     {{game.game.state | toHumanState}}
                 </strong>
+
+                <!-- Game OPEN -->
+                <div v-if="game.game.state === 1">
+                    <button class="btn btn-primary"
+                            :disabled="!selectedCard || !isApprovedForAll"
+                            @click="joinGame(game.game.gameId)">
+                        Challenge
+                    </button>
+                </div>
+                <!-- Game DRAW -->
+                <div v-if="game.game.state === 4 && youArePlay(game)">
+                    <button class="btn btn-primary">Rematch</button>
+                </div>
                 <hr/>
             </div>
         </div>
@@ -111,6 +123,7 @@
 <script>
     import Card from '../components/Card';
     import {mapState} from 'vuex';
+    import _ from 'lodash';
 
     export default {
         components: {Card},
@@ -132,9 +145,19 @@
             ]),
         },
         methods: {
-            playerNotInGameAlready(card) {
-                // TODO check card not in ownerTokensInGames
-                return true;
+            playerNotInGameAlready(tokenId) {
+                return !_.some(this.ownerTokensInGames, ({game}) => {
+                    const awayTokenId = game.awayTokenId;
+                    const homeTokenId = game.homeTokenId;
+                    return tokenId === awayTokenId || tokenId === homeTokenId;
+                });
+            },
+            youArePlay(game) {
+                const awayTokenId = game.awayTokenId;
+                const homeTokenId = game.homeTokenId;
+                return _.some(this.squad.tokenIds, (tokenId) => {
+                    return tokenId === awayTokenId || tokenId === homeTokenId;
+                });
             },
             loadAccountApproval() {
                 if (this.footballCardsContractService) {
@@ -161,9 +184,27 @@
                         });
                 }
             },
+            withdrawFromGame(gameId) {
+                if (this.headToHeadContractService && gameId) {
+                    this.headToHeadContractService.withdrawFromGame(gameId)
+                        .then(() => {
+                            this.loadOpenGames();
+                            this.loadGamesSquadArePlaying();
+                        });
+                }
+            },
             createNewGame() {
                 if (this.headToHeadContractService && this.selectedCard) {
                     this.headToHeadContractService.createGame(this.selectedCard)
+                        .then(() => {
+                            this.loadOpenGames();
+                            this.loadGamesSquadArePlaying();
+                        });
+                }
+            },
+            joinGame(gameId) {
+                if (this.headToHeadContractService && this.selectedCard && gameId) {
+                    this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then(() => {
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();

@@ -13,4 +13,19 @@ export default class HeadToHeadContractService {
         console.log(`Create game for token ID [${card.tokenId}] on network [${this.network}]`);
         return this.contract.createGame(card.tokenId);
     }
+
+    async joinGame(gameId, tokenId) {
+        console.log(`Join game [${gameId}] with token ID [${tokenId}] on network [${this.network}]`);
+        return this.contract.resultGame(gameId, tokenId);
+    }
+
+    async withdrawFromGame(gameId) {
+        console.log(`Withdraw game [${gameId}] on network [${this.network}]`);
+        return this.contract.withdrawFromGame(gameId);
+    }
+
+    async reMatch(gameId) {
+        console.log(`Rematch game [${gameId}] on network [${this.network}]`);
+        return this.contract.reMatch(gameId);
+    }
 }
