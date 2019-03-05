@@ -9,10 +9,7 @@
         </div>
 
         <div class="row">
-            <div class="col">
-                Is Approved For All: {{isApprovedForAll}}
-            </div>
-            <div class="col">
+            <div class="col-4">
                 <button class="btn btn-primary" @click="grantApprovalForAll" v-if="ethAccount && !isApprovedForAll">
                     Grant Approval For All
                 </button>
@@ -20,12 +17,41 @@
                     Remove Approval For All
                 </button>
             </div>
+            <div class="col-6">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Your Squad</label>
+                        <div class="col-sm-10">
+                            <select class="form-control form-control" v-model="selectedCard">
+                                <option>--</option>
+                                <option v-for="card in squad.tokenDetails"
+                                        :value="card"
+                                        :key="card.tokenId"
+                                        v-if="playerNotInGameAlready(card)">
+                                    {{card.fullName | uppercase}} |
+                                    {{card.nationalityText | uppercase}} |
+                                    {{card.positionText}} |
+                                    {{card.attributeAvg}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-info" @click="createNewGame"
+                        v-if="selectedCard"
+                        :disabled="!ethAccount || !isApprovedForAll">
+                    Create Game
+                </button>
+            </div>
         </div>
 
+        <hr/>
 
         <div class="row">
             <div class="col">
-                <h5>Games you have been part of</h5>
+                <h4>Your Games</h4>
             </div>
         </div>
 
@@ -38,41 +64,18 @@
                 <strong>
                     {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
                 </strong>
-                <hr />
+                <hr/>
+            </div>
+            <div class="col mx-auto" v-if="ownerTokensInGames.length < 1">
+                You've not entered any games yet
             </div>
         </div>
 
-
-        <div class="row" v-if="squad">
-            <div class="col">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">
-                        Select Squad member to play
-                    </label>
-                    <select class="form-control" id="exampleFormControlSelect1" v-model="selectedCard">
-                        <option>--</option>
-                        <option v-for="card in squad.tokenDetails"
-                                :value="card"
-                                :key="card.tokenId"
-                                v-if="playerNotInGameAlready(card)">
-                            {{card.fullName | uppercase}} |
-                            {{card.nationalityText | uppercase}} |
-                            {{card.positionText}} |
-                            {{card.attributeAvg}}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group" v-if="selectedCard">
-                    <button class="btn btn-info" @click="createNewGame" :disabled="!ethAccount || !isApprovedForAll">
-                        Create Game
-                    </button>
-                </div>
-            </div>
-        </div>
+        <hr/>
 
         <div class="row">
             <div class="col">
-                <h5>All games</h5>
+                <h4>All games</h4>
             </div>
         </div>
 
