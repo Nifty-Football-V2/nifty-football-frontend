@@ -141,8 +141,16 @@
                 <!-- Game OPEN -->
                 <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)">
 
+                    <!-- FIXME DEBUGGING BELOW -->
                     <div>
                         Can Win: {{bothCardsHaveAChanceOfWinning(game)}}
+                    </div>
+                    <div>
+                        Game ID: {{game.game.gameId}}
+                    </div>
+                    <div>
+                        Away Token ID: {{game.game.awayTokenId}}
+                        Home Token ID: {{game.game.homeTokenId}}
                     </div>
 
                     <button class="btn btn-primary"
