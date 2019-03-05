@@ -31,7 +31,7 @@
                                     {{card.fullName | uppercase}} |
                                     {{card.nationalityText | uppercase}} |
                                     {{card.positionText}} |
-                                    {{card.attributeAvg}} |  TOKEN ID {{card.tokenId}}
+                                    {{card.attributeAvg}} | TOKEN ID {{card.tokenId}}
                                 </option>
                             </select>
                         </div>
@@ -139,7 +139,12 @@
                 </p>
 
                 <!-- Game OPEN -->
-                <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game)">
+                <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)">
+
+                    <div>
+                        Can Win: {{bothCardsHaveAChanceOfWinning(game)}}
+                    </div>
+
                     <button class="btn btn-primary"
                             :disabled="!isApprovedForAll"
                             @click="joinGame(game.game.gameId)">
@@ -190,6 +195,35 @@
                     const homeTokenId = game.homeTokenId;
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
+            },
+            bothCardsHaveAChanceOfWinning(game) {
+                const playingCard = game.game.awayTokenId !== 0 ? game.cards.awayCard : game.cards.homeCard;
+
+                const playingAttributes = [
+                    playingCard.speed,
+                    playingCard.intelligence,
+                    playingCard.strength,
+                    playingCard.skill,
+                ];
+                const selectedAttributes = [
+                    this.selectedCard.speed,
+                    this.selectedCard.intelligence,
+                    this.selectedCard.strength,
+                    this.selectedCard.skill,
+                ];
+
+                let playerHasAChance = false;
+                let selectedHasAChance = false;
+
+                for (let i = 0; i < 4; i++) {
+                    if (playingAttributes[i] < selectedAttributes[i]) {
+                        selectedHasAChance = true;
+                    } else {
+                        playerHasAChance = true;
+                    }
+                }
+                console.log(playingAttributes, selectedAttributes, playerHasAChance && selectedHasAChance);
+                return playerHasAChance && selectedHasAChance;
             },
             youArePlay(game) {
                 const awayTokenId = game.awayTokenId;
