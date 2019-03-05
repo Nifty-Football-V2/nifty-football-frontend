@@ -19,7 +19,8 @@
     "vue-router": "^3.0.1",
     "vue-snotify": "^3.2.1",
     "vue2-filters": "^0.4.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "web3": "^1.0.0-beta.47"
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
