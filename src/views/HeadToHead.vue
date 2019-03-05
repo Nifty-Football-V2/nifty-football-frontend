@@ -61,17 +61,37 @@
                     {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
                 </strong>
                 <h4>VS</h4>
-                <strong>
-                    {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
-                </strong>
+                <div v-if="game.cards.awayCard.fullName">
+                    <strong>
+                        {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
+                    </strong>
+                </div>
+                <div v-else>
+                    <strong>...</strong>
+                </div>
+                
+                <p>
+                    <strong>
+                        {{game.game.state | toHumanState}}
+                    </strong>
+                </p>
+
                 <!-- Game DRAW -->
                 <div>
-                    <button class="btn btn-primary" @click="withdrawFromGame(game.game.gameId)">Withdraw</button>
+                    <button class="btn btn-primary" @click="withdrawFromGame(game.game.gameId)">
+                        Withdraw
+                    </button>
+                </div>
+                <!-- Game DRAW -->
+                <div v-if="game.game.state === 4" @click="reMatch(game.game.gameId)">
+                    <button class="btn btn-primary">
+                        Rematch
+                    </button>
                 </div>
                 <hr/>
             </div>
             <div class="col mx-auto" v-if="ownerTokensInGames.length < 1">
-                You've not entered any games yet
+                You've not entered any games yet ⚽
             </div>
         </div>
 
@@ -85,22 +105,35 @@
 
         <div class="row">
             <div class="col-4" v-for="game in openGames">
-                <strong>
-                    {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
-                </strong>
-                <div>
-                    <small>{{game.cards.homeCard.positionText}} avg. {{game.cards.homeCard.attributeAvg}}</small>
+                <div v-if="game.cards.homeCard.fullName">
+                    <strong>
+                        {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
+                    </strong>
+                    <div>
+                        <small>{{game.cards.homeCard.positionText}} avg. {{game.cards.homeCard.attributeAvg}}</small>
+                    </div>
+                </div>
+                <div v-else>
+                    <strong>...</strong>
                 </div>
                 <h4>VS</h4>
-                <strong>
-                    {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
-                </strong>
-                <div>
-                    <small>{{game.cards.awayCard.positionText}} avg. {{game.cards.awayCard.attributeAvg}}</small>
+                <div v-if="game.cards.awayCard.fullName">
+                    <strong>
+                        {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
+                    </strong>
+                    <div>
+                        <small>{{game.cards.awayCard.positionText}} avg. {{game.cards.awayCard.attributeAvg}}</small>
+                    </div>
                 </div>
-                <strong>
-                    {{game.game.state | toHumanState}}
-                </strong>
+                <div v-else>
+                    <strong>...</strong>
+                </div>
+
+                <p>
+                    <strong>
+                        {{game.game.state | toHumanState}}
+                    </strong>
+                </p>
 
                 <!-- Game OPEN -->
                 <div v-if="game.game.state === 1">
@@ -112,9 +145,12 @@
                 </div>
                 <!-- Game DRAW -->
                 <div v-if="game.game.state === 4 && youArePlay(game)">
-                    <button class="btn btn-primary">Rematch</button>
+                    <button class="btn btn-primary" @click="reMatch(game.game.gameId)">Rematch</button>
                 </div>
                 <hr/>
+            </div>
+            <div class="col mx-auto" v-if="openGames.length < 1">
+                No open games ⚽
             </div>
         </div>
 
@@ -187,6 +223,15 @@
             withdrawFromGame(gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.withdrawFromGame(gameId)
+                        .then(() => {
+                            this.loadOpenGames();
+                            this.loadGamesSquadArePlaying();
+                        });
+                }
+            },
+            reMatch(gameId) {
+                if (this.headToHeadContractService && gameId) {
+                    this.headToHeadContractService.reMatch(gameId)
                         .then(() => {
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();
