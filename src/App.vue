@@ -84,7 +84,7 @@
 
                         const account = accounts[0];
                         this.$store.commit('ethAccount', account);
-                        this.$store.dispatch('loadAccount');
+                        this.$store.dispatch('bootstrapApp');
 
                         // Reload the account logic if we see a change
                         ethereum.on('accountsChanged', (accounts) => {
@@ -92,7 +92,7 @@
 
                             const account = accounts[0];
                             this.$store.commit('ethAccount', account);
-                            this.$store.dispatch('loadAccount');
+                            this.$store.dispatch('bootstrapApp');
                         });
                     });
             }

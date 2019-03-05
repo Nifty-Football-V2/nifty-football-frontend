@@ -7,7 +7,7 @@
             </div>
         </div>
 
-        <div class="row" v-if="account">
+        <div class="row" v-if="squad">
             <div class="col text-left">
                 <h4>&nbsp;</h4>
             </div>
@@ -20,8 +20,8 @@
             </div>
         </div>
 
-        <div class="row" v-if="account && account.tokenDetails">
-            <div class="col-3 mb-5" v-for="card in orderBy(account.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
+        <div class="row" v-if="squad && squad.tokenDetails">
+            <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
                 <card :card="card"></card>
                 <div class="row mt-2">
                     <div class="col">
@@ -53,7 +53,7 @@
             };
         },
         computed: {
-            ...mapState(['account', 'ethAccount']),
+            ...mapState(['squad', 'ethAccount']),
         },
         methods: {
             setOrder: function (field) {
@@ -67,7 +67,7 @@
             // 5777
             this.buyNowContract = new ethers.Contract(
                 '0xccFdbA3880d42a0De4c7407631a0066EE61996aA',
-                buyNowMarketplaceAbi,
+                buyNowMarketplaceAbi.abi,
                 signer
             );
 

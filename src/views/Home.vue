@@ -54,7 +54,7 @@
         },
         computed: {
             ...mapState([
-                'account',
+                'squad',
                 'ethAccount',
                 'blindPackService',
             ]),
@@ -64,6 +64,8 @@
             buyCard: async function (num) {
 
                 console.log(num, this.packPrices[num], this.ethAccount);
+
+                // FIXME should this be in the view or a service?
 
                 const noficationService = new NotificationService();
 
@@ -83,13 +85,15 @@
 
                 await sleep(2000);
 
-                // FIXME this doesnt work with multiple purchases...?
-
                 const secondEvent = receipt.events[1];
+
+                // FIXME this doesnt work with multiple purchases...?
                 this.buildingTokenId = web3.toDecimal(secondEvent.topics[1]);
 
                 console.log(`Token ID:`, this.buildingTokenId);
                 noficationService.showConfirmedNotification(this.buildingTokenId);
+
+                this.$store.dispatch('loadSquad');
             }
         },
         async created() {
@@ -102,6 +106,10 @@
                 () => this.$store.state.blindPackService,
                 () => loadData()
             );
+
+            if (this.$store.state.blindPackService) {
+                loadData();
+            }
         }
     };
 </script>

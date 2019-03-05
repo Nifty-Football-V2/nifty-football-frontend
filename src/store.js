@@ -21,7 +21,7 @@ export default new Vuex.Store({
         etherscanUrl: 'https://etherscan.io',
 
         ethAccount: null,
-        account: null,// FIXME I dont like this name `account` - shouldn't it be accountDetails or accountCards
+        squad: null,
         web3Provider: null,
 
         // API Services
@@ -37,8 +37,8 @@ export default new Vuex.Store({
         ethAccount(state, ethAccount) {
             state.ethAccount = ethAccount;
         },
-        account(state, account) {
-            state.account = account;
+        squad(state, squad) {
+            state.squad = squad;
         },
         etherscanUrl(state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
@@ -62,7 +62,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async loadAccount({commit, state}) {
+        async bootstrapApp({commit, dispatch, state}) {
             const provider = new ethers.providers.Web3Provider(web3.currentProvider);
 
             const {chainId, name} = await provider.getNetwork();
@@ -72,9 +72,13 @@ export default new Vuex.Store({
             commit('etherscanUrl', lookupEtherscanAddress(chainId));
 
             commit('provider', provider);
-
-            const results = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
-            commit('account', results);
+            dispatch('loadSquad');
+        },
+        async loadSquad({commit, state}) {
+            if (state.ethAccount) {
+                const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
+                commit('squad', squad);
+            }
         }
     }
 });

@@ -19,4 +19,12 @@ export default class HeadToHeadGameApiService extends BaseApiService {
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/games/headtohead/game/${gameId}`, AXIOS_CONFIG);
         return res.data;
     }
+
+    async getGamesForTokens(tokenIds) {
+        console.log(`Get games which tokens [${tokenIds}] are playing on network [${this.network}]`);
+        const tokens = tokenIds.map((id) => `tokenId=${id}`).join('&');
+
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/games/headtohead/tokens?${tokens}`, AXIOS_CONFIG);
+        return res.data;
+    }
 }

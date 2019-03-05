@@ -24,6 +24,19 @@
 
 
         <div class="row">
+            <div class="col">
+                Games you have been part of: {{ownerTokensInGames}}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+
+            </div>
+        </div>
+
+        <div class="row">
 
             {{openGames}}
 
@@ -40,13 +53,13 @@
         data() {
             return {
                 openGames: [],
+                ownerTokensInGames: [],
                 isApprovedForAll: false
             };
         },
         computed: {
             ...mapState([
-                'ethAccount',
-                'account',
+                'squad',
                 'ethAccount',
                 'headToHeadApiService',
                 'headToHeadContractService',
@@ -81,12 +94,21 @@
             },
             async loadOpenGames() {
                 this.openGames = await this.headToHeadApiService.getOpenGames();
+            },
+            async loadGamesSquadArePlaying() {
+                console.log(this.squad.tokenIds);
+                this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
             }
         },
         watch: {
             ethAccount: {
                 handler() {
                     this.loadAccountApproval();
+                }
+            },
+            squad: {
+                handler() {
+                    this.loadGamesSquadArePlaying();
                 }
             },
         },
@@ -110,6 +132,7 @@
                 this.loadAccountApproval();
             }
 
+            this.$store.dispatch('loadSquad');
         }
     };
 </script>
