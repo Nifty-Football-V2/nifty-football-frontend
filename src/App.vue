@@ -12,6 +12,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <!-- FIXME dump out so we can see the account and the network logged in to -->
+                            {{networkId}} | {{ethAccount}}
+                        </li>
+                        <li class="nav-item">
                             <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
                         </li>
                         <li class="nav-item">
@@ -40,10 +44,18 @@
 
 <script>
     import LocaleChanger from './components/LocaleChanger';
-    import Web3 from 'web3';
+    import {mapState} from 'vuex';
 
     export default {
-        components: {LocaleChanger},
+        components: {
+            LocaleChanger
+        },
+        computed: {
+            ...mapState([
+                'ethAccount',
+                'networkId'
+            ])
+        },
         created: async function () {
 
             if (typeof window.ethereum === 'undefined') {

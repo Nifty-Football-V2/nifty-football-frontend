@@ -1,14 +1,13 @@
 import {ethers} from "ethers";
-import futballCardsAbi from "../../abi/futballCards";
-
-import headToHeadGameApi from "../api/headToHeadGameApi.service";
+import futballCardsContract from "../../abi/futballCards";
+import headToHeadContract from "../../abi/headToHead";
 
 export default class FootballCardsContractService {
 
     constructor(network, providerSigner) {
         this.network = network;
         this.providerSigner = providerSigner;
-        this.contract = new ethers.Contract(this.getContractAddress(network), futballCardsAbi, this.providerSigner);
+        this.contract = new ethers.Contract(futballCardsContract.address(network), futballCardsContract.abi, this.providerSigner);
     }
 
     async isApprovedForTokenId(tokenId) {
@@ -17,34 +16,30 @@ export default class FootballCardsContractService {
         const approvedAddress = await this.contract.getApproved(tokenId);
         console.log(`Token if approved [${approvedAddress}]`);
 
-        return approvedAddress === headToHeadGameApi.getContractAddress(this.network);
+        return approvedAddress === headToHeadContract.address(this.network);
     }
 
     async approveToken(tokenId) {
         //function approve(address to, uint256 tokenId) public
-        return this.contract.approve(headToHeadGameApi.getContractAddress(this.network), tokenId);
+        return this.contract.approve(headToHeadContract.address(this.network), tokenId);
     }
 
-    async isApprovedForAll(account) {
-        //function isApprovedForAll(address owner, address operator) public view returns (bool)
-        return this.contract.isApprovedForAll(account, headToHeadGameApi.getContractAddress(this.network));
+    async isApprovedForAll(owner) {
+        const operator = headToHeadContract.address(this.network);
+        console.log(`isApprovedForAll() with account [${owner}] for address [${operator}] on network [${this.network}]`);
+        return this.contract.isApprovedForAll(owner, operator);
     }
 
-    async setApprovedForAll(account) {
+    async grantApprovedForAll() {
         //function setApprovalForAll(address to, bool approved) public
-        return this.contract.setApprovalForAll(account, true);
+        const operator = headToHeadContract.address(this.network);
+        return this.contract.setApprovalForAll(operator, true);
     }
 
-    async removeApprovedForAll(account) {
+    async removeApprovedForAll() {
         //function setApprovalForAll(address to, bool approved) public
-        return this.contract.setApprovalForAll(account, false);
+        const operator = headToHeadContract.address(this.network);
+        return this.contract.setApprovalForAll(operator, false);
     }
 
-    getContractAddress(network) {
-        switch (network) {
-            // FIXME
-            case 5777:
-                return "0x194bAfbf8eb2096e63C5d9296363d6DAcdb32527";
-        }
-    }
 }

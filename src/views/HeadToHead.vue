@@ -10,7 +10,15 @@
 
         <div class="row">
             <div class="col">
-
+                Is Approved For All: {{isApprovedForAll}}
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" @click="grantApprovalForAll" v-if="ethAccount && !isApprovedForAll">
+                    Grant Approval For All
+                </button>
+                <button class="btn btn-info" @click="removeApprovalForAll" v-if="ethAccount && isApprovedForAll">
+                    Remove Approval For All
+                </button>
             </div>
         </div>
 
@@ -31,30 +39,76 @@
         components: {Card},
         data() {
             return {
-                openGames: []
+                openGames: [],
+                isApprovedForAll: false
             };
         },
         computed: {
             ...mapState([
+                'ethAccount',
                 'account',
                 'ethAccount',
                 'headToHeadApiService',
                 'headToHeadContractService',
+                'footballCardsContractService',
             ]),
         },
         methods: {
-            
+            loadAccountApproval() {
+                if (this.footballCardsContractService) {
+                    this.footballCardsContractService.isApprovedForAll(this.ethAccount)
+                        .then((approved) => {
+                            console.log(this.ethAccount, approved);
+                            this.isApprovedForAll = approved;
+                        });
+                }
+            },
+            grantApprovalForAll() {
+                if (this.footballCardsContractService) {
+                    this.footballCardsContractService.grantApprovedForAll()
+                        .then(() => {
+                            this.loadAccountApproval();
+                        });
+                }
+            },
+            removeApprovalForAll() {
+                if (this.footballCardsContractService) {
+                    this.footballCardsContractService.removeApprovedForAll()
+                        .then(() => {
+                            this.loadAccountApproval();
+                        });
+                }
+            },
+            async loadOpenGames() {
+                this.openGames = await this.headToHeadApiService.getOpenGames();
+            }
+        },
+        watch: {
+            ethAccount: {
+                handler() {
+                    this.loadAccountApproval();
+                }
+            },
         },
         created() {
 
-            const loadData = async () => {
-                this.openGames = await this.headToHeadApiService.getOpenGames();
-            };
-
             this.$store.watch(
                 () => this.$store.state.networkId,
-                () => loadData()
+                () => this.loadOpenGames()
             );
+
+            if (this.$store.state.networkId) {
+                this.loadOpenGames();
+            }
+
+            this.$store.watch(
+                () => this.$store.state.footballCardsContractService,
+                () => this.loadAccountApproval()
+            );
+
+            if (this.$store.state.footballCardsContractService) {
+                this.loadAccountApproval();
+            }
 
         }
     };

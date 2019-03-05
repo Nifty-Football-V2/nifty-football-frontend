@@ -21,7 +21,7 @@ export default new Vuex.Store({
         etherscanUrl: 'https://etherscan.io',
 
         ethAccount: null,
-        account: null,
+        account: null,// FIXME I dont like this name `account` - shouldn't it be accountDetails or accountCards
         web3Provider: null,
 
         // API Services
@@ -44,6 +44,7 @@ export default new Vuex.Store({
             state.etherscanUrl = etherscanUrl;
         },
         provider(state, provider) {
+            console.log(`Setting provider for network [${state.networkId}]`, provider);
             state.provider = provider;
             state.providerSigner = provider.getSigner();
             state.blindPackService = new BlindPackContractService(state.networkId, state.providerSigner);
