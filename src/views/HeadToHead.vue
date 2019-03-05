@@ -30,9 +30,33 @@
         </div>
 
 
-        <div class="row">
+        <div class="row" v-if="squad">
             <div class="col">
-
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">
+                        Select Squad member to play
+                    </label>
+                    <select class="form-control" id="exampleFormControlSelect1" v-model="selectedCard">
+                        <option>--</option>
+                        <option v-for="card in squad.tokenDetails"
+                                :value="card"
+                                :key="card.tokenId"
+                                v-if="playerNotInGameAlready(card)">
+                            {{card.fullName | uppercase}} |
+                            {{card.nationalityText | uppercase}} |
+                            {{card.positionText}} |
+                            {{card.attributeAvg}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Selected Player: {{selectedCard}}
+                </div>
+                <div class="form-group" v-if="selectedCard">
+                    <button class="btn btn-info" @click="createNewGame">
+                        Create Game
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -54,7 +78,8 @@
             return {
                 openGames: [],
                 ownerTokensInGames: [],
-                isApprovedForAll: false
+                isApprovedForAll: false,
+                selectedCard: null
             };
         },
         computed: {
@@ -67,6 +92,10 @@
             ]),
         },
         methods: {
+            playerNotInGameAlready(card) {
+                // TODO check card not in ownerTokensInGames
+                return true;
+            },
             loadAccountApproval() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.isApprovedForAll(this.ethAccount)
@@ -92,11 +121,19 @@
                         });
                 }
             },
+            createNewGame() {
+                if (this.headToHeadContractService && this.selectedCard) {
+                    this.headToHeadContractService.createGame(this.selectedCard)
+                        .then(() => {
+                            this.loadOpenGames();
+                            this.loadGamesSquadArePlaying();
+                        });
+                }
+            },
             async loadOpenGames() {
                 this.openGames = await this.headToHeadApiService.getOpenGames();
             },
             async loadGamesSquadArePlaying() {
-                console.log(this.squad.tokenIds);
                 this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
             }
         },
