@@ -23,7 +23,7 @@
                         <label class="col-sm-2 col-form-label col-form-label-sm">Your Squad</label>
                         <div class="col-sm-10">
                             <select class="form-control form-control" v-model="selectedCard" v-if="squad">
-                                <option>--</option>
+                                <option :value="undefined">--</option>
                                 <option v-for="card in squad.tokenDetails"
                                         :value="card"
                                         :key="card.tokenId"
@@ -31,7 +31,7 @@
                                     {{card.fullName | uppercase}} |
                                     {{card.nationalityText | uppercase}} |
                                     {{card.positionText}} |
-                                    {{card.attributeAvg}}
+                                    {{card.attributeAvg}} |  TOKEN ID {{card.tokenId}}
                                 </option>
                             </select>
                         </div>
@@ -57,6 +57,7 @@
 
         <div class="row">
             <div class="col-4" v-for="game in ownerTokensInGames">
+                Game ID: {{game.game.gameId}}
                 <strong>
                     {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
                 </strong>
@@ -69,7 +70,7 @@
                 <div v-else>
                     <strong>...</strong>
                 </div>
-                
+
                 <p>
                     <strong>
                         {{game.game.state | toHumanState}}
@@ -116,7 +117,9 @@
                 <div v-else>
                     <strong>...</strong>
                 </div>
+
                 <h4>VS</h4>
+
                 <div v-if="game.cards.awayCard.fullName">
                     <strong>
                         {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
@@ -136,9 +139,9 @@
                 </p>
 
                 <!-- Game OPEN -->
-                <div v-if="game.game.state === 1">
+                <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game)">
                     <button class="btn btn-primary"
-                            :disabled="!selectedCard || !isApprovedForAll"
+                            :disabled="!isApprovedForAll"
                             @click="joinGame(game.game.gameId)">
                         Challenge
                     </button>
