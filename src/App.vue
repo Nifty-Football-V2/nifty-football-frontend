@@ -1,39 +1,58 @@
 <template>
     <div id="app">
         <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">-->
-            <!--<locale-changer></locale-changer>-->
-            <!--<div class="container">-->
-                <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
-                <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
-                        <!--aria-label="Toggle navigation">-->
-                    <!--<span class="navbar-toggler-icon"></span>-->
-                <!--</button>-->
-                <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
-                    <!--<ul class="navbar-nav ml-auto">-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
+        <!--<locale-changer></locale-changer>-->
+        <!--<div class="container">-->
+        <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
+        <!--aria-label="Toggle navigation">-->
+        <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
+        <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
+        <!--<ul class="navbar-nav ml-auto">-->
+        <!--<li class="nav-item">-->
+        <!--<router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+        <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+        <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+        <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+        <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+        <!--<router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</nav>-->
-        <router-view class="text-center pb-5"/>
+        <router-view class="text-center"/>
         <vue-snotify></vue-snotify>
+
+        <footer class="text-center mb-4">
+            <a href="https://twitter.com/NiftyFootball" target="_blank">
+                <font-awesome-icon :icon="['fab', 'twitter']" size="3x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <a href="https://www.instagram.com/niftyfootball/" target="_blank">
+                <font-awesome-icon :icon="['fab', 'instagram']" size="3x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <a href="https://discord.gg/gcbWFf" target="_blank">
+                <font-awesome-icon :icon="['fab', 'discord']" size="3x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <a href="https://t.me/niftyfootball" target="_blank">
+                <font-awesome-icon :icon="['fab', 'telegram']" size="3x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <a href="https://medium.com/niftyfootball" target="_blank">
+                <font-awesome-icon :icon="['fab', 'medium']" size="3x" class="ml-3 mr-3 text-primary"/>
+            </a>
+        </footer>
+
     </div>
 </template>
 
