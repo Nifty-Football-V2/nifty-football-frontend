@@ -89,15 +89,33 @@
                     </div>
                     <div class="col-4 text-center">
                         <h2 class="mt-5">VS</h2>
-                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)" class="mt-5">
+                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)"
+                             class="mt-5">
                             <button class="btn btn-primary btn-lg"
                                     :disabled="!isApprovedForAll"
                                     @click="joinGame(game.game.gameId)">
                                 Battle
                             </button>
                         </div>
+                        <div v-if="game.game.state === 4 && youArePlay(game)"
+                             class="mt-5">
+                            <button class="btn btn-primary btn-lg"
+                                    :disabled="!isApprovedForAll"
+                                    @click="reMatch(game.game.gameId)">
+                                Re-match
+                            </button>
+                        </div>
+                        <div v-if="game.game.state !== 5 && youArePlay(game)"
+                             class="mt-5">
+                            <button class="btn btn-info btn-lg"
+                                    :disabled="!isApprovedForAll"
+                                    @click="withdrawFromGame(game.game.gameId)">
+                                Withdraw
+                            </button>
+                        </div>
                     </div>
                     <div class="col-4">
+                        <!-- FIXME this doesnt work, shows dupe on select and needs to show away player under draw state -->
                         <!--<card :card="game.cards.awayCard" style="width: 300px" v-if="game.cards.awayCard"></card>-->
                         <card :card="selectedCard" style="width: 300px" v-if="selectedCard"></card>
                         <h1 v-else>?</h1>
@@ -118,12 +136,12 @@
 </template>
 <script>
     import Card from '../components/Card';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import _ from 'lodash';
 
     export default {
         components: {Card},
-        data () {
+        data() {
             return {
                 openGames: [],
                 ownerTokensInGames: [],
@@ -141,14 +159,14 @@
             ]),
         },
         methods: {
-            playerNotInGameAlready (tokenId) {
+            playerNotInGameAlready(tokenId) {
                 return !_.some(this.ownerTokensInGames, ({game}) => {
                     const awayTokenId = game.awayTokenId;
                     const homeTokenId = game.homeTokenId;
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            bothCardsHaveAChanceOfWinning (game) {
+            bothCardsHaveAChanceOfWinning(game) {
                 const playingCard = game.game.awayTokenId !== 0 ? game.cards.awayCard : game.cards.homeCard;
 
                 const playingAttributes = [
@@ -174,17 +192,17 @@
                         playerHasAChance = true;
                     }
                 }
-                console.log(playingAttributes, selectedAttributes, playerHasAChance && selectedHasAChance);
+                // console.log(playingAttributes, selectedAttributes, playerHasAChance && selectedHasAChance);
                 return playerHasAChance && selectedHasAChance;
             },
-            youArePlay (game) {
-                const awayTokenId = game.awayTokenId;
-                const homeTokenId = game.homeTokenId;
+            youArePlay(game) {
+                const awayTokenId = game.game.awayTokenId;
+                const homeTokenId = game.game.homeTokenId;
                 return _.some(this.squad.tokenIds, (tokenId) => {
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            loadAccountApproval () {
+            loadAccountApproval() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.isApprovedForAll(this.ethAccount)
                         .then((approved) => {
@@ -193,7 +211,7 @@
                         });
                 }
             },
-            grantApprovalForAll () {
+            grantApprovalForAll() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.grantApprovedForAll()
                         .then(() => {
@@ -201,7 +219,7 @@
                         });
                 }
             },
-            removeApprovalForAll () {
+            removeApprovalForAll() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.removeApprovedForAll()
                         .then(() => {
@@ -209,7 +227,7 @@
                         });
                 }
             },
-            withdrawFromGame (gameId) {
+            withdrawFromGame(gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.withdrawFromGame(gameId)
                         .then(() => {
@@ -218,7 +236,7 @@
                         });
                 }
             },
-            reMatch (gameId) {
+            reMatch(gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.reMatch(gameId)
                         .then(() => {
@@ -227,7 +245,7 @@
                         });
                 }
             },
-            createNewGame () {
+            createNewGame() {
                 if (this.headToHeadContractService && this.selectedCard) {
                     this.headToHeadContractService.createGame(this.selectedCard)
                         .then(() => {
@@ -236,7 +254,7 @@
                         });
                 }
             },
-            joinGame (gameId) {
+            joinGame(gameId) {
                 if (this.headToHeadContractService && this.selectedCard && gameId) {
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then((receipt) => {
@@ -246,27 +264,27 @@
                         });
                 }
             },
-            async loadOpenGames () {
+            async loadOpenGames() {
                 const {openGames} = await this.headToHeadApiService.getOpenGames();
                 this.openGames = openGames;
             },
-            async loadGamesSquadArePlaying () {
+            async loadGamesSquadArePlaying() {
                 this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
             }
         },
         watch: {
             ethAccount: {
-                handler () {
+                handler() {
                     this.loadAccountApproval();
                 }
             },
             squad: {
-                handler () {
+                handler() {
                     this.loadGamesSquadArePlaying();
                 }
             },
         },
-        created () {
+        created() {
 
             this.$store.watch(
                 () => this.$store.state.networkId,

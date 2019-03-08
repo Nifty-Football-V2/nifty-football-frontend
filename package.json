@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "npm run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
@@ -15,6 +16,7 @@
     "ethers": "^4.0.26",
     "lodash": "^4.17.11",
     "vue": "^2.6.7",
+    "vue-analytics": "^5.16.2",
     "vue-i18n": "^8.8.2",
     "vue-router": "^3.0.1",
     "vue-snotify": "^3.2.1",
