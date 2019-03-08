@@ -7,7 +7,6 @@ import messages from './messages';
 import BootstrapVue from 'bootstrap-vue';
 import Snotify, {SnotifyPosition} from 'vue-snotify';
 import Vue2Filters from 'vue2-filters';
-import VueAnalytics from 'vue-analytics';
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
@@ -36,21 +35,6 @@ Vue.filter('toHumanState', function (state) {
             return 'Draw';
         case 5:
             return 'Cancelled';
-    }
-});
-
-Vue.use(VueAnalytics, {
-    id: 'GTM-W5J7B7R', // FIXME
-    router,
-    autoTracking: {
-        exception: true
-    },
-    batch: {
-        enabled: true // default 2 every 500ms
-    },
-    debug: {
-        // set to false to disable GA - locally NODE_ENV set to `development`
-        sendHitTask: _.get(process.env, 'NODE_ENV', 'production') === 'production'
     }
 });
 
