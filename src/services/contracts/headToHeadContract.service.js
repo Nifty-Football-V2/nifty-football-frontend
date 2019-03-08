@@ -16,7 +16,10 @@ export default class HeadToHeadContractService {
 
     async joinGame(gameId, tokenId) {
         console.log(`Join game [${gameId}] with token ID [${tokenId}] on network [${this.network}]`);
-        return this.contract.resultGame(gameId, tokenId);
+        let tx = await this.contract.resultGame(gameId, tokenId);
+        console.log(tx);
+        await tx.wait();
+        return tx;
     }
 
     async withdrawFromGame(gameId) {

@@ -13,9 +13,9 @@
                 <button class="btn btn-primary" @click="grantApprovalForAll" v-if="ethAccount && !isApprovedForAll">
                     Grant Approval For All
                 </button>
-                <button class="btn btn-info" @click="removeApprovalForAll" v-if="ethAccount && isApprovedForAll">
+                <a href="#" class="small" @click="removeApprovalForAll" v-if="ethAccount && isApprovedForAll">
                     Remove Approval For All
-                </button>
+                </a>
             </div>
             <div class="col-6">
                 <form>
@@ -28,10 +28,7 @@
                                         :value="card"
                                         :key="card.tokenId"
                                         v-if="playerNotInGameAlready(card.tokenId)">
-                                    {{card.fullName | uppercase}} |
-                                    {{card.nationalityText | uppercase}} |
-                                    {{card.positionText}} |
-                                    {{card.attributeAvg}} | TOKEN ID {{card.tokenId}}
+                                    {{card.fullName | uppercase}} ({{card.attributeAvg}})
                                 </option>
                             </select>
                         </div>
@@ -47,113 +44,88 @@
             </div>
         </div>
 
-        <hr/>
+        <!--<div class="row">-->
+        <!--<div class="col-4" v-for="game in ownerTokensInGames">-->
+        <!--#{{game.game.gameId}}-->
+        <!--<strong>-->
+        <!--{{game.cards.homeCard.fullName}} ({{game.cards.homeCard.attributeAvg}})-->
+        <!--</strong>-->
+        <!--<h4>VS</h4>-->
+        <!--<div v-if="game.cards.awayCard.fullName">-->
+        <!--<strong>-->
+        <!--{{game.cards.awayCard.fullName}}-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--<div v-else>-->
+        <!--<strong>...</strong>-->
+        <!--</div>-->
+
+        <!--<p>-->
+        <!--<strong>-->
+        <!--{{game.game.state | toHumanState}}-->
+        <!--</strong>-->
+        <!--</p>-->
+
+        <!--&lt;!&ndash; Game DRAW &ndash;&gt;-->
+        <!--<div>-->
+        <!--<a href="#" class="small" @click="withdrawFromGame(game.game.gameId)">-->
+        <!--Withdraw-->
+        <!--</a>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; Game DRAW &ndash;&gt;-->
+        <!--<div v-if="game.game.state === 4" @click="reMatch(game.game.gameId)">-->
+        <!--<button class="btn btn-primary">-->
+        <!--Rematch-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col mx-auto" v-if="ownerTokensInGames.length < 1">-->
+        <!--You've not entered any games yet ⚽-->
+        <!--</div>-->
+        <!--</div>-->
 
         <div class="row">
             <div class="col">
-                <h4>Your Games</h4>
+                <h4>Challenges</h4>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-4" v-for="game in ownerTokensInGames">
-                Game ID: {{game.game.gameId}}
-                <strong>
-                    {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
-                </strong>
-                <h4>VS</h4>
-                <div v-if="game.cards.awayCard.fullName">
-                    <strong>
-                        {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
-                    </strong>
-                </div>
-                <div v-else>
-                    <strong>...</strong>
-                </div>
+            <div class="col-12" v-for="game in openGames">
+                <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
 
-                <p>
-                    <strong>
-                        {{game.game.state | toHumanState}}
-                    </strong>
-                </p>
+                <div class="row">
+                    <div class="col-4">
+                        <card :card="game.cards.homeCard" style="width: 300px" v-if="game.cards.homeCard"></card>
+                    </div>
+                    <div class="col-4">
+                        <h2>VS</h2>
+                    </div>
+                    <div class="col-4">
 
-                <!-- Game DRAW -->
-                <div>
-                    <button class="btn btn-primary" @click="withdrawFromGame(game.game.gameId)">
-                        Withdraw
-                    </button>
-                </div>
-                <!-- Game DRAW -->
-                <div v-if="game.game.state === 4" @click="reMatch(game.game.gameId)">
-                    <button class="btn btn-primary">
-                        Rematch
-                    </button>
-                </div>
-                <hr/>
-            </div>
-            <div class="col mx-auto" v-if="ownerTokensInGames.length < 1">
-                You've not entered any games yet ⚽
-            </div>
-        </div>
-
-        <hr/>
-
-        <div class="row">
-            <div class="col">
-                <h4>All games</h4>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4" v-for="game in openGames">
-                <div v-if="game.cards.homeCard.fullName">
-                    <strong>
-                        {{game.cards.homeCard.fullName}} of {{game.cards.homeCard.nationalityText}}
-                    </strong>
-                    <div>
-                        <small>{{game.cards.homeCard.positionText}} avg. {{game.cards.homeCard.attributeAvg}}</small>
+                        <!--<card :card="game.cards.awayCard" style="width: 300px" v-if="game.cards.awayCard"></card>-->
+                        <card :card="selectedCard" style="width: 300px" v-if="selectedCard"></card>
+                        <h4 v-else>?</h4>
                     </div>
                 </div>
-                <div v-else>
-                    <strong>...</strong>
-                </div>
 
-                <h4>VS</h4>
-
-                <div v-if="game.cards.awayCard.fullName">
-                    <strong>
-                        {{game.cards.awayCard.fullName}} of {{game.cards.awayCard.nationalityText}}
-                    </strong>
-                    <div>
-                        <small>{{game.cards.awayCard.positionText}} avg. {{game.cards.awayCard.attributeAvg}}</small>
-                    </div>
-                </div>
-                <div v-else>
-                    <strong>...</strong>
-                </div>
-
-                <p>
-                    <strong>
-                        {{game.game.state | toHumanState}}
-                    </strong>
-                </p>
 
                 <!-- Game OPEN -->
                 <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)">
 
                     <!-- FIXME DEBUGGING BELOW -->
-                    <div>
-                        Can Win: {{bothCardsHaveAChanceOfWinning(game)}}
-                    </div>
-                    <div>
-                        Game ID: {{game.game.gameId}}
-                    </div>
-                    <div>
-                        Away Token ID: {{game.game.awayTokenId}}
-                        Home Token ID: {{game.game.homeTokenId}}
-                    </div>
+                    <!--<div>-->
+                    <!--Can Win: {{bothCardsHaveAChanceOfWinning(game)}}-->
+                    <!--</div>-->
+                    <!--<div>-->
+                    <!--Game ID: {{game.game.gameId}}-->
+                    <!--</div>-->
+                    <!--<div>-->
+                    <!--Away Token ID: {{game.game.awayTokenId}}-->
+                    <!--Home Token ID: {{game.game.homeTokenId}}-->
+                    <!--</div>-->
 
-                    <button class="btn btn-primary"
+                    <button class="btn btn-primary btn-sm"
                             :disabled="!isApprovedForAll"
                             @click="joinGame(game.game.gameId)">
                         Challenge
@@ -174,12 +146,12 @@
 </template>
 <script>
     import Card from '../components/Card';
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import _ from 'lodash';
 
     export default {
         components: {Card},
-        data() {
+        data () {
             return {
                 openGames: [],
                 ownerTokensInGames: [],
@@ -197,14 +169,14 @@
             ]),
         },
         methods: {
-            playerNotInGameAlready(tokenId) {
+            playerNotInGameAlready (tokenId) {
                 return !_.some(this.ownerTokensInGames, ({game}) => {
                     const awayTokenId = game.awayTokenId;
                     const homeTokenId = game.homeTokenId;
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            bothCardsHaveAChanceOfWinning(game) {
+            bothCardsHaveAChanceOfWinning (game) {
                 const playingCard = game.game.awayTokenId !== 0 ? game.cards.awayCard : game.cards.homeCard;
 
                 const playingAttributes = [
@@ -233,14 +205,14 @@
                 console.log(playingAttributes, selectedAttributes, playerHasAChance && selectedHasAChance);
                 return playerHasAChance && selectedHasAChance;
             },
-            youArePlay(game) {
+            youArePlay (game) {
                 const awayTokenId = game.awayTokenId;
                 const homeTokenId = game.homeTokenId;
                 return _.some(this.squad.tokenIds, (tokenId) => {
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            loadAccountApproval() {
+            loadAccountApproval () {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.isApprovedForAll(this.ethAccount)
                         .then((approved) => {
@@ -249,7 +221,7 @@
                         });
                 }
             },
-            grantApprovalForAll() {
+            grantApprovalForAll () {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.grantApprovedForAll()
                         .then(() => {
@@ -257,7 +229,7 @@
                         });
                 }
             },
-            removeApprovalForAll() {
+            removeApprovalForAll () {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.removeApprovedForAll()
                         .then(() => {
@@ -265,7 +237,7 @@
                         });
                 }
             },
-            withdrawFromGame(gameId) {
+            withdrawFromGame (gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.withdrawFromGame(gameId)
                         .then(() => {
@@ -274,7 +246,7 @@
                         });
                 }
             },
-            reMatch(gameId) {
+            reMatch (gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.reMatch(gameId)
                         .then(() => {
@@ -283,7 +255,7 @@
                         });
                 }
             },
-            createNewGame() {
+            createNewGame () {
                 if (this.headToHeadContractService && this.selectedCard) {
                     this.headToHeadContractService.createGame(this.selectedCard)
                         .then(() => {
@@ -292,7 +264,7 @@
                         });
                 }
             },
-            joinGame(gameId) {
+            joinGame (gameId) {
                 if (this.headToHeadContractService && this.selectedCard && gameId) {
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then(() => {
@@ -301,27 +273,27 @@
                         });
                 }
             },
-            async loadOpenGames() {
+            async loadOpenGames () {
                 const {openGames} = await this.headToHeadApiService.getOpenGames();
                 this.openGames = openGames;
             },
-            async loadGamesSquadArePlaying() {
+            async loadGamesSquadArePlaying () {
                 this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
             }
         },
         watch: {
             ethAccount: {
-                handler() {
+                handler () {
                     this.loadAccountApproval();
                 }
             },
             squad: {
-                handler() {
+                handler () {
                     this.loadGamesSquadArePlaying();
                 }
             },
         },
-        created() {
+        created () {
 
             this.$store.watch(
                 () => this.$store.state.networkId,
@@ -345,3 +317,10 @@
         }
     };
 </script>
+
+<style lang="scss">
+    h4 {
+        margin: 0;
+    }
+</style>
+
