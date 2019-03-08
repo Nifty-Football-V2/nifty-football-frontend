@@ -95,8 +95,7 @@
                             <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
                         </div>
                         <h2 class="mt-5">VS</h2>
-                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)"
-                             class="mt-5">
+                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)" class="mt-5">
                             <button class="btn btn-primary btn-lg"
                                     :disabled="!isApprovedForAll"
                                     @click="joinGame(game.game.gameId)">
