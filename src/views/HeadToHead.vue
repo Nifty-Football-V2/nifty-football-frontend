@@ -115,9 +115,12 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <!-- FIXME this doesnt work, shows dupe on select and needs to show away player under draw state -->
-                        <!--<card :card="game.cards.awayCard" style="width: 300px" v-if="game.cards.awayCard"></card>-->
-                        <card :card="selectedCard" style="width: 300px" v-if="selectedCard"></card>
+                        <card :card="selectedCard" style="width: 300px"
+                              v-if="selectedCard && playerNotAlreadyPlaying(game, selectedCard)">
+                        </card>
+                        <card :card="game.cards.awayCard" style="width: 300px"
+                              v-else-if="game.cards.awayCard && game.cards.awayCard.tokenId">
+                        </card>
                         <h1 v-else>?</h1>
                     </div>
                 </div>
@@ -201,6 +204,11 @@
                 return _.some(this.squad.tokenIds, (tokenId) => {
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
+            },
+            playerNotAlreadyPlaying(game) {
+                const awayTokenId = game.game.awayTokenId;
+                const homeTokenId = game.game.homeTokenId;
+                return this.selectedCard && (this.selectedCard.tokenId !== awayTokenId && this.selectedCard.tokenId !== homeTokenId);
             },
             loadAccountApproval() {
                 if (this.footballCardsContractService) {
