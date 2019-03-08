@@ -239,7 +239,8 @@
             joinGame (gameId) {
                 if (this.headToHeadContractService && this.selectedCard && gameId) {
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
-                        .then(() => {
+                        .then((receipt) => {
+                            console.log(`receipt`, receipt);
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();
                         });
