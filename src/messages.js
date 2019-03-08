@@ -8,6 +8,7 @@ export default {
             leaderboards: 'Leaderboards',
             account: 'Squad',
             team: 'Best Team',
+            head2head: 'Head 2 Head Battles',
         },
         common: {
             nifty_football: 'Nifty Football',

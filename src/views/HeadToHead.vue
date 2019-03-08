@@ -3,7 +3,7 @@
 
         <div class="row pb-4">
             <div class="col">
-                <h1 class="mt-5">{{ $t('nav.play') }}</h1>
+                <h1 class="mt-5">{{ $t('nav.head2head') }}</h1>
                 <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
             </div>
         </div>
@@ -19,24 +19,19 @@
             </div>
             <div class="col-6">
                 <form>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label col-form-label-sm">Your Squad</label>
-                        <div class="col-sm-10">
-                            <select class="form-control form-control" v-model="selectedCard" v-if="squad">
-                                <option :value="undefined">--</option>
-                                <option v-for="card in squad.tokenDetails"
-                                        :value="card"
-                                        :key="card.tokenId"
-                                        v-if="playerNotInGameAlready(card.tokenId)">
-                                    {{card.fullName | uppercase}} ({{card.attributeAvg}})
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+                    <select class="form-control form-control" v-model="selectedCard" v-if="squad">
+                        <option :value="undefined">--</option>
+                        <option v-for="card in squad.tokenDetails"
+                                :value="card"
+                                :key="card.tokenId"
+                                v-if="playerNotInGameAlready(card.tokenId)">
+                            {{card.fullName | uppercase}} ({{card.attributeAvg}})
+                        </option>
+                    </select>
                 </form>
             </div>
             <div class="col-2">
-                <button class="btn btn-info" @click="createNewGame"
+                <button class="btn btn-primary" @click="createNewGame"
                         v-if="selectedCard"
                         :disabled="!ethAccount || !isApprovedForAll">
                     Create Game
@@ -84,58 +79,35 @@
         <!--</div>-->
         <!--</div>-->
 
-        <div class="row">
-            <div class="col">
-                <h4>Challenges</h4>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12" v-for="game in openGames">
+        <div class="row mt-5">
+            <div class="col-12" v-for="game in openGames" v-bind:key="game.id">
                 <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
 
-                <div class="row">
+                <div class="row mt-5">
                     <div class="col-4">
                         <card :card="game.cards.homeCard" style="width: 300px" v-if="game.cards.homeCard"></card>
                     </div>
-                    <div class="col-4">
-                        <h2>VS</h2>
+                    <div class="col-4 text-center">
+                        <h2 class="mt-5">VS</h2>
+                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)" class="mt-5">
+                            <button class="btn btn-primary btn-lg"
+                                    :disabled="!isApprovedForAll"
+                                    @click="joinGame(game.game.gameId)">
+                                Battle
+                            </button>
+                        </div>
                     </div>
                     <div class="col-4">
-
                         <!--<card :card="game.cards.awayCard" style="width: 300px" v-if="game.cards.awayCard"></card>-->
                         <card :card="selectedCard" style="width: 300px" v-if="selectedCard"></card>
-                        <h4 v-else>?</h4>
+                        <h1 v-else>?</h1>
                     </div>
                 </div>
 
-
-                <!-- Game OPEN -->
-                <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)">
-
-                    <!-- FIXME DEBUGGING BELOW -->
-                    <!--<div>-->
-                    <!--Can Win: {{bothCardsHaveAChanceOfWinning(game)}}-->
-                    <!--</div>-->
-                    <!--<div>-->
-                    <!--Game ID: {{game.game.gameId}}-->
-                    <!--</div>-->
-                    <!--<div>-->
-                    <!--Away Token ID: {{game.game.awayTokenId}}-->
-                    <!--Home Token ID: {{game.game.homeTokenId}}-->
-                    <!--</div>-->
-
-                    <button class="btn btn-primary btn-sm"
-                            :disabled="!isApprovedForAll"
-                            @click="joinGame(game.game.gameId)">
-                        Challenge
-                    </button>
-                </div>
                 <!-- Game DRAW -->
                 <div v-if="game.game.state === 4 && youArePlay(game)">
                     <button class="btn btn-primary" @click="reMatch(game.game.gameId)">Rematch</button>
                 </div>
-                <hr/>
             </div>
             <div class="col mx-auto" v-if="openGames.length < 1">
                 No open games ⚽
