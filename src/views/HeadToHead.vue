@@ -137,17 +137,18 @@
 </template>
 <script>
     import Card from '../components/Card';
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import _ from 'lodash';
+    import NotificationService from '../services/notification.service';
 
     export default {
         components: {Card},
-        data() {
+        data () {
             return {
                 openGames: [],
                 ownerTokensInGames: [],
                 isApprovedForAll: false,
-                selectedCard: null
+                selectedCard: null,
             };
         },
         computed: {
@@ -160,14 +161,14 @@
             ]),
         },
         methods: {
-            playerNotInGameAlready(tokenId) {
+            playerNotInGameAlready (tokenId) {
                 return !_.some(this.ownerTokensInGames, ({game}) => {
                     const awayTokenId = game.awayTokenId;
                     const homeTokenId = game.homeTokenId;
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            bothCardsHaveAChanceOfWinning(game) {
+            bothCardsHaveAChanceOfWinning (game) {
                 const playingCard = game.game.awayTokenId !== 0 ? game.cards.awayCard : game.cards.homeCard;
 
                 const playingAttributes = [
@@ -196,19 +197,19 @@
                 // console.log(playingAttributes, selectedAttributes, playerHasAChance && selectedHasAChance);
                 return playerHasAChance && selectedHasAChance;
             },
-            youArePlay(game) {
+            youArePlay (game) {
                 const awayTokenId = game.game.awayTokenId;
                 const homeTokenId = game.game.homeTokenId;
                 return _.some(this.squad.tokenIds, (tokenId) => {
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            playerNotAlreadyPlaying(game) {
+            playerNotAlreadyPlaying (game) {
                 const awayTokenId = game.game.awayTokenId;
                 const homeTokenId = game.game.homeTokenId;
                 return this.selectedCard && (this.selectedCard.tokenId !== awayTokenId && this.selectedCard.tokenId !== homeTokenId);
             },
-            loadAccountApproval() {
+            loadAccountApproval () {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.isApprovedForAll(this.ethAccount)
                         .then((approved) => {
@@ -216,7 +217,7 @@
                         });
                 }
             },
-            grantApprovalForAll() {
+            grantApprovalForAll () {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.grantApprovedForAll()
                         .then(() => {
@@ -224,7 +225,7 @@
                         });
                 }
             },
-            removeApprovalForAll() {
+            removeApprovalForAll () {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.removeApprovedForAll()
                         .then(() => {
@@ -232,7 +233,7 @@
                         });
                 }
             },
-            withdrawFromGame(gameId) {
+            withdrawFromGame (gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.withdrawFromGame(gameId)
                         .then(() => {
@@ -241,7 +242,7 @@
                         });
                 }
             },
-            reMatch(gameId) {
+            reMatch (gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.reMatch(gameId)
                         .then(() => {
@@ -250,7 +251,7 @@
                         });
                 }
             },
-            createNewGame() {
+            createNewGame () {
                 if (this.headToHeadContractService && this.selectedCard) {
                     this.headToHeadContractService.createGame(this.selectedCard)
                         .then(() => {
@@ -259,38 +260,53 @@
                         });
                 }
             },
-            joinGame(gameId) {
+            joinGame (gameId) {
                 if (this.headToHeadContractService && this.selectedCard && gameId) {
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then((receipt) => {
-                            console.log(`receipt`, receipt);
-                            console.log(`events`, this.headToHeadContractService.parseLog(receipt));
+                            const events = this.headToHeadContractService.parseLog(receipt);
+                            console.log(`events`, events);
+                            if (events) {
+                                const notificationService = new NotificationService();
+                                //UNSET, OPEN, HOME_WIN, AWAY_WIN, DRAW, CLOSED
+                                const result = events[0].values.result.toNumber();
+                                console.log(result);
+                                if (result === 3) {
+                                    notificationService.showSuccessNotification('Yasssss! You won!');
+                                }
+                                else if (result === 2) {
+                                    notificationService.showFailureNotification('Gutted. You lost!');
+                                }
+                                else {
+                                    notificationService.showNeutralNotification('It\'s a draw...');
+                                }
+                            }
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();
                         });
                 }
             },
-            async loadOpenGames() {
+            async loadOpenGames () {
                 const {openGames} = await this.headToHeadApiService.getOpenGames();
                 this.openGames = openGames;
             },
-            async loadGamesSquadArePlaying() {
+            async loadGamesSquadArePlaying () {
                 this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
             }
         },
         watch: {
             ethAccount: {
-                handler() {
+                handler () {
                     this.loadAccountApproval();
                 }
             },
             squad: {
-                handler() {
+                handler () {
                     this.loadGamesSquadArePlaying();
                 }
             },
         },
-        created() {
+        created () {
 
             this.$store.watch(
                 () => this.$store.state.networkId,

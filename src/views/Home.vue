@@ -47,14 +47,14 @@
 
                 // FIXME should this be in the view or a service?
 
-                const noficationService = new NotificationService();
+                const notificationService = new NotificationService();
 
-                noficationService.showPurchaseNotification();
+                notificationService.showPurchaseNotification();
 
                 // wait for tx to be mined
                 let tx = await this.blindPackService.buyBlindPack(num);
 
-                noficationService.showProcessingNotification();
+                notificationService.showProcessingNotification();
 
                 let receipt = await tx.wait(1);
 
@@ -71,7 +71,7 @@
                 this.buildingTokenId = web3.toDecimal(secondEvent.topics[1]);
 
                 console.log(`Token ID:`, this.buildingTokenId);
-                noficationService.showConfirmedNotification(this.buildingTokenId);
+                notificationService.showConfirmedNotification(this.buildingTokenId);
 
                 this.$store.dispatch('loadSquad');
             }

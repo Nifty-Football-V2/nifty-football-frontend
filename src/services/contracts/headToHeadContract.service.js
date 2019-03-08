@@ -33,6 +33,6 @@ export default class HeadToHeadContractService {
     }
 
     parseLog(receipt) {
-        return _.map(receipt.events, (e) => this.contract.interface.parseLog(e));
+        return _.compact(_.map(receipt.events, (e) => this.contract.interface.parseLog(e)));
     }
 }
