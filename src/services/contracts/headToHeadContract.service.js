@@ -1,5 +1,6 @@
 import {ethers} from "ethers";
 import headToHeadContract from "../../abi/headToHead";
+import _ from 'lodash';
 
 export default class HeadToHeadContractService {
 
@@ -29,5 +30,9 @@ export default class HeadToHeadContractService {
     async reMatch(gameId) {
         console.log(`Rematch game [${gameId}] on network [${this.network}]`);
         return this.contract.reMatch(gameId);
+    }
+
+    parseLog(receipt) {
+        return _.map(receipt.events, (e) => this.contract.interface.parseLog(e));
     }
 }

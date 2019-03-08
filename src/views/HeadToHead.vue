@@ -81,13 +81,19 @@
 
         <div class="row mt-5">
             <div class="col-12" v-for="game in openGames" v-bind:key="game.id">
-                <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
-
                 <div class="row mt-5">
                     <div class="col-4">
                         <card :card="game.cards.homeCard" style="width: 300px" v-if="game.cards.homeCard"></card>
+                        <div v-if="game.game.state !== 5 && youArePlay(game)" class="text-right mt-2">
+                            <a href="#" :disabled="!isApprovedForAll" @click="withdrawFromGame(game.game.gameId)">
+                                Withdraw
+                            </a>
+                        </div>
                     </div>
                     <div class="col-4 text-center">
+                        <div>
+                            <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
+                        </div>
                         <h2 class="mt-5">VS</h2>
                         <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)"
                              class="mt-5">
@@ -103,14 +109,6 @@
                                     :disabled="!isApprovedForAll"
                                     @click="reMatch(game.game.gameId)">
                                 Re-match
-                            </button>
-                        </div>
-                        <div v-if="game.game.state !== 5 && youArePlay(game)"
-                             class="mt-5">
-                            <button class="btn btn-info btn-lg"
-                                    :disabled="!isApprovedForAll"
-                                    @click="withdrawFromGame(game.game.gameId)">
-                                Withdraw
                             </button>
                         </div>
                     </div>
@@ -130,7 +128,7 @@
                     <button class="btn btn-primary" @click="reMatch(game.game.gameId)">Rematch</button>
                 </div>
             </div>
-            <div class="col mx-auto" v-if="openGames.length < 1">
+            <div class="col mx-auto" v-if="openGames && openGames.length < 1">
                 No open games ⚽
             </div>
         </div>
@@ -214,7 +212,6 @@
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.isApprovedForAll(this.ethAccount)
                         .then((approved) => {
-                            console.log(this.ethAccount, approved);
                             this.isApprovedForAll = approved;
                         });
                 }
@@ -267,6 +264,7 @@
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then((receipt) => {
                             console.log(`receipt`, receipt);
+                            console.log(`events`, this.headToHeadContractService.parseLog(receipt));
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();
                         });
