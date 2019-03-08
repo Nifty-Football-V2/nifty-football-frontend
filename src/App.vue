@@ -12,10 +12,6 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <!-- FIXME dump out so we can see the account and the network logged in to -->
-                            {{networkId}} | {{ethAccount}}
-                        </li>
-                        <li class="nav-item">
                             <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
                         </li>
                         <li class="nav-item">
@@ -39,6 +35,10 @@
         </nav>
         <router-view class="text-center pb-5"/>
         <vue-snotify></vue-snotify>
+
+        <footer class="text-light pb-5 mb-5 small">
+                {{networkId}} | {{ethAccount}}
+        </footer>
     </div>
 </template>
 

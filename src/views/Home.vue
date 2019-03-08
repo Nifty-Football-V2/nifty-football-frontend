@@ -10,31 +10,11 @@
 
         <div class="row">
             <div class="col text-center">
-                <button type="button" class="btn btn-primary btn-lg m-4"
-                        @click="buyCard(1)"
-                        :disabled="!packPrices[1]">
-                    {{ $t('common.buy') }} 1 Card
-                </button>
-                <br/>
-                <span v-if="packPrices && packPrices[1]" class="text-muted">{{ packPrices[1] }} WEI</span>
-            </div>
-            <div class="col text-center">
-                <button type="button" class="btn btn-primary btn-lg m-4"
-                        @click="buyCard(3)"
-                        :disabled="!packPrices[3]">
-                    {{ $t('common.buy') }} 3 Pack
-                </button>
-                <br/>
-                <span v-if="packPrices && packPrices[3]" class="text-muted">{{ packPrices[3] }} WEI</span>
-            </div>
-            <div class="col text-center">
-                <button type="button" class="btn btn-primary btn-lg m-4"
-                        @click="buyCard(6)"
-                        :disabled="!packPrices[6]">
-                    {{ $t('common.buy') }} 6 Pack
-                </button>
-                <br/>
-                <span v-if="packPrices && packPrices[6]" class="text-muted">{{ packPrices[6] }} WEI</span>
+                <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-2" variant="primary" size="lg" :disabled="!packPrices">
+                    <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Trading Card</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Packs</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
+                </b-dropdown>
             </div>
         </div>
     </div>
