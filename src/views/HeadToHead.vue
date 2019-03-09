@@ -39,48 +39,76 @@
             </div>
         </div>
 
-        <!--<div class="row">-->
-        <!--<div class="col-4" v-for="game in ownerTokensInGames">-->
-        <!--#{{game.game.gameId}}-->
-        <!--<strong>-->
-        <!--{{game.cards.homeCard.fullName}} ({{game.cards.homeCard.attributeAvg}})-->
-        <!--</strong>-->
-        <!--<h4>VS</h4>-->
-        <!--<div v-if="game.cards.awayCard.fullName">-->
-        <!--<strong>-->
-        <!--{{game.cards.awayCard.fullName}}-->
-        <!--</strong>-->
-        <!--</div>-->
-        <!--<div v-else>-->
-        <!--<strong>...</strong>-->
-        <!--</div>-->
+        <div class="row mt-4">
+            <div class="col text-left">
+            </div>
 
-        <!--<p>-->
-        <!--<strong>-->
-        <!--{{game.game.state | toHumanState}}-->
-        <!--</strong>-->
-        <!--</p>-->
+            <div class="col text-right">
+                {{ $t('common.sort_by') }}:
+                <a href="#" @click="setOrder('open')" class="edit">Open Battles</a>
+                <a href="#" @click="setOrder('owner')" class="edit">My Battles</a>
+                <a href="#" @click="setOrder('results')" class="edit">Battle Results</a>
+            </div>
+        </div>
 
-        <!--&lt;!&ndash; Game DRAW &ndash;&gt;-->
-        <!--<div>-->
-        <!--<a href="#" class="small" @click="withdrawFromGame(game.game.gameId)">-->
-        <!--Withdraw-->
-        <!--</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; Game DRAW &ndash;&gt;-->
-        <!--<div v-if="game.game.state === 4" @click="reMatch(game.game.gameId)">-->
-        <!--<button class="btn btn-primary">-->
-        <!--Rematch-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col mx-auto" v-if="ownerTokensInGames.length < 1">-->
-        <!--You've not entered any games yet ⚽-->
-        <!--</div>-->
-        <!--</div>-->
+        <div class="row mt-5" v-if="order === 'owner'">
+            <h4>My Battles</h4>
+            <div class="col-12" v-for="game in ownerTokensInGames" v-bind:key="game.id">
+                <div class="row mt-5">
+                    <div class="col-4">
+                        <card :card="game.cards.homeCard" style="width: 300px" v-if="game.cards.homeCard"></card>
+                        <div v-if="game.game.state !== 5 && youArePlay(game)" class="text-right mt-2">
+                            <a href="#" :disabled="!isApprovedForAll" @click="withdrawFromGame(game.game.gameId)">
+                                Withdraw
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div>
+                            <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
+                        </div>
+                        <h2 class="mt-5">VS</h2>
+                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)" class="mt-5">
+                            <button class="btn btn-primary btn-lg"
+                                    :disabled="!isApprovedForAll"
+                                    @click="joinGame(game.game.gameId)">
+                                Battle
+                            </button>
+                        </div>
+                        <div v-if="game.game.state === 4 && youArePlay(game)"
+                             class="mt-5">
+                            <button class="btn btn-primary btn-lg"
+                                    :disabled="!isApprovedForAll"
+                                    @click="reMatch(game.game.gameId)">
+                                Re-match
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <card :card="selectedCard" style="width: 300px"
+                              v-if="selectedCard && playerNotAlreadyPlaying(game, selectedCard)">
+                        </card>
+                        <card :card="game.cards.awayCard" style="width: 300px"
+                              v-else-if="game.cards.awayCard && game.cards.awayCard.tokenId">
+                        </card>
+                        <h1 v-else>?</h1>
+                    </div>
+                </div>
 
-        <div class="row mt-5">
+                <!-- Game DRAW -->
+                <div v-if="game.game.state === 4 && youArePlay(game)">
+                    <button class="btn btn-primary" @click="reMatch(game.game.gameId)">Rematch</button>
+                </div>
+            </div>
+            <div class="col mx-auto" v-if="ownerTokensInGames && ownerTokensInGames.length < 1">
+                You have no battles ⚽
+            </div>
+        </div>
+
+        <div class="row mt-5" v-if="order === 'open'">
+            <h4>Open Battles</h4>
             <div class="col-12" v-for="game in openGames" v-bind:key="game.id">
+
                 <div class="row mt-5">
                     <div class="col-4">
                         <card :card="game.cards.homeCard" style="width: 300px" v-if="game.cards.homeCard"></card>
@@ -132,6 +160,13 @@
             </div>
         </div>
 
+
+        <div class="row mt-5" v-if="order === 'results'">
+            <h4>Battle Results</h4>
+            <div class="col-12" v-for="game in []" v-bind:key="game.id">
+                TODO
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -148,6 +183,7 @@
                 ownerTokensInGames: [],
                 isApprovedForAll: false,
                 selectedCard: null,
+                order: 'open',
             };
         },
         computed: {
@@ -160,6 +196,9 @@
             ]),
         },
         methods: {
+            setOrder: function (field) {
+                return this.order ? this.order = field : this.order;
+            },
             playerNotInGameAlready (tokenId) {
                 return !_.some(this.ownerTokensInGames, ({game}) => {
                     const awayTokenId = game.awayTokenId;
@@ -256,6 +295,7 @@
                         .then(() => {
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();
+                            this.order = 'owner';
                         });
                 }
             },
@@ -270,15 +310,18 @@
                                 //UNSET, OPEN, HOME_WIN, AWAY_WIN, DRAW, CLOSED
                                 const result = events[0].values.result.toNumber();
                                 console.log(result);
+
+                                //FIXME
+                                
                                 if (result === 3) {
                                     notificationService.showSuccessNotification('Yasssss! You won!');
-                                }
-                                else if (result === 2) {
+                                } else if (result === 2) {
                                     notificationService.showFailureNotification('Gutted. You lost!');
-                                }
-                                else {
+                                } else {
                                     notificationService.showNeutralNotification('It\'s a draw...');
                                 }
+
+                                this.order = 'results';
                             }
                             this.loadOpenGames();
                             this.loadGamesSquadArePlaying();
@@ -333,6 +376,12 @@
 <style lang="scss">
     h4 {
         margin: 0;
+    }
+
+    .edit {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        padding-left: 15px;
     }
 </style>
 
