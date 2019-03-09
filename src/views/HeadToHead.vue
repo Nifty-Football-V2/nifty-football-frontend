@@ -68,10 +68,11 @@
                             <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
                         </div>
                         <h2 class="mt-5">VS</h2>
-                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)" class="mt-5">
+                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)"
+                             class="mt-5">
                             <button class="btn btn-primary btn-lg"
                                     :disabled="!isApprovedForAll"
-                                    @click="joinGame(game.game.gameId)">
+                                    @click="joinGame(game)">
                                 Battle
                             </button>
                         </div>
@@ -123,7 +124,8 @@
                             <small>#{{game.game.gameId}}: <i>{{game.game.state | toHumanState}}</i></small>
                         </div>
                         <h2 class="mt-5">VS</h2>
-                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)" class="mt-5">
+                        <div v-if="selectedCard && game.game.state === 1 && !youArePlay(game) && bothCardsHaveAChanceOfWinning(game)"
+                             class="mt-5">
                             <button class="btn btn-primary btn-lg"
                                     :disabled="!isApprovedForAll"
                                     @click="joinGame(game.game.gameId)">
@@ -171,13 +173,13 @@
 </template>
 <script>
     import Card from '../components/Card';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import _ from 'lodash';
     import NotificationService from '../services/notification.service';
 
     export default {
         components: {Card},
-        data () {
+        data() {
             return {
                 openGames: [],
                 ownerTokensInGames: [],
@@ -199,14 +201,14 @@
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;
             },
-            playerNotInGameAlready (tokenId) {
+            playerNotInGameAlready(tokenId) {
                 return !_.some(this.ownerTokensInGames, ({game}) => {
                     const awayTokenId = game.awayTokenId;
                     const homeTokenId = game.homeTokenId;
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            bothCardsHaveAChanceOfWinning (game) {
+            bothCardsHaveAChanceOfWinning(game) {
                 const playingCard = game.game.awayTokenId !== 0 ? game.cards.awayCard : game.cards.homeCard;
 
                 const playingAttributes = [
@@ -235,19 +237,19 @@
                 // console.log(playingAttributes, selectedAttributes, playerHasAChance && selectedHasAChance);
                 return playerHasAChance && selectedHasAChance;
             },
-            youArePlay (game) {
+            youArePlay(game) {
                 const awayTokenId = game.game.awayTokenId;
                 const homeTokenId = game.game.homeTokenId;
                 return _.some(this.squad.tokenIds, (tokenId) => {
                     return tokenId === awayTokenId || tokenId === homeTokenId;
                 });
             },
-            playerNotAlreadyPlaying (game) {
+            playerNotAlreadyPlaying(game) {
                 const awayTokenId = game.game.awayTokenId;
                 const homeTokenId = game.game.homeTokenId;
                 return this.selectedCard && (this.selectedCard.tokenId !== awayTokenId && this.selectedCard.tokenId !== homeTokenId);
             },
-            loadAccountApproval () {
+            loadAccountApproval() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.isApprovedForAll(this.ethAccount)
                         .then((approved) => {
@@ -255,7 +257,7 @@
                         });
                 }
             },
-            grantApprovalForAll () {
+            grantApprovalForAll() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.grantApprovedForAll()
                         .then(() => {
@@ -263,7 +265,7 @@
                         });
                 }
             },
-            removeApprovalForAll () {
+            removeApprovalForAll() {
                 if (this.footballCardsContractService) {
                     this.footballCardsContractService.removeApprovedForAll()
                         .then(() => {
@@ -271,7 +273,7 @@
                         });
                 }
             },
-            withdrawFromGame (gameId) {
+            withdrawFromGame(gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.withdrawFromGame(gameId)
                         .then(() => {
@@ -280,7 +282,7 @@
                         });
                 }
             },
-            reMatch (gameId) {
+            reMatch(gameId) {
                 if (this.headToHeadContractService && gameId) {
                     this.headToHeadContractService.reMatch(gameId)
                         .then(() => {
@@ -289,7 +291,7 @@
                         });
                 }
             },
-            createNewGame () {
+            createNewGame() {
                 if (this.headToHeadContractService && this.selectedCard) {
                     this.headToHeadContractService.createGame(this.selectedCard)
                         .then(() => {
@@ -299,24 +301,37 @@
                         });
                 }
             },
-            joinGame (gameId) {
-                if (this.headToHeadContractService && this.selectedCard && gameId) {
+            joinGame(game) {
+                if (this.headToHeadContractService && this.selectedCard && game) {
+
+                    const gameId = game.game.gameId;
+
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then((receipt) => {
                             const events = this.headToHeadContractService.parseLog(receipt);
                             console.log(`events`, events);
                             if (events) {
                                 const notificationService = new NotificationService();
-                                //UNSET, OPEN, HOME_WIN, AWAY_WIN, DRAW, CLOSED
-                                const result = events[0].values.result.toNumber();
-                                console.log(result);
 
-                                //FIXME
-                                
-                                if (result === 3) {
-                                    notificationService.showSuccessNotification('Yasssss! You won!');
-                                } else if (result === 2) {
-                                    notificationService.showFailureNotification('Gutted. You lost!');
+                                // TODO test this....
+                                // TODO maybe needs to bre broken out into service or into a better template?
+
+                                // Event data
+                                let {home, away, gameId, homeValue, awayValue, result} = events[0].values;
+
+                                result = result.toNumber();
+                                homeValue = homeValue.toNumber();
+                                awayValue = awayValue.toNumber();
+
+                                // TODO Customise messages based on the resulting field
+                                const fields = ['strength', 'speed', 'intelligence', 'skill'];
+
+                                const winningField = fields[result];
+
+                                if (homeValue > awayValue) {
+                                    notificationService.showFailureNotification(`Gutted. You lost! - you got beat ${homeValue} to ${awayValue} on ${winningField}`);
+                                } else if (homeValue < awayValue) {
+                                    notificationService.showSuccessNotification(`Yasssss! You won! - winning ${awayValue} to ${homeValue} on ${winningField}`);
                                 } else {
                                     notificationService.showNeutralNotification('It\'s a draw...');
                                 }
@@ -328,27 +343,27 @@
                         });
                 }
             },
-            async loadOpenGames () {
+            async loadOpenGames() {
                 const {openGames} = await this.headToHeadApiService.getOpenGames();
                 this.openGames = openGames;
             },
-            async loadGamesSquadArePlaying () {
+            async loadGamesSquadArePlaying() {
                 this.ownerTokensInGames = await this.headToHeadApiService.getGamesForTokens(this.squad.tokenIds);
             }
         },
         watch: {
             ethAccount: {
-                handler () {
+                handler() {
                     this.loadAccountApproval();
                 }
             },
             squad: {
-                handler () {
+                handler() {
                     this.loadGamesSquadArePlaying();
                 }
             },
         },
-        created () {
+        created() {
 
             this.$store.watch(
                 () => this.$store.state.networkId,
