@@ -8,11 +8,13 @@ import Marketplace from './views/Marketplace.vue';
 import Leaderboards from './views/Leaderboards.vue';
 import HeadToHead from './views/HeadToHead.vue';
 import Team from './views/Team.vue';
+import Card from './views/Card.vue';
 
 Vue.use(Router);
 
 export default new Router({
     mode: 'history',
+    linkActiveClass: 'is-active',
     base: process.env.BASE_URL,
     routes: [
         {
@@ -54,6 +56,12 @@ export default new Router({
             path: '/team',
             name: 'team',
             component: Team
+        },
+        {
+            path: '/card/:tokenId',
+            name: 'card',
+            component: Card,
+            props: true
         }
     ]
 });
