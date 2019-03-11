@@ -51,6 +51,11 @@
             <a href="https://medium.com/niftyfootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'medium']" size="3x" class="ml-3 mr-3 text-primary"/>
             </a>
+
+            <div class="mt-5">
+                Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stan Chow</a>
+            </div>
+
         </footer>
 
     </div>
