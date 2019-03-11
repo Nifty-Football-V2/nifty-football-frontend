@@ -2,7 +2,6 @@
     <div class="container-fluid mb-5">
         <div class="row bg-warning pt-5 pb-5 mb-5">
             <div class="col" v-if="card">
-                <h5 class="mb-5">#{{ ('00000' + card.tokenId).slice(-6) }}</h5>
                 <card :card="card" style="max-width: 300px" class="mx-auto"></card>
             </div>
         </div>
@@ -105,17 +104,31 @@
     @import "../colours";
 
     h1 {
-        font-size: 5rem;
+        font-size: 3rem;
+    }
+
+    .numberCircle {
+        font-size: 1.3rem;
+        border-radius: 50%;
+
+        width: 45px;
+        height: 45px;
+        padding: 10px;
+
+        background: $body-bg;
+        border: 2px solid $primary;
+        color: $secondary;
+        text-align: center;
     }
 
     .card-label {
-        font-size: 1.25rem;
+        font-size: 1rem;
         color: $primary;
     }
 
     .card-stats {
         font-family: 'Bungee Inline', cursive;
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         color: $white;
     }
 
