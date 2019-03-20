@@ -29,7 +29,7 @@
 
         <div class="row" v-if="squad">
             <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
-                <card :card="card"></card>
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
             </div>
         </div>
     </div>

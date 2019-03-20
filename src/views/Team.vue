@@ -17,21 +17,21 @@
         <div class="row" v-if="squad">
             <div class="offset-3">&nbsp;</div>
             <div class="col-3  mb-5" v-for="card in limitBy(getBestStrikers(), 2)" v-bind:key="card.tokenId">
-                <card :card="card"></card>
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
             </div>
         </div>
 
         <h3 class="mb-4">Midfield</h3>
         <div class="row" v-if="squad">
             <div class="col-3 mb-5" v-for="card in limitBy(getBestMidfielders(), 4)" v-bind:key="card.tokenId">
-                <card :card="card"></card>
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
             </div>
         </div>
 
         <h3 class="mb-4">Defence</h3>
         <div class="row" v-if="squad">
             <div class="col-3 mb-5" v-for="card in limitBy(getBestDefenders(), 4)" v-bind:key="card.tokenId">
-                <card :card="card"></card>
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
         <div class="row" v-if="squad">
             <div class="offset-5">&nbsp;</div>
             <div class="col-3 mb-5" v-for="card in limitBy(getBestGoalkeeper(), 1)" v-bind:key="card.tokenId">
-                <card :card="card"></card>
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
             </div>
         </div>
     </div>
