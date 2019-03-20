@@ -1,9 +1,9 @@
 <template>
-    <div class="container mb-2">
+    <div class="container">
         <div class="row pb-4">
             <div class="col">
                 <h1 class="mt-5">{{ $t('common.nifty_football') }}</h1>
-                <img src="../assets/stan_v3.png" style="max-height: 300px" class="mt-4"/>
+                <img src="../assets/tiger.svg" style="max-height: 300px" class="mt-4"/>
                 <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
             </div>
         </div>
