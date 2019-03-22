@@ -8,6 +8,7 @@ export default {
             leaderboards: 'Leaderboards',
             account: 'Squad',
             team: 'Best Team',
+            head2head: 'Head 2 Head Battles',
         },
         common: {
             nifty_football: 'Nifty Football',
@@ -26,6 +27,12 @@ export default {
         },
         message: {
             hello_world: 'hello world'
+        },
+        games: {
+            head_to_head: {
+                short_intro_1: "Battle your players against one another in a game of winner takes all.",
+                short_intro_2: "Select your best players in a head to head match",
+            }
         }
     },
     // ja: {

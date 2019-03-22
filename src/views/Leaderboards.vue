@@ -7,19 +7,19 @@
             </div>
         </div>
 
-        <div class="row" v-if="account && ethAccount">
+        <div class="row" v-if="squad && ethAccount">
             <div class="col text-left">
                 <h4>&nbsp;</h4>
             </div>
 
             <div class="col text-right">
                 <a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>
-                <a href="#" @click="setOrder('team')" class="edit">{{ $t('common.team') }}</a>
+                <a href="#" @click="setOrder('team')" class="edit">{{ $t('nav.team') }}</a>
             </div>
         </div>
 
-        <div v-if="account && order === 'attributeAvg'">
-            <div class="row mb-5" v-for="(card, index) in orderBy(limitBy(account.tokenDetails, 10), order,  -1)" v-bind:key="card.tokenId">
+        <div v-if="squad && order === 'attributeAvg'">
+            <div class="row mb-5" v-for="(card, index) in orderBy(limitBy(squad.tokenDetails, 10), order,  -1)" v-bind:key="card.tokenId">
                 <div class="col-5 text-right">
                     <h1>{{ index + 1 }}</h1>
                 </div>
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="account && order === 'team'">
+        <div v-if="squad && order === 'team'">
             <div class="row mb-5" v-for="(team, index) in teamArray" v-bind:key="team[0]">
                 <div class="col-4 text-right">
                     <h1>{{ index + 1 }}</h1>
@@ -59,7 +59,7 @@
             };
         },
         computed: {
-            ...mapState(['account', 'ethAccount']),
+            ...mapState(['squad', 'ethAccount']),
         },
         methods: {
             setOrder: function (field) {

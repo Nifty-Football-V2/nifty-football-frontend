@@ -1,38 +1,39 @@
 <template>
     <div id="app">
-        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">-->
-        <!--<locale-changer></locale-changer>-->
-        <!--<div class="container">-->
-        <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
-        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
-        <!--aria-label="Toggle navigation">-->
-        <!--<span class="navbar-toggler-icon"></span>-->
-        <!--</button>-->
-        <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
-        <!--<ul class="navbar-nav ml-auto">-->
-        <!--<li class="nav-item">-->
-        <!--<router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>-->
-        <!--</li>-->
-        <!--<li class="nav-item">-->
-        <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
-        <!--</li>-->
-        <!--<li class="nav-item">-->
-        <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
-        <!--</li>-->
-        <!--<li class="nav-item">-->
-        <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
-        <!--</li>-->
-        <!--<li class="nav-item">-->
-        <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
-        <!--</li>-->
-        <!--<li class="nav-item">-->
-        <!--<router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</nav>-->
-        <router-view class="text-center"/>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
+            <locale-changer></locale-changer>
+            <div class="container">
+                <a class="navbar-brand" href="#">&nbsp;</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <router-view class="text-center pb-5"/>
         <vue-snotify></vue-snotify>
 
         <footer class="text-center mb-4">
@@ -43,7 +44,7 @@
                 <font-awesome-icon :icon="['fab', 'instagram']" size="2x" class="ml-3 mr-3 text-primary"/>
             </a>
             <!--<a href="https://discord.gg/gcbWFf" target="_blank">-->
-                <!--<font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-primary"/>-->
+            <!--<font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-primary"/>-->
             <!--</a>-->
             <a href="https://t.me/niftyfootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'telegram']" size="2x" class="ml-3 mr-3 text-primary"/>
@@ -57,19 +58,64 @@
             </div>
 
         </footer>
-
     </div>
 </template>
 
 <script>
-    // import LocaleChanger from './components/LocaleChanger';
+    import LocaleChanger from './components/LocaleChanger';
+    import {mapState} from 'vuex';
 
     export default {
-        // components: {LocaleChanger},
-        // created: async function () {
-        //     // presume we can pick up a eth account from DEMO!
-        //     this.$store.dispatch('loadAccount');
-        // }
+        components: {
+            LocaleChanger
+        },
+        computed: {
+            ...mapState([
+                'ethAccount',
+                'networkId'
+            ])
+        },
+        created: async function () {
+
+            if (typeof window.ethereum === 'undefined') {
+
+                // FIXME handle this
+
+                alert('Looks like you need a Dapp browser to get started.');
+                alert('Consider installing MetaMask!');
+
+            } else {
+
+                // In the case the user has MetaMask installed, you can easily
+                // ask them to sign in and reveal their accounts:
+                ethereum.enable()
+                    .catch((reason) => {
+                        // FIXME handle this
+                        if (reason === 'User rejected provider access') {
+                            // The user didn't want to sign in!
+                        } else {
+                            // This shouldn't happen, so you might want to log this...
+                            alert('There was an issue signing you in.');
+                        }
+                    })
+                    // In the case they approve the log-in request, you'll receive their accounts:
+                    .then((accounts) => {
+
+                        const account = accounts[0];
+                        this.$store.commit('ethAccount', account);
+                        this.$store.dispatch('bootstrapApp');
+
+                        // Reload the account logic if we see a change
+                        ethereum.on('accountsChanged', (accounts) => {
+                            console.log('accountsChanged', accounts);
+
+                            const account = accounts[0];
+                            this.$store.commit('ethAccount', account);
+                            this.$store.dispatch('bootstrapApp');
+                        });
+                    });
+            }
+        }
     };
 </script>
 

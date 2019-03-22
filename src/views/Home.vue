@@ -8,6 +8,16 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col text-center">
+                <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-2" variant="primary" size="lg" :disabled="!packPrices">
+                    <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Trading Card</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Packs</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
+                </b-dropdown>
+            </div>
+        </div>
+
 
         <countdown-timer></countdown-timer>
 
@@ -43,21 +53,79 @@
             </div>
         </div>
     </div>
-
-    <!--End mc_embed_signup-->
-
-    <!--<div class="row m-5 justify-content-sm-center">-->
-    <!--<div class="col col-sm-8">-->
-    <!--<a class="e-widget no-button" href="https://gleam.io/dmHqu/nifty-football-beta-access" rel="nofollow">Nifty Football Beta Access</a>-->
-    <!--</div>-->
-    <!--</div>-->
 </template>
 
-
 <script>
+    /* global web3 */
+    import {mapState} from 'vuex';
+    import NotificationService from '../services/notification.service';
     import CountdownTimer from '../components/Countdown';
 
     export default {
-        components: {CountdownTimer}
+        name: 'home',
+        data() {
+            return {
+                packPrices: {},
+            };
+        },
+        computed: {
+            ...mapState([
+                'squad',
+                'ethAccount',
+                'blindPackService',
+            ]),
+        },
+        components: {CountdownTimer},
+        methods: {
+            buyCard: async function (num) {
+
+                console.log(num, this.packPrices[num], this.ethAccount);
+
+                // FIXME should this be in the view or a service?
+
+                const notificationService = new NotificationService();
+
+                notificationService.showPurchaseNotification();
+
+                // wait for tx to be mined
+                let tx = await this.blindPackService.buyBlindPack(num);
+
+                notificationService.showProcessingNotification();
+
+                let receipt = await tx.wait(1);
+
+                // for local DEMO purposes!!!
+                function sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }
+
+                await sleep(2000);
+
+                const secondEvent = receipt.events[1];
+
+                // FIXME this doesnt work with multiple purchases...?
+                this.buildingTokenId = web3.toDecimal(secondEvent.topics[1]);
+
+                console.log(`Token ID:`, this.buildingTokenId);
+                notificationService.showConfirmedNotification(this.buildingTokenId);
+
+                this.$store.dispatch('loadSquad');
+            }
+        },
+        async created() {
+
+            const loadData = async () => {
+                this.packPrices = await this.blindPackService.getPriceModel();
+            };
+
+            this.$store.watch(
+                () => this.$store.state.blindPackService,
+                () => loadData()
+            );
+
+            if (this.$store.state.blindPackService) {
+                loadData();
+            }
+        }
     };
 </script>

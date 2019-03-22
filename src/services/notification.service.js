@@ -71,4 +71,64 @@ export default class NotificationService {
                 type: 'success',
             });
     }
+
+    showSuccessNotification (message) {
+
+        if (this.notification) {
+            Vue.$snotify.remove(this.notification.id);
+        }
+
+        this.notification = Vue.$snotify.html(
+            `<div class="snotifyToast__body">
+              <div class="notification-icon">🤟</div>
+              <div class="notification-msg">
+                ${message}
+              </div>
+            </div>`,
+            {
+                ...defaults,
+                timeout: 10000, // 10s timeout
+                type: 'success',
+            });
+    }
+
+    showFailureNotification (message) {
+
+        if (this.notification) {
+            Vue.$snotify.remove(this.notification.id);
+        }
+
+        this.notification = Vue.$snotify.html(
+            `<div class="snotifyToast__body">
+              <div class="notification-icon">🤟</div>
+              <div class="notification-msg">
+                ${message}
+              </div>
+            </div>`,
+            {
+                ...defaults,
+                timeout: 10000, // 10s timeout
+                type: 'danger',
+            });
+    }
+
+    showNeutralNotification (message) {
+
+        if (this.notification) {
+            Vue.$snotify.remove(this.notification.id);
+        }
+
+        this.notification = Vue.$snotify.html(
+            `<div class="snotifyToast__body">
+              <div class="notification-icon">🤟</div>
+              <div class="notification-msg">
+                ${message}
+              </div>
+            </div>`,
+            {
+                ...defaults,
+                timeout: 10000, // 10s timeout
+                type: 'info',
+            });
+    }
 }

@@ -7,7 +7,7 @@
             </div>
         </div>
 
-        <div class="row" v-if="account && ethAccount">
+        <div class="row" v-if="squad && ethAccount">
             <div class="col text-left">
                 <h4>{{ nickname || dotDotDot(ethAccount) }}
                     <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
@@ -27,9 +27,9 @@
             </div>
         </div>
 
-        <div class="row" v-if="account">
-            <div class="col-3 mb-5" v-for="card in orderBy(account.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
-                <card :card="card"></card>
+        <div class="row" v-if="squad">
+            <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
             </div>
         </div>
     </div>
@@ -42,17 +42,20 @@
     export default {
         components: {Card},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 order: 'position',
                 nickname: null,
             };
         },
         computed: {
-            ...mapState(['account', 'ethAccount']),
+            ...mapState([
+                'squad',
+                'ethAccount'
+            ]),
         },
         methods: {
-            editEthAccountName () {
+            editEthAccountName() {
                 this.nickname = `Real Madras`;
             },
             dotDotDot: function (ethAccount) {
