@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
             <locale-changer></locale-changer>
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
@@ -41,6 +41,7 @@
 
         <vue-snotify></vue-snotify>
 
+
         <footer class="text-center mb-4">
             <a href="https://twitter.com/NiftyFootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'twitter']" size="2x" class="ml-3 mr-3 text-primary"/>
@@ -74,6 +75,11 @@
         components: {
             LocaleChanger
         },
+        data() {
+            return {
+                isDev: process.env.NODE_ENV === 'development',
+            };
+        },
         computed: {
             ...mapState([
                 'ethAccount',
@@ -81,6 +87,7 @@
             ])
         },
         created: async function () {
+
 
             if (typeof window.ethereum === 'undefined') {
 
