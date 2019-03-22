@@ -1,5 +1,5 @@
 <template>
-    <div class="container mb-5">
+    <div class="container">
         <div class="row pb-4">
             <div class="col">
                 <h1 class="mt-5">{{ $t('nav.account') }}</h1>

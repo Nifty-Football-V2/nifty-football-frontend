@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
             <locale-changer></locale-changer>
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
@@ -13,6 +13,9 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
@@ -33,11 +36,33 @@
                 </div>
             </div>
         </nav>
+
         <router-view class="text-center pb-5"/>
+
         <vue-snotify></vue-snotify>
 
-        <footer class="text-light pb-5 mb-5 small">
-                {{networkId}} | {{ethAccount}}
+
+        <footer class="text-center mb-4">
+            <a href="https://twitter.com/NiftyFootball" target="_blank">
+                <font-awesome-icon :icon="['fab', 'twitter']" size="2x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <a href="https://www.instagram.com/niftyfootball/" target="_blank">
+                <font-awesome-icon :icon="['fab', 'instagram']" size="2x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <!--<a href="https://discord.gg/gcbWFf" target="_blank">-->
+            <!--<font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-primary"/>-->
+            <!--</a>-->
+            <a href="https://t.me/niftyfootball" target="_blank">
+                <font-awesome-icon :icon="['fab', 'telegram']" size="2x" class="ml-3 mr-3 text-primary"/>
+            </a>
+            <a href="https://medium.com/niftyfootball" target="_blank">
+                <font-awesome-icon :icon="['fab', 'medium']" size="2x" class="ml-3 mr-3 text-primary"/>
+            </a>
+
+            <div class="mt-3">
+                Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stan Chow</a>
+            </div>
+
         </footer>
     </div>
 </template>
@@ -50,6 +75,11 @@
         components: {
             LocaleChanger
         },
+        data() {
+            return {
+                isDev: process.env.NODE_ENV === 'development',
+            };
+        },
         computed: {
             ...mapState([
                 'ethAccount',
@@ -57,6 +87,7 @@
             ])
         },
         created: async function () {
+
 
             if (typeof window.ethereum === 'undefined') {
 

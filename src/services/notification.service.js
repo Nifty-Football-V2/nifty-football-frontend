@@ -61,8 +61,7 @@ export default class NotificationService {
             `<div class="snotifyToast__body">
               <div class="notification-icon">🤟</div>
               <div class="notification-msg">
-                ️Transaction confirmed
-                <img src="http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${tokenId}" style="height: 200px;" class="m-3"/>
+                ️Transaction confirmed!
               </div>
             </div>`,
             {

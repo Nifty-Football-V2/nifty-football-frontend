@@ -9,6 +9,7 @@ import Leaderboards from './views/Leaderboards.vue';
 import HeadToHead from './views/HeadToHead.vue';
 import Team from './views/Team.vue';
 import Card from './views/Card.vue';
+import Buy from './views/Buy.vue';
 
 Vue.use(Router);
 
@@ -21,6 +22,11 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/buy',
+            name: 'buy',
+            component: Buy
         },
         {
             path: '/about',
