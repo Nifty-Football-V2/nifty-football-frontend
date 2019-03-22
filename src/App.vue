@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
-            <locale-changer></locale-changer>
+            <!--<locale-changer></locale-changer>-->
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -42,7 +42,7 @@
         <vue-snotify></vue-snotify>
 
 
-        <footer class="text-center mb-4">
+        <footer class="text-center">
             <a href="https://twitter.com/NiftyFootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'twitter']" size="2x" class="ml-3 mr-3 text-primary"/>
             </a>
@@ -62,7 +62,6 @@
             <div class="mt-3">
                 Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stan Chow</a>
             </div>
-
         </footer>
     </div>
 </template>
@@ -190,6 +189,10 @@
         }
     }
 
+    footer {
+        margin-bottom: 80px;
+        margin-top: 50px;
+    }
 
     /**************************************/
     /* vue-snotify notification overrides */

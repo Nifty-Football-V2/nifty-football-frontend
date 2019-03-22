@@ -7,13 +7,19 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="buyState === 'idle'">
             <div class="col text-center">
                 <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-2" variant="primary" size="lg" :disabled="!packPrices">
                     <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Trading Card</b-dropdown-item>
                     <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Packs</b-dropdown-item>
                     <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
                 </b-dropdown>
+            </div>
+        </div>
+
+        <div v-else class="row">
+            <div class="col text-center">
+                BOOOM!
             </div>
         </div>
 
@@ -30,6 +36,7 @@
         data() {
             return {
                 packPrices: {},
+                buyState: 'idle',
             };
         },
         computed: {
@@ -54,6 +61,8 @@
                 // wait for tx to be mined
                 let tx = await this.blindPackService.buyBlindPack(num);
 
+                this.buyState = 'ongoing';
+
                 notificationService.showProcessingNotification();
 
                 let receipt = await tx.wait(1);
@@ -62,6 +71,10 @@
                 function sleep(ms) {
                     return new Promise(resolve => setTimeout(resolve, ms));
                 }
+
+                await sleep(2000);
+
+                this.buyState = 'confirmed';
 
                 await sleep(2000);
 
@@ -74,6 +87,8 @@
                 notificationService.showConfirmedNotification(this.buildingTokenId);
 
                 this.$store.dispatch('loadSquad');
+
+                this.buyState = 'idle';
             }
         },
         async created() {
