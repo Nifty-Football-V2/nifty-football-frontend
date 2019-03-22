@@ -24,7 +24,7 @@
                     <h1>{{ index + 1 }}</h1>
                 </div>
                 <div class="col-3">
-                    <card :card="card"></card>
+                    <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
                 </div>
             </div>
         </div>

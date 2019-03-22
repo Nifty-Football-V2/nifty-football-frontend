@@ -15,6 +15,9 @@
                             <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
                         </li>
                         <li class="nav-item">
@@ -33,7 +36,9 @@
                 </div>
             </div>
         </nav>
+
         <router-view class="text-center pb-5"/>
+
         <vue-snotify></vue-snotify>
 
         <footer class="text-center mb-4">

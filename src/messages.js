@@ -2,6 +2,7 @@ export default {
     en: {
         nav: {
             home: 'Home',
+            buy: 'Buy',
             about: 'About',
             play: 'Play',
             marketplace: 'Transfer Market',
