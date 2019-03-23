@@ -22,6 +22,7 @@
     "vue": "^2.6.7",
     "vue-analytics": "^5.16.2",
     "vue-i18n": "^8.8.2",
+    "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
     "vue-snotify": "^3.2.1",
     "vue2-filters": "^0.4.1",

@@ -27,9 +27,11 @@
             </div>
         </div>
 
+        <!--<img src="../assets/nifty_holding_image.svg"/>-->
+
         <div class="row" v-if="squad">
             <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+                <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
             </div>
         </div>
     </div>
@@ -37,12 +39,13 @@
 <script>
     import Vue2Filters from 'vue2-filters';
     import Card from '../components/Card';
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
+    import LazyImgLoader from '../components/LazyImgLoader';
 
     export default {
-        components: {Card},
+        components: {LazyImgLoader, Card},
         mixins: [Vue2Filters.mixin],
-        data() {
+        data () {
             return {
                 order: 'position',
                 nickname: null,
@@ -55,7 +58,7 @@
             ]),
         },
         methods: {
-            editEthAccountName() {
+            editEthAccountName () {
                 this.nickname = `Real Madras`;
             },
             dotDotDot: function (ethAccount) {

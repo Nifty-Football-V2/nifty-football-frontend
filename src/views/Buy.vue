@@ -82,7 +82,7 @@
                 let tx = await this.blindPackService.buyBlindPack(num);
 
                 console.log(tx);
-                
+
                 notificationService.showProcessingNotification();
 
                 let receipt = await tx.wait(1);

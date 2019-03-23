@@ -12,6 +12,14 @@ import { faDiscord, faTelegram, faTwitter, faInstagram, faMedium } from '@fortaw
 import { faFutbol } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueAnalytics from 'vue-analytics';
+import VueLazyload from 'vue-lazyload';
+
+Vue.use(VueLazyload, {
+    // set observer to true
+    observer: true,
+    loading: './public/tiger.png',
+    lazyComponent: true
+});
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
