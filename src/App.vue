@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
-            <!--<locale-changer></locale-changer>-->
+            <locale-changer></locale-changer>
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -142,40 +142,40 @@
         -moz-osx-font-smoothing: grayscale;
     }
 
+    p {
+        color: $primary;
+    }
+
     body {
-        color: $white;
+        color: $primary;
     }
 
     h1 {
         font-family: 'Bungee Inline', cursive;
         font-size: 3.25rem;
-        color: $white;
+        color: $primary;
         letter-spacing: 0.5rem;
     }
 
     h2 {
         font-family: 'Bungee Inline', cursive;
         font-size: 2.5rem;
-        color: $white;
+        color: $primary;
         letter-spacing: 0.5rem;
     }
 
     h3 {
-        color: $white;
+        color: $primary;
         letter-spacing: 0.15rem;
     }
 
     h4 {
         font-family: 'Bungee Inline', cursive;
-        color: $white;
+        color: $primary;
     }
 
     h5 {
-        color: $white;
-    }
-
-    p {
-        color: $white;
+        color: $primary;
     }
 
     .btn-primary {

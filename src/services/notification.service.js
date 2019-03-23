@@ -51,7 +51,7 @@ export default class NotificationService {
             });
     }
 
-    showConfirmedNotification (tokenId) {
+    showConfirmedNotification () {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);

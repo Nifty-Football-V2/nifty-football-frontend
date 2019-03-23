@@ -51,13 +51,13 @@
     .countdown-text {
         font-family: 'Bungee Inline', cursive;
         font-size: 1.75rem;
-        color: $white;
+        color: $primary;
         letter-spacing: 0.15rem;
     }
 
     .countdown-label {
         font-size: 1.25rem;
-        color: $white;
+        color: $primary;
         letter-spacing: 0.15rem;
     }
 </style>

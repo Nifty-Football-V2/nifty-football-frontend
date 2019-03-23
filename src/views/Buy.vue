@@ -3,23 +3,39 @@
         <div class="row pb-4">
             <div class="col">
                 <h1 class="mt-5">{{ $t('common.nifty_football') }}</h1>
-                <img src="../assets/tiger.svg" style="max-height: 300px" class="mt-4"/>
+            </div>
+        </div>
+
+        <div class="row pb-4 text-center" v-if="buyState === 'mining'">
+            <div class="col mb-5 text-primary">
+                <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+            </div>
+        </div>
+
+        <div class="row pb-4 text-center" v-if="cards && cards.length > 0 && buyState === 'confirmed'">
+            <div class="col mb-5">
+                <h4 class="mb-5">Goooooaaaaaal!!!!</h4>
+                <p class="mb-5">You cards are ready...</p>
+                <button class="btn btn-lg btn-primary" @click="setState('unveiled')">Open pack</button>
+            </div>
+        </div>
+
+        <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'unveiled'">
+            <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+            </div>
+            <div class="col-3 mb-5">
+                <a href="#" class="mt-5" @click="setState('idle')">Buy more</a>
             </div>
         </div>
 
         <div class="row" v-if="buyState === 'idle'">
             <div class="col text-center">
-                <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-2" variant="primary" size="lg" :disabled="!packPrices">
+                <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-5" variant="primary" size="lg" :disabled="!packPrices">
                     <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Trading Card</b-dropdown-item>
                     <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Packs</b-dropdown-item>
                     <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
                 </b-dropdown>
-            </div>
-        </div>
-
-        <div v-else class="row">
-            <div class="col text-center">
-                BOOOM!
             </div>
         </div>
 
@@ -28,15 +44,17 @@
 
 <script>
     /* global web3 */
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import NotificationService from '../services/notification.service';
+    import CardsApiService from '../services/api/cardsApi.service';
 
     export default {
         name: 'home',
-        data() {
+        data () {
             return {
                 packPrices: {},
                 buyState: 'idle',
+                cards: [],
             };
         },
         computed: {
@@ -50,6 +68,8 @@
         methods: {
             buyCard: async function (num) {
 
+                this.buyState = 'mining';
+
                 console.log(num, this.packPrices[num], this.ethAccount);
 
                 // FIXME should this be in the view or a service?
@@ -61,37 +81,37 @@
                 // wait for tx to be mined
                 let tx = await this.blindPackService.buyBlindPack(num);
 
-                this.buyState = 'ongoing';
-
+                console.log(tx);
+                
                 notificationService.showProcessingNotification();
 
                 let receipt = await tx.wait(1);
 
+                const cardsApiService = new CardsApiService(5777);
+
+                const txRes = await cardsApiService.loadTokensForTx(tx.hash);
+                this.cards = txRes.cards;
+
                 // for local DEMO purposes!!!
-                function sleep(ms) {
+                function sleep (ms) {
                     return new Promise(resolve => setTimeout(resolve, ms));
                 }
 
-                await sleep(2000);
+                await sleep(4000);
 
                 this.buyState = 'confirmed';
 
-                await sleep(2000);
-
-                const secondEvent = receipt.events[1];
-
-                // FIXME this doesnt work with multiple purchases...?
-                this.buildingTokenId = web3.toDecimal(secondEvent.topics[1]);
-
-                console.log(`Token ID:`, this.buildingTokenId);
-                notificationService.showConfirmedNotification(this.buildingTokenId);
+                notificationService.showConfirmedNotification();
 
                 this.$store.dispatch('loadSquad');
 
-                this.buyState = 'idle';
-            }
+                // this.buyState = 'idle';
+            },
+            setState: function (state) {
+                this.buyState = state;
+            },
         },
-        async created() {
+        async created () {
 
             const loadData = async () => {
                 this.packPrices = await this.blindPackService.getPriceModel();
@@ -108,3 +128,11 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+    .btn-xxl {
+        padding: 20px 26px;
+        font-size: 35px;
+        border-radius: 8px;
+    }
+</style>
