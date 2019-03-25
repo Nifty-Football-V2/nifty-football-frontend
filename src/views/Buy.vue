@@ -6,7 +6,7 @@
             </div>
         </div>
 
-        <div class="row pb-4 text-center" v-if="buyState === 'mining'">
+        <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
             <div class="col mb-5 text-primary">
                 <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
             </div>
@@ -14,7 +14,7 @@
         
         <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
             <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                <img src="../assets/nifty_holding_image.svg" v-show="!cardsShow" @click="showCard(card.tokenId)"/>
+                <img src="../assets/nifty_reveal.svg" v-show="!cardsShow" @click="showCard()"/>
                 <lazy-img-loader :src="card.tokenId" :id="card.tokenId" v-show="cardsShow"></lazy-img-loader>
             </div>
         </div>
@@ -67,8 +67,6 @@
 
                 this.buyState = 'mining';
 
-                // console.log(num, this.packPrices[num], this.ethAccount);
-
                 const notificationService = new NotificationService();
 
                 notificationService.showPurchaseNotification();
@@ -97,21 +95,17 @@
                 this.buyState = 'confirmed';
 
                 notificationService.showConfirmedNotification();
-
-                this.$store.dispatch('loadSquad');
-
-                // this.buyState = 'idle';
             },
             setState (state) {
                 this.buyState = state;
             },
             showCard (card) {
-                console.log(card);
+                console.log(`card`, card);
+                this.cards[0].show = true;
                 this.cardsShow = true;
             },
         },
         async created () {
-
             const loadData = async () => {
                 this.packPrices = await this.blindPackService.getPriceModel();
             };
