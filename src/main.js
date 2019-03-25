@@ -65,6 +65,11 @@ Vue.filter('toHumanState', function (state) {
     }
 });
 
+Vue.filter('toEth', function (value) {
+    if (!value) return '';
+    return web3.fromWei(value.toString());
+});
+
 Vue.use(VueAnalytics, {
     id: 'UA-135557019-1',
     router,

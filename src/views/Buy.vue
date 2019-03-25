@@ -11,7 +11,7 @@
                 <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
             </div>
         </div>
-        
+
         <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
             <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
                 <img src="../assets/nifty_reveal.svg" v-show="!cardsShow" @click="showCard()"/>
@@ -28,10 +28,12 @@
         <div class="row" v-if="buyState === 'idle'">
             <div class="col text-center">
                 <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-5" variant="primary" size="lg" :disabled="!packPrices">
-                    <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Trading Card</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Packs</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(3)">Buy 3 Cards</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="buyCard(6)">Buy 6 Cards</b-dropdown-item>
                 </b-dropdown>
+
+                <div v-for="price, num in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }}  for {{ price | toEth }} ETH</div>
             </div>
         </div>
 
@@ -98,6 +100,7 @@
             },
             setState (state) {
                 this.buyState = state;
+                this.cardsShow = false;
             },
             showCard (card) {
                 console.log(`card`, card);
