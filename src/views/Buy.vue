@@ -67,7 +67,7 @@
 
                 this.buyState = 'mining';
 
-                console.log(num, this.packPrices[num], this.ethAccount);
+                // console.log(num, this.packPrices[num], this.ethAccount);
 
                 const notificationService = new NotificationService();
 
