@@ -11,21 +11,17 @@
                 <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
             </div>
         </div>
-
-        <div class="row pb-4 text-center" v-if="cards && cards.length > 0 && buyState === 'confirmed'">
-            <div class="col mb-5">
-                <h4 class="mb-5">Goooooaaaaaal!!!!</h4>
-                <p class="mb-5">You cards are ready...</p>
-                <button class="btn btn-lg btn-primary" @click="setState('unveiled')">Open pack</button>
+        
+        <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
+            <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
+                <img src="../assets/nifty_holding_image.svg" v-show="!cardsShow" @click="showCard(card.tokenId)"/>
+                <lazy-img-loader :src="card.tokenId" :id="card.tokenId" v-show="cardsShow"></lazy-img-loader>
             </div>
         </div>
 
-        <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'unveiled'">
-            <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
-            </div>
-            <div class="col-3 mb-5">
-                <a href="#" class="mt-5" @click="setState('idle')">Buy more</a>
+        <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
+            <div class="col mb-5">
+                <b-button variant="outline-primary" size="lg" @click="setState('idle')">Buy more?</b-button>
             </div>
         </div>
 
@@ -43,18 +39,20 @@
 </template>
 
 <script>
-    /* global web3 */
     import { mapState } from 'vuex';
     import NotificationService from '../services/notification.service';
     import CardsApiService from '../services/api/cardsApi.service';
 
+    import LazyImgLoader from '../components/LazyImgLoader';
+
     export default {
-        name: 'home',
+        components: {LazyImgLoader},
         data () {
             return {
                 packPrices: {},
                 buyState: 'idle',
                 cards: [],
+                cardsShow: false,
             };
         },
         computed: {
@@ -64,15 +62,12 @@
                 'blindPackService',
             ]),
         },
-        components: {},
         methods: {
             buyCard: async function (num) {
 
                 this.buyState = 'mining';
 
                 console.log(num, this.packPrices[num], this.ethAccount);
-
-                // FIXME should this be in the view or a service?
 
                 const notificationService = new NotificationService();
 
@@ -85,19 +80,19 @@
 
                 notificationService.showProcessingNotification();
 
-                let receipt = await tx.wait(1);
+                await tx.wait(1);
 
                 const cardsApiService = new CardsApiService(5777);
 
                 const txRes = await cardsApiService.loadTokensForTx(tx.hash);
                 this.cards = txRes.cards;
 
-                // for local DEMO purposes!!!
-                function sleep (ms) {
-                    return new Promise(resolve => setTimeout(resolve, ms));
-                }
-
-                await sleep(4000);
+                // // for local DEMO purposes!!!
+                // function sleep (ms) {
+                //     return new Promise(resolve => setTimeout(resolve, ms));
+                // }
+                //
+                // await sleep(1000);
 
                 this.buyState = 'confirmed';
 
@@ -107,8 +102,12 @@
 
                 // this.buyState = 'idle';
             },
-            setState: function (state) {
+            setState (state) {
                 this.buyState = state;
+            },
+            showCard (card) {
+                console.log(card);
+                this.cardsShow = true;
             },
         },
         async created () {

@@ -27,8 +27,6 @@
             </div>
         </div>
 
-        <!--<img src="../assets/nifty_holding_image.svg"/>-->
-
         <div class="row" v-if="squad">
             <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
                 <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>

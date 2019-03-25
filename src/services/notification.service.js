@@ -23,7 +23,7 @@ export default class NotificationService {
             `<div class="snotifyToast__body">
                 <div class="notification-icon">👍</div>
                 <div class="notification-msg">
-                  Your wallet will take care of it from here...
+                  Firing up the wallet
                 </div>
              </div>`,
             {
