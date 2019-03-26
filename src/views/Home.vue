@@ -7,7 +7,7 @@
                 <div>
                     <b-carousel
                             id="players"
-                            :interval="2500"
+                            :interval="2000"
                             fade>
                         <b-carousel-slide>
                             <img
@@ -33,6 +33,69 @@
                                     class=""
                                     height="300"
                                     src="../assets/examples/3.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/4.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/5.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/6.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/7.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/8.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/9.svg"
+                                    alt="Nifty Football"
+                            />
+                        </b-carousel-slide>
+                        <b-carousel-slide>
+                            <img
+                                    slot="img"
+                                    class=""
+                                    height="300"
+                                    src="../assets/examples/10.svg"
                                     alt="Nifty Football"
                             />
                         </b-carousel-slide>

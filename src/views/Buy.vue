@@ -34,6 +34,7 @@
                 </b-dropdown>
 
                 <div v-for="price, num in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }}  for {{ price | toEth }} ETH</div>
+                <div>1 pack is 3 cards</div>
             </div>
         </div>
 

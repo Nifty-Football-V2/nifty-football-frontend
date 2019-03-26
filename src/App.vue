@@ -41,7 +41,6 @@
 
         <vue-snotify></vue-snotify>
 
-
         <footer class="text-center">
             <a href="https://twitter.com/NiftyFootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'twitter']" size="2x" class="ml-3 mr-3 text-primary"/>
@@ -76,7 +75,7 @@
         },
         data() {
             return {
-                isDev: process.env.NODE_ENV === 'development',
+                isDev: process.env.NODE_ENV !== 'development',
             };
         },
         computed: {
