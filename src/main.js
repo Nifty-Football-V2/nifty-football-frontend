@@ -14,7 +14,7 @@ import Vue2Filters from 'vue2-filters';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faDiscord, faTelegram, faTwitter, faInstagram, faMedium } from '@fortawesome/free-brands-svg-icons';
-import { faFutbol } from '@fortawesome/free-solid-svg-icons';
+import { faFutbol, faChartBar, faRunning, faLightbulb, faDumbbell, faMagic, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import VueAnalytics from 'vue-analytics';
@@ -36,7 +36,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 Vue.use(Vue2Filters);
 
-library.add(faDiscord, faTelegram, faTwitter, faInstagram, faMedium, faFutbol);
+library.add(faDiscord, faTelegram, faTwitter, faInstagram, faMedium, faFutbol, faChartBar, faRunning, faLightbulb, faDumbbell, faMagic, faArrowLeft);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Snotify, {

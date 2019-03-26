@@ -1,87 +1,100 @@
 <template>
-    <div class="container-fluid mb-5">
-        <div class="row bg-warning pt-5 pb-5 mb-5">
-            <div class="col" v-if="card">
-                <card :card="card" style="max-width: 300px" class="mx-auto"></card>
+    <div class="container-fluid mb-5" v-if="card">
+        <div class="row bg-secondary pt-3 pb-5 mb-5">
+            <div class="col">
+                <router-link to="/squad">
+                    <font-awesome-icon :icon="['fas', 'arrow-left']" size="3x" class="text-primary float-left"/>
+                </router-link>
+            </div>
+            <div class="col">
+                <lazy-img-loader :src="card.tokenId" :id="card.tokenId" style="max-width: 300px;"></lazy-img-loader>
+            </div>
+            <div class="col">
+                &nbsp;
             </div>
         </div>
 
         <h1 class="text-center">{{ card.fullName }}</h1>
 
         <div class="row mt-xl">
-            <div class="col" v-if="card">
-                <span class="card-label">Serial</span><br/>
-                <span class="card-stats">#{{ ('00000' + card.tokenId).slice(-6) | uppercase }}</span>
+            <div class="col">
+                <font-awesome-icon :icon="['fas', 'chart-bar']" size="2x" class="text-primary"/>
+                <div class="card-stats-lg">{{ card.attributeAvg }}</div>
+                <div class="card-label-sm">Average</div>
             </div>
-            <div class="col" v-if="card">
-                <span class="card-label">Position</span><br/>
-                <span class="card-stats">{{ card.positionText }}</span>
+            <div class="col">
+                <font-awesome-icon :icon="['fas', 'futbol']" size="2x" class="text-primary"/>
+                <div class="card-stats-lg">{{ card.skill }}</div>
+                <div class="card-label-sm">Skill</div>
             </div>
-            <div class="col" v-if="card">
-                <span class="card-label">Nationality</span><br/>
-                <span class="card-stats">{{ card.nationalityText }}</span>
+            <div class="col">
+                <font-awesome-icon :icon="['fas', 'lightbulb']" size="2x" class="text-primary"/>
+                <div class="card-stats-lg">{{ card.intelligence }}</div>
+                <div class="card-label-sm">Intelligence</div>
             </div>
         </div>
 
-        <div class="row mt-5 mb-5">
-            <div class="col" v-if="card">
-                <span class="card-label">Kit</span><br/>
-                <span class="card-stats">Two-tone</span>
+        <div class="row mt-5">
+            <div class="col">
+                <font-awesome-icon :icon="['fas', 'dumbbell']" size="2x" class="text-primary"/>
+                <div class="card-stats-lg">{{ card.strength }}</div>
+                <div class="card-label-sm">Strength</div>
             </div>
-            <div class="col" v-if="card">
-                <span class="card-label">Colours</span><br/>
-                <span class="card-stats">Clarets</span>
+            <div class="col">
+                <font-awesome-icon :icon="['fas', 'running']" size="2x" class="text-primary"/>
+                <div class="card-stats-lg">{{ card.speed }}</div>
+                <div class="card-label-sm">Speed</div>
             </div>
-            <div class="col" v-if="card">
-                <span class="card-label">Ethenicity</span><br/>
-                <span class="card-stats">Yorkshire</span>
+            <div class="col">
+                <font-awesome-icon :icon="['fas', 'magic']" size="2x" class="text-primary"/>
+                <div class="card-stats-lg">?</div>
+                <div class="card-label-sm">Special</div>
             </div>
         </div>
 
         <div class="row mt-xl">
-            <div class="col" v-if="card">
-                <!--<div class="text-xxl">💯</div>-->
-                <div class="card-stats">{{ card.attributeAvg }}</div>
-                <div class="card-label">Average</div>
+            <div class="col">
+                <span class="card-label-sm">Serial</span><br/>
+                <span class="card-stats">#{{ ('0000000' + card.tokenId).slice(-8) | uppercase }}</span>
             </div>
-            <div class="col" v-if="card">
-                <!--<div class="text-xxl">🤹</div>-->
-                <div class="card-stats">{{ card.skill }}</div>
-                <div class="card-label">Skill</div>
-            </div>
-            <div class="col" v-if="card">
-                <!--<div class="text-xxl">🧠</div>-->
-                <div class="card-stats">{{ card.intelligence }}</div>
-                <div class="card-label">Intelligence</div>
+            <div class="col">
+                <span class="card-label-sm">Position</span><br/>
+                <span class="card-stats">{{ card.positionText }}</span>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col" v-if="card">
-                <!--<div class="text-xxl">💪</div>-->
-                <div class="card-stats">{{ card.strength }}</div>
-                <div class="card-label">Strength</div>
+
+        <div class="row mt-5 mb-5">
+            <div class="col">
+                <span class="card-label-sm">Nationality</span><br/>
+                <span class="card-stats">{{ card.nationalityText }}</span>
             </div>
-            <div class="col" v-if="card">
-                <!--<div class="text-xxl">🏃</div>-->
-                <div class="card-stats">{{ card.speed }}</div>
-                <div class="card-label">Speed</div>
-            </div>
-            <div class="col" v-if="card">
-                <!--<div class="text-xxl">🏅</div>-->
-                <div class="card-stats">{{ card.special ? card.special : 'NA' }}</div>
-                <div class="card-label">Special</div>
+            <div class="col">
+                <span class="card-label-sm">Kit</span><br/>
+                <span class="card-stats">{{ card.kitText }}</span>
             </div>
         </div>
+
+        <div class="row mt-5 mb-5">
+            <div class="col">
+                <span class="card-label-sm">Colours</span><br/>
+                <span class="card-stats">{{ card.colourText }}</span>
+            </div>
+            <div class="col">
+                <span class="card-label-sm">Ethenicity</span><br/>
+                <span class="card-stats">{{ card.ethincityText }}</span>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
-    import Card from '../components/Card';
-    import {mapState} from 'vuex';
-    import CardsApiService from "../services/api/cardsApi.service";
+    import { mapState } from 'vuex';
+    import CardsApiService from '../services/api/cardsApi.service';
+    import LazyImgLoader from '../components/LazyImgLoader';
 
     export default {
-        components: {Card},
-        data() {
+        components: {LazyImgLoader},
+        data () {
             return {
                 card: null,
             };
@@ -89,12 +102,10 @@
         computed: {
             ...mapState(['networkId']),
         },
-        methods: {
-        },
-        async created() {
-            console.log(this.$route.params.tokenId, this.networkId);
+        methods: {},
+        async created () {
+            // console.log(this.$route.params.tokenId, this.networkId);
             const cardsApiService = new CardsApiService(5777);
-
             this.card = await cardsApiService.loadTokenForTokenId(this.$route.params.tokenId);
         },
     };
@@ -123,20 +134,27 @@
 
     .card-label {
         font-size: 1rem;
-        color: $primary;
+        color: gray;
+    }
+
+    .card-label-sm {
+        font-size: .85rem;
+        color: gray;
     }
 
     .card-stats {
         font-family: 'Bungee Inline', cursive;
-        font-size: 1.5rem;
-        color: $white;
+        font-size: 2rem;
+        color: $primary;
     }
 
-    .text-xxl {
-       font-size: 4rem !important
+    .card-stats-lg {
+        font-family: 'Bungee Inline', cursive;
+        font-size: 3.5rem;
+        color: $primary;
     }
 
     .mt-xl {
-        margin-top: 9rem !important
+        margin-top: 7rem !important
     }
 </style>
