@@ -104,8 +104,8 @@
                 this.cardsShow = false;
             },
             showCard (card) {
-                console.log(`card`, card);
-                this.cards[0].show = true;
+                // console.log(`card`, card);
+                // this.cards[0].show = true;
                 this.cardsShow = true;
             },
         },
