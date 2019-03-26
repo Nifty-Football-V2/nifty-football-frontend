@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row m-5 pb-4 justify-content-sm-center">
+        <div class="row m-5 justify-content-sm-center">
             <div class="col" v-for="t in times" v-bind:key="t.text">
                 <span class="countdown-label mr-3">{{ t.text }}:</span> <span class="countdown-text">{{ ('00' + t.time).slice(-2) | uppercase }}</span>
             </div>

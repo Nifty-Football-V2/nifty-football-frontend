@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
-            <locale-changer></locale-changer>
+            <!--<locale-changer></locale-changer>-->
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -17,20 +17,20 @@
                         <li class="nav-item">
                             <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
                         </li>
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                            <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
+                        <!--</li>-->
                         <li class="nav-item">
-                            <router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/account" class="nav-link">{{ $t('nav.account') }}</router-link>
+                            <router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -67,15 +67,15 @@
 
 <script>
     import LocaleChanger from './components/LocaleChanger';
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
 
     export default {
         components: {
             LocaleChanger
         },
-        data() {
+        data () {
             return {
-                isDev: process.env.NODE_ENV !== 'development',
+                isDev: process.env.NODE_ENV === 'development',
             };
         },
         computed: {
@@ -85,7 +85,6 @@
             ])
         },
         created: async function () {
-
 
             if (typeof window.ethereum === 'undefined') {
 

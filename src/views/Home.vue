@@ -106,10 +106,6 @@
             </div>
         </div>
 
-
-
-        <countdown-timer></countdown-timer>
-
         <div class="row justify-content-sm-center">
             <div class="col col-md-6">
                 <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
@@ -121,7 +117,7 @@
 
                     <div class="mc-field-group">
                         <div class="form-group">
-                            <p>For updates, alpha access, and to receive one free card</p>
+                            <p class="small">For updates, alpha access, and to receive one free card</p>
                             <label for="mce-EMAIL" class="sr-only">Email Address</label>
                             <div class="input-group">
                                 <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Your email">
@@ -140,6 +136,8 @@
 
             </div>
         </div>
+
+        <countdown-timer></countdown-timer>
     </div>
 </template>
 

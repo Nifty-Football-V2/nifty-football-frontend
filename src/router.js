@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import About from './views/About.vue';
-import Account from './views/Account.vue';
+import Squad from './views/Squad.vue';
 import Play from './views/Play.vue';
 import Marketplace from './views/Marketplace.vue';
 import Leaderboards from './views/Leaderboards.vue';
@@ -54,9 +54,9 @@ export default new Router({
             component: Leaderboards
         },
         {
-            path: '/account',
-            name: 'account',
-            component: Account
+            path: '/squad',
+            name: 'squad',
+            component: Squad
         },
         {
             path: '/team',

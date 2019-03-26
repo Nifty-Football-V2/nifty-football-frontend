@@ -14,22 +14,23 @@
                 </h4>
             </div>
 
-            <div class="col">
-                <router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>
-            </div>
+            <!--<div class="col">-->
+                <!--<router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>-->
+            <!--</div>-->
 
-            <div class="col text-right">
-                {{ $t('common.sort_by') }}:
-                <a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>
-                <a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>
-                <a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>
-                <a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>
-            </div>
+            <!--<div class="col text-right">-->
+                <!--{{ $t('common.sort_by') }}:-->
+                <!--<a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>-->
+                <!--<a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>-->
+                <!--<a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>-->
+                <!--<a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>-->
+            <!--</div>-->
         </div>
 
         <div class="row" v-if="squad">
-            <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
-                <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+            <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
+            <div class="col-3 mb-5" v-for="tokenId in squad" v-bind:key="tokenId">
+                <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
             </div>
         </div>
     </div>
