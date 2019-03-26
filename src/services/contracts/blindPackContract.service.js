@@ -15,9 +15,9 @@ export default class BlindPackContractService {
         }
 
         this.priceModel = {
-            1: (await this.contract.totalPrice(1)).toNumber(),
-            3: (await this.contract.totalPrice(3)).toNumber(),
-            6: (await this.contract.totalPrice(6)).toNumber()
+            1: (await this.contract.totalPrice(1)),
+            3: (await this.contract.totalPrice(3)),
+            6: (await this.contract.totalPrice(6))
         };
         return this.priceModel;
     }
@@ -39,7 +39,7 @@ export default class BlindPackContractService {
             // The price (in wei) per unit of gas
             gasPrice: 1000000000,  // FIXME
 
-            value: (await this.contract.totalPrice(6)).toNumber(),
+            value: await this.contract.totalPrice(6),
         });
 
     }

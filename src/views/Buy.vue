@@ -14,14 +14,15 @@
 
         <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
             <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                <img src="../assets/nifty_reveal.svg" v-show="!cardsShow" @click="showCard()"/>
+                <img src="../assets/nifty_reveal.svg" v-show="!cardsShow" @click="showCard()" :id="card.tokenId" :key="card.tokenId"/>
                 <lazy-img-loader :src="card.tokenId" :id="card.tokenId" v-show="cardsShow"></lazy-img-loader>
             </div>
         </div>
 
         <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
             <div class="col mb-5">
-                <b-button variant="outline-primary" size="lg" @click="setState('idle')">Buy more?</b-button>
+                <b-button variant="outline-primary" size="lg" @click="showCard()" v-show="!cardsShow">Reveal</b-button>
+                <b-button variant="outline-primary" size="lg" @click="setState('idle')" v-show="cardsShow">Buy more?</b-button>
             </div>
         </div>
 
@@ -34,7 +35,7 @@
                 </b-dropdown>
 
                 <div v-for="price, num in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }}  for {{ price | toEth }} ETH</div>
-                <div>1 pack is 3 cards</div>
+                <div class="small">1 pack is 3 cards</div>
             </div>
         </div>
 
@@ -60,7 +61,6 @@
         },
         computed: {
             ...mapState([
-                'squad',
                 'ethAccount',
                 'blindPackService',
             ]),
