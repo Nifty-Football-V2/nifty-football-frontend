@@ -1,15 +1,24 @@
 <template>
     <img v-if="src"
-         v-lazy="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${id}`"
+         v-lazy="imageUrl"
          :key="'img_' + id"
          :id="'img_' + id"
          alt="Nifty Football Trading Card"/>
 </template>
 
 <script>
+    import {getApi} from "../utils";
+    import {mapState} from 'vuex';
+
     export default {
         name: 'lazy-img-loader',
         props: ['src', 'id'],
+        computed: {
+            ...mapState(['networkId']),
+            imageUrl() {
+                return `${getApi()}/network/${this.networkId}/image/${this.id}`;
+            },
+        }
     };
 </script>
 

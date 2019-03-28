@@ -2,20 +2,29 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import {getApi} from "./utils";
 import VueI18n from 'vue-i18n';
 
 import messages from './messages';
 import _ from 'lodash';
 
 import BootstrapVue from 'bootstrap-vue';
-import Snotify, { SnotifyPosition } from 'vue-snotify';
+import Snotify, {SnotifyPosition} from 'vue-snotify';
 
 import Vue2Filters from 'vue2-filters';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faDiscord, faTelegram, faTwitter, faInstagram, faMedium } from '@fortawesome/free-brands-svg-icons';
-import { faFutbol, faChartBar, faRunning, faLightbulb, faDumbbell, faMagic, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faDiscord, faTelegram, faTwitter, faInstagram, faMedium} from '@fortawesome/free-brands-svg-icons';
+import {
+    faFutbol,
+    faChartBar,
+    faRunning,
+    faLightbulb,
+    faDumbbell,
+    faMagic,
+    faArrowLeft
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
 import VueAnalytics from 'vue-analytics';
 
@@ -98,7 +107,7 @@ new Vue({
     store,
     i18n,
     mixins: [Vue2Filters.mixin],
-    beforeCreate () {
+    beforeCreate() {
         Vue.$snotify = this.$snotify;
     },
     render: h => h(App),

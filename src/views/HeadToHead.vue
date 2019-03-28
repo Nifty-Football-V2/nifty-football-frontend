@@ -316,7 +316,7 @@
                                 // TODO maybe needs to bre broken out into service or into a better template?
 
                                 // Event data
-                                let {home, away, gameId, homeValue, awayValue, result} = events[0].values;
+                                let {/*home, away, gameId,*/ homeValue, awayValue, result} = events[0].values;
 
                                 result = result.toNumber();
                                 homeValue = homeValue.toNumber();

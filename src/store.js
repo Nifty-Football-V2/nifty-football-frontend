@@ -54,11 +54,9 @@ export default new Vuex.Store({
         networkId(state, networkId) {
             state.networkId = networkId;
             // Override the default network of mainnet if we are switching
-            if (state.networkId !== 1) {
-                console.log(`Setting new network ID on service [${state.networkId}]`);
-                state.cardsApiService.setNetworkId(networkId);
-                state.headToHeadApiService.setNetworkId(networkId);
-            }
+            console.log(`Setting network ID [${state.networkId}] on services`);
+            state.cardsApiService.setNetworkId(networkId);
+            state.headToHeadApiService.setNetworkId(networkId);
         },
     },
     actions: {
