@@ -10,6 +10,7 @@ import FootballCardsContractService from "./services/contracts/footballCardsCont
 import HeadToHeadContractService from "./services/contracts/headToHeadContract.service";
 
 import HeadToHeadGameApiService from "./services/api/headToHeadGameApi.service";
+import ThreeBoxService from "./services/api/threeBox.service";
 
 Vue.use(Vuex);
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
         // API Services
         cardsApiService: new CardsApiService(),
         headToHeadApiService: new HeadToHeadGameApiService(),
+        threeBoxService: new ThreeBoxService(),
 
         // Contract Service
         blindPackService: null,
@@ -36,6 +38,7 @@ export default new Vuex.Store({
     mutations: {
         ethAccount(state, ethAccount) {
             state.ethAccount = ethAccount;
+            state.threeBoxService.setAccount(ethAccount);
         },
         squad(state, squad) {
             state.squad = squad;
@@ -50,6 +53,9 @@ export default new Vuex.Store({
             state.blindPackService = new BlindPackContractService(state.networkId, state.providerSigner);
             state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
             state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
+
+            // This needs to not be a etherjs provider...?
+            state.threeBoxService.setProvider(web3.currentProvider);
         },
         networkId(state, networkId) {
             state.networkId = networkId;

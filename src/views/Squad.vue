@@ -15,15 +15,15 @@
             </div>
 
             <!--<div class="col">-->
-                <!--<router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>-->
+            <!--<router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>-->
             <!--</div>-->
 
             <!--<div class="col text-right">-->
-                <!--{{ $t('common.sort_by') }}:-->
-                <!--<a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>-->
-                <!--<a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>-->
-                <!--<a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>-->
-                <!--<a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>-->
+            <!--{{ $t('common.sort_by') }}:-->
+            <!--<a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>-->
+            <!--<a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>-->
+            <!--<a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>-->
+            <!--<a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>-->
             <!--</div>-->
         </div>
 
@@ -41,13 +41,13 @@
 <script>
     import Vue2Filters from 'vue2-filters';
     import Card from '../components/Card';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
 
     export default {
         components: {LazyImgLoader, Card},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 order: 'position',
                 nickname: null,
@@ -56,11 +56,12 @@
         computed: {
             ...mapState([
                 'squad',
-                'ethAccount'
+                'ethAccount',
+                'threeBoxService'
             ]),
         },
         methods: {
-            editEthAccountName () {
+            editEthAccountName() {
                 this.nickname = `Real Madras`;
             },
             dotDotDot: function (ethAccount) {
@@ -75,6 +76,21 @@
         },
         created() {
             // TODO refresh squad
+
+            const loadAccount = async () => {
+                const squadName = await this.threeBoxService.getSquadName();
+                console.log(squadName);
+                this.nickname = squadName;
+            };
+
+            this.$store.watch(
+                () => this.ethAccount,
+                () => loadAccount()
+            );
+
+            if (this.ethAccount) {
+                loadAccount();
+            }
         }
     };
 </script>
