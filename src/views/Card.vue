@@ -89,7 +89,6 @@
 </template>
 <script>
     import { mapState } from 'vuex';
-    import CardsApiService from '../services/api/cardsApi.service';
     import LazyImgLoader from '../components/LazyImgLoader';
 
     export default {
@@ -100,13 +99,13 @@
             };
         },
         computed: {
-            ...mapState(['networkId']),
+            ...mapState([
+                'cardsApiService'
+            ]),
         },
         methods: {},
         async created () {
-            // console.log(this.$route.params.tokenId, this.networkId);
-            const cardsApiService = new CardsApiService(5777);
-            this.card = await cardsApiService.loadTokenForTokenId(this.$route.params.tokenId);
+            this.card = await this.cardsApiService.loadTokenForTokenId(this.$route.params.tokenId);
         },
     };
 </script>
