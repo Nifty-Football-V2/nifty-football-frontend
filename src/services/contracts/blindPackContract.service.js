@@ -1,12 +1,14 @@
 import {ethers} from "ethers";
-import futballCardsBlindPackContract from "../../abi/futballCardsBlindPack";
+
+import {abi, contracts} from "nifty-football-contract-tools";
 
 export default class BlindPackContractService {
 
     constructor(network, providerSigner) {
         this.network = network;
         this.providerSigner = providerSigner;
-        this.contract = new ethers.Contract(futballCardsBlindPackContract.address(network), futballCardsBlindPackContract.abi, this.providerSigner);
+        const {address} = contracts.getNiftyFootballBlindPack(network);
+        this.contract = new ethers.Contract(address, abi.FutballCardsBlindPackAbi, this.providerSigner);
     }
 
     async getPriceModel() {

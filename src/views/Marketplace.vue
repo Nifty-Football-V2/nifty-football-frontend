@@ -22,13 +22,15 @@
 
         <div class="row" v-if="squad && squad.tokenDetails">
             <div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`"
+                     class="mx-auto"/>
                 <div class="row mt-2">
                     <div class="col">
                         <h5>0.834 ETH</h5>
                     </div>
                     <div class="col">
-                        <router-link to="/headtohead" class="btn btn-primary pl-4 pr-4">{{ $t('common.buy') }}</router-link>
+                        <router-link to="/headtohead" class="btn btn-primary pl-4 pr-4">{{ $t('common.buy') }}
+                        </router-link>
                     </div>
                 </div>
 
@@ -40,14 +42,14 @@
     /* global web3 */
     import Vue2Filters from 'vue2-filters';
     import Card from '../components/Card';
-    import { mapState } from 'vuex';
-    import buyNowMarketplaceAbi from '../abi/buyNowMarketplace';
-    import { ethers } from 'ethers';
+    import {mapState} from 'vuex';
+    import {ethers} from 'ethers';
+    import {abi} from "nifty-football-contract-tools";
 
     export default {
         components: {Card},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 order: 'position',
             };
@@ -66,8 +68,8 @@
 
             // 5777
             this.buyNowContract = new ethers.Contract(
-                '0xccFdbA3880d42a0De4c7407631a0066EE61996aA',
-                buyNowMarketplaceAbi.abi,
+                '0xccFdbA3880d42a0De4c7407631a0066EE61996aA', // FIXME what is this address?
+                abi.BuyNowMarketplaceAbi,
                 signer
             );
 

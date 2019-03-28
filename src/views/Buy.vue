@@ -120,7 +120,7 @@
             );
 
             if (this.$store.state.blindPackService) {
-                loadData();
+                await loadData();
             }
         }
     };

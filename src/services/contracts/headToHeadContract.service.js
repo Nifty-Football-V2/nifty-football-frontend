@@ -1,13 +1,14 @@
-import {ethers} from "ethers";
-import headToHeadContract from "../../abi/headToHead";
 import _ from 'lodash';
+import {ethers} from "ethers";
+import {abi, contracts} from "nifty-football-contract-tools";
 
 export default class HeadToHeadContractService {
 
     constructor(network, providerSigner) {
         this.network = network;
         this.providerSigner = providerSigner;
-        this.contract = new ethers.Contract(headToHeadContract.address(network), headToHeadContract.abi, this.providerSigner);
+        const {address} = contracts.getHeadToHeadGame(network);
+        this.contract = new ethers.Contract(address, abi.HeadToHeadAbi, this.providerSigner);
     }
 
     async createGame(card) {
