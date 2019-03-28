@@ -63,6 +63,7 @@
             ...mapState([
                 'ethAccount',
                 'blindPackService',
+                'cardsApiService',
             ]),
         },
         methods: {
@@ -83,9 +84,7 @@
 
                 await tx.wait(1);
 
-                const cardsApiService = new CardsApiService(5777);
-
-                const txRes = await cardsApiService.loadTokensForTx(tx.hash);
+                const txRes = await this.cardsApiService.loadTokensForTx(tx.hash);
                 this.cards = txRes.cards;
 
                 // // for local DEMO purposes!!!

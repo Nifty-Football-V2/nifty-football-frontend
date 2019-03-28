@@ -72,6 +72,9 @@
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;
             },
+        },
+        created() {
+            // TODO refresh squad
         }
     };
 </script>
