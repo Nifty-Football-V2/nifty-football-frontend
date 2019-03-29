@@ -39,7 +39,7 @@ export default class BlindPackContractService {
             gasLimit: 6721975, // FIXME
 
             // The price (in wei) per unit of gas
-            gasPrice: 1000000000,  // FIXME
+            gasPrice: 5000000000,  // FIXME
 
             value: await this.contract.totalPrice(6),
         });
