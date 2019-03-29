@@ -27,6 +27,12 @@
             <!--</div>-->
         </div>
 
+        <div class="row pb-4 text-center" v-if="!squad">
+            <div class="col mb-5 text-primary">
+                <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+            </div>
+        </div>
+
         <div class="row" v-if="squad">
             <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
             <div class="col-3 mb-5" v-for="tokenId in squad" v-bind:key="tokenId">
@@ -34,6 +40,12 @@
                 <router-link :to="`/card/` + tokenId">
                     <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
                 </router-link>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col text-center">
+                <router-link to="/buy">Buy Packs</router-link>
             </div>
         </div>
     </div>

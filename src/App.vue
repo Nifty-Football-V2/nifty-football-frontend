@@ -1,41 +1,41 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
-            <!--<locale-changer></locale-changer>-->
-            <div class="container">
-                <a class="navbar-brand" href="#">&nbsp;</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                        aria-controls="navbarResponsive" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
-                        </li>
+        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">-->
+            <!--&lt;!&ndash;<locale-changer></locale-changer>&ndash;&gt;-->
+            <!--<div class="container">-->
+                <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"-->
+                        <!--aria-controls="navbarResponsive" aria-expanded="false"-->
+                        <!--aria-label="Toggle navigation">-->
+                    <!--<span class="navbar-toggler-icon"></span>-->
+                <!--</button>-->
+                <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
+                    <!--<ul class="navbar-nav ml-auto">-->
                         <!--<li class="nav-item">-->
-                            <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
+                            <!--<router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>-->
                         <!--</li>-->
                         <!--<li class="nav-item">-->
-                            <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
+                            <!--<router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>-->
                         <!--</li>-->
+                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
                         <!--<li class="nav-item">-->
-                            <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
+                            <!--<router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>-->
                         <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
-                        <!--</li>-->
-                        <li class="nav-item">
-                            <router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</nav>-->
 
         <router-view class="text-center pb-5"/>
 
@@ -66,12 +66,12 @@
 </template>
 
 <script>
-    import LocaleChanger from './components/LocaleChanger';
+    // import LocaleChanger from './components/LocaleChanger';
     import { mapState } from 'vuex';
 
     export default {
         components: {
-            LocaleChanger
+            // LocaleChanger
         },
         data () {
             return {
@@ -86,6 +86,7 @@
         },
         created: async function () {
 
+            /* global ethereum */
             if (typeof window.ethereum === 'undefined') {
 
                 // FIXME handle this

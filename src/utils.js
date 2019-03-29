@@ -1,18 +1,15 @@
-const _ = require('lodash');
-
 const INFURA_KEY = "6e7a3de11d3745fe8763bab4466ec8de";
 
 const API_CONFIG = {
     local: "http://localhost:5000/futbol-cards/us-central1/api",
-    // FIXME change to real one
-    live: "http://localhost:5000/futbol-cards/us-central1/api"
+    live: "https://us-central1-futbol-cards.cloudfunctions.net/api"
 };
 
 const getApi = () => {
     switch (window.location.hostname) {
-        case "localhost":
-        case "127.0.0.1":
-            return API_CONFIG.local;
+        // case "localhost":
+        // case "127.0.0.1":
+        //     return API_CONFIG.local;
         default:
             return API_CONFIG.live;
     }

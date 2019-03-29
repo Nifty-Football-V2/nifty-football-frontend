@@ -34,11 +34,17 @@
                     <b-dropdown-item href="#" @click="buyCard(6)">Buy 6 Cards</b-dropdown-item>
                 </b-dropdown>
 
-                <div v-for="(price, num) in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }}  for {{ price | toEth }} ETH</div>
+                <div v-for="(price, num) in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }} for {{ price | toEth }} ETH</div>
                 <div class="small">1 pack is 3 cards</div>
+
             </div>
         </div>
 
+        <div class="row mt-5">
+            <div class="col text-center">
+                <router-link to="/squad">View Squad</router-link>
+            </div>
+        </div>
     </div>
 </template>
 
