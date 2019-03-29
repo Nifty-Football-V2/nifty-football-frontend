@@ -40,12 +40,11 @@
 </template>
 <script>
     import Vue2Filters from 'vue2-filters';
-    import Card from '../components/Card';
     import {mapState} from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
 
     export default {
-        components: {LazyImgLoader, Card},
+        components: {LazyImgLoader},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
@@ -77,7 +76,9 @@
         created() {
             // TODO refresh squad
 
-            const loadAccount = async () => {
+            const loadAccountAndSquad = async () => {
+                this.$store.dispatch('loadSquad');
+
                 const squadName = await this.threeBoxService.getSquadName();
                 console.log(squadName);
                 this.nickname = squadName;
@@ -85,11 +86,11 @@
 
             this.$store.watch(
                 () => this.ethAccount,
-                () => loadAccount()
+                () => loadAccountAndSquad()
             );
 
             if (this.ethAccount) {
-                loadAccount();
+                loadAccountAndSquad();
             }
         }
     };

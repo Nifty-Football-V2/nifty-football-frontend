@@ -41,13 +41,12 @@
 <script>
     /* global web3 */
     import Vue2Filters from 'vue2-filters';
-    import Card from '../components/Card';
     import {mapState} from 'vuex';
     import {ethers} from 'ethers';
     import {abi} from "nifty-football-contract-tools";
 
     export default {
-        components: {Card},
+        components: {},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
@@ -75,7 +74,7 @@
 
             // use API for this..
             this.listed = await this.buyNowContract.listedTokens();
-            console.log(this.listed);
+            // console.log(this.listed);
         }
     };
 </script>

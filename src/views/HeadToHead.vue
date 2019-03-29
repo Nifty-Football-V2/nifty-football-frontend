@@ -308,7 +308,7 @@
                     this.headToHeadContractService.joinGame(gameId, this.selectedCard.tokenId)
                         .then((receipt) => {
                             const events = this.headToHeadContractService.parseLog(receipt);
-                            console.log(`events`, events);
+                            // console.log(`events`, events);
                             if (events) {
                                 const notificationService = new NotificationService();
 

@@ -34,7 +34,7 @@
                     <b-dropdown-item href="#" @click="buyCard(6)">Buy 6 Cards</b-dropdown-item>
                 </b-dropdown>
 
-                <div v-for="price, num in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }}  for {{ price | toEth }} ETH</div>
+                <div v-for="(price, num) in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }}  for {{ price | toEth }} ETH</div>
                 <div class="small">1 pack is 3 cards</div>
             </div>
         </div>
@@ -45,7 +45,6 @@
 <script>
     import { mapState } from 'vuex';
     import NotificationService from '../services/notification.service';
-    import CardsApiService from '../services/api/cardsApi.service';
 
     import LazyImgLoader from '../components/LazyImgLoader';
 
@@ -78,7 +77,7 @@
                 // wait for tx to be mined
                 let tx = await this.blindPackService.buyBlindPack(num);
 
-                console.log(tx);
+                // console.log(tx);
 
                 notificationService.showProcessingNotification();
 
@@ -103,7 +102,7 @@
                 this.cardsShow = false;
             },
             showCard (card) {
-                // console.log(`card`, card);
+                console.log(`card`, card);
                 // this.cards[0].show = true;
                 this.cardsShow = true;
             },

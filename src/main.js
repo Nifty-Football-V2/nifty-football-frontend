@@ -39,8 +39,6 @@ Vue.use(VueLazyload, {
     lazyComponent: true
 });
 
-console.log(VueLazyload);
-
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 Vue.use(Vue2Filters);
