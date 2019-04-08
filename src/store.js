@@ -66,7 +66,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async bootstrapApp({commit, dispatch, state}) {
+        async bootstrapApp({commit, dispatch}) {
             const provider = new ethers.providers.Web3Provider(web3.currentProvider);
 
             const {chainId, name} = await provider.getNetwork();

@@ -46,11 +46,10 @@
 </template>
 <script>
     import Vue2Filters from 'vue2-filters';
-    import Card from '../components/Card';
     import { mapState } from 'vuex';
 
     export default {
-        components: {Card},
+        components: {},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

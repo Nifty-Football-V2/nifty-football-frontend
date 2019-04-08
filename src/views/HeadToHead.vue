@@ -22,8 +22,7 @@
                         <option :value="undefined">--</option>
                         <option v-for="card in squad.tokenDetails"
                                 :value="card"
-                                :key="card.tokenId"
-                                v-if="playerNotInGameAlready(card.tokenId)">
+                                :key="card.tokenId">
                             {{card.fullName | uppercase}} ({{card.attributeAvg}})
                         </option>
                     </select>

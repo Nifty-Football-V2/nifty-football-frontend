@@ -68,7 +68,7 @@
             ...mapState([
                 'squad',
                 'ethAccount',
-                'threeBoxService'
+                // 'threeBoxService'
             ]),
         },
         methods: {
@@ -91,9 +91,9 @@
             const loadAccountAndSquad = async () => {
                 this.$store.dispatch('loadSquad');
 
-                const squadName = await this.threeBoxService.getSquadName();
-                console.log(squadName);
-                this.nickname = squadName;
+                // const squadName = await this.threeBoxService.getSquadName();
+                // console.log(squadName);
+                // this.nickname = squadName;
             };
 
             this.$store.watch(
