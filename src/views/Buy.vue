@@ -23,6 +23,7 @@
             <div class="col mb-5">
                 <b-button variant="outline-primary" size="lg" @click="showCard()" v-show="!cardsShow">Reveal</b-button>
                 <b-button variant="outline-primary" size="lg" @click="setState('idle')" v-show="cardsShow">Buy more?</b-button>
+                <router-link to="/squad" class="ml-5">View Squad</router-link>
             </div>
         </div>
 
@@ -40,11 +41,6 @@
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col text-center">
-                <router-link to="/squad">View Squad</router-link>
-            </div>
-        </div>
     </div>
 </template>
 
