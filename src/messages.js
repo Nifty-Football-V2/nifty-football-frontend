@@ -6,7 +6,7 @@ export default {
             about: 'About',
             play: 'Play',
             marketplace: 'Transfer Market',
-            leaderboards: 'Leaderboards',
+            rankings: 'Rankings',
             account: 'Squad',
             team: 'Best Team',
             head2head: 'Head 2 Head Battles',

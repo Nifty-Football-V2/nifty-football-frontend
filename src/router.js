@@ -5,7 +5,7 @@ import Squad from './views/Squad.vue';
 // import About from './views/About.vue';
 // import Play from './views/Play.vue';
 // import Marketplace from './views/Marketplace.vue';
-// import Leaderboards from './views/Leaderboards.vue';
+import Rankings from './views/Rankings.vue';
 // import HeadToHead from './views/HeadToHead.vue';
 import Team from './views/Team.vue';
 import Card from './views/Card.vue';
@@ -48,11 +48,11 @@ export default new Router({
         //     name: 'marketplace',
         //     component: Marketplace
         // },
-        // {
-        //     path: '/leaderboards',
-        //     name: 'leaderboards',
-        //     component: Leaderboards
-        // },
+        {
+            path: '/rankings',
+            name: 'rankings',
+            component: Rankings
+        },
         {
             path: '/squad',
             name: 'squad',

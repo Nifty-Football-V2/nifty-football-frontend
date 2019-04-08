@@ -1,16 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {ethers} from 'ethers';
+import { ethers } from 'ethers';
 
-import CardsApiService from "./services/api/cardsApi.service";
-import {lookupEtherscanAddress} from "./utils";
+import CardsApiService from './services/api/cardsApi.service';
+import { lookupEtherscanAddress } from './utils';
 
-import BlindPackContractService from "./services/contracts/blindPackContract.service";
-import FootballCardsContractService from "./services/contracts/footballCardsContract.service";
-import HeadToHeadContractService from "./services/contracts/headToHeadContract.service";
+import BlindPackContractService from './services/contracts/blindPackContract.service';
+import FootballCardsContractService from './services/contracts/footballCardsContract.service';
+import HeadToHeadContractService from './services/contracts/headToHeadContract.service';
 
-import HeadToHeadGameApiService from "./services/api/headToHeadGameApi.service";
-import ThreeBoxService from "./services/api/threeBox.service";
+import HeadToHeadGameApiService from './services/api/headToHeadGameApi.service';
+import ThreeBoxService from './services/api/threeBox.service';
 
 Vue.use(Vuex);
 
@@ -36,17 +36,17 @@ export default new Vuex.Store({
         headToHeadContractService: null,
     },
     mutations: {
-        ethAccount(state, ethAccount) {
+        ethAccount (state, ethAccount) {
             state.ethAccount = ethAccount;
             state.threeBoxService.setAccount(ethAccount);
         },
-        squad(state, squad) {
+        squad (state, squad) {
             state.squad = squad;
         },
-        etherscanUrl(state, etherscanUrl) {
+        etherscanUrl (state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
         },
-        provider(state, provider) {
+        provider (state, provider) {
             console.log(`Setting provider for network [${state.networkId}]`, provider);
             state.provider = provider;
             state.providerSigner = provider.getSigner();
@@ -55,9 +55,9 @@ export default new Vuex.Store({
             state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
 
             // This needs to not be a etherjs provider...?
-            state.threeBoxService.setProvider(web3.currentProvider);
+            // state.threeBoxService.setProvider(web3.currentProvider);
         },
-        networkId(state, networkId) {
+        networkId (state, networkId) {
             state.networkId = networkId;
             // Override the default network of mainnet if we are switching
             console.log(`Setting network ID [${state.networkId}] on services`);
@@ -66,7 +66,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async bootstrapApp({commit, dispatch}) {
+        async bootstrapApp ({commit, dispatch}) {
             const provider = new ethers.providers.Web3Provider(web3.currentProvider);
 
             const {chainId, name} = await provider.getNetwork();
@@ -78,11 +78,11 @@ export default new Vuex.Store({
             commit('provider', provider);
             dispatch('loadSquad');
         },
-        async loadSquad({commit, state}) {
+        async loadSquad ({commit, state}) {
             if (state.ethAccount) {
                 const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
                 commit('squad', squad);
             }
-        }
+        },
     }
 });

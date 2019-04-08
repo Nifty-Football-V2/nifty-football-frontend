@@ -10,5 +10,4 @@ export default class BaseApiService {
     setNetworkId(network = 1) {
         this.network = network;
     }
-
 }

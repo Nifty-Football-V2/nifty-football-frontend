@@ -65,6 +65,7 @@
                 'ethAccount',
                 'blindPackService',
                 'cardsApiService',
+                'rankings',
             ]),
         },
         methods: {

@@ -26,4 +26,10 @@ export default class CardsApiService extends BaseApiService {
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/txs/mints/${tx}/cards`, AXIOS_CONFIG);
         return res.data;
     }
+
+    async loadRankings() {
+        console.log(`Load rankings`);
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/token/rankings`, AXIOS_CONFIG);
+        return res.data;
+    }
 }

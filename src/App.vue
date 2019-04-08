@@ -26,9 +26,9 @@
                         <!--<li class="nav-item">-->
                             <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
                         <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/leaderboards" class="nav-link">{{ $t('nav.leaderboards') }}</router-link>-->
-                        <!--</li>-->
+                        <li class="nav-item">
+                            <router-link to="/rankings" class="nav-link">{{ $t('nav.rankings') }}</router-link>
+                        </li>
                         <li class="nav-item">
                             <router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>
                         </li>
