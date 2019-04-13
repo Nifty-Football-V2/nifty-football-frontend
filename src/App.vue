@@ -37,7 +37,7 @@
             </div>
         </nav>
 
-        <img src="./assets/logo.svg" style="max-height: 100px" class="mt-3"/>
+        <img src="./assets/logo.svg" style="max-height: 100px" class="mt-3 mb-3"/>
 
         <router-view class="text-center pb-5"/>
 
@@ -125,7 +125,7 @@
 </script>
 
 <style lang="scss">
-    @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
+    @import url('https://fonts.googleapis.com/css?family=Anton');
     @import "colours";
     @import '../node_modules/bootstrap/scss/bootstrap';
     @import '../node_modules/bootstrap-vue/src/index.scss';
@@ -144,26 +144,27 @@
     }
 
     h1 {
-        font-family: 'Bungee Inline', cursive;
+        font-family: 'Anton', sans-serif;
         font-size: 3.25rem;
         color: $primary;
-        letter-spacing: 0.5rem;
+        letter-spacing: 0.1rem;
     }
 
     h2 {
-        font-family: 'Bungee Inline', cursive;
+        font-family: 'Anton', sans-serif;
         font-size: 2.5rem;
         color: $primary;
-        letter-spacing: 0.5rem;
+        letter-spacing: 0.1rem;
     }
 
     h3 {
+        font-family: 'Anton', sans-serif;
         color: $primary;
-        letter-spacing: 0.15rem;
+        letter-spacing: 0.1rem;
     }
 
     h4 {
-        font-family: 'Bungee Inline', cursive;
+        font-family: 'Anton', sans-serif;
         color: $primary;
     }
 

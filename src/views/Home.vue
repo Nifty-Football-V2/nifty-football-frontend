@@ -137,7 +137,7 @@
 
         <div class="row pb-4">
             <div class="col">
-                <h3 class="mt-5">Kicking off May 1st 2019.</h3>
+                <h3 class="mt-5">Kicking off May 8th 2019.</h3>
                 <p>Join the <a href="https://t.me/niftyfootball" target="_blank">telegram channel</a> for early test-net access</p>
             </div>
         </div>
