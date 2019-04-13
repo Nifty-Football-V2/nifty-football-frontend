@@ -2,8 +2,7 @@
     <div class="container">
         <div class="row pb-4">
             <div class="col">
-                <h1 class="mt-5">{{ $t('nav.rankings') }}</h1>
-                <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
+                <h2 class="mt-3">{{ $t('nav.rankings') }}</h2>
             </div>
         </div>
 

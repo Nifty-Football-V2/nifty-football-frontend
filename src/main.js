@@ -34,7 +34,7 @@ import VueLazyload from 'vue-lazyload';
 Vue.use(VueLazyload, {
     // set observer to true
     observer: true,
-    loading: require(`./assets/nifty_holding_image.svg`),
+    loading: require(`./assets/holding.svg`),
     lazyComponent: true
 });
 

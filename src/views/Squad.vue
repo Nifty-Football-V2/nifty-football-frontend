@@ -2,8 +2,7 @@
     <div class="container">
         <div class="row pb-4">
             <div class="col">
-                <h1 class="mt-5">{{ $t('nav.account') }}</h1>
-                <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
+                <h2 class="mt-3">{{ $t('nav.account') }}</h2>
             </div>
         </div>
 
@@ -36,7 +35,6 @@
         <div class="row" v-if="squad">
             <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
             <div class="col-3 mb-5" v-for="tokenId in squad" v-bind:key="tokenId">
-
                 <router-link :to="`/card/` + tokenId">
                     <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
                 </router-link>

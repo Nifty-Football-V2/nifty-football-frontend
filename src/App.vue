@@ -37,6 +37,8 @@
             </div>
         </nav>
 
+        <img src="./assets/logo.svg" style="max-height: 100px" class="mt-3"/>
+
         <router-view class="text-center pb-5"/>
 
         <vue-snotify></vue-snotify>
@@ -123,7 +125,6 @@
 </script>
 
 <style lang="scss">
-    @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
     @import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
     @import "colours";
     @import '../node_modules/bootstrap/scss/bootstrap';

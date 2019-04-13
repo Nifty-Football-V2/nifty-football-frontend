@@ -1,10 +1,5 @@
 <template>
     <div class="container">
-        <div class="row pb-4">
-            <div class="col">
-                <h1 class="mt-5">{{ $t('common.nifty_football') }}</h1>
-            </div>
-        </div>
 
         <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
             <div class="col mb-5 text-primary">
@@ -14,7 +9,7 @@
 
         <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
             <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                <img src="../assets/nifty_reveal.svg" v-show="!cardsShow" @click="showCard()" :id="card.tokenId" :key="card.tokenId"/>
+                <img src="../assets/back.svg" v-show="!cardsShow" @click="showCard()" :id="card.tokenId" :key="card.tokenId"/>
                 <lazy-img-loader :src="card.tokenId" :id="card.tokenId" v-show="cardsShow"></lazy-img-loader>
             </div>
         </div>

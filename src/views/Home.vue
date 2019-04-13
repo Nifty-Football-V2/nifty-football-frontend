@@ -2,8 +2,6 @@
     <div class="container">
         <div class="row pb-4">
             <div class="col">
-                <h1 class="mt-5">{{ $t('common.nifty_football') }}</h1>
-
                 <div>
                     <b-carousel
                             id="players"
