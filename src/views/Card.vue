@@ -7,7 +7,6 @@
             </div>
         </div>
 
-
         <div class="row bg-secondary pt-3 pb-5 mb-5">
             <div class="col">
                 <router-link to="/squad">
@@ -69,27 +68,24 @@
                 <span class="card-label-sm">Position</span><br/>
                 <span class="card-stats">{{ card.positionText }}</span>
             </div>
-        </div>
-
-        <div class="row mt-3 mb-3">
             <div class="col">
                 <span class="card-label-sm">Nationality</span><br/>
                 <span class="card-stats">{{ card.nationalityText }}</span>
-            </div>
-            <div class="col">
-                <span class="card-label-sm">Kit</span><br/>
-                <span class="card-stats">{{ card.kitText }}</span>
             </div>
         </div>
 
         <div class="row mt-3 mb-3">
             <div class="col">
                 <span class="card-label-sm">Colours</span><br/>
-                <span class="card-stats">{{ card.colourText }}</span>
+                <span class="card-stats">{{ card.colourText ? card.colourText.toUpperCase() : '' }}</span>
             </div>
             <div class="col">
                 <span class="card-label-sm">Ethnicity</span><br/>
-                <span class="card-stats">{{ card.ethincityText }}</span>
+                <span class="card-stats">{{ card.ethincityText ? card.ethincityText.toUpperCase() : '' }}</span>
+            </div>
+            <div class="col">
+                <span class="card-label-sm">Kit</span><br/>
+                <span class="card-stats">{{ card.kitText ? card.kitText.toUpperCase() : '' }}</span>
             </div>
         </div>
 
@@ -98,9 +94,10 @@
 <script>
     import { mapState } from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
+    import Loading from '../components/Loading';
 
     export default {
-        components: {LazyImgLoader},
+        components: {Loading, LazyImgLoader},
         data () {
             return {
                 card: null,
