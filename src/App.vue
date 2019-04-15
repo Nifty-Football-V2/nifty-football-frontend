@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="$router.currentRoute.name !== 'home'">
             <!--<locale-changer></locale-changer>-->
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>

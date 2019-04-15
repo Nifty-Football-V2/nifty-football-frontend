@@ -17,7 +17,7 @@
             <div class="row" v-if="squad && ethAccount">
                 <div class="col text-left">
                     <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
-                    <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
+                    <!--<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>-->
                 </div>
 
                 <!--<div class="col">-->
@@ -33,9 +33,9 @@
                 <!--</div>-->
             </div>
 
-            <div class="row pb-4 text-center" v-if="!squad">
-                <div class="col mb-5 text-primary">
-                    <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+            <div class="row pb-4 text-center" v-if="squad && squad.length === 0">
+                <div class="col mb-5 text-primary mx-auto">
+                    <loading></loading>
                 </div>
             </div>
 
@@ -47,12 +47,6 @@
                     </router-link>
                 </div>
             </div>
-
-            <div class="row mt-5">
-                <div class="col text-center">
-                    <router-link to="/buy">Buy Packs</router-link>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -60,9 +54,11 @@
     import Vue2Filters from 'vue2-filters';
     import { mapState } from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
+    import Loading from '../components/Loading';
+    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
 
     export default {
-        components: {LazyImgLoader},
+        components: {NetworkWeb3Banner, Loading, LazyImgLoader},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

@@ -16,7 +16,7 @@
 
             <div class="row pb-4 text-center" v-if="rankings && rankings.length === 0">
                 <div class="col mb-5 text-primary">
-                    <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+                    <loading></loading>
                 </div>
             </div>
 
@@ -55,9 +55,11 @@
     import Vue2Filters from 'vue2-filters';
     import { mapState } from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
+    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
+    import Loading from '../components/Loading';
 
     export default {
-        components: {LazyImgLoader},
+        components: {Loading, NetworkWeb3Banner, LazyImgLoader},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

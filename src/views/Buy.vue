@@ -16,7 +16,7 @@
 
             <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
                 <div class="col mb-5 text-primary">
-                    <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+                    <loading></loading>
                 </div>
             </div>
 
@@ -31,7 +31,6 @@
                 <div class="col mb-5">
                     <b-button variant="outline-primary" size="lg" @click="showCard()" v-show="!cardsShow">Reveal</b-button>
                     <b-button variant="outline-primary" size="lg" @click="setState('idle')" v-show="cardsShow">Buy more?</b-button>
-                    <router-link to="/squad" class="ml-5">View Squad</router-link>
                 </div>
             </div>
 
@@ -65,9 +64,10 @@
 
     import LazyImgLoader from '../components/LazyImgLoader';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
+    import Loading from '../components/Loading';
 
     export default {
-        components: {NetworkWeb3Banner, LazyImgLoader},
+        components: {Loading, NetworkWeb3Banner, LazyImgLoader},
         data () {
             return {
                 packPrices: {},
