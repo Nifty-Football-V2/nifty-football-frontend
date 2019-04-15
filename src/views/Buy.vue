@@ -1,5 +1,16 @@
 <template>
     <div class="container">
+        <div class="row pb-4">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+            </div>
+            <div class="col">
+                <h2 class="mt-3 text-right">&nbsp;</h2>
+            </div>
+        </div>
 
         <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
             <div class="col mb-5 text-primary">

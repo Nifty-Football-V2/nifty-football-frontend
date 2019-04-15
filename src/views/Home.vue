@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <div class="container text-center">
+        <img src="../assets/logo.svg" style="max-height: 125px" class="mt-3 mb-3"/>
         <div class="row pb-4">
             <div class="col">
                 <div>

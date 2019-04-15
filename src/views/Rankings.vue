@@ -2,7 +2,13 @@
     <div class="container">
         <div class="row pb-4">
             <div class="col">
-                <h2 class="mt-3">{{ $t('nav.rankings') }}</h2>
+
+            </div>
+            <div class="col">
+                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+            </div>
+            <div class="col">
+                <h2 class="mt-3 text-right">{{ $t('nav.rankings') }}</h2>
             </div>
         </div>
 
@@ -14,7 +20,7 @@
 
         <div class="row" v-if="rankings && rankings.length > 0">
             <div class="col-3 mb-5" v-for="(rank, index) in rankings" v-bind:key="rank.tokenId">
-                <h1 class="text-left">#{{ index + 1 }}</h1>
+                <h3 class="text-left">#{{ index + 1 }}</h3>
                 <lazy-img-loader :src="rank.tokenId" :id="rank.tokenId"></lazy-img-loader>
             </div>
         </div>

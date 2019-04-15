@@ -2,15 +2,20 @@
     <div class="container">
         <div class="row pb-4">
             <div class="col">
-                <h2 class="mt-3">{{ $t('nav.account') }}</h2>
+
+            </div>
+            <div class="col">
+                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+            </div>
+            <div class="col">
+                <h2 class="mt-3 text-right">{{ $t('nav.account') }}</h2>
             </div>
         </div>
 
         <div class="row" v-if="squad && ethAccount">
             <div class="col text-left">
-                <h4>{{ nickname || dotDotDot(ethAccount) }}
-                    <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
-                </h4>
+                <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
+                <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
             </div>
 
             <!--<div class="col">-->

@@ -37,9 +37,7 @@
             </div>
         </nav>
 
-        <img src="./assets/logo.svg" style="max-height: 100px" class="mt-3 mb-3"/>
-
-        <router-view class="text-center pb-5"/>
+        <router-view class="pb-5"/>
 
         <vue-snotify></vue-snotify>
 
@@ -61,7 +59,7 @@
             </a>
 
             <div class="mt-3">
-                Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stan Chow</a>
+                <span class="small">Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a></span>
             </div>
         </footer>
     </div>
@@ -125,6 +123,11 @@
 </script>
 
 <style lang="scss">
+    @font-face {
+        font-family: CrackerJack;
+        src: url("./assets/CrackerJack.otf") format("opentype");
+    }
+
     @import url('https://fonts.googleapis.com/css?family=Anton');
     @import "colours";
     @import '../node_modules/bootstrap/scss/bootstrap';
@@ -136,40 +139,40 @@
     }
 
     p {
-        color: $primary;
+        color: $black;
     }
 
     body {
-        color: $primary;
+        color: $black;
     }
 
     h1 {
         font-family: 'Anton', sans-serif;
         font-size: 3.25rem;
-        color: $primary;
+        color: $black;
         letter-spacing: 0.1rem;
     }
 
     h2 {
         font-family: 'Anton', sans-serif;
         font-size: 2.5rem;
-        color: $primary;
+        color: $black;
         letter-spacing: 0.1rem;
     }
 
     h3 {
         font-family: 'Anton', sans-serif;
-        color: $primary;
+        color: $black;
         letter-spacing: 0.1rem;
     }
 
     h4 {
         font-family: 'Anton', sans-serif;
-        color: $primary;
+        color: $black;
     }
 
     h5 {
-        color: $primary;
+        color: $black;
     }
 
     .btn-primary {
