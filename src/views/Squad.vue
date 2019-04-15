@@ -1,67 +1,70 @@
 <template>
-    <div class="container">
-        <div class="row pb-4">
-            <div class="col">
+    <div>
+        <network-web3-banner></network-web3-banner>
+        <div class="container">
+            <div class="row pb-4">
+                <div class="col">
 
-            </div>
-            <div class="col">
-                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
-            </div>
-            <div class="col">
-                <h2 class="mt-3 text-right">{{ $t('nav.account') }}</h2>
-            </div>
-        </div>
-
-        <div class="row" v-if="squad && ethAccount">
-            <div class="col text-left">
-                <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
-                <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
+                </div>
+                <div class="col">
+                    <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+                </div>
+                <div class="col">
+                    <h2 class="mt-3 text-right">{{ $t('nav.account') }}</h2>
+                </div>
             </div>
 
-            <!--<div class="col">-->
-            <!--<router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>-->
-            <!--</div>-->
+            <div class="row" v-if="squad && ethAccount">
+                <div class="col text-left">
+                    <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
+                    <a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>
+                </div>
 
-            <!--<div class="col text-right">-->
-            <!--{{ $t('common.sort_by') }}:-->
-            <!--<a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>-->
-            <!--<a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>-->
-            <!--<a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>-->
-            <!--<a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>-->
-            <!--</div>-->
-        </div>
+                <!--<div class="col">-->
+                <!--<router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>-->
+                <!--</div>-->
 
-        <div class="row pb-4 text-center" v-if="!squad">
-            <div class="col mb-5 text-primary">
-                <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+                <!--<div class="col text-right">-->
+                <!--{{ $t('common.sort_by') }}:-->
+                <!--<a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>-->
+                <!--<a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>-->
+                <!--<a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>-->
+                <!--<a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>-->
+                <!--</div>-->
             </div>
-        </div>
 
-        <div class="row" v-if="squad">
-            <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
-            <div class="col-3 mb-5" v-for="tokenId in squad" v-bind:key="tokenId">
-                <router-link :to="`/card/` + tokenId">
-                    <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
-                </router-link>
+            <div class="row pb-4 text-center" v-if="!squad">
+                <div class="col mb-5 text-primary">
+                    <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-5">
-            <div class="col text-center">
-                <router-link to="/buy">Buy Packs</router-link>
+            <div class="row" v-if="squad">
+                <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
+                <div class="col-3 mb-5" v-for="tokenId in squad" v-bind:key="tokenId">
+                    <router-link :to="`/card/` + tokenId">
+                        <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
+                    </router-link>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <router-link to="/buy">Buy Packs</router-link>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
     import Vue2Filters from 'vue2-filters';
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
 
     export default {
         components: {LazyImgLoader},
         mixins: [Vue2Filters.mixin],
-        data() {
+        data () {
             return {
                 order: 'position',
                 nickname: null,
@@ -75,7 +78,7 @@
             ]),
         },
         methods: {
-            editEthAccountName() {
+            editEthAccountName () {
                 this.nickname = `Real Madras`;
             },
             dotDotDot: function (ethAccount) {
@@ -88,7 +91,7 @@
                 return this.order ? this.order = field : this.order;
             },
         },
-        created() {
+        created () {
             // TODO refresh squad
 
             const loadAccountAndSquad = async () => {

@@ -155,7 +155,6 @@
         },
         computed: {},
         components: {},
-        methods: {
-        },
+        methods: {},
     };
 </script>

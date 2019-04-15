@@ -20,6 +20,7 @@ export default new Vuex.Store({
     state: {
         networkId: 1,
         etherscanUrl: 'https://etherscan.io',
+        web3Enabled: false,
 
         ethAccount: null,
         squad: null,
@@ -54,6 +55,7 @@ export default new Vuex.Store({
             state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
             state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
 
+            state.web3Enabled = true;
             // This needs to not be a etherjs provider...?
             // state.threeBoxService.setProvider(web3.currentProvider);
         },

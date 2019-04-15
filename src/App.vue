@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="isDev">
-            <locale-changer></locale-changer>
+            <!--<locale-changer></locale-changer>-->
             <div class="container">
                 <a class="navbar-brand" href="#">&nbsp;</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -66,12 +66,12 @@
 </template>
 
 <script>
-    import LocaleChanger from './components/LocaleChanger';
+    // import LocaleChanger from './components/LocaleChanger';
     import { mapState } from 'vuex';
 
     export default {
         components: {
-            LocaleChanger
+            // LocaleChanger
         },
         data () {
             return {
@@ -86,19 +86,21 @@
         },
         created: async function () {
             /* global ethereum */
+            /* global web3 */
+            /* global Web3 */
             if (typeof window.ethereum === 'undefined') {
                 console.log('Looks like you need a Dapp browser to get started.');
-            } else {
-                // In the case the user has MetaMask installed, you can easily
-                // ask them to sign in and reveal their accounts:
+            }
+            // enable ethereum
+            else if (window.ethereum) {
+                console.log('Enabled Web3');
                 ethereum.enable()
                     .catch((reason) => {
-                        // FIXME handle this
                         if (reason === 'User rejected provider access') {
                             // The user didn't want to sign in!
                         } else {
                             // This shouldn't happen, so you might want to log this...
-                            alert('There was an issue signing you in.');
+                            console.log('There was an issue signing you in.');
                         }
                     })
                     // In the case they approve the log-in request, you'll receive their accounts:
@@ -118,6 +120,19 @@
                         });
                     });
             }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                console.log('Legacy');
+                window.web3 = new Web3(web3.currentProvider);
+
+                console.log(`Account`, window.web3.eth.accounts[0]);
+                this.$store.commit('ethAccount', window.web3.eth.accounts[0]);
+                this.$store.dispatch('bootstrapApp');
+            }
+            // Non-dapp browsers...
+            else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
         }
     };
 </script>
@@ -132,6 +147,8 @@
     @import "colours";
     @import '../node_modules/bootstrap/scss/bootstrap';
     @import '../node_modules/bootstrap-vue/src/index.scss';
+
+    [v-cloak] {display: none}
 
     #app {
         -webkit-font-smoothing: antialiased;
@@ -233,6 +250,14 @@
         a {
             color: #F0F0F0;
             text-decoration: underline;
+        }
+    }
+
+    .no-metamask {
+        background-color: $secondary;
+
+        a {
+            color: $black;
         }
     }
 </style>

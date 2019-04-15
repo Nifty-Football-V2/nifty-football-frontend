@@ -1,0 +1,32 @@
+<template>
+    <div class="container-fluid mt-0" v-if="!web3Enabled || networkId !== 3" v-cloak>
+        <div class="row no-metamask text-center">
+            <div class="col mt-2 mb-2">
+                <img src="../assets/metamask.png" style="max-height: 35px" class="mr-3"/>
+                Please install the <code><a href="https://metamask.io/" target="_blank">METAMASK</a></code> or similar Web3 provider and
+                switch to <code><a href="https://ropsten.etherscan.io/" target="_blank">ROPSTEN</a></code> test network!
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { mapState } from 'vuex';
+
+    export default {
+        name: 'network-web3-banner',
+        data () {
+            return {};
+        },
+        computed: {
+            ...mapState([
+                'networkId',
+                'web3Enabled',
+            ])
+        },
+        components: {},
+        methods: {},
+    };
+</script>
+
+<style lang="scss"></style>

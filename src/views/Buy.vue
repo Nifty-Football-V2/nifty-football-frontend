@@ -1,52 +1,61 @@
 <template>
-    <div class="container">
-        <div class="row pb-4">
-            <div class="col">
+    <div>
+        <network-web3-banner></network-web3-banner>
+        <div class="container">
+            <div class="row pb-4">
+                <div class="col">
 
+                </div>
+                <div class="col">
+                    <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+                </div>
+                <div class="col">
+                    <h2 class="mt-3 text-right">&nbsp;</h2>
+                </div>
             </div>
-            <div class="col">
-                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+
+            <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
+                <div class="col mb-5 text-primary">
+                    <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
+                </div>
             </div>
-            <div class="col">
-                <h2 class="mt-3 text-right">&nbsp;</h2>
+
+            <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
+                <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
+                    <img src="../assets/back.svg" v-show="!cardsShow" @click="showCard()" :id="card.tokenId" :key="card.tokenId"/>
+                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId" v-show="cardsShow"></lazy-img-loader>
+                </div>
+            </div>
+
+            <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
+                <div class="col mb-5">
+                    <b-button variant="outline-primary" size="lg" @click="showCard()" v-show="!cardsShow">Reveal</b-button>
+                    <b-button variant="outline-primary" size="lg" @click="setState('idle')" v-show="cardsShow">Buy more?</b-button>
+                    <router-link to="/squad" class="ml-5">View Squad</router-link>
+                </div>
+            </div>
+
+            <div class="row" v-if="buyState === 'idle'">
+                <div class="col text-center">
+
+                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="primary" size="lg" :disabled="!packPrices">
+                        <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
+                    </b-dropdown>
+                    <div class="small">1 pack is 3 cards</div>
+                </div>
+            </div>
+            <div class="row" v-if="buyState === 'idle'">
+                <div class="col text-right mr-5">
+                    <div class="mt-5 text-muted small ">
+                        <div v-for="(price, num) in packPrices" v-bind:key="num">
+                            {{ num }} {{ parseInt(num) | pluralize('Card') }} for {{ price | toEth }} ETH
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
-            <div class="col mb-5 text-primary">
-                <font-awesome-icon icon="futbol" size="6x" spin class="m-5"/>
-            </div>
-        </div>
-
-        <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-            <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                <img src="../assets/back.svg" v-show="!cardsShow" @click="showCard()" :id="card.tokenId" :key="card.tokenId"/>
-                <lazy-img-loader :src="card.tokenId" :id="card.tokenId" v-show="cardsShow"></lazy-img-loader>
-            </div>
-        </div>
-
-        <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-            <div class="col mb-5">
-                <b-button variant="outline-primary" size="lg" @click="showCard()" v-show="!cardsShow">Reveal</b-button>
-                <b-button variant="outline-primary" size="lg" @click="setState('idle')" v-show="cardsShow">Buy more?</b-button>
-                <router-link to="/squad" class="ml-5">View Squad</router-link>
-            </div>
-        </div>
-
-        <div class="row" v-if="buyState === 'idle'">
-            <div class="col text-center">
-                <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="m-5" variant="primary" size="lg" :disabled="!packPrices">
-                    <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="buyCard(3)">Buy 3 Cards</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="buyCard(6)">Buy 6 Cards</b-dropdown-item>
-                </b-dropdown>
-
-                <div v-for="(price, num) in packPrices" v-bind:key="num">{{ num }} {{ parseInt(num) | pluralize('Card') }} for {{ price | toEth }} ETH</div>
-                <div class="small">1 pack is 3 cards</div>
-
-            </div>
-        </div>
-
     </div>
 </template>
 
@@ -55,9 +64,10 @@
     import NotificationService from '../services/notification.service';
 
     import LazyImgLoader from '../components/LazyImgLoader';
+    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
 
     export default {
-        components: {LazyImgLoader},
+        components: {NetworkWeb3Banner, LazyImgLoader},
         data () {
             return {
                 packPrices: {},
