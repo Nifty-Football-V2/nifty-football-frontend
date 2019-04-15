@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mb-5" v-if="card">
+    <div class="container-fluid mb-5 text-center" v-if="card">
         <div class="row bg-secondary pt-3 pb-5 mb-5">
             <div class="col">
                 <router-link to="/squad">
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <h1 class="text-center">{{ card.fullName }}</h1>
+        <!--<h1 class="text-center">{{ card.fullName }}</h1>-->
 
         <div class="row mt-xl">
             <div class="col">
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col">
                 <font-awesome-icon :icon="['fas', 'dumbbell']" size="2x" class="text-primary"/>
                 <div class="card-stats-lg">{{ card.strength }}</div>
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="row mt-5 mb-5">
+        <div class="row mt-3 mb-3">
             <div class="col">
                 <span class="card-label-sm">Nationality</span><br/>
                 <span class="card-stats">{{ card.nationalityText }}</span>
@@ -74,13 +74,13 @@
             </div>
         </div>
 
-        <div class="row mt-5 mb-5">
+        <div class="row mt-3 mb-3">
             <div class="col">
                 <span class="card-label-sm">Colours</span><br/>
                 <span class="card-stats">{{ card.colourText }}</span>
             </div>
             <div class="col">
-                <span class="card-label-sm">Ethenicity</span><br/>
+                <span class="card-label-sm">Ethnicity</span><br/>
                 <span class="card-stats">{{ card.ethincityText }}</span>
             </div>
         </div>
@@ -142,15 +142,15 @@
     }
 
     .card-stats {
-        font-family: 'Bungee Inline', cursive;
+        font-family: 'Anton', cursive;
         font-size: 2rem;
-        color: $primary;
+        color: $black;
     }
 
     .card-stats-lg {
-        font-family: 'Bungee Inline', cursive;
+        font-family: 'Anton', cursive;
         font-size: 3.5rem;
-        color: $primary;
+        color: $black;
     }
 
     .mt-xl {

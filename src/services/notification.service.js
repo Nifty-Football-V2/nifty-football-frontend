@@ -21,7 +21,7 @@ export default class NotificationService {
 
         this.notification = Vue.$snotify.html(
             `<div class="snotifyToast__body">
-                <div class="notification-icon">👍</div>
+                <div class="notification-icon">🚀</div>
                 <div class="notification-msg">
                   Firing up the wallet
                 </div>
@@ -40,7 +40,7 @@ export default class NotificationService {
 
         this.notification = Vue.$snotify.html(
             `<div class="snotifyToast__body">
-              <div class="notification-icon">🙌</div>
+              <div class="notification-icon">⏳</div>
               <div class="notification-msg">
                 ️Processing transaction...
               </div>
@@ -59,7 +59,7 @@ export default class NotificationService {
 
         this.notification = Vue.$snotify.html(
             `<div class="snotifyToast__body">
-              <div class="notification-icon">🤟</div>
+              <div class="notification-icon">⚽</div>
               <div class="notification-msg">
                 ️Transaction confirmed!
               </div>
