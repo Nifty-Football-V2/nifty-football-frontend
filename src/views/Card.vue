@@ -1,5 +1,13 @@
 <template>
     <div class="container-fluid mb-5 text-center" v-if="card">
+
+        <div class="row pb-4 text-center" v-if="!card">
+            <div class="col mb-5 text-primary">
+                <loading></loading>
+            </div>
+        </div>
+
+
         <div class="row bg-secondary pt-3 pb-5 mb-5">
             <div class="col">
                 <router-link to="/squad">
