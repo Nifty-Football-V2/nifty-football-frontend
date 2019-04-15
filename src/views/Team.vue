@@ -13,9 +13,10 @@
                 <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
                 <!--<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>-->
             </div>
-            <div class="col text-right">
+            <div class="col">
                 <h1 class="mb-3" v-if="team">{{ team.squadAverage }}</h1>
             </div>
+            <div class="col"></div>
         </div>
 
         <div v-if="team && team.team">
