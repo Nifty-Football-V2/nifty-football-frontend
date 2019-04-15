@@ -4,7 +4,6 @@
         <div class="container">
             <div class="row pb-4">
                 <div class="col">
-
                 </div>
                 <div class="col">
                     <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
@@ -21,9 +20,18 @@
             </div>
 
             <div class="row" v-if="rankings && rankings.length > 0">
+                <div class="col mb-3 text-left">
+                    <code>You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the top 50 cards by average attribute value</code>
+                </div>
+            </div>
+
+            <div class="row" v-if="rankings && rankings.length > 0">
                 <div class="col-3 mb-5" v-for="(rank, index) in rankings" v-bind:key="rank.tokenId">
                     <h3 class="text-left">#{{ index + 1 }}</h3>
-                    <lazy-img-loader :src="rank.tokenId" :id="rank.tokenId"></lazy-img-loader>
+                    <div class="text-center">
+                        <lazy-img-loader :src="rank.tokenId" :id="rank.tokenId"></lazy-img-loader>
+                        <code v-if="isMine(rank.owner)">* MY TRADING CARD *</code>
+                    </div>
                 </div>
             </div>
 
@@ -32,21 +40,6 @@
                     <p class="small">Rankings updated every 10 mins</p>
                 </div>
             </div>
-
-
-            <!--<div v-if="squad && order === 'team'">-->
-            <!--<div class="row mb-5" v-for="(team, index) in teamArray" v-bind:key="team[0]">-->
-            <!--<div class="col-4 text-right">-->
-            <!--<h1>{{ index + 1 }}</h1>-->
-            <!--</div>-->
-            <!--<div class="col-4 text-right">-->
-            <!--<h4>{{ team[0] }}</h4>-->
-            <!--</div>-->
-            <!--<div class="col-4 text-left">-->
-            <!--<span class="numberCircle">{{ team[1] }}</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
 
         </div>
     </div>
@@ -63,20 +56,29 @@
         mixins: [Vue2Filters.mixin],
         data () {
             return {
-                order: 'attributeAvg',
-                teamArray: [['Ell\'s Angels', 93], ['Real Madras', 91], ['Athletico Berlin', 86], ['Super Reds', 86], ['Yellow Submarine', 84]],
                 rankings: [],
             };
         },
         computed: {
             ...mapState([
-                'cardsApiService'
+                'cardsApiService',
+                'ethAccount',
             ]),
         },
         methods: {
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;
             },
+            isMine: function (owner) {
+                if (!this.ethAccount) return false;
+
+                return owner.toUpperCase() === this.ethAccount.toUpperCase();
+            },
+            countMyCards: function () {
+                if (!this.ethAccount && !this.rankings) return 0;
+
+                return this.rankings.filter(ranking => ranking.owner.toUpperCase() === this.ethAccount.toUpperCase()).length;
+            }
         },
         async created () {
             const loadRankings = async () => {
