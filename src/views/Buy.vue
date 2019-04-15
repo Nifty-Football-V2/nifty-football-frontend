@@ -2,17 +2,7 @@
     <div>
         <network-web3-banner></network-web3-banner>
         <div class="container">
-            <div class="row pb-4">
-                <div class="col">
-
-                </div>
-                <div class="col">
-                    <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
-                </div>
-                <div class="col">
-                    <h2 class="mt-3 text-right">&nbsp;</h2>
-                </div>
-            </div>
+            <page-header :name="``"></page-header>
 
             <div class="row pb-4 text-center" v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
                 <div class="col mb-5 text-primary">
@@ -65,9 +55,10 @@
     import LazyImgLoader from '../components/LazyImgLoader';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
+    import PageHeader from '../components/PageHeader';
 
     export default {
-        components: {Loading, NetworkWeb3Banner, LazyImgLoader},
+        components: {PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
         data () {
             return {
                 packPrices: {},

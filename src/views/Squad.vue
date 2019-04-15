@@ -2,17 +2,7 @@
     <div>
         <network-web3-banner></network-web3-banner>
         <div class="container">
-            <div class="row pb-4">
-                <div class="col">
-
-                </div>
-                <div class="col">
-                    <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
-                </div>
-                <div class="col">
-                    <h2 class="mt-3 text-right">{{ $t('nav.account') }}</h2>
-                </div>
-            </div>
+            <page-header :name="$t('nav.account')"></page-header>
 
             <div class="row" v-if="squad && ethAccount">
                 <div class="col text-left">
@@ -56,9 +46,10 @@
     import LazyImgLoader from '../components/LazyImgLoader';
     import Loading from '../components/Loading';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
+    import PageHeader from '../components/PageHeader';
 
     export default {
-        components: {NetworkWeb3Banner, Loading, LazyImgLoader},
+        components: {PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
