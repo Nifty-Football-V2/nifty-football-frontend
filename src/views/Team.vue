@@ -1,45 +1,50 @@
 <template>
     <div class="container">
-        <div class="row pb-4">
-            <div class="col">
-                <h1 class="mt-5">{{ $t('nav.team') }}</h1>
-                <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
+        <page-header :name="$t('nav.team')"></page-header>
+
+        <div class="row pb-4 text-center" v-if="team && team.length === 0">
+            <div class="col mb-5 text-primary mx-auto">
+                <loading></loading>
             </div>
         </div>
 
-        <div class="row" v-if="squad && ethAccount">
+        <div class="row" v-if="ethAccount">
             <div class="col text-left">
-                <h4>Real Madras</h4>
+                <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
+                <!--<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>-->
+            </div>
+            <div class="col text-right">
+                <h1 class="mb-3" v-if="team">{{ team.squadAverage }}</h1>
             </div>
         </div>
 
-        <h3 class="mb-4">Strikers</h3>
-        <div class="row" v-if="squad">
-            <div class="offset-3">&nbsp;</div>
-            <div class="col-3  mb-5" v-for="card in limitBy(getBestStrikers(), 2)" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+        <div v-if="team && team.team">
+            <h3 class="mb-4">Strikers</h3>
+            <div class="row" >
+                <div class="col-3  mb-5" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
+                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                </div>
             </div>
-        </div>
 
-        <h3 class="mb-4">Midfield</h3>
-        <div class="row" v-if="squad">
-            <div class="col-3 mb-5" v-for="card in limitBy(getBestMidfielders(), 4)" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+            <h3 class="mb-4">Midfield</h3>
+            <div class="row">
+                <div class="col-3  mb-5" v-for="card in team.team.midfield" v-bind:key="card.tokenId">
+                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                </div>
             </div>
-        </div>
 
-        <h3 class="mb-4">Defence</h3>
-        <div class="row" v-if="squad">
-            <div class="col-3 mb-5" v-for="card in limitBy(getBestDefenders(), 4)" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+            <h3 class="mb-4">Defence</h3>
+            <div class="row">
+                <div class="col-3  mb-5" v-for="card in team.team.defence" v-bind:key="card.tokenId">
+                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                </div>
             </div>
-        </div>
 
-        <h3 class="mb-4">Goalkeeper</h3>
-        <div class="row" v-if="squad">
-            <div class="offset-5">&nbsp;</div>
-            <div class="col-3 mb-5" v-for="card in limitBy(getBestGoalkeeper(), 1)" v-bind:key="card.tokenId">
-                <img :src="`http://localhost:5000/futbol-cards/us-central1/api/network/5777/image/${card.tokenId}`" class="mx-auto"/>
+            <h3 class="mb-4">Goalkeeper</h3>
+            <div class="row">
+                <div class="col-3">
+                    <lazy-img-loader :src="team.team.keeper.tokenId" :id="team.team.keeper.tokenId"></lazy-img-loader>
+                </div>
             </div>
         </div>
     </div>
@@ -47,19 +52,24 @@
 <script>
     import Vue2Filters from 'vue2-filters';
     import { mapState } from 'vuex';
-    import _ from 'lodash';
+    import PageHeader from '../components/PageHeader';
+    import LazyImgLoader from '../components/LazyImgLoader';
+    import Loading from '../components/Loading';
 
     export default {
-        components: {},
+        components: {Loading, LazyImgLoader, PageHeader},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
-                order: 'position',
                 nickname: null,
+                team: [],
             };
         },
         computed: {
-            ...mapState(['squad', 'ethAccount']),
+            ...mapState([
+                'cardsApiService',
+                'ethAccount',
+            ]),
         },
         methods: {
             editEthAccountName () {
@@ -71,46 +81,25 @@
                 }
                 return ethAccount;
             },
-            getBestGoalkeeper: function () {
-                if (this.squad) {
-                    const res = this.squad.tokenDetails.filter(c => c.position === 0);
-                    return _.orderBy(res, ['attributeAvg'], ['desc']);
-                }
+        },
+        async created () {
+            const loadTeam = async () => {
+                this.cardsApiService.loadTeam(this.ethAccount).then((team) => {
+                    this.team = team;
+                });
+            };
 
-                return [];
-            },
-            getBestDefenders: function () {
-                if (this.squad) {
-                    const res = this.squad.tokenDetails.filter(c => c.position === 1);
-                    return _.orderBy(res, ['attributeAvg'], ['desc']);
-                }
+            this.$store.watch(
+                () => this.cardsApiService && this.ethAccount,
+                () => loadTeam()
+            );
 
-                return [];
-            },
-            getBestMidfielders: function () {
-                if (this.squad) {
-                    const res = this.squad.tokenDetails.filter(c => c.position === 2);
-                    return _.orderBy(res, ['attributeAvg'], ['desc']);
-                }
-
-                return [];
-            },
-            getBestStrikers: function () {
-                if (this.squad) {
-                    const res = this.squad.tokenDetails.filter(c => c.position === 3);
-                    return _.orderBy(res, ['attributeAvg'], ['desc']);
-                }
-
-                return [];
-            },
-        }
+            if (this.cardsApiService && this.ethAccount) {
+                loadTeam();
+            }
+        },
     };
 </script>
 
 <style lang="scss">
-    .edit {
-        font-family: 'Roboto', sans-serif;
-        font-size: 1rem;
-        padding-left: 15px;
-    }
 </style>

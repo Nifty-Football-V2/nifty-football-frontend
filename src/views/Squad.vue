@@ -4,28 +4,16 @@
         <div class="container">
             <page-header :name="$t('nav.account')"></page-header>
 
-            <div class="row" v-if="squad && ethAccount">
-                <div class="col text-left">
-                    <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
-                    <!--<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>-->
-                </div>
-
-                <!--<div class="col">-->
-                <!--<router-link to="/team" class="edit">{{ $t('nav.team') }}</router-link>-->
-                <!--</div>-->
-
-                <!--<div class="col text-right">-->
-                <!--{{ $t('common.sort_by') }}:-->
-                <!--<a href="#" @click="setOrder('position')" class="edit">{{ $t('common.position') }}</a>-->
-                <!--<a href="#" @click="setOrder('attributeAvg')" class="edit">{{ $t('common.rating') }}</a>-->
-                <!--<a href="#" @click="setOrder('nationality')" class="edit">{{ $t('common.nationality') }}</a>-->
-                <!--<a href="#" @click="setOrder('fullName')" class="edit">{{ $t('common.name') }}</a>-->
-                <!--</div>-->
-            </div>
-
             <div class="row pb-4 text-center" v-if="squad && squad.length === 0">
                 <div class="col mb-5 text-primary mx-auto">
                     <loading></loading>
+                </div>
+            </div>
+
+            <div class="row" v-if="ethAccount">
+                <div class="col text-left">
+                    <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
+                    <!--<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>-->
                 </div>
             </div>
 

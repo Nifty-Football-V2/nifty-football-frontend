@@ -32,6 +32,9 @@
                         <li class="nav-item">
                             <router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link to="/team" class="nav-link">{{ $t('nav.team') }}</router-link>
+                        </li>
                     </ul>
                 </div>
             </div>
