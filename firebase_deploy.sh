@@ -4,4 +4,4 @@ npm run build;
 
 echo "Deploying Nifty Football"
 firebase use futbol-cards;
-firebase deploy;
+firebase deploy --only hosting;
