@@ -7,8 +7,8 @@ export default {
             play: 'Play',
             marketplace: 'Transfer Market',
             rankings: 'Rankings',
-            account: 'My Squad',
-            team: 'My Best Team',
+            account: 'Squad',
+            team: 'Team',
             head2head: 'Head 2 Head Battles',
         },
         common: {

@@ -1,22 +1,7 @@
 <template>
     <div class="container">
         <page-header :name="$t('nav.team')"></page-header>
-
-
-        <div class="row" v-if="ethAccount">
-            <div class="col text-left">
-            </div>
-            <div class="col text-center">
-            </div>
-            <div class="col text-center">
-                <div v-if="team && team.team">
-                    <font-awesome-icon :icon="['fas', 'chart-bar']" size="2x" class="text-primary"/>
-                    <div class="card-stats-lg">{{ team.squadAverage }}</div>
-                    <div class="card-label-sm">Average</div>
-                </div>
-            </div>
-        </div>
-
+        
         <div class="row pb-4 text-center" v-if="team && team.length === 0">
             <div class="col mb-5 text-primary mx-auto">
                 <loading></loading>
@@ -29,6 +14,14 @@
                 <div class="offset-4"></div>
                 <div class="col-2 mb-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                </div>
+                <div class="offset-2"></div>
+                <div class="col-2">
+                    <div v-if="team && team.team">
+                        <font-awesome-icon :icon="['fas', 'chart-bar']" size="2x" class="text-primary"/>
+                        <div class="card-stats-lg">{{ team.squadAverage }}</div>
+                        <div class="card-label-sm">Average</div>
+                    </div>
                 </div>
             </div>
 
