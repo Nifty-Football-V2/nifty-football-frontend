@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <page-header :name="$t('nav.team')"></page-header>
-        
+
         <div class="row pb-4 text-center" v-if="team && team.length === 0">
             <div class="col mb-5 text-primary mx-auto">
                 <loading></loading>
