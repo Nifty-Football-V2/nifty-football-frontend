@@ -8,7 +8,7 @@
             </div>
             <div class="col text-center">
             </div>
-            <div class="col text-right">
+            <div class="col text-center">
                 <div v-if="team && team.team">
                     <font-awesome-icon :icon="['fas', 'chart-bar']" size="2x" class="text-primary"/>
                     <div class="card-stats-lg">{{ team.squadAverage }}</div>
@@ -24,29 +24,33 @@
         </div>
 
         <div v-if="team && team.team">
-            <h3 class="mb-4">Strikers</h3>
+            <!--<h3 class="mb-4">Strikers</h3>-->
             <div class="row">
+                <div class="offset-4"></div>
                 <div class="col-2 mb-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
                 </div>
             </div>
 
-            <h3 class="mb-4">Midfield</h3>
+            <!--<h3 class="mb-4">Midfield</h3>-->
             <div class="row">
+                <div class="offset-2"></div>
                 <div class="col-2 mb-3" v-for="card in team.team.midfield" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
                 </div>
             </div>
 
-            <h3 class="mb-4">Defence</h3>
+            <!--<h3 class="mb-4">Defence</h3>-->
             <div class="row">
+                <div class="offset-2"></div>
                 <div class="col-2 mb-5" v-for="card in team.team.defence" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
                 </div>
             </div>
 
-            <h3 class="mb-4">Goalkeeper</h3>
+            <!--<h3 class="mb-4">Goalkeeper</h3>-->
             <div class="row">
+                <div class="offset-5"></div>
                 <div class="col-2">
                     <lazy-img-loader :src="team.team.keeper.tokenId" :id="team.team.keeper.tokenId"></lazy-img-loader>
                 </div>
@@ -95,11 +99,11 @@
             };
 
             this.$store.watch(
-                () => this.cardsApiService && this.ethAccount,
+                () => this.cardsApiService.network,
                 () => loadTeam()
             );
 
-            if (this.cardsApiService && this.ethAccount) {
+            if (this.cardsApiService.network) {
                 loadTeam();
             }
         },
