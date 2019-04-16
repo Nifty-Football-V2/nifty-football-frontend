@@ -2,48 +2,52 @@
     <div class="container">
         <page-header :name="$t('nav.team')"></page-header>
 
+
+        <div class="row" v-if="ethAccount">
+            <div class="col text-left">
+            </div>
+            <div class="col text-center">
+            </div>
+            <div class="col text-right">
+                <div v-if="team && team.team">
+                    <font-awesome-icon :icon="['fas', 'chart-bar']" size="2x" class="text-primary"/>
+                    <div class="card-stats-lg">{{ team.squadAverage }}</div>
+                    <div class="card-label-sm">Average</div>
+                </div>
+            </div>
+        </div>
+
         <div class="row pb-4 text-center" v-if="team && team.length === 0">
             <div class="col mb-5 text-primary mx-auto">
                 <loading></loading>
             </div>
         </div>
 
-        <div class="row" v-if="ethAccount">
-            <div class="col text-left">
-                <strong>{{ nickname || dotDotDot(ethAccount) }}</strong>
-                <!--<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>-->
-            </div>
-            <div class="col">
-                <h1 class="mb-3" v-if="team">{{ team.squadAverage }}</h1>
-            </div>
-            <div class="col"></div>
-        </div>
-
         <div v-if="team && team.team">
             <h3 class="mb-4">Strikers</h3>
-            <div class="row" >
-                <div class="col-3  mb-5" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
+            <div class="row">
+                <div class="col-2 mb-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
                 </div>
             </div>
 
             <h3 class="mb-4">Midfield</h3>
             <div class="row">
-                <div class="col-3  mb-5" v-for="card in team.team.midfield" v-bind:key="card.tokenId">
+                <div class="col-2 mb-3" v-for="card in team.team.midfield" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
                 </div>
             </div>
 
             <h3 class="mb-4">Defence</h3>
             <div class="row">
-                <div class="col-3  mb-5" v-for="card in team.team.defence" v-bind:key="card.tokenId">
+                <div class="col-2 mb-5" v-for="card in team.team.defence" v-bind:key="card.tokenId">
                     <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
                 </div>
             </div>
 
             <h3 class="mb-4">Goalkeeper</h3>
             <div class="row">
-                <div class="col-3">
+                <div class="col-2">
                     <lazy-img-loader :src="team.team.keeper.tokenId" :id="team.team.keeper.tokenId"></lazy-img-loader>
                 </div>
             </div>
@@ -103,4 +107,27 @@
 </script>
 
 <style lang="scss">
+    @import "../colours";
+
+    .card-label {
+        font-size: 1rem;
+        color: gray;
+    }
+
+    .card-label-sm {
+        font-size: .85rem;
+        color: gray;
+    }
+
+    .card-stats {
+        font-family: 'Anton', cursive;
+        font-size: 2rem;
+        color: $black;
+    }
+
+    .card-stats-lg {
+        font-family: 'Anton', cursive;
+        font-size: 3.5rem;
+        color: $black;
+    }
 </style>

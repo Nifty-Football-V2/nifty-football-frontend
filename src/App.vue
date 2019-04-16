@@ -195,6 +195,10 @@
         color: $black;
     }
 
+    code {
+        color: $primary;
+    }
+
     .btn-primary {
         color: $body-bg;
     }
