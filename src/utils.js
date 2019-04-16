@@ -1,8 +1,8 @@
 const INFURA_KEY = "6e7a3de11d3745fe8763bab4466ec8de";
 
 const API_CONFIG = {
-    local: "http://localhost:5000/futbol-cards/us-central1/api",
-    live: "https://us-central1-futbol-cards.cloudfunctions.net/api"
+    local: "http://localhost:5000/futbol-cards/us-central1/main/api",
+    live: "https://niftyfootball.cards/api"
 };
 
 const getApi = () => {
