@@ -21,7 +21,7 @@
         </div>
 
         <router-link to="/buy" class="">
-            <img src="../assets/logo.svg" style="max-height: 250px" class="pb-5"/>
+            <img src="../assets/logo.svg" style="max-height: 350px" class="pb-5"/>
         </router-link>
 
         <div class="row">
