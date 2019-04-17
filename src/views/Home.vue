@@ -1,111 +1,134 @@
 <template>
     <div class="container text-center">
-        <img src="../assets/logo.svg" style="max-height: 125px" class="mt-3 mb-3"/>
-        <div class="row pb-4">
-            <div class="col">
-                <div>
-                    <b-carousel
-                            id="players"
-                            :interval="2000"
-                            fade>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/1.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/2.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/3.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/4.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/5.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/6.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/7.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/8.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/9.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                        <b-carousel-slide>
-                            <img
-                                    slot="img"
-                                    class=""
-                                    height="300"
-                                    src="../assets/examples/10.svg"
-                                    alt="Nifty Football"
-                            />
-                        </b-carousel-slide>
-                    </b-carousel>
-                </div>
-
-                <h3 class="mt-3">{{ $t('common.collect_trade_play') }}</h3>
+        <div class="row pb-5 mt-3">
+            <div class="col header-text text-left">
+                <a href="https://medium.com/niftyfootball" target="_blank">BLOG</a>
+            </div>
+            <div class="col header-text">
+                <img src="../assets/live_ropsten.svg" style="max-height: 50px" class="mx-auto"/>
+            </div>
+            <div class="col header-text text-center">
+                <img src="../assets/gray_logo.svg" style="max-height: 50px" class="mx-auto"/>
+            </div>
+            <div class="col header-text">
+                &nbsp;
+            </div>
+            <div class="col header-text">
+                <router-link to="/buy" class="">
+                    <img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>
+                </router-link>
             </div>
         </div>
 
-        <div class="row justify-content-sm-center">
+        <router-link to="/buy" class="">
+            <img src="../assets/logo.svg" style="max-height: 250px" class="mb-5"/>
+        </router-link>
+
+        <div class="row pb-5">
+            <div class="col">
+                <div>
+                    <router-link to="/buy" class="">
+                        <b-carousel
+                                id="players"
+                                :interval="2000"
+                                fade>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/1.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/2.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/3.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/4.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/5.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/6.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/7.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/8.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/9.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                            <b-carousel-slide>
+                                <img
+                                        slot="img"
+                                        class=""
+                                        height="300"
+                                        src="../assets/examples/10.svg"
+                                        alt="Nifty Football"
+                                />
+                            </b-carousel-slide>
+                        </b-carousel>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-sm-center pb-5">
             <div class="col col-md-6">
                 <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
                       name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -116,7 +139,7 @@
 
                     <div class="mc-field-group">
                         <div class="form-group">
-                            <p class="small">For updates, alpha access, and to receive one free card</p>
+                            <div class="header-text-sm mb-3">GET UPDATES</div>
                             <label for="mce-EMAIL" class="sr-only">Email Address</label>
                             <div class="input-group">
                                 <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Your email">
@@ -136,11 +159,15 @@
             </div>
         </div>
 
-        <div class="row pb-4">
+        <div class="row pb-5">
             <div class="col">
-                <h3 class="mt-5">Kicking off May 8th 2019.</h3>
-                <p>Join the <a href="https://t.me/niftyfootball" target="_blank">telegram channel</a> for early test-net access</p>
-                <router-link to="/buy" class="btn btn-outline-primary mt-5">Try ALPHA on ROPSTEN</router-link>
+                <div class="header-text mb-5">KICKING OFF MAY 8TH 2019.</div>
+
+                <router-link to="/buy" class="">
+                    <img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>
+                </router-link>
+
+                <p class="mt-5">Join the community on our <a href="https://t.me/niftyfootball" target="_blank">telegram channel</a></p>
             </div>
         </div>
     </div>
@@ -151,7 +178,7 @@
 
     export default {
         name: 'home',
-        data() {
+        data () {
             return {};
         },
         computed: {},

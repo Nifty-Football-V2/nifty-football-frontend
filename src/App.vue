@@ -195,6 +195,26 @@
         color: $black;
     }
 
+    .header-text {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 2rem;
+        color: $black;
+        letter-spacing: 0.1rem;
+        a {
+            color: $black;
+        }
+    }
+
+    .header-text-sm {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 1.5rem;
+        color: $black;
+        letter-spacing: 0.1rem;
+        a {
+            color: $black;
+        }
+    }
+
     code {
         color: $primary;
     }

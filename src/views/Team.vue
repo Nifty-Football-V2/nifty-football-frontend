@@ -64,7 +64,7 @@
         data () {
             return {
                 nickname: null,
-                team: [],
+                team: null,
             };
         },
         computed: {
