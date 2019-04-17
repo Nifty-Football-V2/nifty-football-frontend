@@ -160,18 +160,23 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row pb-5">
             <div class="col">
                 <!--<router-link to="/buy" class="">-->
                 <!--<img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>-->
                 <!--</router-link>-->
 
                 <p class="mt-5">
-                    Join the community on our <a href="https://t.me/niftyfootball" target="_blank">telegram channel</a>
-                    or <router-link to="/buy" class="">test on ROPSTEN</router-link>
+                    Join the community on <a href="https://t.me/niftyfootball" target="_blank">telegram</a>
                 </p>
+
+
             </div>
         </div>
+
+        <router-link to="/buy" class="">
+            <img src="../assets/start_collecting.svg" style="cursor: pointer;" class="img-fluid"/>
+        </router-link>
     </div>
 </template>
 

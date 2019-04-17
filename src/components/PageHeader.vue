@@ -3,7 +3,9 @@
         <div class="col">
         </div>
         <div class="col">
-            <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+            <router-link to="/" class="">
+                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+            </router-link>
         </div>
         <div class="col">
             <h2 class="mt-3 text-right">{{ name }}</h2>

@@ -3,15 +3,16 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom" v-if="$router.currentRoute.name !== 'home'">
             <!--<locale-changer></locale-changer>-->
             <div class="container">
-                <a class="navbar-brand" href="#">&nbsp;</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                        aria-controls="navbarResponsive" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"-->
+                        <!--aria-controls="navbarResponsive" aria-expanded="false"-->
+                        <!--aria-label="Toggle navigation">-->
+                    <!--<span class="navbar-toggler-icon"></span>-->
+                <!--</button>-->
+                <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
+                <div>
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
+                        <li class="d-none d-md-block nav-item">
                             <router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>
                         </li>
                         <li class="nav-item">
@@ -26,13 +27,13 @@
                         <!--<li class="nav-item">-->
                             <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
                         <!--</li>-->
-                        <li class="nav-item">
+                        <li class="d-none d-md-block nav-item">
                             <router-link to="/rankings" class="nav-link">{{ $t('nav.rankings') }}</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>
                         </li>
-                        <li class="nav-item">
+                        <li class="d-none d-md-block nav-item">
                             <router-link to="/team" class="nav-link">{{ $t('nav.team') }}</router-link>
                         </li>
                     </ul>
@@ -62,7 +63,7 @@
             </a>
 
             <div class="mt-3">
-                <span class="small">Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a></span>
+                <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a></span>
             </div>
         </footer>
     </div>
@@ -195,6 +196,15 @@
         color: $black;
     }
 
+    footer {
+        margin-bottom: 120px;
+        margin-top: 50px;
+    }
+
+    code {
+        color: $primary;
+    }
+
     .header-text {
         font-family: 'CrackerJack', sans-serif;
         font-size: 2rem;
@@ -219,10 +229,6 @@
         font-family: 'CrackerJack', sans-serif;
     }
 
-    code {
-        color: $primary;
-    }
-
     .btn-primary {
         color: $body-bg;
     }
@@ -232,11 +238,6 @@
             color: $black;
             font-size: 1rem;
         }
-    }
-
-    footer {
-        margin-bottom: 80px;
-        margin-top: 50px;
     }
 
     /**************************************/
