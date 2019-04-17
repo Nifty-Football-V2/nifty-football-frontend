@@ -161,11 +161,14 @@
 
         <div class="row">
             <div class="col">
-                <router-link to="/buy" class="">
-                    <img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>
-                </router-link>
+                <!--<router-link to="/buy" class="">-->
+                <!--<img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>-->
+                <!--</router-link>-->
 
-                <p class="mt-5">Join the community on our <a href="https://t.me/niftyfootball" target="_blank">telegram channel</a></p>
+                <p class="mt-5">
+                    Join the community on our <a href="https://t.me/niftyfootball" target="_blank">telegram channel</a>
+                    or <router-link to="/buy" class="">test on ROPSTEN</router-link>
+                </p>
             </div>
         </div>
     </div>
