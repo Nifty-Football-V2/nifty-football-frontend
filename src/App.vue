@@ -215,6 +215,10 @@
         }
     }
 
+    .form-control {
+        font-family: 'CrackerJack', sans-serif;
+    }
+
     code {
         color: $primary;
     }

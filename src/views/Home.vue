@@ -21,8 +21,14 @@
         </div>
 
         <router-link to="/buy" class="">
-            <img src="../assets/logo.svg" style="max-height: 250px" class="mb-5"/>
+            <img src="../assets/logo.svg" style="max-height: 250px" class="pb-5"/>
         </router-link>
+
+        <div class="row">
+            <div class="col">
+                <div class="header-text mb-5">KICKING OFF MAY 8TH 2019.</div>
+            </div>
+        </div>
 
         <div class="row pb-5">
             <div class="col">
@@ -129,7 +135,7 @@
         </div>
 
         <div class="row justify-content-sm-center pb-5">
-            <div class="col col-md-6">
+            <div class="col col-md-4">
                 <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
                       name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 
@@ -138,16 +144,10 @@
                     </div>
 
                     <div class="mc-field-group">
-                        <div class="form-group">
-                            <div class="header-text-sm mb-3">GET UPDATES</div>
-                            <label for="mce-EMAIL" class="sr-only">Email Address</label>
-                            <div class="input-group">
-                                <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Your email">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">Subscribe</button>
-                                </span>
-                            </div>
-                        </div>
+                        <div class="header-text-sm mb-2">GET UPDATES</div>
+                        <label for="mce-EMAIL" class="sr-only">Email Address</label>
+                        <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="you@email.com">
+                        <img src="../assets/join_list.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto mt-3" onclick="document.getElementById('mc-embedded-subscribe-form').submit();"/>
                     </div>
 
                     <div id="mce-responses">
@@ -159,10 +159,8 @@
             </div>
         </div>
 
-        <div class="row pb-5">
+        <div class="row">
             <div class="col">
-                <div class="header-text mb-5">KICKING OFF MAY 8TH 2019.</div>
-
                 <router-link to="/buy" class="">
                     <img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>
                 </router-link>
