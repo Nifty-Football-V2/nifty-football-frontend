@@ -1,27 +1,27 @@
 <template>
     <div class="container text-center">
-        <div class="row pb-5 mb-3 mt-3">
+        <div class="row pb-5 mb-3">
             <div class="d-none d-md-block col header-text text-left">
                 <a href="https://medium.com/niftyfootball" target="_blank">BLOG</a>
             </div>
-            <div class="col-3 header-text text-left">
-                <img src="../assets/live_ropsten.svg" style="width: 300px;" class="img-fluid"/>
+            <div class="col-6 col-md-3 header-text text-left">
+                <img src="../assets/live_ropsten.svg" class="img-fluid m-3"/>
             </div>
             <div class="d-none d-md-block col header-text text-center">
-                <img src="../assets/gray_logo.svg"  style="width: 75px;" class="mx-auto"/>
+                <img src="../assets/gray_logo.svg"  style="width: 75px;" class="mx-auto m-3"/>
             </div>
             <div class="d-none d-md-block col header-text">
                 &nbsp;
             </div>
-            <div class="col header-text text-right">
+            <div class="col-6 col-md-3 header-text text-right">
                 <router-link to="/buy" class="">
-                    <img src="../assets/start_collecting.svg" style="width: 200px; cursor: pointer;" class="mx-auto"/>
+                    <img src="../assets/start_collecting.svg" style="cursor: pointer;" class="img-fluid m-3"/>
                 </router-link>
             </div>
         </div>
 
         <router-link to="/buy" class="">
-            <img src="../assets/logo.svg" style="max-height: 350px" class="pb-5"/>
+            <img src="../assets/logo.svg" style="max-height: 300px" class="pb-5"/>
         </router-link>
 
         <div class="row">

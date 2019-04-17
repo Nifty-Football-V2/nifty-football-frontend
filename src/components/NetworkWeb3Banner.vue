@@ -1,8 +1,10 @@
 <template>
     <div class="container-fluid mt-0" v-if="!web3Enabled || networkId !== 3" v-cloak>
-        <div class="row no-metamask text-center">
-            <div class="col mt-2 mb-2">
+        <div class="row no-metamask text-left">
+            <div class="col-2 mt-2 mb-2">
                 <img src="../assets/metamask.png" style="max-height: 35px" class="mr-3"/>
+            </div>
+            <div class="col-10 mt-2 mb-2 text-left">
                 Please install the <code><a href="https://metamask.io/" target="_blank">METAMASK</a></code> or similar Web3 provider and
                 switch to <code><a href="https://ropsten.etherscan.io/" target="_blank">ROPSTEN</a></code> test network!
             </div>
