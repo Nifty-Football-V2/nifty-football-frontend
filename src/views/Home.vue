@@ -1,21 +1,21 @@
 <template>
     <div class="container text-center">
-        <div class="row pb-5 mt-3">
-            <div class="col header-text text-left">
+        <div class="row pb-5 mb-3 mt-3">
+            <div class="d-none d-md-block col header-text text-left">
                 <a href="https://medium.com/niftyfootball" target="_blank">BLOG</a>
             </div>
-            <div class="col header-text">
-                <img src="../assets/live_ropsten.svg" style="max-height: 50px" class="mx-auto"/>
+            <div class="col-3 header-text text-left">
+                <img src="../assets/live_ropsten.svg" style="width: 300px;" class="img-fluid"/>
             </div>
-            <div class="col header-text text-center">
-                <img src="../assets/gray_logo.svg" style="max-height: 50px" class="mx-auto"/>
+            <div class="d-none d-md-block col header-text text-center">
+                <img src="../assets/gray_logo.svg"  style="width: 75px;" class="mx-auto"/>
             </div>
-            <div class="col header-text">
+            <div class="d-none d-md-block col header-text">
                 &nbsp;
             </div>
-            <div class="col header-text">
+            <div class="col header-text text-right">
                 <router-link to="/buy" class="">
-                    <img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>
+                    <img src="../assets/start_collecting.svg" style="width: 200px; cursor: pointer;" class="mx-auto"/>
                 </router-link>
             </div>
         </div>
