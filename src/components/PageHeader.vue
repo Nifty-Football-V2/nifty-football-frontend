@@ -1,14 +1,15 @@
 <template>
     <div class="row pb-4">
         <div class="col">
-        </div>
-        <div class="col">
             <router-link to="/" class="">
-                <img src="../assets/logo.svg" style="max-height: 75px" class="mt-3 mb-3"/>
+                <img src="../assets/logo.svg" class="img-fluid mt-3 mb-3" style="max-height: 100px;"/>
             </router-link>
         </div>
         <div class="col">
-            <h2 class="mt-3 text-right">{{ name }}</h2>
+
+        </div>
+        <div class="col">
+            <div class="header-text mt-3 text-right">{{ name }}</div>
         </div>
     </div>
 </template>

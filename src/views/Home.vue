@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid text-center">
-        <div class="row pb-5 mb-3 mt-2">
+        <div class="row pb-3 mb-3 mt-2">
             <div class="col-6 col-md-3 header-text text-left">
                 <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto"/>
             </div>
@@ -21,11 +21,11 @@
             </div>
         </div>
 
-        <router-link to="/buy" class="">
-            <img src="../assets/logo.svg" style="max-height: 300px" class="pb-5"/>
+        <router-link to="/buy" class="pb-3 pt-3">
+            <img src="../assets/logo.svg" style="max-height: 300px" class=""/>
         </router-link>
 
-        <div class="row">
+        <div class="row pb-3 pt-5">
             <div class="col">
                 <div class="header-text mb-5">KICKING OFF MAY 8TH 2019</div>
             </div>
@@ -135,7 +135,7 @@
             </div>
         </div>
 
-        <div class="row justify-content-sm-center pb-5 pt-3">
+        <div class="row justify-content-sm-center pb-3 pt-5">
             <div class="col col-md-4">
                 <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
                       name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -160,7 +160,7 @@
             </div>
         </div>
 
-        <div class="row pb-5">
+        <div class="row pb-3 pt-1">
             <div class="col">
                 <!--<router-link to="/buy" class="">-->
                 <!--<img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>-->
@@ -172,7 +172,7 @@
             </div>
         </div>
 
-        <router-link to="/buy" class="">
+        <router-link to="/buy" class="pb-3 pt-1">
             <img src="../assets/start_collecting.svg" style="cursor: pointer;" class="img-fluid"/>
         </router-link>
     </div>

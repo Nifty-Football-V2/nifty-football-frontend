@@ -210,6 +210,7 @@
         font-size: 2rem;
         color: $black;
         letter-spacing: 0.1rem;
+        text-transform: uppercase;
         a {
             color: $black;
         }
