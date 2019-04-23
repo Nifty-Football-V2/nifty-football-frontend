@@ -210,7 +210,7 @@
         text-transform: uppercase;
         border: 2px solid #000;
         box-shadow: 0 6px 0 0 #000;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
         padding-left: 50px;
         padding-right: 50px;
     }
