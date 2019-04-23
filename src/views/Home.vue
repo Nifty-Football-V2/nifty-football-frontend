@@ -9,7 +9,7 @@
                 <!--<a href="https://medium.com/niftyfootball" target="_blank">BLOG</a>-->
             </div>
             <div class="d-none d-md-block col header-text text-center">
-                <img src="../assets/gray_logo.svg"  style="width: 75px;" class="mx-auto"/>
+                <img src="../assets/gray_logo.svg" style="width: 75px;" class="mx-auto"/>
             </div>
             <div class="d-none d-md-block col header-text">
                 &nbsp;
@@ -31,109 +31,122 @@
             </div>
         </div>
 
-        <div class="row pb-3 pt-3 bg-secondary">
+        <div class="row pb-5 pt-5 bg-secondary">
+            <div class="col">&nbsp;</div>
             <div class="col">
                 <div>
+                    <div class="header-text mb-5">BUILD A TEAM</div>
                     <router-link to="/buy" class="">
-                        <b-carousel
-                                id="players"
-                                :interval="2000"
-                                fade>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/1.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/2.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/3.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/4.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/5.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/6.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/7.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/8.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/9.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                            <b-carousel-slide>
-                                <img
-                                        slot="img"
-                                        class=""
-                                        height="300"
-                                        src="../assets/examples/10.svg"
-                                        alt="Nifty Football"
-                                />
-                            </b-carousel-slide>
-                        </b-carousel>
+                        <img src="../assets/build.png" style="cursor: pointer;" class="img-fluid"/>
                     </router-link>
                 </div>
             </div>
+            <div class="col">&nbsp;</div>
         </div>
+
+        <!--<div class="row pb-3 pt-3 bg-secondary">-->
+        <!--<div class="col">-->
+        <!--<div>-->
+        <!--<router-link to="/buy" class="">-->
+        <!--<b-carousel-->
+        <!--id="players"-->
+        <!--:interval="2000"-->
+        <!--fade>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/1.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/2.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/3.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/4.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/5.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/6.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/7.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/8.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/9.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--<b-carousel-slide>-->
+        <!--<img-->
+        <!--slot="img"-->
+        <!--class=""-->
+        <!--height="300"-->
+        <!--src="../assets/examples/10.svg"-->
+        <!--alt="Nifty Football"-->
+        <!--/>-->
+        <!--</b-carousel-slide>-->
+        <!--</b-carousel>-->
+        <!--</router-link>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
 
         <div class="row justify-content-sm-center pb-3 pt-5">
             <div class="col col-md-4">
@@ -179,8 +192,6 @@
 </template>
 
 <script>
-
-
     export default {
         name: 'home',
         data () {
