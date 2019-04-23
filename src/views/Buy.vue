@@ -27,7 +27,7 @@
             <div class="row" v-if="buyState === 'idle'">
                 <div class="col text-center">
 
-                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="primary" size="lg" :disabled="!packPrices">
+                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
                         <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>

@@ -161,7 +161,8 @@
                         <div class="header-text-sm mb-2">GET UPDATES</div>
                         <label for="mce-EMAIL" class="sr-only">Email Address</label>
                         <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="you@email.com">
-                        <img src="../assets/join_list.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto mt-3" onclick="document.getElementById('mc-embedded-subscribe-form').submit();"/>
+                        <!--<img src="../assets/join_list.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto mt-3" onclick="document.getElementById('mc-embedded-subscribe-form').submit();"/>-->
+                        <b-button variant="secondary" size="lg" class="mt-3" type="submit">Join List</b-button>
                     </div>
 
                     <div id="mce-responses">

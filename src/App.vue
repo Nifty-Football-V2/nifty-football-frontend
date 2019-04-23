@@ -205,6 +205,21 @@
         color: $primary;
     }
 
+    .btn-secondary {
+        font-family: 'CrackerJack', sans-serif;
+        text-transform: uppercase;
+        border: 2px solid #000;
+        box-shadow: 0 6px 0 0 #000;
+        margin-bottom: 10px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open>.dropdown-toggle.btn-secondary {
+        border: 2px solid #000;
+        box-shadow: 0 6px 0 0 #000;
+    }
+
     .header-text {
         font-family: 'CrackerJack', sans-serif;
         font-size: 2rem;
