@@ -12,7 +12,7 @@
             </div>
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-                <div class="col-12 col-md-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
+                <div class="col-12 col-md-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId" style="min-height: 370px;">
                     <buy-player-flip-image :token-id="card.tokenId" v-bind:key="1" :reveal-all="revealAll"></buy-player-flip-image>
                 </div>
             </div>
