@@ -47,7 +47,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Snotify, {
     toast: {
-        position: SnotifyPosition.leftTop,
+        position: SnotifyPosition.leftCenter,
         titleMaxLength: 150,
         bodyMaxLength: 300,
     },
