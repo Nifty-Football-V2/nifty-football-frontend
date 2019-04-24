@@ -23,6 +23,7 @@
     "nifty-football-contract-tools": "^1.0.1",
     "vue": "^2.6.7",
     "vue-analytics": "^5.16.2",
+    "vue-flip": "^0.2.5",
     "vue-i18n": "^8.8.2",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
