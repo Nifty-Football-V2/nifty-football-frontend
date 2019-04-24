@@ -9,11 +9,18 @@ const defaults = {
 
 export default class NotificationService {
 
-    constructor () {
+    constructor() {
         this.notification = undefined;
     }
 
-    showPurchaseNotification () {
+    // FIXME this should be a list of notifications not a single one
+    clearNotification() {
+        if (this.notification) {
+            Vue.$snotify.remove(this.notification.id);
+        }
+    }
+
+    showPurchaseNotification() {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -32,7 +39,7 @@ export default class NotificationService {
             });
     }
 
-    showProcessingNotification () {
+    showProcessingNotification() {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -51,7 +58,7 @@ export default class NotificationService {
             });
     }
 
-    showConfirmedNotification () {
+    showConfirmedNotification() {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -71,7 +78,7 @@ export default class NotificationService {
             });
     }
 
-    showSuccessNotification (message) {
+    showSuccessNotification(message) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -91,7 +98,7 @@ export default class NotificationService {
             });
     }
 
-    showFailureNotification (message) {
+    showFailureNotification(message) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -99,7 +106,7 @@ export default class NotificationService {
 
         this.notification = Vue.$snotify.html(
             `<div class="snotifyToast__body">
-              <div class="notification-icon">🤟</div>
+              <div class="notification-icon">😔</div>
               <div class="notification-msg">
                 ${message}
               </div>
@@ -107,11 +114,11 @@ export default class NotificationService {
             {
                 ...defaults,
                 timeout: 10000, // 10s timeout
-                type: 'danger',
+                type: 'warning',
             });
     }
 
-    showNeutralNotification (message) {
+    showNeutralNotification(message) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
