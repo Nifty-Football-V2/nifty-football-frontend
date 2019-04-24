@@ -20,8 +20,6 @@
             <div class="row" v-if="squad">
                 <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
                 <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad" v-bind:key="tokenId" >
-                    <!--<router-link :to="`/card/` + tokenId">-->
-
                     <vue-flip :active-click="true" width="100%" height="100%" >
                         <div slot="front">
                             <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
@@ -30,9 +28,6 @@
                             <img src="../assets/back.svg" style="margin: 6px"/>
                         </div>
                     </vue-flip>
-
-
-                    <!--</router-link>-->
                 </div>
             </div>
         </div>

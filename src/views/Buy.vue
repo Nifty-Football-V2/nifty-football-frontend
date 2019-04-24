@@ -12,11 +12,11 @@
             </div>
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-                <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                    <buy-player-image :card="card" v-bind:key="card.tokenId" :reveal-all="revealAll"></buy-player-image>
+                <div class="col-12 col-md-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
+                    <buy-player-flip-image :token-id="card.tokenId" v-bind:key="1" :reveal-all="revealAll"></buy-player-flip-image>
                 </div>
             </div>
-
+            
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
                 <div class="col mb-5">
                     <b-button variant="outline-primary" size="lg" @click="showAllCards()">Reveal</b-button>
@@ -51,7 +51,7 @@
 
 <script>
     import Vue from 'vue';
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import NotificationService from '../services/notification.service';
     import _ from 'lodash';
 
@@ -59,11 +59,12 @@
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import PageHeader from '../components/PageHeader';
-    import BuyPlayerImage from "../components/BuyPlayerImage";
+    import BuyPlayerImage from '../components/BuyPlayerImage';
+    import BuyPlayerFlipImage from '../components/BuyPlayerFlipImage';
 
     export default {
-        components: {BuyPlayerImage, PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
-        data() {
+        components: {BuyPlayerFlipImage, BuyPlayerImage, PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
+        data () {
             return {
                 packPrices: {},
                 buyState: 'idle',
@@ -111,15 +112,15 @@
 
                 notificationService.showConfirmedNotification();
             },
-            setState(state) {
+            setState (state) {
                 this.buyState = state;
                 this.revealAll = false;
             },
-            showAllCards() {
-               this.revealAll = true;
+            showAllCards () {
+                this.revealAll = true;
             }
         },
-        async created() {
+        async created () {
             const loadData = async () => {
                 this.packPrices = await this.blindPackService.getPriceModel();
             };

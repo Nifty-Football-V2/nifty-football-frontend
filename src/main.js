@@ -12,8 +12,6 @@ import Snotify, { SnotifyPosition } from 'vue-snotify';
 
 import Vue2Filters from 'vue2-filters';
 
-import VueFlip from 'vue-flip';
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faDiscord, faTelegram, faTwitter, faInstagram, faMedium } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -43,7 +41,6 @@ Vue.use(VueLazyload, {
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 Vue.use(Vue2Filters);
-Vue.use(VueFlip);
 
 library.add(faDiscord, faTelegram, faTwitter, faInstagram, faMedium, faFutbol, faChartBar, faRunning, faLightbulb, faDumbbell, faMagic, faArrowLeft);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
