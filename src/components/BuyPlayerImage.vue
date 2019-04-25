@@ -49,19 +49,4 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../colours";
-
-    .v-lazy-image {
-        filter: blur(0px);
-        transition: filter 0.5s;
-    }
-
-    .v-lazy-image-loaded {
-        filter: blur(0);
-    }
-
-    .highlight {
-        -webkit-filter: drop-shadow(1px 2px 1px $secondary);
-        filter: drop-shadow(1px 2px 1px $secondary);
-    }
 </style>

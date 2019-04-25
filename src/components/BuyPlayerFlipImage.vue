@@ -23,47 +23,20 @@
     export default {
         name: 'buy-player-flip-image',
         components: {VueFlip},
-        props: ['tokenId', 'revealAll'],
+        props: ['tokenId'],
         data () {
-            return {
-                cardShown: false
-            };
+            return {};
         },
         computed: {
             ...mapState(['networkId']),
         },
         methods: {
-            revealCard () {
-                this.cardShown = true;
-            },
             imageUrl () {
                 return `${getApi()}/network/${this.networkId}/image/${this.tokenId}`;
             }
         },
-        watch: {
-            revealAll: function (newVal, oldVal) {
-                if (newVal) {
-                    this.cardShown = true;
-                }
-            }
-        }
     };
 </script>
 
 <style scoped lang="scss">
-    @import "../colours";
-
-    .v-lazy-image {
-        filter: blur(0px);
-        transition: filter 0.5s;
-    }
-
-    .v-lazy-image-loaded {
-        filter: blur(0);
-    }
-
-    .highlight {
-        -webkit-filter: drop-shadow(1px 2px 1px $secondary);
-        filter: drop-shadow(1px 2px 1px $secondary);
-    }
 </style>

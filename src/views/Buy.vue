@@ -12,13 +12,8 @@
             </div>
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-<<<<<<< HEAD
-                <div class="col-12 col-md-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId" style="min-height: 370px;">
-                    <buy-player-flip-image :token-id="card.tokenId" v-bind:key="1" :reveal-all="revealAll"></buy-player-flip-image>
-=======
-                <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
-                    <buy-player-image :card="card" v-bind:key="card.tokenId"
-                                      :reveal-all="revealAll"></buy-player-image>
+                <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId" style="min-height: 320px">
+                    <buy-player-flip-image :token-id="card.tokenId" v-bind:key="card.tokenId"></buy-player-flip-image>
                 </div>
             </div>
 
@@ -42,14 +37,13 @@
                             </b-dropdown>
                         </div>
                     </div>
->>>>>>> master
                 </div>
             </div>
-            
+
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
                 <div class="col mb-5">
-                    <b-button variant="outline-primary" size="lg" @click="showAllCards()">Reveal</b-button>
-                    <b-button variant="outline-primary" size="lg" @click="setState('idle')">Buy more?</b-button>
+                    <!--<b-button variant="outline-primary" size="lg" @click="showAllCards()">Reveal</b-button>-->
+                    <a href="#" @click="setState('idle')">Buy more?</a>
                 </div>
             </div>
 
@@ -80,20 +74,15 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import { mapState } from 'vuex';
     import NotificationService from '../services/notification.service';
-    import _ from 'lodash';
-
-    import LazyImgLoader from '../components/LazyImgLoader';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import PageHeader from '../components/PageHeader';
-    import BuyPlayerImage from '../components/BuyPlayerImage';
     import BuyPlayerFlipImage from '../components/BuyPlayerFlipImage';
 
     export default {
-        components: {BuyPlayerFlipImage, BuyPlayerImage, PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
+        components: {BuyPlayerFlipImage, PageHeader, Loading, NetworkWeb3Banner},
         data () {
             return {
                 packPrices: {},
@@ -112,7 +101,7 @@
             ]),
         },
         methods: {
-            async buyCard(num, useCredits = false) {
+            async buyCard (num, useCredits = false) {
                 const notificationService = new NotificationService();
                 this.buyState = 'mining';
 
@@ -146,8 +135,8 @@
                     this.loadCreditsForAccount();
 
                 } catch (e) {
-                    console.error("TXS failed", e);
-                    notificationService.showFailureNotification("Transaction rejected");
+                    console.error('TXS failed', e);
+                    notificationService.showFailureNotification('Transaction rejected');
                     this.buyState = 'idle';
                 }
             },
@@ -155,10 +144,10 @@
                 this.buyState = state;
                 this.revealAll = false;
             },
-            showAllCards() {
+            showAllCards () {
                 this.revealAll = true;
             },
-            async loadCreditsForAccount() {
+            async loadCreditsForAccount () {
                 this.accountCredits = await this.blindPackService.getCreditsForAccount(this.ethAccount);
 
             }
