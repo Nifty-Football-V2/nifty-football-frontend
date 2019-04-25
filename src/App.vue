@@ -5,9 +5,9 @@
             <div class="container">
                 <!--<a class="navbar-brand" href="#">&nbsp;</a>-->
                 <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"-->
-                        <!--aria-controls="navbarResponsive" aria-expanded="false"-->
-                        <!--aria-label="Toggle navigation">-->
-                    <!--<span class="navbar-toggler-icon"></span>-->
+                <!--aria-controls="navbarResponsive" aria-expanded="false"-->
+                <!--aria-label="Toggle navigation">-->
+                <!--<span class="navbar-toggler-icon"></span>-->
                 <!--</button>-->
                 <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
                 <div>
@@ -19,13 +19,13 @@
                             <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
                         </li>
                         <!--<li class="nav-item">-->
-                            <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
+                        <!--<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>-->
                         <!--</li>-->
                         <!--<li class="nav-item">-->
-                            <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
+                        <!--<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>-->
                         <!--</li>-->
                         <!--<li class="nav-item">-->
-                            <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
+                        <!--<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>-->
                         <!--</li>-->
                         <li class="d-none d-md-block nav-item">
                             <router-link to="/rankings" class="nav-link">{{ $t('nav.rankings') }}</router-link>
@@ -152,7 +152,9 @@
     @import '../node_modules/bootstrap/scss/bootstrap';
     @import '../node_modules/bootstrap-vue/src/index.scss';
 
-    [v-cloak] {display: none}
+    [v-cloak] {
+        display: none
+    }
 
     #app {
         -webkit-font-smoothing: antialiased;
@@ -205,6 +207,14 @@
         color: $primary;
     }
 
+    .badge {
+        font-size: 1rem;
+        font-family: 'CrackerJack', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        border: 2px solid #000;
+    }
+
     .btn-secondary {
         font-family: 'CrackerJack', sans-serif;
         text-transform: uppercase;
@@ -215,7 +225,7 @@
         padding-right: 50px;
     }
 
-    .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open>.dropdown-toggle.btn-secondary {
+    .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open > .dropdown-toggle.btn-secondary {
         border: 2px solid #000;
         box-shadow: 0 6px 0 0 #000;
     }
@@ -226,6 +236,7 @@
         color: $black;
         letter-spacing: 0.1rem;
         text-transform: uppercase;
+
         a {
             color: $black;
         }
@@ -236,6 +247,7 @@
         font-size: 1.5rem;
         color: $black;
         letter-spacing: 0.1rem;
+
         a {
             color: $black;
         }

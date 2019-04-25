@@ -17,29 +17,6 @@
                 </div>
             </div>
 
-            <div class="row pb-4 text-center" v-if="accountCredits > 0 && buyState === 'idle'">
-                <div class="col">
-                    <div class="alert alert-info">
-                        Looks like you have <span class="font-weight-bold">{{accountCredits}}</span> credits to use up
-                        <div>
-                            <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)"
-                                        text="Use Credits" class="mt-5" variant="secondary" size="lg"
-                                        :disabled="!packPrices">
-                                <b-dropdown-item href="#" @click="buyCard(1, true)" v-if="accountCredits >= 1">
-                                    Buy 1 Card
-                                </b-dropdown-item>
-                                <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">
-                                    Buy 1 Pack
-                                </b-dropdown-item>
-                                <b-dropdown-item href="#" @click="buyCard(6, true)" v-if="accountCredits >= 6">
-                                    Buy 2 Packs
-                                </b-dropdown-item>
-                            </b-dropdown>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
                 <div class="col mb-5">
                     <!--<b-button variant="outline-primary" size="lg" @click="showAllCards()">Reveal</b-button>-->
@@ -48,10 +25,19 @@
             </div>
 
             <div class="row" v-if="buyState === 'idle'">
+                <div class="col-lg"></div>
+                <div class="col text-center" v-if="accountCredits > 0">
+                    <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)" text="Use Credits" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
+                        <b-dropdown-item href="#" @click="buyCard(1, true)" v-if="accountCredits >= 1">Buy 1 Card</b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">Buy 1 Pack</b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(6, true)" v-if="accountCredits >= 6">Buy 2 Packs</b-dropdown-item>
+                    </b-dropdown>
+
+                    <div class="mt-3"><span class="badge badge-secondary">{{accountCredits}}</span> credits</div>
+                </div>
                 <div class="col text-center">
 
-                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg"
-                                :disabled="!packPrices">
+                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
                         <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
@@ -59,6 +45,7 @@
 
                     <div class="small">1 pack is 3 cards</div>
                 </div>
+                <div class="col-lg"></div>
             </div>
             <div class="row" v-if="buyState === 'idle'">
                 <div class="col text-right mr-5">
@@ -119,13 +106,6 @@
 
                     const txRes = await this.cardsApiService.loadTokensForTx(tx.hash);
                     this.cards = txRes.cards;
-
-                    // // for local DEMO purposes!!!
-                    // function sleep (ms) {
-                    //     return new Promise(resolve => setTimeout(resolve, ms));
-                    // }
-                    //
-                    // await sleep(1000);
 
                     this.buyState = 'confirmed';
 
