@@ -53,7 +53,9 @@ export default new Vuex.Store({
             state.providerSigner = provider.getSigner();
             state.blindPackService = new BlindPackContractService(state.networkId, state.providerSigner);
             state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
-            state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
+
+            // FIXME
+            // state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
 
             state.web3Enabled = true;
             // This needs to not be a etherjs provider...?

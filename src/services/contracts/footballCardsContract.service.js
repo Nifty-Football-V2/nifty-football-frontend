@@ -7,24 +7,28 @@ export default class FootballCardsContractService {
         this.network = network;
         this.providerSigner = providerSigner;
         const {address} = contracts.getNiftyFootballNft(network);
-        this.contract = new ethers.Contract(address, abi.FutballCardsAbi, this.providerSigner);
-        const {address: headToHeadAddress} = contracts.getHeadToHeadGame(network);
-        this.headToHeadAddress = headToHeadAddress;
+        this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardAbi, this.providerSigner);
+        // FIXME
+        // const {address: headToHeadAddress} = contracts.getHeadToHeadGame(network);
+        // this.headToHeadAddress = headToHeadAddress;
     }
 
     async isApprovedForAll(owner) {
-        console.log(`isApprovedForAll() with account [${owner}] for address [${this.headToHeadAddress}] on network [${this.network}]`);
-        return this.contract.isApprovedForAll(owner, this.headToHeadAddress);
+        // FIXME
+        // console.log(`isApprovedForAll() with account [${owner}] for address [${this.headToHeadAddress}] on network [${this.network}]`);
+        // return this.contract.isApprovedForAll(owner, this.headToHeadAddress);
     }
 
     async grantApprovedForAll() {
-        //function setApprovalForAll(address to, bool approved) public
-        return this.contract.setApprovalForAll(this.headToHeadAddress, true);
+        // FIXME
+        // function setApprovalForAll(address to, bool approved) public
+        // return this.contract.setApprovalForAll(this.headToHeadAddress, true);
     }
 
     async removeApprovedForAll() {
-        //function setApprovalForAll(address to, bool approved) public
-        return this.contract.setApprovalForAll(this.headToHeadAddress, false);
+        // FIXME
+        // function setApprovalForAll(address to, bool approved) public
+        // return this.contract.setApprovalForAll(this.headToHeadAddress, false);
     }
 
 }

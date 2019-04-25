@@ -12,8 +12,37 @@
             </div>
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
+<<<<<<< HEAD
                 <div class="col-12 col-md-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId" style="min-height: 370px;">
                     <buy-player-flip-image :token-id="card.tokenId" v-bind:key="1" :reveal-all="revealAll"></buy-player-flip-image>
+=======
+                <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
+                    <buy-player-image :card="card" v-bind:key="card.tokenId"
+                                      :reveal-all="revealAll"></buy-player-image>
+                </div>
+            </div>
+
+            <div class="row pb-4 text-center" v-if="accountCredits > 0 && buyState === 'idle'">
+                <div class="col">
+                    <div class="alert alert-info">
+                        Looks like you have <span class="font-weight-bold">{{accountCredits}}</span> credits to use up
+                        <div>
+                            <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)"
+                                        text="Use Credits" class="mt-5" variant="secondary" size="lg"
+                                        :disabled="!packPrices">
+                                <b-dropdown-item href="#" @click="buyCard(1, true)" v-if="accountCredits >= 1">
+                                    Buy 1 Card
+                                </b-dropdown-item>
+                                <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">
+                                    Buy 1 Pack
+                                </b-dropdown-item>
+                                <b-dropdown-item href="#" @click="buyCard(6, true)" v-if="accountCredits >= 6">
+                                    Buy 2 Packs
+                                </b-dropdown-item>
+                            </b-dropdown>
+                        </div>
+                    </div>
+>>>>>>> master
                 </div>
             </div>
             
@@ -33,6 +62,7 @@
                         <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
                     </b-dropdown>
+
                     <div class="small">1 pack is 3 cards</div>
                 </div>
             </div>
@@ -67,6 +97,7 @@
         data () {
             return {
                 packPrices: {},
+                accountCredits: 0,
                 buyState: 'idle',
                 cards: [],
                 revealAll: false
@@ -81,43 +112,55 @@
             ]),
         },
         methods: {
-            buyCard: async function (num) {
-
+            async buyCard(num, useCredits = false) {
+                const notificationService = new NotificationService();
                 this.buyState = 'mining';
 
-                const notificationService = new NotificationService();
+                try {
+                    notificationService.showPurchaseNotification();
 
-                notificationService.showPurchaseNotification();
+                    // wait for tx to be mined
+                    let tx = await this.blindPackService.buyBlindPack(num, useCredits);
 
-                // wait for tx to be mined
-                let tx = await this.blindPackService.buyBlindPack(num);
+                    // console.log(tx);
 
-                // console.log(tx);
+                    notificationService.showProcessingNotification();
 
-                notificationService.showProcessingNotification();
+                    await tx.wait(1);
 
-                await tx.wait(1);
+                    const txRes = await this.cardsApiService.loadTokensForTx(tx.hash);
+                    this.cards = txRes.cards;
 
-                const txRes = await this.cardsApiService.loadTokensForTx(tx.hash);
-                this.cards = txRes.cards;
+                    // // for local DEMO purposes!!!
+                    // function sleep (ms) {
+                    //     return new Promise(resolve => setTimeout(resolve, ms));
+                    // }
+                    //
+                    // await sleep(1000);
 
-                // // for local DEMO purposes!!!
-                // function sleep (ms) {
-                //     return new Promise(resolve => setTimeout(resolve, ms));
-                // }
-                //
-                // await sleep(1000);
+                    this.buyState = 'confirmed';
 
-                this.buyState = 'confirmed';
+                    notificationService.showConfirmedNotification();
 
-                notificationService.showConfirmedNotification();
+                    // Refresh credit limit
+                    this.loadCreditsForAccount();
+
+                } catch (e) {
+                    console.error("TXS failed", e);
+                    notificationService.showFailureNotification("Transaction rejected");
+                    this.buyState = 'idle';
+                }
             },
             setState (state) {
                 this.buyState = state;
                 this.revealAll = false;
             },
-            showAllCards () {
+            showAllCards() {
                 this.revealAll = true;
+            },
+            async loadCreditsForAccount() {
+                this.accountCredits = await this.blindPackService.getCreditsForAccount(this.ethAccount);
+
             }
         },
         async created () {
@@ -133,6 +176,15 @@
             if (this.$store.state.blindPackService) {
                 await loadData();
             }
+
+            if (this.$store.state.ethAccount && this.blindPackService) {
+                await this.loadCreditsForAccount();
+            }
+
+            this.$store.watch(
+                () => this.$store.state.ethAccount && this.blindPackService,
+                () => this.loadCreditsForAccount()
+            );
         }
     };
 </script>

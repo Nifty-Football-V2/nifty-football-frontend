@@ -8,7 +8,7 @@ export default class BlindPackContractService {
         this.network = network;
         this.providerSigner = providerSigner;
         const {address} = contracts.getNiftyFootballBlindPack(network);
-        this.contract = new ethers.Contract(address, abi.FutballCardsBlindPackAbi, this.providerSigner);
+        this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardBlindPackAbi, this.providerSigner);
     }
 
     async getPriceModel() {
@@ -24,24 +24,32 @@ export default class BlindPackContractService {
         return this.priceModel;
     }
 
-    async buyBlindPack(number) {
+    async getCreditsForAccount(account) {
+        return this.contract.credits(account);
+    }
 
-        // FIXME how to estimate gas costs?
-        // const gasPrice = await this.providerSigner.getGasPrice();
-        // const result = await this.contract.estimate.buyBatch(num, {
-        //     value: (await this.contract.totalPrice(6)).toNumber()
-        // });
+    async buyBlindPack(number, useCredits = false) {
+
+        const gasPrice = await ethers.getDefaultProvider().getGasPrice();
+
+        const totalPrice = await this.contract.totalPrice(number);
+
+        const gasLimit = await this.contract.estimate.buyBatch(number, {
+            value: totalPrice
+        });
+
+        // Supply zero value if using credits up
+        const price = useCredits
+            ? 0
+            : totalPrice;
 
         // wait for tx to be mined
         return this.contract.buyBatch(number, {
-
             // The maximum units of gas for the transaction to use
-            gasLimit: 6721975, // FIXME
-
+            gasLimit: gasLimit,
             // The price (in wei) per unit of gas
-            gasPrice: 5000000000,  // FIXME
-
-            value: await this.contract.totalPrice(6),
+            gasPrice: gasPrice,
+            value: price,
         });
 
     }
