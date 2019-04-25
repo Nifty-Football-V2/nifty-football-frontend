@@ -7,7 +7,6 @@ import { lookupEtherscanAddress } from './utils';
 
 import BlindPackContractService from './services/contracts/blindPackContract.service';
 import FootballCardsContractService from './services/contracts/footballCardsContract.service';
-import HeadToHeadContractService from './services/contracts/headToHeadContract.service';
 
 import HeadToHeadGameApiService from './services/api/headToHeadGameApi.service';
 import ThreeBoxService from './services/api/threeBox.service';

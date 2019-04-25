@@ -18,17 +18,22 @@
             <!--</div>-->
 
             <div class="row" v-if="squad">
-                <!--<div class="col-3 mb-5" v-for="card in orderBy(squad.tokenDetails, order,  -1)" v-bind:key="card.tokenId">-->
-                <div class="col-6 col-md-2 mb-5" v-for="tokenId in squad" v-bind:key="tokenId">
-                    <router-link :to="`/card/` + tokenId">
-                        <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
-                    </router-link>
+                <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad" v-bind:key="tokenId" >
+                    <vue-flip :active-click="true" width="100%" height="100%" >
+                        <div slot="front">
+                            <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
+                        </div>
+                        <div slot="back">
+                            <img src="../assets/example_back.svg" width="100%" height="100%"/>
+                        </div>
+                    </vue-flip>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import VueFlip from 'vue-flip';
     import Vue2Filters from 'vue2-filters';
     import { mapState } from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
@@ -37,7 +42,7 @@
     import PageHeader from '../components/PageHeader';
 
     export default {
-        components: {PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader},
+        components: {PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
