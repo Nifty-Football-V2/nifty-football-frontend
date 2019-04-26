@@ -23,6 +23,7 @@ export default new Vuex.Store({
 
         ethAccount: null,
         squad: null,
+        cards: null,
         web3Provider: null,
 
         // API Services
@@ -42,6 +43,9 @@ export default new Vuex.Store({
         },
         squad (state, squad) {
             state.squad = squad;
+        },
+        cards (state, cards) {
+            state.cards = cards;
         },
         etherscanUrl (state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
@@ -85,6 +89,22 @@ export default new Vuex.Store({
             if (state.ethAccount) {
                 const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
                 commit('squad', squad);
+
+                if (squad) {
+
+                    const promises = squad.map((id) => state.cardsApiService.loadTokenForTokenId(id));
+
+                    const cards = await Promise.all(promises);
+
+                    const cardsMap = cards.reduce((map, obj) => {
+                        map[obj.tokenId] = obj;
+                        return map;
+                    }, {});
+
+                    console.log(cardsMap);
+
+                    commit('cards', cardsMap);
+                }
             }
         },
     }

@@ -24,7 +24,12 @@
                             <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
                         </div>
                         <div slot="back">
-                            <card-back full-name="Andy Gray" position="Midfield"></card-back>
+                            <div v-if="cards">
+                                <card-back :card="cards[tokenId]"></card-back>
+                            </div>
+                            <div v-else>
+                                <img src="../assets/holding.svg"/>
+                            </div>
                         </div>
                     </vue-flip>
                 </div>
@@ -54,6 +59,7 @@
         computed: {
             ...mapState([
                 'squad',
+                'cards',
                 'ethAccount',
                 // 'threeBoxService'
             ]),
