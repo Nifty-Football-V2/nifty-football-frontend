@@ -22,6 +22,7 @@ export default new Vuex.Store({
         web3Enabled: false,
 
         ethAccount: null,
+        imageData: null,
         squad: null,
         cards: null,
         web3Provider: null,
@@ -46,6 +47,9 @@ export default new Vuex.Store({
         },
         cards (state, cards) {
             state.cards = cards;
+        },
+        imageData (state, imageData) {
+            state.imageData = imageData;
         },
         etherscanUrl (state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
@@ -83,6 +87,7 @@ export default new Vuex.Store({
             commit('etherscanUrl', lookupEtherscanAddress(chainId));
 
             commit('provider', provider);
+            dispatch('loadImageData');
             dispatch('loadSquad');
         },
         async loadSquad ({commit, state}) {
@@ -105,6 +110,12 @@ export default new Vuex.Store({
 
                     commit('cards', cardsMap);
                 }
+            }
+        },
+        async loadImageData ({commit, state}) {
+            if (state.ethAccount) {
+                const imageData = await state.cardsApiService.loadImageData();
+                commit('imageData', imageData);
             }
         },
     }

@@ -31,8 +31,7 @@
 
         <text x="150" y="270" class="full-name" fill="black">{{ card.fullName }}</text>
         <text x="150" y="400" class="position" fill="black">{{ card.positionText }}</text>
-        <image x="150" y="420" xmlns="http://www.w3.org/2000/svg" id="flag_img" width="200" height="200" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
-               href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NTAgMzAwIj4NCjxwYXRoIGZpbGw9IiNmZmYiIGQ9Im0wLDBoNDUwdjEwMGgtNDUweiIvPg0KPHBhdGggZmlsbD0iIzAwZiIgZD0ibTAsMTAwaDQ1MHYxMDBoLTQ1MHoiLz4NCjxwYXRoIGZpbGw9IiNmMDAiIGQ9Im0wLDIwMGg0NTB2MTAwaC00NTB6Ii8+DQo8L3N2Zz4NCg=="/>
+        <image x="150" y="420" xmlns="http://www.w3.org/2000/svg" id="flag_img" width="200" height="200" :href="imageData.flags[card.nationality]"/>
         <text x="1150" y="600" class="avg" fill="black">{{ card.attributeAvg }}</text>
         <text x="420" y="1040" class="attrs" fill="black">{{ card.strength }}</text>
         <text x="850" y="1040" class="attrs" fill="black">{{ card.skill }}</text>
@@ -43,9 +42,16 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
         name: 'card-back',
         components: {},
+        computed: {
+            ...mapState([
+                'imageData',
+            ]),
+        },
         props: ['card'],
     };
 </script>
