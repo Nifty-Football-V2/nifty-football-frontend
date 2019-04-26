@@ -11,20 +11,20 @@
             </div>
 
             <!--<div class="row" v-if="ethAccount">-->
-                <!--<div class="col text-left">-->
-                    <!--<strong>{{ nickname || dotDotDot(ethAccount) }}</strong>-->
-                    <!--&lt;!&ndash;<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>&ndash;&gt;-->
-                <!--</div>-->
+            <!--<div class="col text-left">-->
+            <!--<strong>{{ nickname || dotDotDot(ethAccount) }}</strong>-->
+            <!--&lt;!&ndash;<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>&ndash;&gt;-->
+            <!--</div>-->
             <!--</div>-->
 
             <div class="row" v-if="squad">
-                <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad" v-bind:key="tokenId" >
-                    <vue-flip :active-click="true" width="100%" height="100%" >
+                <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad" v-bind:key="tokenId">
+                    <vue-flip :active-click="true" width="100%" height="100%">
                         <div slot="front">
                             <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
                         </div>
                         <div slot="back">
-                            <img src="../assets/example_back.svg" width="100%" height="100%"/>
+                            <card-back full-name="Andy Gray" position="Midfield"></card-back>
                         </div>
                     </vue-flip>
                 </div>
@@ -40,9 +40,10 @@
     import Loading from '../components/Loading';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import PageHeader from '../components/PageHeader';
+    import CardBack from '../components/CardBack';
 
     export default {
-        components: {PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
+        components: {CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
