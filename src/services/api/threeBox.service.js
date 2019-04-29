@@ -1,6 +1,9 @@
-// const Box = require('3box');
+import {dotDotDotAccount} from "../../utils";
+
+const Box = require('3box');
 
 const NIFTY_FOOTY_SPACE = 'nifty-football';
+
 const SQUAD_NAME = 'squad-name';
 
 export default class ThreeBoxService {
@@ -14,33 +17,37 @@ export default class ThreeBoxService {
     }
 
     async getReadOnlyProfile() {
-        // const profile = await Box.getProfile(this.account);
-        // console.log(profile);
-        // return profile;
+        const profile = await Box.getProfile(this.account);
+        console.log(`Found read only 3box profile`, profile);
+        return profile;
     }
 
     async getSquadName() {
-        // const profile = await this.getReadOnlyProfile();
-        // // then have a profile
-        // if (profile.name) {
-        //     const box = await Box.openBox(this.account, this.provider);
-        //     console.log(box);
-        //     // window.box = box;
-        //     // const space = await box.openSpace(NIFTY_FOOTY_SPACE);
-        //     // const name = await space.public.get(SQUAD_NAME);
-        //     // console.log(name);
-        //     return profile.name;
-        // }
-        return null;
+        const profile = await this.getReadOnlyProfile();
+
+        if (profile && profile.name) {
+            return {
+                found: true,
+                name: profile.name
+            };
+        }
+
+        return {
+            found: false,
+            name: dotDotDotAccount(this.account)
+        };
     }
 
     async setSquadName(name) {
-        // const box = await Box.openBox(this.account, this.provider);
-        // const space = await box.openSpace(NIFTY_FOOTY_SPACE);
-        // const config = await space.public.set(SQUAD_NAME, name);
-        //
-        // console.log(config);
-        // return config;
+        const box = await Box.openBox(this.account, this.provider);
+
+        const space = await box.openSpace(NIFTY_FOOTY_SPACE);
+
+        const config = await space.public.set(SQUAD_NAME, name);
+
+        console.log(config);
+
+        return config;
     }
 
 }

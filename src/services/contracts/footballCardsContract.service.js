@@ -13,6 +13,7 @@ export default class FootballCardsContractService {
         // this.headToHeadAddress = headToHeadAddress;
     }
 
+    // eslint-disable-next-line
     async isApprovedForAll(owner) {
         // FIXME
         // console.log(`isApprovedForAll() with account [${owner}] for address [${this.headToHeadAddress}] on network [${this.network}]`);
