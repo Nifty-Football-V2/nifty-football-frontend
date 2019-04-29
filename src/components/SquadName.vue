@@ -4,7 +4,7 @@
 
         <a href="#" @click="editEthAccountName" class="edit" v-if="!form.editMode">{{ $t('common.edit') }}</a>
 
-        <b-form @submit="onSubmit" @reset="onReset" v-if="form.editMode" inline>
+        <b-form @reset="onReset" v-if="form.editMode" inline>
             <b-form-input
                     id="squad-name"
                     class="squad-name-input mr-2"
@@ -16,7 +16,7 @@
                     :disabled="form.saving"
             ></b-form-input>
 
-            <b-button type="submit" variant="primary" class="mr-2" :disabled="form.saving">Save</b-button>
+            <b-button @click="onSaveSquad" variant="primary" class="mr-2" :disabled="form.saving">Save</b-button>
             <b-button type="reset" variant="danger" :disabled="form.saving">Cancel</b-button>
         </b-form>
     </div>
@@ -53,7 +53,7 @@
                 this.form.editMode = false;
                 this.loadAccountAndSquad();
             },
-            onSubmit() {
+            onSaveSquad() {
                 this.form.saving = true;
                 this.threeBoxService.setSquadName(this.form.squadName)
                     .finally(() => {
