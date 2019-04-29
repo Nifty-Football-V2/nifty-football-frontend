@@ -8,15 +8,16 @@
             <b-form-input
                     id="squad-name"
                     class="squad-name-input mr-2"
-                    v-model="form.squadName"
                     type="text"
                     required
                     maxlength="150"
                     placeholder="Squad Name"
+                    v-model="form.squadName"
+                    :disabled="form.saving"
             ></b-form-input>
 
-            <b-button type="submit" variant="primary" class="mr-2">Save</b-button>
-            <b-button type="reset" variant="danger">Cancel</b-button>
+            <b-button type="submit" variant="primary" class="mr-2" :disabled="form.saving">Save</b-button>
+            <b-button type="reset" variant="danger" :disabled="form.saving">Cancel</b-button>
         </b-form>
     </div>
 </template>
@@ -32,7 +33,8 @@
                 currentSquadName: null,
                 form: {
                     squadName: null,
-                    editMode: false
+                    editMode: false,
+                    saving: false
                 }
             };
         },
@@ -48,16 +50,16 @@
                 this.form.editMode = true;
             },
             onReset() {
-                console.log("onReset");
                 this.form.editMode = false;
                 this.loadAccountAndSquad();
             },
             onSubmit() {
-                console.log("onSubmit");
-
+                this.form.saving = true;
                 this.threeBoxService.setSquadName(this.form.squadName)
-                    .then(() => {
+                    .finally(() => {
                         this.loadAccountAndSquad();
+                        this.form.editMode = false;
+                        this.form.saving = false;
                     });
             },
             loadAccountAndSquad() {

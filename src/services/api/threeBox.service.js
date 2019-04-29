@@ -23,9 +23,20 @@ export default class ThreeBoxService {
     }
 
     async getSquadName() {
-        const profile = await this.getReadOnlyProfile();
 
+        const squadName = await this.getBox3SquadName();
+        console.log("squadName", squadName);
+
+        if (squadName) {
+            return {
+                found: true,
+                name: squadName
+            };
+        }
+
+        const profile = await this.getReadOnlyProfile();
         if (profile && profile.name) {
+            console.log("Profile Name", profile.name);
             return {
                 found: true,
                 name: profile.name
@@ -43,11 +54,17 @@ export default class ThreeBoxService {
 
         const space = await box.openSpace(NIFTY_FOOTY_SPACE);
 
-        const config = await space.public.set(SQUAD_NAME, name);
+        await space.public.set(SQUAD_NAME, name);
 
-        console.log(config);
+        return name;
+    }
 
-        return config;
+    async getBox3SquadName() {
+        const box = await Box.openBox(this.account, this.provider);
+
+        const space = await box.openSpace(NIFTY_FOOTY_SPACE);
+
+        return space.public.get(SQUAD_NAME);
     }
 
 }

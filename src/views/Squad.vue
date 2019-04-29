@@ -4,13 +4,19 @@
         <div class="container">
             <page-header :name="$t('nav.account')"></page-header>
 
-            <div class="row pb-4 text-center" v-if="squad && squad.length === 0">
+            <div class="row pb-4 text-center" v-if="!squad">
                 <div class="col mb-5 text-primary mx-auto">
                     <loading></loading>
                 </div>
             </div>
+            <div class="row pb-4 text-center" v-else-if="squad && squad.length === 0">
+                <div class="col mb-5 text-primary mx-auto">
+                    {{ $t('common.missing_squad_message') }}
+                    <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
+                </div>
+            </div>
 
-            <div class="row" v-if="ethAccount">
+            <div class="row" v-if="ethAccount && (squad && squad.length > 0)">
                 <div class="col mb-2 text-left">
                     <squad-name></squad-name>
                 </div>
