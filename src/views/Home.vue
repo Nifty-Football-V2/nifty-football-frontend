@@ -32,7 +32,7 @@
         </div>
 
         <div class="row pb-5 pt-5 bg-secondary">
-            <div class="col">&nbsp;</div>
+            <div class="col-md-4">&nbsp;</div>
             <div class="col">
                 <div>
                     <div class="header-text mb-5">BUILD A TEAM</div>
@@ -41,7 +41,7 @@
                     </router-link>
                 </div>
             </div>
-            <div class="col">&nbsp;</div>
+            <div class="col-md-4">&nbsp;</div>
         </div>
 
         <div class="row justify-content-sm-center pb-3 pt-5">
