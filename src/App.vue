@@ -212,22 +212,37 @@
         font-family: 'CrackerJack', sans-serif;
         text-transform: uppercase;
         letter-spacing: 3px;
-        border: 2px solid #000;
+        border: 2px solid $black;
     }
 
     .btn-secondary {
         font-family: 'CrackerJack', sans-serif;
         text-transform: uppercase;
-        border: 2px solid #000;
-        box-shadow: 0 6px 0 0 #000;
+        border: 2px solid $black;
+        box-shadow: 0 6px 0 0 $black;
         margin-bottom: 6px;
         padding-left: 50px;
         padding-right: 50px;
     }
 
     .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open > .dropdown-toggle.btn-secondary {
-        border: 2px solid #000;
-        box-shadow: 0 6px 0 0 #000;
+        border: 2px solid $black;
+        box-shadow: 0 6px 0 0 $black;
+    }
+
+    .h1-box {
+        background-color: $black;
+        color: $white;
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        border: 3px solid $purple;
+        box-shadow: 0 6px 0 0 $purple;
+        margin-bottom: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
 
     .header-text {

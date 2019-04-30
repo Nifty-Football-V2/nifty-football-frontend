@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="row" v-if="squad && cards">
+            <div class="row mt-3" v-if="squad && cards">
                 <div class="col-6 col-md-2 mb-5"
                      v-for="tokenId in squad" v-bind:key="tokenId">
                     <card :card="cards[tokenId]"></card>
@@ -41,10 +41,9 @@
     import PageHeader from '../components/PageHeader';
     import CardBack from '../components/CardBack';
     import SquadName from "../components/SquadName";
-    import Card from "../components/Card";
 
     export default {
-        components: {Card, SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
+        components: {SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
         mixins: [Vue2Filters.mixin],
         data() {
             return {

@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <strong v-if="!form.editMode">{{ currentSquadName }}</strong>
-
-        <a href="#" @click="editEthAccountName" class="edit" v-if="!form.editMode">{{ $t('common.edit') }}</a>
+    <div class="text-center">
+        <a href="#" @click="editEthAccountName" class="small" v-if="!form.editMode">
+            <span class="h1-box" v-if="!form.editMode">{{ currentSquadName }}</span>
+        </a>
 
         <b-form @reset="onReset" v-if="form.editMode" inline>
             <b-form-input
@@ -17,7 +17,7 @@
             ></b-form-input>
 
             <b-button @click="onSaveSquad" variant="primary" class="mr-2" :disabled="form.saving">Save</b-button>
-            <b-button type="reset" variant="danger" :disabled="form.saving">Cancel</b-button>
+            <b-button type="reset" variant="default" :disabled="form.saving">Cancel</b-button>
         </b-form>
     </div>
 </template>
@@ -88,7 +88,4 @@
 </script>
 
 <style scoped lang="scss">
-    .squad-name-input {
-        width: 200px;
-    }
 </style>
