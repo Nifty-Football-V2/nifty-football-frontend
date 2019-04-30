@@ -8,8 +8,8 @@ import Squad from './views/Squad.vue';
 import Rankings from './views/Rankings.vue';
 // import HeadToHead from './views/HeadToHead.vue';
 import Team from './views/Team.vue';
-import Card from './views/Card.vue';
 import Buy from './views/Buy.vue';
+import DeeplinkCard from "./views/DeeplinkCard";
 
 Vue.use(Router);
 
@@ -66,7 +66,7 @@ export default new Router({
         {
             path: '/card/:tokenId',
             name: 'card',
-            component: Card,
+            component: DeeplinkCard,
             props: true
         }
     ]

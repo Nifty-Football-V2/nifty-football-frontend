@@ -13,7 +13,7 @@
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
                 <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId" style="min-height: 320px">
-                    <buy-player-flip-image :token-id="card.tokenId" v-bind:key="card.tokenId"></buy-player-flip-image>
+                    <buy-player-reveal :card="card"></buy-player-reveal>
                 </div>
             </div>
 
@@ -67,9 +67,10 @@
     import Loading from '../components/Loading';
     import PageHeader from '../components/PageHeader';
     import BuyPlayerFlipImage from '../components/BuyPlayerFlipImage';
+    import BuyPlayerReveal from "../components/BuyPlayerReveal";
 
     export default {
-        components: {BuyPlayerFlipImage, PageHeader, Loading, NetworkWeb3Banner},
+        components: {BuyPlayerReveal, BuyPlayerFlipImage, PageHeader, Loading, NetworkWeb3Banner},
         data () {
             return {
                 packPrices: {},

@@ -1,11 +1,21 @@
 <template>
-    <img v-if="src"
-         v-lazy="imageUrl"
-         :key="'img_' + id"
-         :id="'img_' + id"
-         alt="Nifty Football Trading Card"
-         :class="{'highlight': highlight}"
+    <span>
+        <img v-if="src && lazy"
+             v-lazy="imageUrl"
+             :key="'img_' + id"
+             :id="'img_' + id"
+             alt="Nifty Football Trading Card"
+             :class="{'highlight': highlight}"
         />
+
+        <img v-if="src && !lazy"
+             v-lazy="imageUrl"
+             :key="'img_' + id"
+             :id="'img_' + id"
+             alt="Nifty Football Trading Card"
+             :class="{'highlight': highlight}"
+        />
+    </span>
 </template>
 
 <script>
@@ -14,7 +24,21 @@
 
     export default {
         name: 'lazy-img-loader',
-        props: ['src', 'id', 'highlight'],
+        props: {
+            src: {
+                type: String,
+            },
+            id: {
+                type: [String, Number], // FIXME why both types
+            },
+            highlight: {
+                type: Boolean,
+            },
+            lazy: {
+                type: Boolean,
+                default: true
+            },
+        },
         computed: {
             ...mapState(['networkId']),
             imageUrl() {

@@ -1,7 +1,7 @@
 <template>
     <vue-flip :active-click="true" width="100%" height="100%" style="min-height: 250px;">
         <div slot="front">
-            <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+            <lazy-img-loader :src="card.tokenId" :id="card.tokenId" :lazy="lazy"></lazy-img-loader>
         </div>
         <div slot="back">
             <div v-if="card">
@@ -22,7 +22,15 @@
     export default {
         name: 'card',
         components: {CardBack, LazyImgLoader, VueFlip},
-        props: ['card'],
+        props: {
+            card: {
+                type: Object,
+            },
+            lazy: {
+                type: Boolean,
+                default: true
+            },
+        },
         computed: {},
         methods: {},
     };

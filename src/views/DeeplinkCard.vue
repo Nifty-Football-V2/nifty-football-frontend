@@ -89,7 +89,6 @@
                     <span class="card-stats">{{ card.kitText ? card.kitText.toUpperCase() : '' }}</span>
                 </div>
             </div>
-
         </div>
     </div>
 </template>

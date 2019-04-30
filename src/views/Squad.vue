@@ -41,9 +41,10 @@
     import PageHeader from '../components/PageHeader';
     import CardBack from '../components/CardBack';
     import SquadName from "../components/SquadName";
+    import Card from "../components/Card";
 
     export default {
-        components: {SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
+        components: {Card, SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
