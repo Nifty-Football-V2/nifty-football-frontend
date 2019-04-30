@@ -26,10 +26,10 @@
         name: 'lazy-img-loader',
         props: {
             src: {
-                type: String,
+                type: [String, Number], // FIXME why both types?
             },
             id: {
-                type: [String, Number], // FIXME why both types
+                type: [String, Number], // FIXME why both types?
             },
             highlight: {
                 type: Boolean,
