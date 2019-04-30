@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="row" v-if="squad">
+            <div class="row mt-3" v-if="squad">
                 <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad"
                      v-bind:key="tokenId">
                     <vue-flip :active-click="true" width="100%" height="100%">
