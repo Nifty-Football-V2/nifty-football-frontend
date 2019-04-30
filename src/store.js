@@ -107,8 +107,6 @@ export default new Vuex.Store({
                         return map;
                     }, {});
 
-                    console.log(cardsMap);
-
                     commit('cards', cardsMap);
                 }
             }
