@@ -96,6 +96,8 @@ export default new Vuex.Store({
                 const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
                 commit('squad', squad);
 
+                // FIXME move to API
+
                 if (squad) {
 
                     const promises = squad.map((id) => state.cardsApiService.loadTokenForTokenId(id));

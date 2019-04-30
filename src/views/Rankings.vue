@@ -13,15 +13,20 @@
             <div v-if="rankings && rankings.length > 0">
                 <div class="row">
                     <div class="col mb-3 text-left">
-                        <code>You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the top 50 cards</code>
+                        <code>You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the
+                            top 50 cards</code>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-2 mb-5" v-for="(rank, index) in rankings" v-bind:key="rank.tokenId">
-                        <h3 class="text-left">#{{ index + 1 }}</h3>
+                        <h3 class="text-left">
+                            #{{ index + 1 }}
+                        </h3>
                         <div class="text-center">
-                            <lazy-img-loader :src="rank.tokenId" :id="rank.tokenId" :highlight="isMine(rank.owner)"></lazy-img-loader>
+                            <card :card="rank"></card>
+                        </div>
+                        <div>
                             <img src="../assets/yourCard.svg" v-if="isMine(rank.owner)" style="max-height: 25px"/>
                         </div>
                     </div>
@@ -38,16 +43,17 @@
 </template>
 <script>
     import Vue2Filters from 'vue2-filters';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import PageHeader from '../components/PageHeader';
+    import Card from "../components/Card";
 
     export default {
-        components: {PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
+        components: {Card, PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 rankings: [],
             };
@@ -73,7 +79,7 @@
                 return this.rankings.filter(ranking => ranking.owner.toUpperCase() === this.ethAccount.toUpperCase()).length;
             }
         },
-        async created () {
+        async created() {
             const loadRankings = async () => {
                 this.cardsApiService.loadRankings().then((rankings) => {
                     this.rankings = rankings;

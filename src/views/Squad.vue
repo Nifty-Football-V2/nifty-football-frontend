@@ -22,22 +22,10 @@
                 </div>
             </div>
 
-            <div class="row" v-if="squad">
-                <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad"
-                     v-bind:key="tokenId">
-                    <vue-flip :active-click="true" width="100%" height="100%">
-                        <div slot="front">
-                            <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
-                        </div>
-                        <div slot="back">
-                            <div v-if="cards">
-                                <card-back :card="cards[tokenId]"></card-back>
-                            </div>
-                            <div v-else>
-                                <img src="../assets/holding.svg"/>
-                            </div>
-                        </div>
-                    </vue-flip>
+            <div class="row" v-if="squad && cards">
+                <div class="col-6 col-md-2 mb-5"
+                     v-for="tokenId in squad" v-bind:key="tokenId">
+                    <card :card="cards[tokenId]"></card>
                 </div>
             </div>
         </div>
@@ -53,9 +41,10 @@
     import PageHeader from '../components/PageHeader';
     import CardBack from '../components/CardBack';
     import SquadName from "../components/SquadName";
+    import Card from "../components/Card";
 
     export default {
-        components: {SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
+        components: {Card, SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
         mixins: [Vue2Filters.mixin],
         data() {
             return {

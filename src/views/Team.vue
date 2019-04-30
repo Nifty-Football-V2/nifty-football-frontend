@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="offset-4"></div>
                 <div class="col-2 mb-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
-                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                    <card :card="card"></card>
                 </div>
                 <div class="offset-2"></div>
                 <div class="col-2">
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="offset-2"></div>
                 <div class="col-2 mb-3" v-for="card in team.team.midfield" v-bind:key="card.tokenId">
-                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                    <card :card="card"></card>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="offset-2"></div>
                 <div class="col-2 mb-5" v-for="card in team.team.defence" v-bind:key="card.tokenId">
-                    <lazy-img-loader :src="card.tokenId" :id="card.tokenId"></lazy-img-loader>
+                    <card :card="card"></card>
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="offset-5"></div>
                 <div class="col-2">
-                    <lazy-img-loader :src="team.team.keeper.tokenId" :id="team.team.keeper.tokenId"></lazy-img-loader>
+                    <card :card="team.team.keeper"></card>
                 </div>
             </div>
         </div>
@@ -57,9 +57,10 @@
     import PageHeader from '../components/PageHeader';
     import LazyImgLoader from '../components/LazyImgLoader';
     import Loading from '../components/Loading';
+    import Card from "../components/Card";
 
     export default {
-        components: {Loading, LazyImgLoader, PageHeader},
+        components: {Card, Loading, LazyImgLoader, PageHeader},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
