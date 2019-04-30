@@ -4,21 +4,27 @@
         <div class="container">
             <page-header :name="$t('nav.account')"></page-header>
 
-            <div class="row pb-4 text-center" v-if="squad && squad.length === 0">
+            <div class="row pb-4 text-center" v-if="!squad">
                 <div class="col mb-5 text-primary mx-auto">
                     <loading></loading>
                 </div>
             </div>
+            <div class="row pb-4 text-center" v-else-if="squad && squad.length === 0">
+                <div class="col mb-5 text-primary mx-auto">
+                    {{ $t('common.missing_squad_message') }}
+                    <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
+                </div>
+            </div>
 
-            <!--<div class="row" v-if="ethAccount">-->
-            <!--<div class="col text-left">-->
-            <!--<strong>{{ nickname || dotDotDot(ethAccount) }}</strong>-->
-            <!--&lt;!&ndash;<a href="#" @click="editEthAccountName" class="edit">{{ $t('common.edit') }}</a>&ndash;&gt;-->
-            <!--</div>-->
-            <!--</div>-->
+            <div class="row" v-if="ethAccount && (squad && squad.length > 0)">
+                <div class="col mb-2 text-left">
+                    <squad-name></squad-name>
+                </div>
+            </div>
 
             <div class="row" v-if="squad">
-                <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad" v-bind:key="tokenId">
+                <div class="col-6 col-md-2 mb-5" style="min-height: 250px;" v-for="tokenId in squad"
+                     v-bind:key="tokenId">
                     <vue-flip :active-click="true" width="100%" height="100%">
                         <div slot="front">
                             <lazy-img-loader :src="tokenId" :id="tokenId"></lazy-img-loader>
@@ -40,62 +46,46 @@
 <script>
     import VueFlip from 'vue-flip';
     import Vue2Filters from 'vue2-filters';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import LazyImgLoader from '../components/LazyImgLoader';
     import Loading from '../components/Loading';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import PageHeader from '../components/PageHeader';
     import CardBack from '../components/CardBack';
+    import SquadName from "../components/SquadName";
 
     export default {
-        components: {CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
+        components: {SquadName, CardBack, PageHeader, NetworkWeb3Banner, Loading, LazyImgLoader, VueFlip},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 order: 'position',
-                nickname: null,
             };
         },
         computed: {
             ...mapState([
                 'squad',
                 'cards',
-                'ethAccount',
-                // 'threeBoxService'
+                'ethAccount'
             ]),
         },
         methods: {
-            editEthAccountName () {
-                this.nickname = `Real Madras`;
-            },
-            dotDotDot: function (ethAccount) {
-                if (ethAccount && ethAccount.startsWith(`0x`)) {
-                    return ethAccount.substr(0, 4) + '...' + ethAccount.substr(ethAccount.length - 4, ethAccount.length);
-                }
-                return ethAccount;
-            },
             setOrder: function (field) {
                 return this.order ? this.order = field : this.order;
             },
         },
-        created () {
-            // TODO refresh squad
-
-            const loadAccountAndSquad = async () => {
+        created() {
+            const loadSquad = () => {
                 this.$store.dispatch('loadSquad');
-
-                // const squadName = await this.threeBoxService.getSquadName();
-                // console.log(squadName);
-                // this.nickname = squadName;
             };
 
             this.$store.watch(
                 () => this.ethAccount,
-                () => loadAccountAndSquad()
+                () => loadSquad()
             );
 
             if (this.ethAccount) {
-                loadAccountAndSquad();
+                loadSquad();
             }
         }
     };

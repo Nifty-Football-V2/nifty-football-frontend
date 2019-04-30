@@ -65,8 +65,9 @@ export default new Vuex.Store({
             // state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
 
             state.web3Enabled = true;
+
             // This needs to not be a etherjs provider...?
-            // state.threeBoxService.setProvider(web3.currentProvider);
+            state.threeBoxService.setProvider(web3.currentProvider);
         },
         networkId (state, networkId) {
             state.networkId = networkId;

@@ -7,9 +7,9 @@ const API_CONFIG = {
 
 const getApi = () => {
     switch (window.location.hostname) {
-        case "localhost":
-        case "127.0.0.1":
-            return API_CONFIG.local;
+        // case "localhost":
+        // case "127.0.0.1":
+        //     return API_CONFIG.local;
         default:
             return API_CONFIG.live;
     }
@@ -32,9 +32,17 @@ const lookupEtherscanAddress = (id) => {
     }
 };
 
+const dotDotDotAccount = (ethAccount) => {
+    if (ethAccount && ethAccount.startsWith(`0x`)) {
+        return ethAccount.substr(0, 4) + '...' + ethAccount.substr(ethAccount.length - 4, ethAccount.length);
+    }
+    return ethAccount;
+};
+
 export {
     getApi,
     lookupEtherscanAddress,
+    dotDotDotAccount,
     AXIOS_CONFIG,
     INFURA_KEY
 };
