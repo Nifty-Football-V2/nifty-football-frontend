@@ -36,8 +36,6 @@
                         </b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">Buy 1 Pack
                         </b-dropdown-item>
-                        <b-dropdown-item href="#" @click="buyCard(6, true)" v-if="accountCredits >= 6">Buy 2 Packs
-                        </b-dropdown-item>
                     </b-dropdown>
 
                     <div class="mt-3"><span class="badge badge-secondary">{{accountCredits}}</span> credits</div>
@@ -46,9 +44,9 @@
 
                     <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg"
                                 :disabled="!packPrices">
-                        <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(9)">Buy 3 Packs</b-dropdown-item>
                     </b-dropdown>
 
                     <div class="small">1 pack is 3 cards</div>
