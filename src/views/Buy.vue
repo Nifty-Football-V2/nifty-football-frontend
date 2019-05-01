@@ -27,17 +27,22 @@
             <div class="row" v-if="buyState === 'idle'">
                 <div class="col-lg"></div>
                 <div class="col text-center" v-if="accountCredits > 0">
-                    <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)" text="Use Credits" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
-                        <b-dropdown-item href="#" @click="buyCard(1, true)" v-if="accountCredits >= 1">Buy 1 Card</b-dropdown-item>
-                        <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">Buy 1 Pack</b-dropdown-item>
-                        <b-dropdown-item href="#" @click="buyCard(6, true)" v-if="accountCredits >= 6">Buy 2 Packs</b-dropdown-item>
+                    <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)"
+                                text="Use Credits" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
+                        <b-dropdown-item href="#" @click="buyCard(1, true)" v-if="accountCredits >= 1">Buy 1 Card
+                        </b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">Buy 1 Pack
+                        </b-dropdown-item>
+                        <b-dropdown-item href="#" @click="buyCard(6, true)" v-if="accountCredits >= 6">Buy 2 Packs
+                        </b-dropdown-item>
                     </b-dropdown>
 
                     <div class="mt-3"><span class="badge badge-secondary">{{accountCredits}}</span> credits</div>
                 </div>
                 <div class="col text-center">
 
-                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
+                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg"
+                                :disabled="!packPrices">
                         <b-dropdown-item href="#" @click="buyCard(1)">Buy 1 Card</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
                         <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
@@ -61,8 +66,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import NotificationService from '../services/notification.service';
+    import {mapState} from 'vuex';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import PageHeader from '../components/PageHeader';
@@ -71,7 +75,7 @@
 
     export default {
         components: {BuyPlayerReveal, BuyPlayerFlipImage, PageHeader, Loading, NetworkWeb3Banner},
-        data () {
+        data() {
             return {
                 packPrices: {},
                 accountCredits: 0,
@@ -85,23 +89,23 @@
                 'ethAccount',
                 'blindPackService',
                 'cardsApiService',
+                'notificationService',
                 'rankings',
             ]),
         },
         methods: {
-            async buyCard (num, useCredits = false) {
-                const notificationService = new NotificationService();
+            async buyCard(num, useCredits = false) {
                 this.buyState = 'mining';
 
                 try {
-                    notificationService.showPurchaseNotification();
+                    this.notificationService.showPurchaseNotification();
 
                     // wait for tx to be mined
                     let tx = await this.blindPackService.buyBlindPack(num, useCredits);
 
                     // console.log(tx);
 
-                    notificationService.showProcessingNotification();
+                    this.notificationService.showProcessingNotification(tx.hash);
 
                     await tx.wait(1);
 
@@ -110,30 +114,30 @@
 
                     this.buyState = 'confirmed';
 
-                    notificationService.showConfirmedNotification();
+                    this.notificationService.showConfirmedNotification(tx.hash);
 
                     // Refresh credit limit
                     this.loadCreditsForAccount();
 
                 } catch (e) {
                     console.error('TXS failed', e);
-                    notificationService.showFailureNotification('Transaction rejected');
+                    this.notificationService.showFailureNotification('Transaction rejected');
                     this.buyState = 'idle';
                 }
             },
-            setState (state) {
+            setState(state) {
                 this.buyState = state;
                 this.revealAll = false;
             },
-            showAllCards () {
+            showAllCards() {
                 this.revealAll = true;
             },
-            async loadCreditsForAccount () {
+            async loadCreditsForAccount() {
                 this.accountCredits = await this.blindPackService.getCreditsForAccount(this.ethAccount);
 
             }
         },
-        async created () {
+        async created() {
             const loadData = async () => {
                 this.packPrices = await this.blindPackService.getPriceModel();
             };

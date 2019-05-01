@@ -1,4 +1,7 @@
 import Vue from 'vue';
+import {lookupEtherscanAddress} from "../utils";
+
+const _ = require('lodash');
 
 const defaults = {
     timeout: 0,
@@ -9,8 +12,15 @@ const defaults = {
 
 export default class NotificationService {
 
-    constructor() {
-        this.notification = undefined;
+    constructor(currentNetworkId = 1) {
+        this.notifications = null;
+        this.currentNetworkId = currentNetworkId;
+        this.etherscanBase = lookupEtherscanAddress(currentNetworkId);
+    }
+
+    setNetworkId(currentNetworkId) {
+        this.currentNetworkId = currentNetworkId;
+        this.etherscanBase = lookupEtherscanAddress(currentNetworkId);
     }
 
     // FIXME this should be a list of notifications not a single one
@@ -39,7 +49,7 @@ export default class NotificationService {
             });
     }
 
-    showProcessingNotification() {
+    showProcessingNotification(txsHash) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -50,7 +60,8 @@ export default class NotificationService {
               <div class="notification-icon">⏳</div>
               <div class="notification-msg">
                 ️Processing transaction...
-              </div>
+               <div class="small"><a href="${this.etherscanBase}/tx/${txsHash}" target="_blank">Details</a></div>
+               </div>
             </div>`,
             {
                 ...defaults,
@@ -58,7 +69,7 @@ export default class NotificationService {
             });
     }
 
-    showConfirmedNotification() {
+    showConfirmedNotification(txsHash) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -68,7 +79,8 @@ export default class NotificationService {
             `<div class="snotifyToast__body">
               <div class="notification-icon">⚽</div>
               <div class="notification-msg">
-                ️Transaction confirmed!
+                <div>️Transaction confirmed!</div>
+                <div class="small"><a href="${this.etherscanBase}/tx/${txsHash}" target="_blank">Details</a></div>
               </div>
             </div>`,
             {
@@ -78,7 +90,7 @@ export default class NotificationService {
             });
     }
 
-    showSuccessNotification(message) {
+    showSuccessNotification(txsHash) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -88,7 +100,7 @@ export default class NotificationService {
             `<div class="snotifyToast__body">
               <div class="notification-icon">🤟</div>
               <div class="notification-msg">
-                ${message}
+                <div class="small"><a href="${this.etherscanBase}/tx/${txsHash}" target="_blank">Details</a></div>
               </div>
             </div>`,
             {

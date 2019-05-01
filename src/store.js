@@ -7,6 +7,7 @@ import { lookupEtherscanAddress } from './utils';
 
 import BlindPackContractService from './services/contracts/blindPackContract.service';
 import FootballCardsContractService from './services/contracts/footballCardsContract.service';
+import NotificationService from './services/notification.service';
 
 import HeadToHeadGameApiService from './services/api/headToHeadGameApi.service';
 import ThreeBoxService from './services/api/threeBox.service';
@@ -31,6 +32,7 @@ export default new Vuex.Store({
         cardsApiService: new CardsApiService(),
         headToHeadApiService: new HeadToHeadGameApiService(),
         threeBoxService: new ThreeBoxService(),
+        notificationService: new NotificationService(),
 
         // Contract Service
         blindPackService: null,
@@ -75,6 +77,7 @@ export default new Vuex.Store({
             console.log(`Setting network ID [${state.networkId}] on services`);
             state.cardsApiService.setNetworkId(networkId);
             state.headToHeadApiService.setNetworkId(networkId);
+            state.notificationService.setNetworkId(networkId);
         },
     },
     actions: {
