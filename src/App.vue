@@ -243,6 +243,7 @@
         padding-bottom: 5px;
         padding-left: 50px;
         padding-right: 50px;
+        letter-spacing: 2px;
     }
 
     .header-text {
@@ -269,7 +270,7 @@
     }
 
     .form-control {
-        font-family: 'CrackerJack', sans-serif;
+        /*font-family: 'CrackerJack', sans-serif;*/
     }
 
     .btn-primary {

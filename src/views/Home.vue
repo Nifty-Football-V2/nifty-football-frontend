@@ -15,8 +15,8 @@
                 &nbsp;
             </div>
             <div class="col-6 col-md-3 header-text text-right">
-                <router-link to="/buy" class="">
-                    <img src="../assets/start_collecting.svg" style="cursor: pointer;" class="img-fluid"/>
+                <router-link to="/buy" class="btn btn-secondary btn-lg">
+                    Start Collecting
                 </router-link>
             </div>
         </div>
@@ -31,11 +31,11 @@
             </div>
         </div>
 
-        <div class="row pb-5 pt-5 bg-secondary">
+        <div class="row pb-5 pt-5 bg-dark">
             <div class="col-md-4">&nbsp;</div>
             <div class="col">
                 <div>
-                    <div class="header-text mb-5">BUILD A TEAM</div>
+                    <div class="header-text mb-5 text-secondary">BUILD A TEAM</div>
                     <router-link to="/buy" class="">
                         <img src="../assets/build.png" style="cursor: pointer;" class="img-fluid"/>
                     </router-link>
@@ -82,8 +82,8 @@
             </div>
         </div>
 
-        <router-link to="/buy" class="pb-3 pt-1">
-            <img src="../assets/start_collecting.svg" style="cursor: pointer;" class="img-fluid"/>
+        <router-link to="/buy" class="btn btn-secondary btn-lg">
+            Start Collecting
         </router-link>
     </div>
 </template>
