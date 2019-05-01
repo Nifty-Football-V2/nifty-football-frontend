@@ -5,7 +5,7 @@
                  :id="'place_holder_' + card.tokenId"
                  :alt="'nifty_card_' + card.tokenId"/>
         </span>
-        <card :card="card" v-if="cardShown" :lazy="false"></card>
+        <card :card="card" v-show="cardShown" :lazy="false"></card>
     </div>
 </template>
 

@@ -1,17 +1,17 @@
 <template>
     <span>
-        <img v-if="src && lazy"
+        <img v-show="src && lazy"
              v-lazy="imageUrl"
-             :key="'img_' + id"
-             :id="'img_' + id"
+             :key="'img_lazy_' + id"
+             :id="'img_lazy_' + id"
              alt="Nifty Football Trading Card"
              :class="{'highlight': highlight}"
         />
 
-        <img v-if="src && !lazy"
-             v-lazy="imageUrl"
+        <img v-show="src && !lazy"
              :key="'img_' + id"
              :id="'img_' + id"
+             :src="imageUrl"
              alt="Nifty Football Trading Card"
              :class="{'highlight': highlight}"
         />
