@@ -1,12 +1,14 @@
 <template>
-    <div class="container">
-        <page-header :name="$t('nav.team')"></page-header>
-
+    <div class="container-fluid">
         <div class="row pb-4 text-center" v-if="team && team.length === 0">
             <div class="col mb-5 text-primary mx-auto">
                 <loading></loading>
             </div>
         </div>
+
+        <nifty-football-header></nifty-football-header>
+
+        <page-title text="Best Team"></page-title>
 
         <div v-if="team && team.team">
             <!--<h3 class="mb-4">Strikers</h3>-->
@@ -54,13 +56,13 @@
 <script>
     import Vue2Filters from 'vue2-filters';
     import { mapState } from 'vuex';
-    import PageHeader from '../components/PageHeader';
-    import LazyImgLoader from '../components/LazyImgLoader';
     import Loading from '../components/Loading';
     import Card from "../components/Card";
+    import NiftyFootballHeader from '../components/NiftyFootballHeader';
+    import PageTitle from '../components/PageTitle';
 
     export default {
-        components: {Card, Loading, LazyImgLoader, PageHeader},
+        components: {PageTitle, NiftyFootballHeader, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
