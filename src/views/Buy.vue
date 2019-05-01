@@ -1,8 +1,10 @@
 <template>
     <div>
         <network-web3-banner></network-web3-banner>
-        <div class="container">
-            <page-header :name="``"></page-header>
+        <div class="container-fluid">
+            <nifty-football-header></nifty-football-header>
+
+            <page-title text="Buy Packs"></page-title>
 
             <div class="row pb-4 text-center"
                  v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
@@ -17,11 +19,12 @@
                 </div>
             </div>
 
-            <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-                <div class="col mb-5">
-                    <!--<b-button variant="outline-primary" size="lg" @click="showAllCards()">Reveal</b-button>-->
-                    <a href="#" @click="setState('idle')">Buy more?</a>
+            <div class="row pb-5 pt-5 bg-dark" v-if="buyState === 'idle'">
+                <div class="col-sm"></div>
+                <div class="col-6 offset-3 offset-sm-0 col-sm-2 text-center">
+                    <img src="../assets/packs.svg" @click="buyCard(3, true)"/>
                 </div>
+                <div class="col-sm"></div>
             </div>
 
             <div class="row" v-if="buyState === 'idle'">
@@ -66,16 +69,16 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
-    import PageHeader from '../components/PageHeader';
-    import BuyPlayerFlipImage from '../components/BuyPlayerFlipImage';
-    import BuyPlayerReveal from "../components/BuyPlayerReveal";
+    import BuyPlayerReveal from '../components/BuyPlayerReveal';
+    import NiftyFootballHeader from '../components/NiftyFootballHeader';
+    import PageTitle from '../components/PageTitle';
 
     export default {
-        components: {BuyPlayerReveal, BuyPlayerFlipImage, PageHeader, Loading, NetworkWeb3Banner},
-        data() {
+        components: {PageTitle, NiftyFootballHeader, BuyPlayerReveal, Loading, NetworkWeb3Banner},
+        data () {
             return {
                 packPrices: {},
                 accountCredits: 0,
@@ -94,7 +97,7 @@
             ]),
         },
         methods: {
-            async buyCard(num, useCredits = false) {
+            async buyCard (num, useCredits = false) {
                 this.buyState = 'mining';
 
                 try {
@@ -125,19 +128,19 @@
                     this.buyState = 'idle';
                 }
             },
-            setState(state) {
+            setState (state) {
                 this.buyState = state;
                 this.revealAll = false;
             },
-            showAllCards() {
+            showAllCards () {
                 this.revealAll = true;
             },
-            async loadCreditsForAccount() {
+            async loadCreditsForAccount () {
                 this.accountCredits = await this.blindPackService.getCreditsForAccount(this.ethAccount);
 
             }
         },
-        async created() {
+        async created () {
             const loadData = async () => {
                 this.packPrices = await this.blindPackService.getPriceModel();
             };

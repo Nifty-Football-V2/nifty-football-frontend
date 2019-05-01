@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div>
         <a href="#" @click="editEthAccountName" class="small" v-if="!form.editMode">
             <span class="h1-box" v-if="!form.editMode">{{ currentSquadName }}</span>
         </a>

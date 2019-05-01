@@ -1,25 +1,7 @@
 <template>
     <div class="container-fluid text-center">
-        <div class="row pb-3 mb-3 mt-2">
-            <div class="col-6 col-md-3 header-text text-left">
-                <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto"/>
-            </div>
-            <div class="d-none d-md-block col header-text text-left">
-                &nbsp;
-                <!--<a href="https://medium.com/niftyfootball" target="_blank">BLOG</a>-->
-            </div>
-            <div class="d-none d-md-block col header-text text-center">
-                <img src="../assets/gray_logo.svg" style="width: 75px;" class="mx-auto"/>
-            </div>
-            <div class="d-none d-md-block col header-text">
-                &nbsp;
-            </div>
-            <div class="col-6 col-md-3 header-text text-right">
-                <router-link to="/buy" class="btn btn-secondary btn-lg">
-                    Start Collecting
-                </router-link>
-            </div>
-        </div>
+
+        <nifty-football-header></nifty-football-header>
 
         <router-link to="/buy" class="pb-3 pt-3">
             <img src="../assets/logo.svg" style="max-height: 300px" class=""/>
@@ -89,13 +71,14 @@
 </template>
 
 <script>
+    import NiftyFootballHeader from '../components/NiftyFootballHeader';
     export default {
         name: 'home',
         data () {
             return {};
         },
         computed: {},
-        components: {},
+        components: {NiftyFootballHeader},
         methods: {},
     };
 </script>

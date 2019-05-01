@@ -1,8 +1,11 @@
 <template>
     <div>
         <network-web3-banner></network-web3-banner>
-        <div class="container">
-            <page-header :name="$t('nav.rankings')"></page-header>
+        <div class="container-fluid">
+
+            <nifty-football-header></nifty-football-header>
+
+            <page-title text="Rankings"></page-title>
 
             <div class="row pb-4 text-center" v-if="rankings && rankings.length === 0">
                 <div class="col mb-5 text-primary">
@@ -44,14 +47,14 @@
 <script>
     import Vue2Filters from 'vue2-filters';
     import {mapState} from 'vuex';
-    import LazyImgLoader from '../components/LazyImgLoader';
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
-    import PageHeader from '../components/PageHeader';
     import Card from "../components/Card";
+    import PageTitle from '../components/PageTitle';
+    import NiftyFootballHeader from '../components/NiftyFootballHeader';
 
     export default {
-        components: {Card, PageHeader, Loading, NetworkWeb3Banner, LazyImgLoader},
+        components: {NiftyFootballHeader, PageTitle, Card, Loading, NetworkWeb3Banner},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
