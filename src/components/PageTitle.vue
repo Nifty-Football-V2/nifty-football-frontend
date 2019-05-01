@@ -1,5 +1,5 @@
 <template>
-    <div class="row pb-4 text-center">
+    <div class="row mb-5 pb-4 text-center">
         <div class="col">
             <span class="h1-box">{{text}}</span>
         </div>

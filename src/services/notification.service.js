@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import {lookupEtherscanAddress} from "../utils";
 
-const _ = require('lodash');
-
 const defaults = {
     timeout: 0,
     showProgressBar: false,
@@ -57,7 +55,7 @@ export default class NotificationService {
 
         this.notification = Vue.$snotify.html(
             `<div class="snotifyToast__body">
-              <div class="notification-icon">⏳</div>
+              <div class="notification-icon">🧐</div>
               <div class="notification-msg">
                 ️Processing transaction...
                <div class="small"><a href="${this.etherscanBase}/tx/${txsHash}" target="_blank">Details</a></div>
@@ -86,7 +84,7 @@ export default class NotificationService {
             {
                 ...defaults,
                 timeout: 10000, // 10s timeout
-                type: 'success',
+                type: 'simple',
             });
     }
 
@@ -106,7 +104,7 @@ export default class NotificationService {
             {
                 ...defaults,
                 timeout: 10000, // 10s timeout
-                type: 'success',
+                type: 'simple',
             });
     }
 

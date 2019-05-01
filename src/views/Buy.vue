@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <nifty-football-header></nifty-football-header>
 
-            <page-title text="Buy Packs"></page-title>
+            <page-title text="Buy Packs" @click="setState('idle')"></page-title>
 
             <div class="row pb-4 text-center"
                  v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
@@ -14,7 +14,7 @@
             </div>
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
-                <div class="col-3 mb-5" v-for="card in cards" v-bind:key="card.tokenId" style="min-height: 320px">
+                <div class="col-6 col-md-2 mb-5" v-for="card in cards" v-bind:key="card.tokenId">
                     <buy-player-reveal :card="card"></buy-player-reveal>
                 </div>
             </div>

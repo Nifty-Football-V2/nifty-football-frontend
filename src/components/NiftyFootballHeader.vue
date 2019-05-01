@@ -10,7 +10,7 @@
             </router-link>
         </div>
         <div class="col-6 col-md-3 header-text text-right">
-            <router-link active-class="" to="/buy" class="mr-1 btn btn-secondary" v-if="$router.currentRoute.name !== 'home'">
+            <router-link to="/buy" class="mr-1 btn btn-secondary" v-if="$router.currentRoute.name !== 'home'">
                 Buy Packs
             </router-link>
             <router-link to="/buy" class="mr-1 btn btn-secondary btn-lg" v-else>

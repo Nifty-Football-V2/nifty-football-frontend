@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="row mb-2" v-if="ethAccount && (squad && squad.length > 0)">
+            <div class="row mb-5" v-if="ethAccount && (squad && squad.length > 0)">
                 <div class="d-none d-sm-block col text-left">
                     <router-link to="/rankings" class="sub-nav mr-2">{{ $t('nav.rankings') }}</router-link> |
                     <router-link to="/team" class="sub-nav ml-2">{{ $t('nav.team') }}</router-link>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="row mt-3" v-if="squad && cards">
-                <div class="col-6 col-md-2 mb-5"
+                <div class="col-6 col-md-2"
                      v-for="tokenId in squad" v-bind:key="tokenId">
                     <card :card="cards[tokenId]"></card>
                 </div>
