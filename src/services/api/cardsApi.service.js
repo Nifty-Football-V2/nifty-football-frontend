@@ -17,7 +17,7 @@ export default class CardsApiService extends BaseApiService {
 
     async loadTokenForTokenId(tokenId) {
         console.log(`Load token for token ID [${tokenId}] for network [${this.network}]`);
-        const res = await axios.get(`${this.BASE_API}/network/${this.network}/token/${tokenId}`, AXIOS_CONFIG);
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/token/${tokenId}/details`, AXIOS_CONFIG);
         return res.data;
     }
 
