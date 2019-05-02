@@ -101,7 +101,7 @@
                                 <div class="col-2"></div>
                             </div>
 
-                            <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('reg')">Purchase</button>
+                            <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('reg')" @click="buyCard()">Purchase</button>
                         </div>
                     </div>
                 </div>
@@ -144,21 +144,30 @@
         },
         methods: {
             async buyCard (useCredits = false) {
+
+                const cardsPerPack = 3;
                 this.buyState = 'mining';
 
                 // FIXME expand to use elite / reg
-                const num = parseInt(this.packType.split('-')[1]);
+                const num = parseInt(this.packType.split('-')[1]) * cardsPerPack;
+
+                console.log(`Buying ${this.packType} = ${num} cards`);
 
                 try {
                     this.notificationService.showPurchaseNotification();
 
-                    // wait for tx to be mined
-                    let tx = await this.blindPackService.buyBlindPack(num, useCredits);
-
+                    // call the respective contract to buy
+                    let tx = null;
+                    if (this.packType.startsWith('reg')) {
+                        tx = await this.blindPackService.buyBlindPack(num, useCredits);
+                    } else {
+                        tx = await this.blindPackService.buyEliteBlindPack(num);
+                    }
                     // console.log(tx);
 
                     this.notificationService.showProcessingNotification(tx.hash);
 
+                    // wait for tx to be mined
                     await tx.wait(1);
 
                     const txRes = await this.cardsApiService.loadTokensForTx(tx.hash);
@@ -251,6 +260,6 @@
         background-color: $black;
         color: $secondary;
         font-family: 'CrackerJack', sans-serif;
-        font-size: 1rem;
+        font-size: 1.15rem;
     }
 </style>
