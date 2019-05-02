@@ -28,7 +28,7 @@ export default class BlindPackContractService {
         };
         return this.priceModel;
     }
-    
+
     async getElitePriceModel () {
         if (this.elitePriceModel) {
             return this.elitePriceModel;
