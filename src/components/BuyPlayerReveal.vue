@@ -10,14 +10,13 @@
 </template>
 
 <script>
-    import VueFlip from 'vue-flip';
     import {mapState} from 'vuex';
     import {getApi} from '../utils';
     import Card from "./Card";
 
     export default {
         name: 'buy-player-reveal',
-        components: {Card, VueFlip},
+        components: {Card},
         props: ['card'],
         data() {
             return {
