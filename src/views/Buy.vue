@@ -43,9 +43,14 @@
                             </div>
 
                             <div class="row mt-5">
-                                <div class="col"></div>
-                                <div class="col price-window text-right pt-2 pb-2">{{ price | toEth }} ETH</div>
-                                <div class="col"></div>
+                                <div class="col-2"></div>
+                                <div class="col price-window text-right pt-2 pb-2">
+                                    &nbsp;
+                                    <span v-if="packType.startsWith('reg')">
+                                        {{ price | toEth }} ETH
+                                    </span>
+                                </div>
+                                <div class="col-2"></div>
                             </div>
 
                             <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('elite')" @click="buyCard()">Purchase</button>
@@ -86,9 +91,14 @@
                             </div>
 
                             <div class="row mt-5">
-                                <div class="col"></div>
-                                <div class="col price-window text-right pt-2 pb-2">{{ price | toEth }} ETH</div>
-                                <div class="col"></div>
+                                <div class="col-2"></div>
+                                <div class="col price-window text-right pt-2 pb-2">
+                                    &nbsp;
+                                    <span v-if="packType.startsWith('elite')">
+                                        {{ price | toEth }} ETH
+                                    </span>
+                                </div>
+                                <div class="col-2"></div>
                             </div>
 
                             <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('reg')">Purchase</button>
@@ -96,15 +106,6 @@
                     </div>
                 </div>
                 <div class="col-lg"></div>
-            </div>
-            <div class="row" v-if="buyState === 'idle'">
-                <div class="col text-right mr-5">
-                    <div class="mt-5 text-muted small ">
-                        <div v-for="(price, num) in packPrices" v-bind:key="num">
-                            {{ num }} {{ parseInt(num) | pluralize('Card') }} for {{ price | toEth }} ETH
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
