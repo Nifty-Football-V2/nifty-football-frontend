@@ -28,8 +28,7 @@ export default class BlindPackContractService {
         };
         return this.priceModel;
     }
-
-    // FIXME switch over to Elite blind contract
+    
     async getElitePriceModel () {
         if (this.elitePriceModel) {
             return this.elitePriceModel;
