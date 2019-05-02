@@ -19,33 +19,26 @@
                 </div>
             </div>
 
-            <!--<div class="row pb-5 pt-5 bg-dark" v-if="buyState === 'idle'">-->
-            <!--<div class="col-sm"></div>-->
-            <!--<div class="col-6 offset-3 offset-sm-0 col-sm-2 text-center">-->
-            <!--<img src="../assets/packs.svg" @click="buyCard(3, true)"/>-->
-            <!--</div>-->
-            <!--<div class="col-sm"></div>-->
-            <!--</div>-->
-
             <div class="row" v-if="buyState === 'idle'">
                 <div class="col-lg"></div>
                 <div class="col text-center">
                     <div class="buy-container bg-light pb-5">
                         <div class="ml-4 mr-4">
                             <page-sub-title text="Standard" variant="orange"></page-sub-title>
+
                             <div class="row m-2">
                                 <div class="col"></div>
-                                <div class="col-8 buy-button buy-button-active">Regular - 1 Pack</div>
+                                <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">1 Pack</div>
                                 <div class="col"></div>
                             </div>
                             <div class="row m-2">
                                 <div class="col"></div>
-                                <div class="col-8 buy-button">Large - 2 Packs</div>
+                                <div class="col-8 buy-button" @click="setPackType('reg-2')" :class="{'buy-button-active': packType === 'reg-2'}">2 Packs</div>
                                 <div class="col"></div>
                             </div>
                             <div class="row m-2">
                                 <div class="col"></div>
-                                <div class="col-8 buy-button">XXL - 3 Packs</div>
+                                <div class="col-8 buy-button" @click="setPackType('reg-3')" :class="{'buy-button-active': packType === 'reg-3'}">3 Packs</div>
                                 <div class="col"></div>
                             </div>
 
@@ -81,25 +74,26 @@
                     <div class="buy-container bg-light pb-5">
                         <div class="ml-4 mr-4">
                             <page-sub-title text="Elite" variant="blue"></page-sub-title>
+
                             <div class="row m-2">
                                 <div class="col"></div>
-                                <div class="col-8 buy-button buy-button-active">Regular - 1 Pack</div>
+                                <div class="col-8 buy-button" @click="setPackType('elite-1')" :class="{'buy-button-active': packType === 'elite-1'}">1 Pack</div>
                                 <div class="col"></div>
                             </div>
                             <div class="row m-2">
                                 <div class="col"></div>
-                                <div class="col-8 buy-button">Large - 2 Packs</div>
+                                <div class="col-8 buy-button" @click="setPackType('elite-2')" :class="{'buy-button-active': packType === 'elite-2'}">2 Packs</div>
                                 <div class="col"></div>
                             </div>
                             <div class="row m-2">
                                 <div class="col"></div>
-                                <div class="col-8 buy-button">XXL - 3 Packs</div>
+                                <div class="col-8 buy-button" @click="setPackType('elite-3')" :class="{'buy-button-active': packType === 'elite-3'}">3 Packs</div>
                                 <div class="col"></div>
                             </div>
 
                             <div class="row mt-5">
                                 <div class="col"></div>
-                                <div class="col price-window text-right pt-2 pb-2">0.03 ETH</div>
+                                <div class="col price-window text-right pt-2 pb-2">{{ elitePrice }} ETH</div>
                                 <div class="col"></div>
                             </div>
 
@@ -135,9 +129,19 @@
         components: {PageSubTitle, PageTitle, NiftyFootballHeader, BuyPlayerReveal, Loading, NetworkWeb3Banner},
         data () {
             return {
-                packPrices: {},
+                packPrices: {
+                    'reg-1': 0.01,
+                    'reg-2': 0.02,
+                    'reg-3': 0.03,
+                    'elite-1': 0.01,
+                    'elite-2': 0.02,
+                    'elite-3': 0.03,
+                },
                 accountCredits: 0,
                 buyState: 'idle',
+                packType: 'elite-1',
+                regPrice: 0,
+                elitePrice: 0.01,
                 cards: [],
                 revealAll: false
             };
@@ -187,6 +191,9 @@
                 this.buyState = state;
                 this.revealAll = false;
             },
+            setPackType (pType) {
+                this.packType = pType;
+            },
             showAllCards () {
                 this.revealAll = true;
             },
@@ -197,7 +204,7 @@
         },
         async created () {
             const loadData = async () => {
-                this.packPrices = await this.blindPackService.getPriceModel();
+                // this.packPrices = await this.blindPackService.getPriceModel();
             };
 
             this.$store.watch(
