@@ -147,8 +147,7 @@
 
                 const cardsPerPack = 3;
                 this.buyState = 'mining';
-
-                // FIXME expand to use elite / reg
+                
                 const num = parseInt(this.packType.split('-')[1]) * cardsPerPack;
 
                 console.log(`Buying ${this.packType} = ${num} cards`);
