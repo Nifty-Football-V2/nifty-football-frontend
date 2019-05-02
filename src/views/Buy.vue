@@ -24,7 +24,7 @@
                 <div class="col text-center">
                     <div class="buy-container bg-light pb-5">
                         <div class="ml-4 mr-4">
-                            <page-sub-title text="Standard" variant="orange"></page-sub-title>
+                            <page-sub-title text="Regular" variant="orange"></page-sub-title>
 
                             <div class="row m-2">
                                 <div class="col"></div>
@@ -44,26 +44,20 @@
 
                             <div class="row mt-5">
                                 <div class="col"></div>
-                                <div class="col price-window text-right pt-2 pb-2">0.03 ETH</div>
+                                <div class="col price-window text-right pt-2 pb-2">{{ price | toEth }} ETH</div>
                                 <div class="col"></div>
                             </div>
 
-                            <button class="btn btn-secondary mt-3">Purchase</button>
+                            <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('elite')" @click="buyCard()">Purchase</button>
                         </div>
                     </div>
-
-                    <b-dropdown split @click="buyCard(3)" text="Buy Pack" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
-                        <b-dropdown-item href="#" @click="buyCard(3)">Buy 1 Pack</b-dropdown-item>
-                        <b-dropdown-item href="#" @click="buyCard(6)">Buy 2 Packs</b-dropdown-item>
-                        <b-dropdown-item href="#" @click="buyCard(9)">Buy 3 Packs</b-dropdown-item>
-                    </b-dropdown>
 
                     <div v-if="accountCredits > 0" class="mt-3">
                         <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)"
                                     text="Use Credits" class="mt-5" variant="secondary" size="lg" :disabled="!packPrices">
-                            <b-dropdown-item href="#" @click="buyCard(1, true)" v-if="accountCredits >= 1">Buy 1 Card
+                            <b-dropdown-item href="#" @click="buyCard(true)" v-if="accountCredits >= 1">Buy 1 Card
                             </b-dropdown-item>
-                            <b-dropdown-item href="#" @click="buyCard(3, true)" v-if="accountCredits >= 3">Buy 1 Pack
+                            <b-dropdown-item href="#" @click="buyCard(true)" v-if="accountCredits >= 3">Buy 1 Pack
                             </b-dropdown-item>
                         </b-dropdown>
 
@@ -93,11 +87,11 @@
 
                             <div class="row mt-5">
                                 <div class="col"></div>
-                                <div class="col price-window text-right pt-2 pb-2">{{ elitePrice }} ETH</div>
+                                <div class="col price-window text-right pt-2 pb-2">{{ price | toEth }} ETH</div>
                                 <div class="col"></div>
                             </div>
 
-                            <button class="btn btn-secondary mt-3">Purchase</button>
+                            <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('reg')">Purchase</button>
                         </div>
                     </div>
                 </div>
@@ -129,19 +123,11 @@
         components: {PageSubTitle, PageTitle, NiftyFootballHeader, BuyPlayerReveal, Loading, NetworkWeb3Banner},
         data () {
             return {
-                packPrices: {
-                    'reg-1': 0.01,
-                    'reg-2': 0.02,
-                    'reg-3': 0.03,
-                    'elite-1': 0.01,
-                    'elite-2': 0.02,
-                    'elite-3': 0.03,
-                },
+                packPrices: null,
                 accountCredits: 0,
                 buyState: 'idle',
                 packType: 'elite-1',
-                regPrice: 0,
-                elitePrice: 0.01,
+                price: null,
                 cards: [],
                 revealAll: false
             };
@@ -156,8 +142,11 @@
             ]),
         },
         methods: {
-            async buyCard (num, useCredits = false) {
+            async buyCard (useCredits = false) {
                 this.buyState = 'mining';
+
+                // FIXME expand to use elite / reg
+                const num = parseInt(this.packType.split('-')[1]);
 
                 try {
                     this.notificationService.showPurchaseNotification();
@@ -193,6 +182,7 @@
             },
             setPackType (pType) {
                 this.packType = pType;
+                this.price = this.packPrices[pType];
             },
             showAllCards () {
                 this.revealAll = true;
@@ -204,7 +194,13 @@
         },
         async created () {
             const loadData = async () => {
-                // this.packPrices = await this.blindPackService.getPriceModel();
+                const regularPrices = await this.blindPackService.getRegularPriceModel();
+                const elitePrices = await this.blindPackService.getElitePriceModel();
+                this.packPrices = {
+                    ...regularPrices,
+                    ...elitePrices,
+                };
+                this.price = this.packPrices[this.packType];
             };
 
             this.$store.watch(
@@ -243,6 +239,7 @@
         font-size: 1.1rem;
         background-color: $lightgrey;
         border: 2px solid $lightgrey;
+        cursor: pointer;
     }
 
     .buy-button-active {
@@ -253,6 +250,6 @@
         background-color: $black;
         color: $secondary;
         font-family: 'CrackerJack', sans-serif;
-        font-size: 1.25rem;
+        font-size: 1rem;
     }
 </style>

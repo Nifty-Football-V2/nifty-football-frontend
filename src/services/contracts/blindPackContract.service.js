@@ -11,17 +11,31 @@ export default class BlindPackContractService {
         this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardBlindPackAbi, this.providerSigner);
     }
 
-    async getPriceModel() {
+    async getRegularPriceModel() {
         if (this.priceModel) {
             return this.priceModel;
         }
 
         this.priceModel = {
-            1: (await this.contract.totalPrice(1)),
-            3: (await this.contract.totalPrice(3)),
-            6: (await this.contract.totalPrice(6))
+            'reg-1': (await this.contract.totalPrice(1)),
+            'reg-2': (await this.contract.totalPrice(3)),
+            'reg-3': (await this.contract.totalPrice(6))
         };
         return this.priceModel;
+    }
+
+    // FIXME switch over to Elite blind contract
+    async getElitePriceModel() {
+        if (this.elitePriceModel) {
+            return this.elitePriceModel;
+        }
+
+        this.elitePriceModel = {
+            'elite-1': (await this.contract.totalPrice(1)),
+            'elite-2': (await this.contract.totalPrice(3)),
+            'elite-3': (await this.contract.totalPrice(6))
+        };
+        return this.elitePriceModel;
     }
 
     async getCreditsForAccount(account) {
