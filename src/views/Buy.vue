@@ -19,6 +19,12 @@
                 </div>
             </div>
 
+            <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
+                <div class="col">
+                    <a href="#" @click="setState('idle')" class="nf-link">Add more cards to your squad?</a>
+                </div>
+            </div>
+
             <div class="row" v-if="buyState === 'idle'">
                 <div class="col-lg"></div>
                 <div class="col text-center">
@@ -244,6 +250,14 @@
         padding: 20px 26px;
         font-size: 35px;
         border-radius: 8px;
+    }
+
+    .nf-link {
+        font-family: 'CrackerJack', sans-serif;
+        text-transform: uppercase;
+        color: $black;
+        font-size: 1.2rem;
+        cursor: pointer;
     }
 
     .buy-button {

@@ -23,7 +23,7 @@ export default class BlindPackContractService {
 
         this.priceModel = {
             'reg-1': (await this.contract.totalPrice(3)),
-            'reg-2': (await this.contract.totalPrice(4)),
+            'reg-2': (await this.contract.totalPrice(6)),
             'reg-3': (await this.contract.totalPrice(9))
         };
         return this.priceModel;
@@ -48,13 +48,9 @@ export default class BlindPackContractService {
 
     async buyBlindPack (number, useCredits = false) {
 
-        console.log(number);
-
         const gasPrice = await ethers.getDefaultProvider().getGasPrice();
 
         const totalPrice = await this.contract.totalPrice(number);
-
-        console.log(totalPrice);
 
         const gasLimit = await this.contract.estimate.buyBatch(number, {
             value: totalPrice
@@ -78,13 +74,9 @@ export default class BlindPackContractService {
 
     async buyEliteBlindPack (number) {
 
-        console.log(number);
-
         const gasPrice = await ethers.getDefaultProvider().getGasPrice();
 
         const totalPrice = await this.eliteContract.totalPrice(number);
-
-        console.log(totalPrice);
 
         const gasLimit = await this.eliteContract.estimate.buyBatch(number, {
             value: totalPrice
