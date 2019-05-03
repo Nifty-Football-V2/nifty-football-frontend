@@ -1,5 +1,5 @@
 <template>
-    <vue-flip :active-click="true" width="100%" height="100%" style="min-height: 310px;">
+    <vue-flip :active-click="true" width="100%" height="100%" style="min-height: 320px;">
         <div slot="front">
             <lazy-img-loader :src="card.tokenId" :id="card.tokenId" :lazy="lazy"></lazy-img-loader>
         </div>
