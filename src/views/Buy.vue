@@ -252,14 +252,6 @@
         border-radius: 8px;
     }
 
-    .nf-link {
-        font-family: 'CrackerJack', sans-serif;
-        text-transform: uppercase;
-        color: $black;
-        font-size: 1.2rem;
-        cursor: pointer;
-    }
-
     .buy-button {
         font-family: 'CrackerJack', sans-serif;
         text-transform: uppercase;

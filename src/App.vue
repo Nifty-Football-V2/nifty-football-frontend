@@ -1,46 +1,5 @@
 <template>
     <div id="app">
-        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">-->
-            <!--&lt;!&ndash;<locale-changer></locale-changer>&ndash;&gt;-->
-            <!--<div class="container">-->
-                <!--&lt;!&ndash;<a class="navbar-brand" href="#">&nbsp;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"&ndash;&gt;-->
-                <!--&lt;!&ndash;aria-controls="navbarResponsive" aria-expanded="false"&ndash;&gt;-->
-                <!--&lt;!&ndash;aria-label="Toggle navigation">&ndash;&gt;-->
-                <!--&lt;!&ndash;<span class="navbar-toggler-icon"></span>&ndash;&gt;-->
-                <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="collapse navbar-collapse" id="navbarResponsive">&ndash;&gt;-->
-                <!--<div>-->
-                    <!--<ul class="navbar-nav ml-auto">-->
-                        <!--<li class="d-none d-md-block nav-item">-->
-                            <!--<router-link to="/" class="nav-link">{{ $t('nav.home') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>-->
-                        <!--</li>-->
-                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<router-link to="/about" class="nav-link">{{ $t('nav.about') }}</router-link>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<router-link to="/play" class="nav-link">{{ $t('nav.play') }}</router-link>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<router-link to="/marketplace" class="nav-link">{{ $t('nav.marketplace') }}</router-link>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--<li class="d-none d-md-block nav-item">-->
-                            <!--<router-link to="/rankings" class="nav-link">{{ $t('nav.rankings') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="nav-item">-->
-                            <!--<router-link to="/squad" class="nav-link">{{ $t('nav.account') }}</router-link>-->
-                        <!--</li>-->
-                        <!--<li class="d-none d-md-block nav-item">-->
-                            <!--<router-link to="/team" class="nav-link">{{ $t('nav.team') }}</router-link>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</nav>-->
-
         <router-view class="pb-5"/>
 
         <vue-snotify></vue-snotify>
@@ -205,6 +164,14 @@
 
     code {
         color: $primary;
+    }
+
+    .nf-link {
+        font-family: 'CrackerJack', sans-serif;
+        text-transform: uppercase;
+        color: $black;
+        font-size: 1.2rem;
+        cursor: pointer;
     }
 
     .badge {
