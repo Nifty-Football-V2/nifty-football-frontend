@@ -166,6 +166,11 @@
         color: $primary;
     }
 
+    .crackerjack {
+        font-family: 'CrackerJack', sans-serif;
+        text-transform: uppercase;
+    }
+
     .nf-link {
         font-family: 'CrackerJack', sans-serif;
         text-transform: uppercase;
@@ -179,7 +184,10 @@
         font-family: 'CrackerJack', sans-serif;
         text-transform: uppercase;
         letter-spacing: 3px;
-        border: 2px solid $black;
+        background-color: $black;
+        padding-right: 10px;
+        padding-left: 10px;
+        color: $secondary;
     }
 
     .btn-secondary {

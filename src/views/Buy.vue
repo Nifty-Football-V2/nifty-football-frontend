@@ -35,17 +35,22 @@
 
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">1 Pack</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-3')" :class="{'buy-button-active': packType === 'reg-3'}">1 Pack</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-2')" :class="{'buy-button-active': packType === 'reg-2'}">2 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-6')" :class="{'buy-button-active': packType === 'reg-6'}">2 Packs</div>
                                     <div class="col"></div>
                                 </div>
-                                <div class="row m-2">
+                                <div class="row m-2" v-if="accountCredits === 0">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-3')" :class="{'buy-button-active': packType === 'reg-3'}">3 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-9')" :class="{'buy-button-active': packType === 'reg-9'}">3 Packs</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row m-2" v-else>
+                                    <div class="col"></div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">1 Card</div>
                                     <div class="col"></div>
                                 </div>
 
@@ -54,28 +59,25 @@
                                     <div class="col price-window text-right pt-2 pb-2">
                                         &nbsp;
                                         <transition name="slide-fade">
-                                        <span v-if="packType.startsWith('reg')">
+                                        <span v-if="packType.startsWith('reg') && accountCredits === 0">
                                             {{ price | toEth }} ETH
+                                        </span>
+                                        <span v-if="packType.startsWith('reg') && accountCredits > 0">
+                                            {{ selectedNum() }} {{accountCredits|pluralize('credit')|uppercase}}
                                         </span>
                                         </transition>
                                     </div>
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('elite')" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">Purchase</button>
+
+                                <div class="row mt-2" v-if="accountCredits > 0">
+                                    <div class="col"></div>
+                                    <div class="col-8 crackerjack">You have <span class="badge">{{accountCredits}}</span> {{accountCredits|pluralize('credit')}}</div>
+                                    <div class="col"></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div v-if="accountCredits > 0" class="mt-3">
-                            <b-dropdown split @click="buyCard(accountCredits >= 3 ? 3 : accountCredits, true)"
-                                        text="Use Credits" class="mt-5" variant="secondary" :disabled="!packPrices">
-                                <b-dropdown-item href="#" @click="buyCard(true)" v-if="accountCredits >= 1">Buy 1 Card
-                                </b-dropdown-item>
-                                <b-dropdown-item href="#" @click="buyCard(true)" v-if="accountCredits >= 3">Buy 1 Pack
-                                </b-dropdown-item>
-                            </b-dropdown>
-
-                            <div class="mt-3"><span class="badge badge-secondary">{{accountCredits}}</span> credits</div>
                         </div>
                     </div>
                     <div class="col text-center">
@@ -85,17 +87,17 @@
 
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-1')" :class="{'buy-button-active': packType === 'elite-1'}">1 Pack</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-3')" :class="{'buy-button-active': packType === 'elite-3'}">1 Pack</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-2')" :class="{'buy-button-active': packType === 'elite-2'}">2 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-6')" :class="{'buy-button-active': packType === 'elite-6'}">2 Packs</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-3')" :class="{'buy-button-active': packType === 'elite-3'}">3 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-9')" :class="{'buy-button-active': packType === 'elite-9'}">3 Packs</div>
                                     <div class="col"></div>
                                 </div>
 
@@ -139,7 +141,7 @@
                 packPrices: null,
                 accountCredits: 0,
                 buyState: 'idle',
-                packType: 'elite-1',
+                packType: 'elite-3',
                 price: null,
                 cards: [],
                 revealAll: false
@@ -155,12 +157,11 @@
             ]),
         },
         methods: {
-            async buyCard (useCredits = false) {
+            async buyCard () {
 
-                const cardsPerPack = 3;
                 this.buyState = 'mining';
 
-                const num = parseInt(this.packType.split('-')[1]) * cardsPerPack;
+                const num = parseInt(this.packType.split('-')[1]);
 
                 console.log(`Buying ${this.packType} = ${num} cards`);
 
@@ -170,7 +171,7 @@
                     // call the respective contract to buy
                     let tx = null;
                     if (this.packType.startsWith('reg')) {
-                        tx = await this.blindPackService.buyBlindPack(num, useCredits);
+                        tx = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
                     } else {
                         tx = await this.blindPackService.buyEliteBlindPack(num);
                     }
@@ -208,9 +209,15 @@
             showAllCards () {
                 this.revealAll = true;
             },
+            selectedNum () {
+                return parseInt(this.packType.split('-')[1]);
+            },
             async loadCreditsForAccount () {
                 this.accountCredits = await this.blindPackService.getCreditsForAccount(this.ethAccount);
-
+                this.accountCredits = parseInt(this.accountCredits);
+                if (this.accountCredits > 0) {
+                    this.packType = 'reg-1';
+                }
             }
         },
         async created () {
@@ -259,12 +266,12 @@
         text-transform: uppercase;
         font-size: 1.1rem;
         background-color: $lightgrey;
-        border: 2px solid $lightgrey;
+        border: 4px solid $lightgrey;
         cursor: pointer;
     }
 
     .buy-button-active {
-        border: 2px solid $secondary !important;
+        border: 4px solid $secondary !important;
     }
 
     .price-window {

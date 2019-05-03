@@ -22,9 +22,9 @@ export default class BlindPackContractService {
         }
 
         this.priceModel = {
-            'reg-1': (await this.contract.totalPrice(3)),
-            'reg-2': (await this.contract.totalPrice(6)),
-            'reg-3': (await this.contract.totalPrice(9))
+            'reg-3': (await this.contract.totalPrice(3)),
+            'reg-6': (await this.contract.totalPrice(6)),
+            'reg-9': (await this.contract.totalPrice(9)),
         };
         return this.priceModel;
     }
@@ -35,9 +35,9 @@ export default class BlindPackContractService {
         }
 
         this.elitePriceModel = {
-            'elite-1': (await this.eliteContract.totalPrice(3)),
-            'elite-2': (await this.eliteContract.totalPrice(6)),
-            'elite-3': (await this.eliteContract.totalPrice(9))
+            'elite-3': (await this.eliteContract.totalPrice(3)),
+            'elite-6': (await this.eliteContract.totalPrice(6)),
+            'elite-9': (await this.eliteContract.totalPrice(9)),
         };
         return this.elitePriceModel;
     }
@@ -47,6 +47,8 @@ export default class BlindPackContractService {
     }
 
     async buyBlindPack (number, useCredits = false) {
+
+        console.log(`buying regular ${number} using credit ${useCredits}`);
 
         const gasPrice = await ethers.getDefaultProvider().getGasPrice();
 
