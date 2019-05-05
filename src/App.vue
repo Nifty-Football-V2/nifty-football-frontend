@@ -30,6 +30,7 @@
 </template>
 
 <script>
+    /* global web3 */
     // import LocaleChanger from './components/LocaleChanger';
     import {mapState} from 'vuex';
 

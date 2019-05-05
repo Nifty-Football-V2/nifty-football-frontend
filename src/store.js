@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { ethers } from 'ethers';
+import {ethers} from 'ethers';
+// import createLogger from 'vuex/dist/logger';
 
 import CardsApiService from './services/api/cardsApi.service';
-import { lookupEtherscanAddress } from './utils';
+import {lookupEtherscanAddress} from './utils';
 
 import BlindPackContractService from './services/contracts/blindPackContract.service';
 import FootballCardsContractService from './services/contracts/footballCardsContract.service';
@@ -14,9 +15,12 @@ import ThreeBoxService from './services/api/threeBox.service';
 
 Vue.use(Vuex);
 
+// const debug = process.env.NODE_ENV !== 'production';
+
 /* global web3 */
 
 export default new Vuex.Store({
+    // plugins: debug ? [createLogger()] : [],
     state: {
         networkId: 1,
         etherscanUrl: 'https://etherscan.io',
@@ -40,23 +44,24 @@ export default new Vuex.Store({
         headToHeadContractService: null,
     },
     mutations: {
-        ethAccount (state, ethAccount) {
+        ethAccount(state, ethAccount) {
+            console.log("Setting ethAccount", ethAccount);
             state.ethAccount = ethAccount;
             state.threeBoxService.setAccount(ethAccount);
         },
-        squad (state, squad) {
+        squad(state, squad) {
             state.squad = squad;
         },
-        cards (state, cards) {
+        cards(state, cards) {
             state.cards = cards;
         },
-        imageData (state, imageData) {
+        imageData(state, imageData) {
             state.imageData = imageData;
         },
-        etherscanUrl (state, etherscanUrl) {
+        etherscanUrl(state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
         },
-        provider (state, provider) {
+        provider(state, provider) {
             console.log(`Setting provider for network [${state.networkId}]`, provider);
             state.provider = provider;
             state.providerSigner = provider.getSigner();
@@ -64,6 +69,7 @@ export default new Vuex.Store({
             state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
 
             // FIXME
+
             // state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
 
             state.web3Enabled = true;
@@ -71,7 +77,7 @@ export default new Vuex.Store({
             // This needs to not be a etherjs provider...?
             state.threeBoxService.setProvider(web3.currentProvider);
         },
-        networkId (state, networkId) {
+        networkId(state, networkId) {
             state.networkId = networkId;
             // Override the default network of mainnet if we are switching
             console.log(`Setting network ID [${state.networkId}] on services`);
@@ -81,7 +87,9 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async bootstrapApp ({commit, dispatch}) {
+        async bootstrapApp({commit, dispatch}) {
+            console.log("Bootstrapping application", web3.currentProvider);
+
             const provider = new ethers.providers.Web3Provider(web3.currentProvider);
 
             const {chainId, name} = await provider.getNetwork();
@@ -94,7 +102,8 @@ export default new Vuex.Store({
             dispatch('loadImageData');
             dispatch('loadSquad');
         },
-        async loadSquad ({commit, state}) {
+        async loadSquad({commit, state}) {
+            console.log("Loading squad for account", state.ethAccount);
             if (state.ethAccount) {
                 const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
                 commit('squad', squad);
@@ -116,11 +125,10 @@ export default new Vuex.Store({
                 }
             }
         },
-        async loadImageData ({commit, state}) {
-            if (state.ethAccount) {
-                const imageData = await state.cardsApiService.loadImageData();
-                commit('imageData', imageData);
-            }
+        async loadImageData({commit, state}) {
+            console.log("Loading image data");
+            const imageData = await state.cardsApiService.loadImageData();
+            commit('imageData', imageData);
         },
     }
 });

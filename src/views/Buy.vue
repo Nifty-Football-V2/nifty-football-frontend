@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <transition name="fade">
+            <transition name="fade" v-if="pricesSet">
                 <div class="row" v-if="buyState === 'idle'">
                     <div class="col-lg"></div>
                     <div class="col text-center">
@@ -144,7 +144,7 @@
                 packType: 'elite-3',
                 price: null,
                 cards: [],
-                revealAll: false
+                pricesSet: false,
             };
         },
         computed: {
@@ -200,14 +200,10 @@
             },
             setState (state) {
                 this.buyState = state;
-                this.revealAll = false;
             },
             setPackType (pType) {
                 this.packType = pType;
                 this.price = this.packPrices[pType];
-            },
-            showAllCards () {
-                this.revealAll = true;
             },
             selectedNum () {
                 return parseInt(this.packType.split('-')[1]);
@@ -222,6 +218,7 @@
         },
         async created () {
             const loadData = async () => {
+                this.pricesSet = false;
                 const regularPrices = await this.blindPackService.getRegularPriceModel();
                 const elitePrices = await this.blindPackService.getElitePriceModel();
                 this.packPrices = {
@@ -229,6 +226,7 @@
                     ...elitePrices,
                 };
                 this.price = this.packPrices[this.packType];
+                this.pricesSet = true;
             };
 
             this.$store.watch(
