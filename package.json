@@ -22,6 +22,7 @@
     "intersection-observer": "^0.6.0",
     "lodash": "^4.17.11",
     "nifty-football-contract-tools": "^1.4.0",
+    "vconsole": "^3.3.0",
     "vue": "^2.6.10",
     "vue-analytics": "^5.16.4",
     "vue-flip": "^0.2.5",

@@ -30,13 +30,13 @@
 
 <script>
     // import LocaleChanger from './components/LocaleChanger';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
 
     export default {
         components: {
             // LocaleChanger
         },
-        data () {
+        data() {
             return {
                 isDev: process.env.NODE_ENV === 'development',
             };
@@ -48,8 +48,13 @@
             ])
         },
         created: async function () {
+            if (window.location.href.indexOf("__debug") > -1) {
+                // eslint-disable-next-line new-cap,no-new
+                const vConsole = require('vconsole');
+                new vConsole();
+            }
+
             /* global ethereum */
-            /* global web3 */
             /* global Web3 */
             if (typeof window.ethereum === 'undefined') {
                 console.log('Looks like you need a Dapp browser to get started.');
