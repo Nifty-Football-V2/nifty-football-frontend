@@ -75,7 +75,7 @@ export default new Vuex.Store({
             state.web3Enabled = true;
 
             // This needs to not be a etherjs provider...?
-            state.threeBoxService.setProvider(web3.currentProvider);
+            state.threeBoxService.setProvider(window.ethereum);
         },
         networkId(state, networkId) {
             state.networkId = networkId;
@@ -88,19 +88,24 @@ export default new Vuex.Store({
     },
     actions: {
         async bootstrapApp({commit, dispatch}) {
-            console.log("Bootstrapping application", web3.currentProvider);
+            try {
 
-            const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+                console.log("Bootstrapping application", window.ethereum);
 
-            const {chainId, name} = await provider.getNetwork();
-            console.log(`Working on network [${chainId}] [${name}]`);
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-            commit('networkId', chainId);
-            commit('etherscanUrl', lookupEtherscanAddress(chainId));
+                const {chainId, name} = await provider.getNetwork();
+                console.log(`Working on network [${chainId}] [${name}]`);
 
-            commit('provider', provider);
-            dispatch('loadImageData');
-            dispatch('loadSquad');
+                commit('networkId', chainId);
+                commit('etherscanUrl', lookupEtherscanAddress(chainId));
+
+                commit('provider', provider);
+                dispatch('loadImageData');
+                dispatch('loadSquad');
+            } catch (e) {
+                console.error(`Something went big bang`, e);
+            }
         },
         async loadSquad({commit, state}) {
             console.log("Loading squad for account", state.ethAccount);

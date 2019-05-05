@@ -8,12 +8,13 @@ import messages from './messages';
 import _ from 'lodash';
 
 import BootstrapVue from 'bootstrap-vue';
-import Snotify, { SnotifyPosition } from 'vue-snotify';
+import Snotify, {SnotifyPosition} from 'vue-snotify';
+import {utils} from 'ethers';
 
 import Vue2Filters from 'vue2-filters';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faDiscord, faTelegram, faTwitter, faInstagram, faMedium } from '@fortawesome/free-brands-svg-icons';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faDiscord, faTelegram, faTwitter, faInstagram, faMedium} from '@fortawesome/free-brands-svg-icons';
 import {
     faFutbol,
     faChartBar,
@@ -23,7 +24,7 @@ import {
     faMagic,
     faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
 import VueAnalytics from 'vue-analytics';
 
@@ -74,7 +75,12 @@ Vue.filter('toHumanState', function (state) {
 /* global web3 */
 Vue.filter('toEth', function (value) {
     if (!value) return '';
-    return web3.fromWei(value.toString());
+    try {
+        return utils.formatEther(value)
+    } catch (e) {
+        console.error("Failed to convert toEth", e);
+        return value.toString();
+    }
 });
 
 Vue.use(VueAnalytics, {
@@ -105,7 +111,7 @@ new Vue({
     store,
     i18n,
     mixins: [Vue2Filters.mixin],
-    beforeCreate () {
+    beforeCreate() {
         Vue.$snotify = this.$snotify;
     },
     render: h => h(App),
