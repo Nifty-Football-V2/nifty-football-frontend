@@ -22,7 +22,8 @@
             </a>
 
             <div class="mt-3">
-                <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a></span>
+                <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/"
+                                                      target="_blank">Stanley Chow</a></span>
             </div>
         </footer>
     </div>
@@ -64,6 +65,8 @@
                 console.log('Enabled Web3');
                 ethereum.enable()
                     .catch((reason) => {
+                        console.error('Error - ethereum.enabled() rejected', reason);
+
                         if (reason === 'User rejected provider access') {
                             // The user didn't want to sign in!
                         } else {
@@ -73,6 +76,7 @@
                     })
                     // In the case they approve the log-in request, you'll receive their accounts:
                     .then((accounts) => {
+                        console.info('ethereum.enabled() accepted', accounts);
 
                         const account = accounts[0];
                         this.$store.commit('ethAccount', account);
