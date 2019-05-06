@@ -2,9 +2,6 @@
     <div>
         <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
-
-            <nifty-football-header></nifty-football-header>
-
             <page-title text="Rankings"></page-title>
 
             <div class="row pb-4 text-center" v-if="rankings && rankings.length === 0">

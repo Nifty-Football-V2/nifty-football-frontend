@@ -1,8 +1,6 @@
 <template>
     <div class="container-fluid text-center">
 
-        <nifty-football-header></nifty-football-header>
-
         <router-link to="/buy" class="pb-3 pt-3">
             <img src="../assets/logo.svg" style="max-height: 300px" class=""/>
         </router-link>

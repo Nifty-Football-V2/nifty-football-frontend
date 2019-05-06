@@ -2,8 +2,6 @@
     <div>
         <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
-            <nifty-football-header></nifty-football-header>
-
             <page-title text="Buy Packs" @click="setState('idle')"></page-title>
 
             <div class="row pb-4 text-center"

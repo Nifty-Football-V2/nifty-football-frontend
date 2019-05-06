@@ -1,6 +1,6 @@
 <template>
     <div class="row pb-3 mb-3 mt-0 bg-light-grey">
-        <div class="col-6 col-md-3 header-text text-left mt-2" >
+        <div class="col-6 col-md-3 header-text text-left mt-2">
             <router-link to="/squad" v-if="$router.currentRoute.name !== 'home'">{{ $t('nav.account') }}</router-link>
             <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto" v-else/>
         </div>
