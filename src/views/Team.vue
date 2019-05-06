@@ -62,7 +62,7 @@
             <div class="row m-0 p-0">
                 <div class="offset-4"></div>
                 <div class="col-4 text-center">
-                    <team-title text="Goalkeeper" variant="orange"></team-title>
+                    <team-title text="Goalkeeper" variant="blue"></team-title>
                 </div>
             </div>
             <div class="row">
