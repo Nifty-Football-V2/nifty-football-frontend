@@ -25,7 +25,7 @@ export default {
             name: 'Name',
             edit: 'Edit',
             team: 'Team',
-            missing_squad_message: 'Start your Squad today'
+            missing_squad_message: 'You have an empty squad! Buy your first pack?'
         },
         message: {
             hello_world: 'hello world'

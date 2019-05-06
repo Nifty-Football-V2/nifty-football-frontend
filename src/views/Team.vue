@@ -1,76 +1,94 @@
 <template>
     <div class="container-fluid">
-        <div class="row pb-4 text-center" v-if="team && team.length === 0">
+        <div class="row text-center">
+            <div class="col-sm-4 col-12">&nbsp;</div>
+            <div class="col-sm-4 col-12">
+                <page-title text="Best Team"></page-title>
+            </div>
+            <div class="col-sm-4 col-12">
+                <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
+                   <scoreboard :score="team.squadAverage"></scoreboard>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row pb-4 text-center" v-if="!team">
             <div class="col mb-5 text-primary mx-auto">
                 <loading></loading>
             </div>
         </div>
 
-        <page-title text="Best Team"></page-title>
-
         <div v-if="team && team.team">
             <div class="row m-0 p-0">
-                <div class="offset-4"></div>
-                <div class="col-4 text-center">
+                <div class="offset-sm-4"></div>
+                <div class="col-12 col-sm-4 text-center">
                     <team-title text="Strikers" variant="orange"></team-title>
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="offset-4"></div>
-                <div class="col-2 bg-light p-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="offset-sm-4"></div>
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-orange" v-for="card in team.team.strikers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
                 <div class="offset-2"></div>
                 <div class="col-2">
-                    <div v-if="team && team.team">
-                        <font-awesome-icon :icon="['fas', 'chart-bar']" size="2x" class="text-primary"/>
-                        <div class="card-stats-lg">{{ team.squadAverage }}</div>
-                        <div class="card-label-sm">Average</div>
-                    </div>
                 </div>
             </div>
 
             <div class="row m-0 p-0">
-                <div class="offset-4"></div>
-                <div class="col-4 text-center">
+                <div class="offset-sm-4"></div>
+                <div class="col-12 col-sm-4 text-center">
                     <team-title text="Midfield" variant="blue"></team-title>
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="offset-2"></div>
-                <div class="col-2 bg-light p-3" v-for="card in team.team.midfield" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="offset-sm-2"></div>
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-blue" v-for="card in team.team.midfield" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
 
             <div class="row m-0 p-0">
-                <div class="offset-4"></div>
-                <div class="col-4 text-center">
-                    <team-title text="Defence" variant="orange"></team-title>
+                <div class="offset-sm-4"></div>
+                <div class="col-12 col-sm-4 text-center">
+                    <team-title text="Defence" variant="purple"></team-title>
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="offset-2"></div>
-                <div class="col-2 bg-light p-3" v-for="card in team.team.defence" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="offset-sm-2"></div>
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-purple" v-for="card in team.team.defence" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
 
             <div class="row m-0 p-0">
-                <div class="offset-4"></div>
-                <div class="col-4 text-center">
-                    <team-title text="Goalkeeper" variant="blue"></team-title>
+                <div class="offset-sm-4"></div>
+                <div class="col-12 col-sm-4 text-center">
+                    <team-title text="Goalkeeper" variant="lime"></team-title>
                 </div>
             </div>
             <div class="row">
-                <div class="offset-5"></div>
-                <div class="col-2 bg-light p-3" v-for="card in team.team.goalkeepers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="offset-3 offset-sm-5"></div>
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-lime" v-for="card in team.team.goalkeepers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
+            </div>
+        </div>
+
+        <div class="row pb-4 mt-5 text-center">
+            <div class="col">
+                <router-link to="/buy" class="nf-link">Strengthen your team?</router-link>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-right">
+                <p class="small">Rankings updated every 10 mins</p>
             </div>
         </div>
     </div>
@@ -84,9 +102,10 @@
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
     import TeamTitle from '../components/TeamTitle';
+    import Scoreboard from '../components/Scoreboard';
 
     export default {
-        components: {TeamTitle, PageSubTitle, PageTitle, NiftyFootballHeader, Card, Loading},
+        components: {Scoreboard, TeamTitle, PageSubTitle, PageTitle, NiftyFootballHeader, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
@@ -133,25 +152,19 @@
 <style lang="scss">
     @import "../colours";
 
-    .card-label {
-        font-size: 1rem;
-        color: gray;
+    .border-bottom-orange {
+        border-bottom: 2px solid $orange;
     }
 
-    .card-label-sm {
-        font-size: .85rem;
-        color: gray;
+    .border-bottom-blue {
+        border-bottom: 2px solid $blue;
     }
 
-    .card-stats {
-        font-family: 'Anton', cursive;
-        font-size: 2rem;
-        color: $black;
+    .border-bottom-purple {
+        border-bottom: 2px solid $purple;
     }
 
-    .card-stats-lg {
-        font-family: 'Anton', cursive;
-        font-size: 3.5rem;
-        color: $black;
+    .border-bottom-lime {
+        border-bottom: 2px solid $lime;
     }
 </style>

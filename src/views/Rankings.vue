@@ -13,13 +13,12 @@
             <div v-if="rankings && rankings.length > 0">
                 <div class="row">
                     <div class="col mb-3 text-left">
-                        <code>You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the
-                            top 50 cards</code>
+                        <code>You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the top 50 cards</code>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-2 mb-5" v-for="(rank, index) in rankings" v-bind:key="rank.tokenId">
+                    <div class="col-6 col-sm-2 mb-5" v-for="(rank, index) in rankings" v-bind:key="rank.tokenId">
                         <h3 class="text-left">
                             #{{ index + 1 }}
                         </h3>

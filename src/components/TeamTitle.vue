@@ -1,7 +1,9 @@
 <template>
     <div class="row m-0 pb-2 text-center">
         <div class="col">
-            <span class="h2-box" :class="{'border-orange': variant === 'orange', 'border-blue': variant === 'blue'}">{{text}}</span>
+            <span class="h2-box" :class="{'border-orange': variant === 'orange', 'border-blue': variant === 'blue', 'border-purple': variant === 'purple', 'border-lime': variant === 'lime'}">
+                {{text}}
+            </span>
         </div>
     </div>
 </template>
@@ -30,16 +32,29 @@
         padding-right: 50px;
         letter-spacing: 1px;
 
+        &.border-orange {
+            border: 2px solid $orange;
+            box-shadow: 0 4px 0 0 $orange;
+        }
+
+        &.border-blue {
+            border: 2px solid $blue;
+            box-shadow: 0 4px 0 0 $blue;
+        }
+
+        &.border-purple {
+            border: 2px solid $purple;
+            box-shadow: 0 4px 0 0 $purple;
+        }
+
+        &.border-lime {
+            border: 2px solid $lime;
+            box-shadow: 0 4px 0 0 $lime;
+        }
 
     }
 
-    .border-orange {
-        border: 2px solid $orange;
-        box-shadow: 0 4px 0 0 $orange;
-    }
 
-    .border-blue {
-        border: 2px solid $blue;
-        box-shadow: 0 4px 0 0 $blue;
-    }
+
+
 </style>

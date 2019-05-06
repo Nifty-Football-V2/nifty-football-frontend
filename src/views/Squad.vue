@@ -9,8 +9,7 @@
             </div>
             <div class="row pb-4 text-center" v-else-if="squad && squad.length === 0">
                 <div class="col mb-5 text-primary mx-auto">
-                    {{ $t('common.missing_squad_message') }}
-                    <router-link to="/buy" class="nav-link">{{ $t('nav.buy') }}</router-link>
+                    <router-link to="/buy" class="nf-link">{{ $t('common.missing_squad_message') }}</router-link>
                 </div>
             </div>
 
@@ -30,6 +29,12 @@
                 <div class="col-6 col-md-2"
                      v-for="tokenId in squad" v-bind:key="tokenId">
                     <card :card="cards[tokenId]"></card>
+                </div>
+            </div>
+
+            <div class="row pb-4 mt-5 text-center" v-else-if="squad && squad.length > 0">
+                <div class="col">
+                    <router-link to="/buy" class="nf-link">Add to your squad?</router-link>
                 </div>
             </div>
         </div>
