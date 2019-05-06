@@ -11,7 +11,7 @@
         </div>
         <div class="col-6 col-md-3 header-text text-right mt-2">
             <router-link to="/buy" class="mr-1 btn btn-secondary" v-if="$router.currentRoute.name !== 'home'">
-                Buy Packs
+                Buy
             </router-link>
             <router-link to="/buy" class="mr-1 btn btn-secondary btn-lg" v-else>
                 Start Collecting

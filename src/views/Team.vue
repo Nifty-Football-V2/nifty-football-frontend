@@ -6,16 +6,20 @@
             </div>
         </div>
 
-        <nifty-football-header></nifty-football-header>
-
         <page-title text="Best Team"></page-title>
 
         <div v-if="team && team.team">
-            <!--<h3 class="mb-4">Strikers</h3>-->
-            <div class="row">
+            <div class="row m-0 p-0">
                 <div class="offset-4"></div>
-                <div class="col-2 mb-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId">
-                    <card :card="card"></card>
+                <div class="col-4 text-center">
+                    <team-title text="Strikers" variant="orange"></team-title>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="offset-4"></div>
+                <div class="col-2 bg-light p-3" v-for="card in team.team.strikers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                    <card :card="card" v-if="card.tokenId"></card>
+                    <img src="../assets/missing-card.svg" v-else/>
                 </div>
                 <div class="offset-2"></div>
                 <div class="col-2">
@@ -27,27 +31,45 @@
                 </div>
             </div>
 
-            <!--<h3 class="mb-4">Midfield</h3>-->
-            <div class="row">
+            <div class="row m-0 p-0">
+                <div class="offset-4"></div>
+                <div class="col-4 text-center">
+                    <team-title text="Midfield" variant="blue"></team-title>
+                </div>
+            </div>
+            <div class="row mb-4">
                 <div class="offset-2"></div>
-                <div class="col-2 mb-3" v-for="card in team.team.midfield" v-bind:key="card.tokenId">
-                    <card :card="card"></card>
+                <div class="col-2 bg-light p-3" v-for="card in team.team.midfield" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                    <card :card="card" v-if="card.tokenId"></card>
+                    <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
 
-            <!--<h3 class="mb-4">Defence</h3>-->
-            <div class="row">
+            <div class="row m-0 p-0">
+                <div class="offset-4"></div>
+                <div class="col-4 text-center">
+                    <team-title text="Defence" variant="orange"></team-title>
+                </div>
+            </div>
+            <div class="row mb-4">
                 <div class="offset-2"></div>
-                <div class="col-2 mb-5" v-for="card in team.team.defence" v-bind:key="card.tokenId">
-                    <card :card="card"></card>
+                <div class="col-2 bg-light p-3" v-for="card in team.team.defence" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                    <card :card="card" v-if="card.tokenId"></card>
+                    <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
 
-            <!--<h3 class="mb-4">Goalkeeper</h3>-->
+            <div class="row m-0 p-0">
+                <div class="offset-4"></div>
+                <div class="col-4 text-center">
+                    <team-title text="Goalkeeper" variant="orange"></team-title>
+                </div>
+            </div>
             <div class="row">
                 <div class="offset-5"></div>
-                <div class="col-2">
-                    <card :card="team.team.keeper"></card>
+                <div class="col-2 bg-light p-3" v-for="card in team.team.goalkeepers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                    <card :card="card" v-if="card.tokenId"></card>
+                    <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
         </div>
@@ -60,9 +82,11 @@
     import Card from "../components/Card";
     import NiftyFootballHeader from '../components/NiftyFootballHeader';
     import PageTitle from '../components/PageTitle';
+    import PageSubTitle from '../components/PageSubTitle';
+    import TeamTitle from '../components/TeamTitle';
 
     export default {
-        components: {PageTitle, NiftyFootballHeader, Card, Loading},
+        components: {TeamTitle, PageSubTitle, PageTitle, NiftyFootballHeader, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

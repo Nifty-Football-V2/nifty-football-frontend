@@ -1,5 +1,7 @@
 <template>
     <div id="app">
+        <nifty-football-header></nifty-football-header>
+
         <router-view class="pb-5"/>
 
         <vue-snotify></vue-snotify>
@@ -33,9 +35,11 @@
     /* global web3 */
     // import LocaleChanger from './components/LocaleChanger';
     import {mapState} from 'vuex';
+    import NiftyFootballHeader from './components/NiftyFootballHeader';
 
     export default {
         components: {
+            NiftyFootballHeader
             // LocaleChanger
         },
         data() {

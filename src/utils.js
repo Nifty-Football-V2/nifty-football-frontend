@@ -7,9 +7,9 @@ const API_CONFIG = {
 
 const getApi = () => {
     switch (window.location.hostname) {
-        case "localhost":
-        case "127.0.0.1":
-            return API_CONFIG.local;
+        // case "localhost":
+        // case "127.0.0.1":
+        //     return API_CONFIG.local;
         default:
             return API_CONFIG.live;
     }

@@ -2,8 +2,6 @@
     <div>
         <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
-            <nifty-football-header></nifty-football-header>
-
             <div class="row pb-4 text-center" v-if="!squad">
                 <div class="col mb-5 text-primary mx-auto">
                     <loading></loading>
