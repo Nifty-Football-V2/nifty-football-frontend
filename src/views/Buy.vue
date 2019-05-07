@@ -244,6 +244,8 @@
                 () => this.$store.state.ethAccount && this.blindPackService,
                 () => this.loadCreditsForAccount()
             );
+
+            this.$store.dispatch('lazyLoadWeb3');
         }
     };
 </script>

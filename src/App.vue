@@ -43,16 +43,9 @@
             // LocaleChanger
         },
         data() {
-            return {
-                isDev: process.env.NODE_ENV === 'development',
-            };
+            return {};
         },
-        computed: {
-            ...mapState([
-                'ethAccount',
-                'networkId'
-            ])
-        },
+        computed: {},
         created: async function () {
             if (window.location.href.indexOf("__debug") > -1) {
                 // eslint-disable-next-line new-cap,no-new
@@ -60,56 +53,7 @@
                 new vConsole();
             }
 
-            /* global ethereum */
-            /* global Web3 */
-            if (typeof window.ethereum === 'undefined') {
-                console.log('Looks like you need a Dapp browser to get started.');
-            }
-            // enable ethereum
-            else if (window.ethereum) {
-                console.log('Enabled Web3');
-                ethereum.enable()
-                    .catch((reason) => {
-                        console.error('Error - ethereum.enabled() rejected', reason);
-
-                        if (reason === 'User rejected provider access') {
-                            // The user didn't want to sign in!
-                        } else {
-                            // This shouldn't happen, so you might want to log this...
-                            console.log('There was an issue signing you in.');
-                        }
-                    })
-                    // In the case they approve the log-in request, you'll receive their accounts:
-                    .then((accounts) => {
-                        console.info('ethereum.enabled() accepted', accounts);
-
-                        const account = accounts[0];
-                        this.$store.commit('ethAccount', account);
-                        this.$store.dispatch('bootstrapApp');
-
-                        // Reload the account logic if we see a change
-                        ethereum.on('accountsChanged', (accounts) => {
-                            console.log('accountsChanged', accounts);
-
-                            const account = accounts[0];
-                            this.$store.commit('ethAccount', account);
-                            this.$store.dispatch('bootstrapApp');
-                        });
-                    });
-            }
-            // Legacy dapp browsers...
-            else if (window.web3) {
-                console.log('Legacy');
-                window.web3 = new Web3(web3.currentProvider);
-
-                console.log(`Account`, window.web3.eth.accounts[0]);
-                this.$store.commit('ethAccount', window.web3.eth.accounts[0]);
-                this.$store.dispatch('bootstrapApp');
-            }
-            // Non-dapp browsers...
-            else {
-                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-            }
+            this.$store.dispatch('loadImageData');
         }
     };
 </script>
