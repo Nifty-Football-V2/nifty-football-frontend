@@ -7,7 +7,8 @@
         </div>
         <div class="row mb-4 pb-4">
             <div class="col text-left">
-                Welcome to Nifty Football, an Ethereum powered football collectibles game, with provably scarce digital trading cards available to purchase.
+                Welcome to Nifty Football, an Ethereum powered football collectibles game, with provably scarce digital
+                trading cards available to purchase.
             </div>
         </div>
         <div class="row mb-4">
@@ -16,47 +17,48 @@
 
                 <p>Regular packs will contain the all core attributes and traits.</p>
 
-                <table class="table table-striped mt-2">
+                <loading v-if="loading"></loading>
+
+                <table class="table table-striped mt-2" v-if="regular">
                     <tbody>
+                    <!-- Positions -->
                     <tr>
                         <th>Positions</th>
                         <th>%</th>
                     </tr>
-                    <tr>
-                        <td>Goalkeeper</td>
-                        <td>10</td>
+                    <tr v-for="(value, key) in regular.positions">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
-                    <tr>
-                        <td>Defender</td>
-                        <td>40</td>
-                    </tr>
-                    <tr>
-                        <td>Midfielder</td>
-                        <td>40</td>
-                    </tr>
-                    <tr>
-                        <td>Striker</td>
-                        <td>10</td>
-                    </tr>
+
+                    <!-- Nationalities -->
                     <tr>
                         <th>Nationalities</th>
                         <th>%</th>
                     </tr>
-                    <tr>
-                        <td>England</td>
-                        <td>30</td>
+                    <tr v-for="(value, key) in regular.nationalities">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
+
+                    <!-- COLOURS -->
                     <tr>
-                        <td>USA</td>
-                        <td>30</td>
+                        <th>Colours</th>
+                        <th>%</th>
                     </tr>
-                    <tr>
-                        <td>Italy</td>
-                        <td>20</td>
+                    <tr v-for="(value, key) in regular.colours">
+                        <td>{{key}}</td>
+                        <td>{{value.percentage}}</td>
                     </tr>
+
+                    <!-- Kits -->
                     <tr>
-                        <td>Argentina</td>
-                        <td>20</td>
+                        <th>Kits</th>
+                        <th>%</th>
+                    </tr>
+                    <tr v-for="(value, key) in regular.kits">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -66,55 +68,48 @@
 
                 <p>Elite packs will contain different and extra possibilities than regular packs.</p>
 
-                <table class="table table-striped mt-2">
+                <loading v-if="loading"></loading>
+
+                <table class="table table-striped mt-2" v-if="elite">
                     <tbody>
+                    <!-- Positions -->
                     <tr>
                         <th>Positions</th>
                         <th>%</th>
                     </tr>
-                    <tr>
-                        <td>Goalkeeper</td>
-                        <td>10</td>
+                    <tr v-for="(value, key) in elite.positions">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
+
+                    <!-- Nationalities -->
                     <tr>
-                        <td>Defender</td>
-                        <td>40</td>
-                    </tr>
-                    <tr>
-                        <td>Midfielder</td>
-                        <td>40</td>
-                    </tr>
-                    <tr>
-                        <td>Striker</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <th>Nationalities (+2)</th>
+                        <th>Nationalities</th>
                         <th>%</th>
                     </tr>
-                    <tr>
-                        <td>England</td>
-                        <td>20</td>
+                    <tr v-for="(value, key) in elite.nationalities">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
+
+                    <!-- COLOURS -->
                     <tr>
-                        <td>USA</td>
-                        <td>20</td>
+                        <th>Colours</th>
+                        <th>%</th>
                     </tr>
-                    <tr>
-                        <td>Italy</td>
-                        <td>10</td>
+                    <tr v-for="(value, key) in elite.colours">
+                        <td>{{key}}</td>
+                        <td>{{value.percentage}}</td>
                     </tr>
+
+                    <!-- Kits -->
                     <tr>
-                        <td>Argentina</td>
-                        <td>10</td>
+                        <th>Kits</th>
+                        <th>%</th>
                     </tr>
-                    <tr>
-                        <td>Brazil</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Russia</td>
-                        <td>20</td>
+                    <tr v-for="(value, key) in elite.kits">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -132,8 +127,42 @@
 <script>
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
+    import {mapState} from 'vuex';
+    import Loading from "../components/Loading";
 
     export default {
-        components: {PageSubTitle, PageTitle}
+        components: {Loading, PageSubTitle, PageTitle},
+        data() {
+            return {
+                regular: null,
+                elite: null,
+                loading: false
+            };
+        },
+        computed: {
+            ...mapState([
+                'cardsApiService',
+            ]),
+        },
+        methods: {
+            async loadRarities() {
+                this.loading = true;
+                const {regular, elite} = await this.cardsApiService.loadRarities();
+                this.loading = false;
+                this.regular = regular;
+                this.elite = elite;
+            }
+        },
+        async created() {
+            if (this.cardsApiService.network) {
+                await this.loadRarities();
+            }
+
+            this.$store.watch(
+                () => this.cardsApiService.network,
+                () => this.loadRarities()
+            );
+
+        }
     };
 </script>

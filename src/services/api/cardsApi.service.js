@@ -50,4 +50,10 @@ export default class CardsApiService extends BaseApiService {
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/image/data`, AXIOS_CONFIG);
         return res.data;
     }
+
+    async loadRarities() {
+        console.log(`Load rarities data`);
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/rarities/packs`, AXIOS_CONFIG);
+        return res.data;
+    }
 }
