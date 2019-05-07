@@ -7,7 +7,7 @@
                     <loading></loading>
                 </div>
             </div>
-            
+
             <div class="row mb-5" v-if="ethAccount && (squad && squad.length > 0)">
                 <div class="d-none d-sm-block col text-left">
                     <router-link to="/rankings" class="sub-nav mr-2">{{ $t('nav.rankings') }}</router-link> |
