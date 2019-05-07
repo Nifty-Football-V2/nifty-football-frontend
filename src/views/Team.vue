@@ -98,14 +98,13 @@
     import { mapState } from 'vuex';
     import Loading from '../components/Loading';
     import Card from "../components/Card";
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
     import TeamTitle from '../components/TeamTitle';
     import Scoreboard from '../components/Scoreboard';
 
     export default {
-        components: {Scoreboard, TeamTitle, PageSubTitle, PageTitle, NiftyFootballHeader, Card, Loading},
+        components: {Scoreboard, TeamTitle, PageSubTitle, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

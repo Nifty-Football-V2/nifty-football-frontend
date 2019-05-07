@@ -1,6 +1,5 @@
 <template>
     <div>
-        <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
             <page-title text="Buy Packs" @click="setState('idle')"></page-title>
 
@@ -128,12 +127,11 @@
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import BuyPlayerReveal from '../components/BuyPlayerReveal';
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
 
     export default {
-        components: {PageSubTitle, PageTitle, NiftyFootballHeader, BuyPlayerReveal, Loading, NetworkWeb3Banner},
+        components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading, NetworkWeb3Banner},
         data () {
             return {
                 packPrices: null,

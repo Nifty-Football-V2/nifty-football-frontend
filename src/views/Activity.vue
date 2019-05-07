@@ -1,6 +1,5 @@
 <template>
     <div>
-        <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
             <page-title text="Activity"></page-title>
 
@@ -43,14 +42,12 @@
 <script>
     import Vue2Filters from 'vue2-filters';
     import {mapState} from 'vuex';
-    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import Card from "../components/Card";
     import PageTitle from '../components/PageTitle';
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
 
     export default {
-        components: {NiftyFootballHeader, PageTitle, Card, Loading, NetworkWeb3Banner},
+        components: {PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data() {
             return {

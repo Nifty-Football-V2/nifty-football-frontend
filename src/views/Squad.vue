@@ -1,6 +1,5 @@
 <template>
     <div>
-        <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
             <div class="row pb-4 text-center" v-if="!squad">
                 <div class="col mb-5 text-primary mx-auto">
@@ -44,13 +43,11 @@
     import Vue2Filters from 'vue2-filters';
     import {mapState} from 'vuex';
     import Loading from '../components/Loading';
-    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import SquadName from "../components/SquadName";
     import Card from "../components/Card";
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
 
     export default {
-        components: {NiftyFootballHeader, Card, SquadName, NetworkWeb3Banner, Loading},
+        components: {Card, SquadName, Loading},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
