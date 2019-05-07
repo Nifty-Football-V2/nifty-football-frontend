@@ -74,6 +74,14 @@
                                     <div class="col-8 crackerjack">You have <span class="badge">{{accountCredits}}</span> {{accountCredits|pluralize('credit')}}</div>
                                     <div class="col"></div>
                                 </div>
+
+                                <hr/>
+                                <div class="text-left">
+                                    <span class="text-purple-lg text-left">4 Nationalities</span><br/>
+                                    <span class="text-orange-lg text-left">22 Kits</span><br/>
+                                    <span class="text-blue-lg text-left">22 Colourways</span><br/>
+                                    <span class="text-lime-lg text-left">Genesis Attributes</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -112,6 +120,14 @@
                                 </div>
 
                                 <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('reg')" @click="buyCard()">Purchase</button>
+
+                                <hr/>
+                                <div class="text-left">
+                                    <span class="text-purple-lg text-left">+2 Nationalities</span><br/>
+                                    <span class="text-orange-lg text-left">+8 Kits</span><br/>
+                                    <span class="text-blue-lg text-left">+8 Colourways</span><br/>
+                                    <span class="text-lime-lg text-left">10% Attribute Boost</span>
+                                </div>
                             </div>
                         </div>
                     </div>

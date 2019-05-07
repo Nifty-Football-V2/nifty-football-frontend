@@ -5,6 +5,7 @@ import Squad from './views/Squad.vue';
 import Rankings from './views/Rankings.vue';
 import Team from './views/Team.vue';
 import Buy from './views/Buy.vue';
+import About from './views/About.vue';
 import Activity from './views/Activity.vue';
 // import DeeplinkCard from "./views/DeeplinkCard";
 
@@ -31,11 +32,11 @@ export default new Router({
                 web3Required: true
             }
         },
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     component: About
-        // },
+        {
+            path: '/about',
+            name: 'about',
+            component: About
+        },
         {
             path: '/activity',
             name: 'activity',
