@@ -80,7 +80,7 @@
                                     <span class="text-purple-lg">4 Nationalities</span><br/>
                                     <span class="text-orange-lg">22 Kits</span><br/>
                                     <span class="text-blue-lg">22 Colourways</span><br/>
-                                    <span class="text-lime-lg">Enhanced Genesis Attributes</span><br/>
+                                    <span class="text-lime-lg">Genesis Attributes</span><br/>
                                     <router-link to="/about" class="small text-muted">Full distribution</router-link>
                                 </div>
                             </div>

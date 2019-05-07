@@ -57,7 +57,7 @@ export default class NotificationService {
             `<div class="snotifyToast__body">
               <div class="notification-icon">🧐</div>
               <div class="notification-msg">
-                Mining transaction and generating card
+                Transaction in flight
                <div class="small"><a href="${this.etherscanBase}/tx/${txsHash}" target="_blank">Details</a></div>
                </div>
             </div>`,

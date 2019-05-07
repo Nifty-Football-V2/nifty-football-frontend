@@ -1,5 +1,5 @@
 <template>
-    <vue-flip :active-click="true" width="100%" height="100%" style="min-height: 320px;">
+    <vue-flip :active-click="true" width="100%" class="card-height">
         <div slot="front">
             <lazy-img-loader :src="card.tokenId" :id="card.tokenId" :lazy="lazy"></lazy-img-loader>
         </div>
@@ -38,5 +38,40 @@
 
 <style lang="scss">
     @import "../colours";
+
+    // Extra small devices (portrait phones, less than 576px)
+    @media (max-width: 575px) {
+        .card-height {
+            height: 280px;
+        }
+    }
+
+    // Small devices (landscape phones, 576px and up)
+    @media (min-width: 576px) and (max-width: 767px) {
+        .card-height {
+            height: 450px;
+        }
+    }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) and (max-width: 991px) {
+        .card-height {
+            height: 180px;
+        }
+    }
+
+    // Large devices (desktops, 992px and up)
+    @media (min-width: 992px) and (max-width: 1199px) {
+        .card-height {
+            height: 240px;
+        }
+    }
+
+    // Extra large devices (large desktops, 1200px and up)
+    @media (min-width: 1200px) {
+        .card-height {
+            height: 310px;
+        }
+    }
 
 </style>
