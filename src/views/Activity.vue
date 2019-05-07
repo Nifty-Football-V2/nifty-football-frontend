@@ -12,15 +12,12 @@
             <div v-if="activity && activity.length > 0">
                 <div class="row">
                     <div class="col mb-3 text-left">
-                        <code>Last {{limit}} players!</code>
+                        <code>Last {{limit}} players</code>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-6 col-sm-2 mb-5" v-for="(rank, index) in activity" v-bind:key="rank.tokenId">
-                        <h3 class="text-left">
-                            #{{ index + 1 }}
-                        </h3>
                         <div class="text-center">
                             <card :card="rank"></card>
                         </div>

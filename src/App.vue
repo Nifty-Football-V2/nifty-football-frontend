@@ -208,7 +208,7 @@
         font-family: 'CrackerJack', sans-serif;
         font-size: 1.5rem;
         color: $black;
-        letter-spacing: 0.1rem;
+        letter-spacing: 1px;
         text-transform: uppercase;
 
         a {

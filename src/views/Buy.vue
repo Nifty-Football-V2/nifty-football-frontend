@@ -26,7 +26,7 @@
                 <div class="row" v-if="buyState === 'idle'">
                     <div class="col-lg"></div>
                     <div class="col text-center">
-                        <div class="buy-container bg-light pb-5 mb-2">
+                        <div class="buy-container bg-light pb-5 mb-5">
                             <div class="ml-4 mr-4">
                                 <page-sub-title text="Regular" variant="orange"></page-sub-title>
 
@@ -77,16 +77,17 @@
 
                                 <hr/>
                                 <div class="text-left">
-                                    <span class="text-purple-lg text-left">4 Nationalities</span><br/>
-                                    <span class="text-orange-lg text-left">22 Kits</span><br/>
-                                    <span class="text-blue-lg text-left">22 Colourways</span><br/>
-                                    <span class="text-lime-lg text-left">Genesis Attributes</span>
+                                    <span class="text-purple-lg">4 Nationalities</span><br/>
+                                    <span class="text-orange-lg">22 Kits</span><br/>
+                                    <span class="text-blue-lg">22 Colourways</span><br/>
+                                    <span class="text-lime-lg">Enhanced Genesis Attributes</span><br/>
+                                    <router-link to="/about" class="small text-muted">Full distribution</router-link>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col text-center">
-                        <div class="buy-container bg-light pb-5 mb-2">
+                        <div class="buy-container bg-light pb-5 mb-5">
                             <div class="ml-4 mr-4">
                                 <page-sub-title text="Elite" variant="blue"></page-sub-title>
 
@@ -123,10 +124,11 @@
 
                                 <hr/>
                                 <div class="text-left">
-                                    <span class="text-purple-lg text-left">+2 Nationalities</span><br/>
-                                    <span class="text-orange-lg text-left">+8 Kits</span><br/>
-                                    <span class="text-blue-lg text-left">+8 Colourways</span><br/>
-                                    <span class="text-lime-lg text-left">10% Attribute Boost</span>
+                                    <span class="text-purple-lg">+2 Nationalities</span><br/>
+                                    <span class="text-orange-lg">+8 Kits</span><br/>
+                                    <span class="text-blue-lg">+8 Colourways</span><br/>
+                                    <span class="text-lime-lg">10% Attribute Boost</span><br/>
+                                    <router-link to="/about" class="small text-muted">Full distribution</router-link>
                                 </div>
                             </div>
                         </div>
