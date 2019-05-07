@@ -12,7 +12,6 @@
             </div>
         </div>
 
-
         <div class="row pb-4 text-center" v-if="!team">
             <div class="col mb-5 text-primary mx-auto">
                 <loading></loading>
@@ -88,7 +87,7 @@
 
         <div class="row">
             <div class="col text-right">
-                <p class="small">Rankings updated every 10 mins</p>
+                <p class="small text-muted">* Team updated every 10 mins</p>
             </div>
         </div>
     </div>
@@ -98,14 +97,12 @@
     import { mapState } from 'vuex';
     import Loading from '../components/Loading';
     import Card from "../components/Card";
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
     import PageTitle from '../components/PageTitle';
-    import PageSubTitle from '../components/PageSubTitle';
     import TeamTitle from '../components/TeamTitle';
     import Scoreboard from '../components/Scoreboard';
 
     export default {
-        components: {Scoreboard, TeamTitle, PageSubTitle, PageTitle, NiftyFootballHeader, Card, Loading},
+        components: {Scoreboard, TeamTitle, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

@@ -47,10 +47,9 @@
     import Loading from '../components/Loading';
     import Card from "../components/Card";
     import PageTitle from '../components/PageTitle';
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
 
     export default {
-        components: {NiftyFootballHeader, PageTitle, Card, Loading, NetworkWeb3Banner},
+        components: {PageTitle, Card, Loading, NetworkWeb3Banner},
         mixins: [Vue2Filters.mixin],
         data() {
             return {

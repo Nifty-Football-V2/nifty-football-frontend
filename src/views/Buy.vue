@@ -128,12 +128,11 @@
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import BuyPlayerReveal from '../components/BuyPlayerReveal';
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
 
     export default {
-        components: {PageSubTitle, PageTitle, NiftyFootballHeader, BuyPlayerReveal, Loading, NetworkWeb3Banner},
+        components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading, NetworkWeb3Banner},
         data () {
             return {
                 packPrices: null,
