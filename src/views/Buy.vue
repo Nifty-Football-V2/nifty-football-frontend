@@ -26,7 +26,7 @@
                 <div class="row" v-if="buyState === 'idle'">
                     <div class="col-lg"></div>
                     <div class="col text-center">
-                        <div class="buy-container bg-light pb-5">
+                        <div class="buy-container bg-light pb-5 mb-2">
                             <div class="ml-4 mr-4">
                                 <page-sub-title text="Regular" variant="orange"></page-sub-title>
 
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="col text-center">
-                        <div class="buy-container bg-light pb-5">
+                        <div class="buy-container bg-light pb-5 mb-2">
                             <div class="ml-4 mr-4">
                                 <page-sub-title text="Elite" variant="blue"></page-sub-title>
 
