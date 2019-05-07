@@ -3,13 +3,13 @@
         <div class="container-fluid">
             <page-title text="Activity"></page-title>
 
-            <div class="row pb-4 text-center" v-if="activity && activity.length === 0">
+            <div class="row pb-4 text-center" v-if="loading">
                 <div class="col mb-5 text-primary">
                     <loading></loading>
                 </div>
             </div>
 
-            <div v-if="activity && activity.length > 0">
+            <div v-if="!loading && activity && activity.length > 0">
                 <div class="row">
                     <div class="col mb-3 text-left">
                         <code>Last {{limit}} players</code>
@@ -49,7 +49,8 @@
         data() {
             return {
                 activity: [],
-                limit: 50
+                limit: 50,
+                loading: false
             };
         },
         computed: {
@@ -75,9 +76,14 @@
         },
         async created() {
             const loadActivity = async () => {
-                this.cardsApiService.loadLatestCards(this.limit).then((activity) => {
-                    this.activity = activity;
-                });
+                this.loading = true;
+                this.cardsApiService.loadLatestCards(this.limit)
+                    .then((activity) => {
+                        this.activity = activity;
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    });
             };
 
             this.$store.watch(
