@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nifty-football-header></nifty-football-header>
+        <nifty-football-header :route="$router.currentRoute"></nifty-football-header>
 
         <router-view class="pb-5"/>
 
