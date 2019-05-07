@@ -9,6 +9,7 @@ export default {
             rankings: 'Rankings',
             account: 'Squad',
             team: 'Team',
+            activity: 'Activity',
             head2head: 'Head 2 Head Battles',
         },
         common: {

@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-4 col-12">
                 <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
-                    <scoreboard :score="team.squadAverage"></scoreboard>
+                   <scoreboard :score="team.squadAverage"></scoreboard>
                 </div>
             </div>
         </div>
@@ -147,6 +147,8 @@
             if (this.cardsApiService.network) {
                 loadTeam();
             }
+
+            this.$store.dispatch('lazyLoadWeb3');
         },
     };
 </script>

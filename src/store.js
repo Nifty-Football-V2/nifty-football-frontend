@@ -11,6 +11,7 @@ import FootballCardsContractService from './services/contracts/footballCardsCont
 import NotificationService from './services/notification.service';
 
 import ThreeBoxService from './services/api/threeBox.service';
+import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 
 Vue.use(Vuex);
 
@@ -37,6 +38,7 @@ export default new Vuex.Store({
 
         // Contract Service
         blindPackService: null,
+        blindPackPriceService: new BlindPackPriceService(),
         footballCardsContractService: null,
     },
     mutations: {
@@ -75,12 +77,68 @@ export default new Vuex.Store({
             console.log(`Setting network ID [${state.networkId}] on services`);
             state.cardsApiService.setNetworkId(networkId);
             state.notificationService.setNetworkId(networkId);
+            state.blindPackPriceService.setNetworkId(networkId);
         },
     },
     actions: {
         async bootstrapApp({commit, dispatch}) {
-            try {
+            dispatch('loadImageData');
+            commit('etherscanUrl', lookupEtherscanAddress(1));
+        },
+        async lazyLoadWeb3({commit, dispatch, state}) {
+            /* global ethereum */
+            /* global Web3 */
+            if (typeof window.ethereum === 'undefined') {
+                console.log('Looks like you need a Dapp browser to get started.');
+            }
+            // enable ethereum
+            else if (!state.ethAccount && window.ethereum) {
+                console.log('Enabled Web3');
+                ethereum.enable()
+                    .catch((reason) => {
+                        console.error('Error - ethereum.enabled() rejected', reason);
 
+                        if (reason === 'User rejected provider access') {
+                            // The user didn't want to sign in!
+                        } else {
+                            // This shouldn't happen, so you might want to log this...
+                            console.log('There was an issue signing you in.');
+                        }
+                    })
+                    // In the case they approve the log-in request, you'll receive their accounts:
+                    .then((accounts) => {
+                        console.info('ethereum.enabled() accepted', accounts);
+
+                        const account = accounts[0];
+                        commit('ethAccount', account);
+                        dispatch('bootstrapWeb3');
+
+                        // Reload the account logic if we see a change
+                        ethereum.on('accountsChanged', (accounts) => {
+                            console.log('accountsChanged', accounts);
+
+                            const account = accounts[0];
+                            commit('ethAccount', account);
+                            dispatch('bootstrapWeb3');
+                        });
+                    });
+            }
+            // Legacy dapp browsers...
+            else if (!state.ethAccount && window.web3) {
+                console.log('Legacy');
+                window.web3 = new Web3(web3.currentProvider);
+
+                console.log(`Account`, window.web3.eth.accounts[0]);
+                commit('ethAccount', window.web3.eth.accounts[0]);
+                dispatch('bootstrapWeb3');
+            }
+            // Non-dapp browsers...
+            else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+        },
+        async bootstrapWeb3({commit, dispatch}) {
+            try {
                 console.log("Bootstrapping application", window.ethereum);
 
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -90,9 +148,8 @@ export default new Vuex.Store({
 
                 commit('networkId', chainId);
                 commit('etherscanUrl', lookupEtherscanAddress(chainId));
-
                 commit('provider', provider);
-                dispatch('loadImageData');
+
                 dispatch('loadSquad');
             } catch (e) {
                 console.error(`Something went big bang`, e);

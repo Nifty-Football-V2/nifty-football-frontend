@@ -69,14 +69,14 @@
 </template>
 
 <script>
-    import NiftyFootballHeader from '../components/NiftyFootballHeader';
+
     export default {
         name: 'home',
         data () {
             return {};
         },
         computed: {},
-        components: {NiftyFootballHeader},
+        components: {},
         methods: {},
     };
 </script>

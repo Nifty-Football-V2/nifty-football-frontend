@@ -19,12 +19,18 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            meta: {
+                web3Required: false
+            }
         },
         {
             path: '/buy',
             name: 'buy',
-            component: Buy
+            component: Buy,
+            meta: {
+                web3Required: true
+            }
         },
         {
             path: '/about',
@@ -34,28 +40,43 @@ export default new Router({
         {
             path: '/activity',
             name: 'activity',
-            component: Activity
+            component: Activity,
+            meta: {
+                web3Required: false
+            }
         },
         {
             path: '/rankings',
             name: 'rankings',
-            component: Rankings
+            component: Rankings,
+            meta: {
+                web3Required: false
+            }
         },
         {
             path: '/squad',
             name: 'squad',
-            component: Squad
+            component: Squad,
+            meta: {
+                web3Required: true
+            }
         },
         {
             path: '/team',
             name: 'team',
-            component: Team
+            component: Team,
+            meta: {
+                web3Required: true
+            }
         },
         // {
         //     path: '/card/:tokenId',
         //     name: 'card',
         //     component: DeeplinkCard,
-        //     props: true
+        //     props: true,
+        //     meta: {
+        //         web3Required: false
+        //     }
         // }
     ]
 });

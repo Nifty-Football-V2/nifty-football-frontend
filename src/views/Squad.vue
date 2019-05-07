@@ -1,6 +1,5 @@
 <template>
     <div>
-        <network-web3-banner></network-web3-banner>
         <div class="container-fluid">
             <div class="row pb-4 text-center" v-if="!squad">
                 <div class="col mb-5 text-primary mx-auto">
@@ -10,8 +9,6 @@
 
             <div class="row mb-5" v-if="ethAccount && (squad && squad.length > 0)">
                 <div class="d-none d-sm-block col text-left">
-                    <router-link to="/rankings" class="sub-nav mr-2">{{ $t('nav.rankings') }}</router-link> |
-                    <router-link to="/team" class="sub-nav ml-2">{{ $t('nav.team') }}</router-link>
                 </div>
                 <div class="col text-center">
                     <squad-name></squad-name>
@@ -42,13 +39,12 @@
     import Vue2Filters from 'vue2-filters';
     import {mapState} from 'vuex';
     import Loading from '../components/Loading';
-    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import SquadName from "../components/SquadName";
     import Card from "../components/Card";
     import NoSquad from '../components/NoSquad';
 
     export default {
-        components: {NoSquad, Card, SquadName, NetworkWeb3Banner, Loading},
+        components: {NoSquad, Card, SquadName, Loading},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
@@ -59,7 +55,8 @@
             ...mapState([
                 'squad',
                 'cards',
-                'ethAccount'
+                'ethAccount',
+                'cardsApiService'
             ]),
         },
         methods: {
@@ -73,13 +70,15 @@
             };
 
             this.$store.watch(
-                () => this.ethAccount,
+                () => (this.ethAccount, this.cardsApiService.network),
                 () => loadSquad()
             );
 
             if (this.ethAccount) {
                 loadSquad();
             }
+
+            this.$store.dispatch('lazyLoadWeb3');
         }
     };
 </script>
