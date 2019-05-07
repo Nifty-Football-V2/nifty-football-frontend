@@ -85,14 +85,14 @@ export default new Vuex.Store({
             dispatch('loadImageData');
             commit('etherscanUrl', lookupEtherscanAddress(1));
         },
-        async lazyLoadWeb3({commit, dispatch}) {
+        async lazyLoadWeb3({commit, dispatch, state}) {
             /* global ethereum */
             /* global Web3 */
             if (typeof window.ethereum === 'undefined') {
                 console.log('Looks like you need a Dapp browser to get started.');
             }
             // enable ethereum
-            else if (window.ethereum) {
+            else if (!state.ethAccount && window.ethereum) {
                 console.log('Enabled Web3');
                 ethereum.enable()
                     .catch((reason) => {
@@ -124,7 +124,7 @@ export default new Vuex.Store({
                     });
             }
             // Legacy dapp browsers...
-            else if (window.web3) {
+            else if (!state.ethAccount && window.web3) {
                 console.log('Legacy');
                 window.web3 = new Web3(web3.currentProvider);
 
