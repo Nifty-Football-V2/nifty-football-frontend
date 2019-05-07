@@ -6,10 +6,12 @@ export default class BlindPackPriceService {
 
     constructor(networkId = 1) {
         this.networkId = networkId;
+        this.provider = ethers.getDefaultProvider(contracts.getNetwork(networkId));
     }
 
     setNetworkId(networkId) {
         this.networkId = networkId;
+        this.provider = ethers.getDefaultProvider(contracts.getNetwork(networkId));
     }
 
     async getRegularPriceModel() {
@@ -18,7 +20,7 @@ export default class BlindPackPriceService {
         }
 
         const {address} = contracts.getNiftyFootballBlindPack(this.networkId);
-        this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardBlindPackAbi, ethers.getDefaultProvider());
+        this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardBlindPackAbi, this.provider);
 
         this.priceModel = {
             'reg-3': (await this.contract.totalPrice(3)),
@@ -34,7 +36,7 @@ export default class BlindPackPriceService {
         }
 
         const {address} = contracts.getNiftyFootballEliteBlindPack(this.networkId);
-        this.eliteContract = new ethers.Contract(address, abi.NiftyFootballTradingCardEliteBlindPackAbi, ethers.getDefaultProvider());
+        this.eliteContract = new ethers.Contract(address, abi.NiftyFootballTradingCardEliteBlindPackAbi, this.provider);
 
         this.elitePriceModel = {
             'elite-3': (await this.eliteContract.totalPrice(3)),

@@ -1,10 +1,10 @@
-import { ethers } from 'ethers';
+import {ethers} from 'ethers';
 
-import { abi, contracts } from 'nifty-football-contract-tools';
+import {abi, contracts} from 'nifty-football-contract-tools';
 
 export default class BlindPackContractService {
 
-    constructor (networkId, providerSigner) {
+    constructor(networkId, providerSigner) {
         this.networkId = networkId;
         this.providerSigner = providerSigner;
         const {address} = contracts.getNiftyFootballBlindPack(networkId);
@@ -13,11 +13,11 @@ export default class BlindPackContractService {
         this.eliteContract = new ethers.Contract(eliteAddress, abi.NiftyFootballTradingCardEliteBlindPackAbi, this.providerSigner);
     }
 
-    async buyBlindPack (number, useCredits = false) {
+    async buyBlindPack(number, useCredits = false) {
 
         console.log(`buying regular ${number} using credit ${useCredits}`);
 
-        const gasPrice = await ethers.getDefaultProvider().getGasPrice();
+        const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
 
         const totalPrice = await this.contract.totalPrice(number);
 
@@ -41,9 +41,9 @@ export default class BlindPackContractService {
 
     }
 
-    async buyEliteBlindPack (number) {
+    async buyEliteBlindPack(number) {
 
-        const gasPrice = await ethers.getDefaultProvider().getGasPrice();
+        const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
 
         const totalPrice = await this.eliteContract.totalPrice(number);
 
@@ -62,4 +62,13 @@ export default class BlindPackContractService {
 
     }
 
+
+    getNetworkString = (network) => {
+        return contracts.networkSplitter(network, {
+            mainnet: 'homestead', // our default is mainnet so override
+            ropsten: 'ropsten',
+            rinkeby: 'rinkeby',
+            local: 'homestead'
+        });
+    };
 }
