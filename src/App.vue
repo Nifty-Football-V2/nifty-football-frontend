@@ -231,6 +231,34 @@
         }
     }
 
+    .text-purple-lg {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 1.5rem;
+        color: $purple;
+        text-transform: uppercase;
+    }
+
+    .text-blue-lg {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 1.5rem;
+        color: $blue;
+        text-transform: uppercase;
+    }
+
+    .text-orange-lg {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 1.5rem;
+        color: $orange;
+        text-transform: uppercase;
+    }
+
+    .text-lime-lg {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 1.5rem;
+        color: $lime;
+        text-transform: uppercase;
+    }
+
     .header-text-sm {
         font-family: 'CrackerJack', sans-serif;
         font-size: 1.5rem;

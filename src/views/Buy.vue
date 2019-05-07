@@ -68,12 +68,20 @@
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3 mb-3" :disabled="packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">Purchase</button>
 
                                 <div class="row mt-2" v-if="accountCredits > 0">
                                     <div class="col"></div>
                                     <div class="col-8 crackerjack">You have <span class="badge">{{accountCredits}}</span> {{accountCredits|pluralize('credit')}}</div>
                                     <div class="col"></div>
+                                </div>
+
+                                <hr/>
+                                <div class="text-left">
+                                    <span class="text-purple-lg text-left">4 Nationalities</span><br/>
+                                    <span class="text-orange-lg text-left">22 Kits</span><br/>
+                                    <span class="text-blue-lg text-left">22 Colourways</span><br/>
+                                    <span class="text-lime-lg text-left">Genesis Attributes</span>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +120,15 @@
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('reg')" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3 mb-3" :disabled="packType.startsWith('reg')" @click="buyCard()">Purchase</button>
+
+                                <hr/>
+                                <div class="text-left">
+                                    <span class="text-purple-lg text-left">+2 Nationalities</span><br/>
+                                    <span class="text-orange-lg text-left">+8 Kits</span><br/>
+                                    <span class="text-blue-lg text-left">+8 Colourways</span><br/>
+                                    <span class="text-lime-lg text-left">10% Attribute Boost</span>
+                                </div>
                             </div>
                         </div>
                     </div>
