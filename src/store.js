@@ -10,12 +10,10 @@ import BlindPackContractService from './services/contracts/blindPackContract.ser
 import FootballCardsContractService from './services/contracts/footballCardsContract.service';
 import NotificationService from './services/notification.service';
 
-import HeadToHeadGameApiService from './services/api/headToHeadGameApi.service';
 import ThreeBoxService from './services/api/threeBox.service';
 
 Vue.use(Vuex);
 
-// const debug = process.env.NODE_ENV !== 'production';
 
 /* global web3 */
 
@@ -34,14 +32,12 @@ export default new Vuex.Store({
 
         // API Services
         cardsApiService: new CardsApiService(),
-        headToHeadApiService: new HeadToHeadGameApiService(),
         threeBoxService: new ThreeBoxService(),
         notificationService: new NotificationService(),
 
         // Contract Service
         blindPackService: null,
         footballCardsContractService: null,
-        headToHeadContractService: null,
     },
     mutations: {
         ethAccount(state, ethAccount) {
@@ -68,10 +64,6 @@ export default new Vuex.Store({
             state.blindPackService = new BlindPackContractService(state.networkId, state.providerSigner);
             state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
 
-            // FIXME
-
-            // state.headToHeadContractService = new HeadToHeadContractService(state.networkId, state.providerSigner);
-
             state.web3Enabled = true;
 
             // This needs to not be a etherjs provider...?
@@ -82,7 +74,6 @@ export default new Vuex.Store({
             // Override the default network of mainnet if we are switching
             console.log(`Setting network ID [${state.networkId}] on services`);
             state.cardsApiService.setNetworkId(networkId);
-            state.headToHeadApiService.setNetworkId(networkId);
             state.notificationService.setNetworkId(networkId);
         },
     },
@@ -114,7 +105,6 @@ export default new Vuex.Store({
                 commit('squad', squad);
 
                 // FIXME move to API
-
                 if (squad) {
 
                     const promises = squad.map((id) => state.cardsApiService.loadTokenForTokenId(id));

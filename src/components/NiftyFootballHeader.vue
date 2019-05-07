@@ -14,7 +14,7 @@
             </router-link>
         </div>
         <div class="col-6 col-md-3 text-right mt-2">
-            <router-link to="/buy" class="mr-1 btn btn-secondary" v-if="$router.currentRoute.name !== 'home'">
+            <router-link to="/buy" class="mr-1 btn btn-secondary" v-if="route.path !== '/'">
                 Buy
             </router-link>
             <router-link to="/buy" class="mr-1 btn btn-secondary btn-lg" v-else>
