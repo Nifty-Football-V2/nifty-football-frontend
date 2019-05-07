@@ -1,17 +1,27 @@
 <template>
     <div>
         <div class="container-fluid">
-            <div class="row pb-4 text-center" v-if="!squad">
+            <div class="row pb-4 text-center" v-if="!squad || !squad">
                 <div class="col mb-5 text-primary mx-auto">
                     <loading></loading>
                 </div>
             </div>
 
-            <div class="row mb-5" v-if="ethAccount && (squad && squad.length > 0)">
+            <div class="row mb-5" v-if="ethAccount">
                 <div class="d-none d-sm-block col text-left">
                 </div>
                 <div class="col text-center">
                     <squad-name></squad-name>
+                </div>
+                <div class="d-none d-sm-block col text-right">
+                </div>
+            </div>
+
+            <div class="row mb-5" v-else>
+                <div class="d-none d-sm-block col text-left">
+                </div>
+                <div class="col text-center">
+                    <page-title text="Squad"></page-title>
                 </div>
                 <div class="d-none d-sm-block col text-right">
                 </div>
@@ -42,9 +52,10 @@
     import SquadName from "../components/SquadName";
     import Card from "../components/Card";
     import NoSquad from '../components/NoSquad';
+    import PageTitle from "../components/PageTitle";
 
     export default {
-        components: {NoSquad, Card, SquadName, Loading},
+        components: {PageTitle, NoSquad, Card, SquadName, Loading},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
