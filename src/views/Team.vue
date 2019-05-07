@@ -77,12 +77,6 @@
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
-
-            <div class="row mb-4 text-center">
-                <div class="col">
-                    <router-link to="/buy" class="nf-link">Strengthen your team?</router-link>
-                </div>
-            </div>
         </div>
 
         <div v-else-if="team && team.team && team.hasEmptySquad">
@@ -90,7 +84,7 @@
         </div>
 
         <div class="row">
-            <div class="col text-right">
+            <div class="col text-right mr-2">
                 <p class="small text-muted">* Team updated every 10 mins</p>
             </div>
         </div>

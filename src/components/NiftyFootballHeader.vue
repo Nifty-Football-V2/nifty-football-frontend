@@ -16,10 +16,10 @@
                 </router-link>
             </div>
             <div class="col-6 col-sm-4 text-right mt-2">
-                <router-link to="/buy" class="mr-1 btn btn-secondary" v-if="route.path !== '/'">
+                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary" v-if="route.path !== '/'">
                     Buy
                 </router-link>
-                <router-link to="/buy" class="mr-1 btn btn-secondary btn-lg" v-else>
+                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg" v-else>
                     Start Collecting
                 </router-link>
             </div>

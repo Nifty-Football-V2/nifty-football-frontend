@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col text-right">
+                    <div class="col text-right mr-2">
                         <p class="small text-muted">* Rankings updated every 10 mins</p>
                     </div>
                 </div>

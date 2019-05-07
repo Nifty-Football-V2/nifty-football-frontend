@@ -13,11 +13,9 @@
                     maxlength="150"
                     placeholder="Squad Name"
                     v-model="form.squadName"
-                    :disabled="form.saving"
-            ></b-form-input>
-
-            <b-button @click="onSaveSquad" variant="primary" class="mr-2" :disabled="form.saving">Save</b-button>
-            <b-button type="reset" variant="default" :disabled="form.saving">Cancel</b-button>
+                    :disabled="form.saving"></b-form-input>
+            <b-button @click="onSaveSquad" variant="secondary" class="mr-2" :disabled="form.saving">Add Team Name</b-button>
+            <b-button type="reset" variant="default" :disabled="form.saving">cancel</b-button>
         </b-form>
     </div>
 </template>
