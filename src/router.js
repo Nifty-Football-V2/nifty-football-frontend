@@ -9,6 +9,7 @@ import Rankings from './views/Rankings.vue';
 // import HeadToHead from './views/HeadToHead.vue';
 import Team from './views/Team.vue';
 import Buy from './views/Buy.vue';
+import Activity from './views/Activity.vue';
 import DeeplinkCard from "./views/DeeplinkCard";
 
 Vue.use(Router);
@@ -48,6 +49,11 @@ export default new Router({
         //     name: 'marketplace',
         //     component: Marketplace
         // },
+        {
+            path: '/activity',
+            name: 'activity',
+            component: Activity
+        },
         {
             path: '/rankings',
             name: 'rankings',
