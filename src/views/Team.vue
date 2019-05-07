@@ -144,6 +144,8 @@
             if (this.cardsApiService.network) {
                 loadTeam();
             }
+
+            this.$store.dispatch('lazyLoadWeb3');
         },
     };
 </script>

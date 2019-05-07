@@ -3,10 +3,17 @@
         <div class="row pb-3 mt-0 bg-light-grey">
             <div class="col-6 col-md-3 header-text-sm text-left mt-2">
                 <div v-if="route.path !== '/'">
-                    <router-link to="/squad" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.account') }}
+                    <router-link to="/squad" class="ml-sm-3 ml-2 d-block d-sm-inline">
+                        {{ $t('nav.account') }}
                     </router-link>
-                    <router-link to="/team" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.team') }}</router-link>
-                    <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}
+                    <router-link to="/team" class="ml-sm-3 ml-2 d-block d-sm-inline">
+                        {{ $t('nav.team') }}
+                    </router-link>
+                    <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">
+                        {{ $t('nav.rankings') }}
+                    </router-link>
+                    <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">
+                        {{ $t('nav.activity') }}
                     </router-link>
                 </div>
                 <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto" v-else/>

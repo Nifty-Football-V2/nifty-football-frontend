@@ -21,7 +21,7 @@
     "ethers": "4.0.20",
     "intersection-observer": "^0.6.0",
     "lodash": "^4.17.11",
-    "nifty-football-contract-tools": "^1.4.0",
+    "nifty-football-contract-tools": "^1.5.0",
     "vconsole": "^3.3.0",
     "vue": "^2.6.10",
     "vue-analytics": "^5.16.4",

@@ -67,7 +67,7 @@
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">Purchase</button>
 
                                 <div class="row mt-2" v-if="accountCredits > 0">
                                     <div class="col"></div>
@@ -111,7 +111,7 @@
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="packType.startsWith('reg')" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('reg')" @click="buyCard()">Purchase</button>
                             </div>
                         </div>
                     </div>
@@ -147,6 +147,7 @@
             ...mapState([
                 'ethAccount',
                 'blindPackService',
+                'blindPackPriceService',
                 'cardsApiService',
                 'notificationService',
                 'rankings',
@@ -205,41 +206,41 @@
                 return parseInt(this.packType.split('-')[1]);
             },
             async loadCreditsForAccount () {
-                this.accountCredits = await this.blindPackService.getCreditsForAccount(this.ethAccount);
+                this.accountCredits = await this.blindPackPriceService.getCreditsForAccount(this.ethAccount);
                 this.accountCredits = parseInt(this.accountCredits);
                 if (this.accountCredits > 0) {
                     this.packType = 'reg-1';
                 }
-            }
-        },
-        async created () {
-            const loadData = async () => {
+            },
+            async loadPackPrices () {
                 this.pricesSet = false;
-                const regularPrices = await this.blindPackService.getRegularPriceModel();
-                const elitePrices = await this.blindPackService.getElitePriceModel();
+                const regularPrices = await this.blindPackPriceService.getRegularPriceModel();
+                const elitePrices = await this.blindPackPriceService.getElitePriceModel();
                 this.packPrices = {
                     ...regularPrices,
                     ...elitePrices,
                 };
                 this.price = this.packPrices[this.packType];
                 this.pricesSet = true;
-            };
+            }
+        },
+        async created () {
 
             this.$store.watch(
-                () => this.$store.state.blindPackService,
-                () => loadData()
+                () => this.blindPackService,
+                () => this.loadPackPrices()
             );
 
-            if (this.$store.state.blindPackService) {
-                await loadData();
+            if (this.blindPackPriceService.networkId) {
+                await this.loadPackPrices();
             }
 
-            if (this.$store.state.ethAccount && this.blindPackService) {
+            if (this.$store.state.ethAccount && this.blindPackPriceService.networkId) {
                 await this.loadCreditsForAccount();
             }
 
             this.$store.watch(
-                () => this.$store.state.ethAccount && this.blindPackService,
+                () => (this.$store.state.ethAccount, this.blindPackService),
                 () => this.loadCreditsForAccount()
             );
 

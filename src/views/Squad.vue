@@ -58,7 +58,8 @@
             ...mapState([
                 'squad',
                 'cards',
-                'ethAccount'
+                'ethAccount',
+                'cardsApiService'
             ]),
         },
         methods: {
@@ -72,13 +73,15 @@
             };
 
             this.$store.watch(
-                () => this.ethAccount,
+                () => (this.ethAccount, this.cardsApiService.network),
                 () => loadSquad()
             );
 
             if (this.ethAccount) {
                 loadSquad();
             }
+
+            this.$store.dispatch('lazyLoadWeb3');
         }
     };
 </script>

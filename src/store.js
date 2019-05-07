@@ -12,6 +12,7 @@ import NotificationService from './services/notification.service';
 
 import HeadToHeadGameApiService from './services/api/headToHeadGameApi.service';
 import ThreeBoxService from './services/api/threeBox.service';
+import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 
 Vue.use(Vuex);
 
@@ -40,6 +41,7 @@ export default new Vuex.Store({
 
         // Contract Service
         blindPackService: null,
+        blindPackPriceService: new BlindPackPriceService(),
         footballCardsContractService: null,
         headToHeadContractService: null,
     },
@@ -84,14 +86,15 @@ export default new Vuex.Store({
             state.cardsApiService.setNetworkId(networkId);
             state.headToHeadApiService.setNetworkId(networkId);
             state.notificationService.setNetworkId(networkId);
+            state.blindPackPriceService.setNetworkId(networkId);
         },
     },
     actions: {
         async bootstrapApp({commit, dispatch}) {
             dispatch('loadImageData');
+            commit('etherscanUrl', lookupEtherscanAddress(1));
         },
         async lazyLoadWeb3({commit, dispatch}) {
-
             /* global ethereum */
             /* global Web3 */
             if (typeof window.ethereum === 'undefined') {
@@ -117,7 +120,7 @@ export default new Vuex.Store({
 
                         const account = accounts[0];
                         commit('ethAccount', account);
-                        dispatch('bootstrapApp');
+                        dispatch('bootstrapWeb3');
 
                         // Reload the account logic if we see a change
                         ethereum.on('accountsChanged', (accounts) => {
@@ -125,7 +128,7 @@ export default new Vuex.Store({
 
                             const account = accounts[0];
                             commit('ethAccount', account);
-                            dispatch('bootstrapApp');
+                            dispatch('bootstrapWeb3');
                         });
                     });
             }
@@ -136,7 +139,7 @@ export default new Vuex.Store({
 
                 console.log(`Account`, window.web3.eth.accounts[0]);
                 commit('ethAccount', window.web3.eth.accounts[0]);
-                dispatch('bootstrapApp');
+                dispatch('bootstrapWeb3');
             }
             // Non-dapp browsers...
             else {
