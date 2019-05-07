@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-4 col-12">
                 <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
-                   <scoreboard :score="team.squadAverage"></scoreboard>
+                    <scoreboard :score="team.squadAverage"></scoreboard>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div v-if="team && team.team">
+        <div v-if="team && team.team && !team.hasEmptySquad">
             <div class="row m-0 p-0">
                 <div class="offset-sm-4"></div>
                 <div class="col-12 col-sm-4 text-center">
@@ -70,19 +70,23 @@
                     <team-title text="Goalkeeper" variant="lime"></team-title>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="offset-3 offset-sm-5"></div>
                 <div class="col-6 col-sm-2 bg-light p-3 border-bottom-lime" v-for="card in team.team.goalkeepers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
             </div>
+
+            <div class="row mb-4 text-center">
+                <div class="col">
+                    <router-link to="/buy" class="nf-link">Strengthen your team?</router-link>
+                </div>
+            </div>
         </div>
 
-        <div class="row pb-4 mt-5 text-center">
-            <div class="col">
-                <router-link to="/buy" class="nf-link">Strengthen your team?</router-link>
-            </div>
+        <div v-else-if="team && team.team && team.hasEmptySquad">
+            <no-squad></no-squad>
         </div>
 
         <div class="row">
@@ -96,13 +100,14 @@
     import Vue2Filters from 'vue2-filters';
     import { mapState } from 'vuex';
     import Loading from '../components/Loading';
-    import Card from "../components/Card";
+    import Card from '../components/Card';
     import PageTitle from '../components/PageTitle';
     import TeamTitle from '../components/TeamTitle';
     import Scoreboard from '../components/Scoreboard';
+    import NoSquad from '../components/NoSquad';
 
     export default {
-        components: {Scoreboard, TeamTitle, PageTitle, Card, Loading},
+        components: {NoSquad, Scoreboard, TeamTitle, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {

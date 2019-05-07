@@ -7,12 +7,7 @@
                     <loading></loading>
                 </div>
             </div>
-            <div class="row pb-4 text-center" v-else-if="squad && squad.length === 0">
-                <div class="col mb-5 text-primary mx-auto">
-                    <router-link to="/buy" class="nf-link">{{ $t('common.missing_squad_message') }}</router-link>
-                </div>
-            </div>
-
+            
             <div class="row mb-5" v-if="ethAccount && (squad && squad.length > 0)">
                 <div class="d-none d-sm-block col text-left">
                     <router-link to="/rankings" class="sub-nav mr-2">{{ $t('nav.rankings') }}</router-link> |
@@ -25,11 +20,14 @@
                 </div>
             </div>
 
-            <div class="row mt-3" v-if="squad && cards">
+            <div class="row mt-3" v-if="squad && squad.length > 0 && cards">
                 <div class="col-6 col-md-2"
                      v-for="tokenId in squad" v-bind:key="tokenId">
                     <card :card="cards[tokenId]"></card>
                 </div>
+            </div>
+            <div v-else-if="squad && squad.length === 0">
+                <no-squad></no-squad>
             </div>
 
             <div class="row pb-4 mt-5 text-center" v-else-if="squad && squad.length > 0">
@@ -47,9 +45,10 @@
     import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import SquadName from "../components/SquadName";
     import Card from "../components/Card";
+    import NoSquad from '../components/NoSquad';
 
     export default {
-        components: {Card, SquadName, NetworkWeb3Banner, Loading},
+        components: {NoSquad, Card, SquadName, NetworkWeb3Banner, Loading},
         mixins: [Vue2Filters.mixin],
         data() {
             return {
