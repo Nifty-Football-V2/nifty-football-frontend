@@ -26,10 +26,15 @@
                 <div class="row" v-if="buyState === 'idle'">
                     <div class="col-lg"></div>
                     <div class="col text-center">
-                        <div class="buy-container bg-light pb-5 mb-5">
+                        <div class="buy-container bg-light pb-5 mb-5 pt-4">
                             <div class="ml-4 mr-4">
                                 <page-sub-title text="Regular" variant="orange"></page-sub-title>
 
+                                <div class="row m-2">
+                                    <div class="col"></div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">1 Card</div>
+                                    <div class="col"></div>
+                                </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
                                     <div class="col-8 buy-button" @click="setPackType('reg-3')" :class="{'buy-button-active': packType === 'reg-3'}">1 Pack</div>
@@ -40,14 +45,9 @@
                                     <div class="col-8 buy-button" @click="setPackType('reg-6')" :class="{'buy-button-active': packType === 'reg-6'}">2 Packs</div>
                                     <div class="col"></div>
                                 </div>
-                                <div class="row m-2" v-if="accountCredits === 0">
+                                <div class="row m-2">
                                     <div class="col"></div>
                                     <div class="col-8 buy-button" @click="setPackType('reg-9')" :class="{'buy-button-active': packType === 'reg-9'}">3 Packs</div>
-                                    <div class="col"></div>
-                                </div>
-                                <div class="row m-2" v-else>
-                                    <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">1 Card</div>
                                     <div class="col"></div>
                                 </div>
 
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="col text-center">
-                        <div class="buy-container bg-light pb-5 mb-5">
+                        <div class="buy-container bg-light pb-5 mb-5 pt-4">
                             <div class="ml-4 mr-4">
                                 <page-sub-title text="Elite" variant="blue"></page-sub-title>
 
@@ -104,6 +104,11 @@
                                 <div class="row m-2">
                                     <div class="col"></div>
                                     <div class="col-8 buy-button" @click="setPackType('elite-9')" :class="{'buy-button-active': packType === 'elite-9'}">3 Packs</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row m-2">
+                                    <div class="col"></div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-12')" :class="{'buy-button-active': packType === 'elite-12'}">4 Packs</div>
                                     <div class="col"></div>
                                 </div>
 

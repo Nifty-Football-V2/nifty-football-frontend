@@ -23,6 +23,7 @@ export default class BlindPackPriceService {
         this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardBlindPackAbi, this.provider);
 
         this.priceModel = {
+            'reg-1': (await this.contract.totalPrice(1)),
             'reg-3': (await this.contract.totalPrice(3)),
             'reg-6': (await this.contract.totalPrice(6)),
             'reg-9': (await this.contract.totalPrice(9)),
@@ -42,6 +43,7 @@ export default class BlindPackPriceService {
             'elite-3': (await this.eliteContract.totalPrice(3)),
             'elite-6': (await this.eliteContract.totalPrice(6)),
             'elite-9': (await this.eliteContract.totalPrice(9)),
+            'elite-12': (await this.eliteContract.totalPrice(12)),
         };
         return this.elitePriceModel;
     }
