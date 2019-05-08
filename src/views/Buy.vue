@@ -250,7 +250,7 @@
         async created () {
 
             this.$store.watch(
-                () => this.blindPackService,
+                () => this.blindPackPriceService.networkId,
                 () => this.loadPackPrices()
             );
 

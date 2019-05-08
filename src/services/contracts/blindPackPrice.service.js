@@ -12,6 +12,8 @@ export default class BlindPackPriceService {
     setNetworkId(networkId) {
         this.networkId = networkId;
         this.provider = ethers.getDefaultProvider(contracts.getNetwork(networkId));
+        this.priceModel = null;
+        this.elitePriceModel = null;
     }
 
     async getRegularPriceModel() {
@@ -32,7 +34,7 @@ export default class BlindPackPriceService {
     }
 
     async getElitePriceModel() {
-        if (this.elitePriceModel) {
+            if (this.elitePriceModel) {
             return this.elitePriceModel;
         }
 
