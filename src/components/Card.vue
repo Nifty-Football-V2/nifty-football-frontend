@@ -63,7 +63,7 @@
     // Large devices (desktops, 992px and up)
     @media (min-width: 992px) and (max-width: 1199px) {
         .card-height {
-            height: 240px;
+            height: 260px;
         }
     }
 

@@ -3,13 +3,13 @@
 
         <div class="row pb-0 pt-5 bg-light mt-0">
             <div class="col-4 text-left ml-0" style="position: relative; left: -15px;">
-                <img src="../assets/header_image.png"/>
+                <img src="../assets/header_image.png" class="img-height"/>
             </div>
             <div class="col-8 text-left">
-                <div class="header-text-xxl mb-5">
+                <div class="header-text-xxl mb-2 mb-sm-4">
                     FOOTBALL<br/>TRADING CARDS
                 </div>
-                <div class="header-text-lg mb-5">
+                <div class="header-text-lg mb-2 mb-sm-4">
                     COLLECT. TRADE. PLAY.
                 </div>
                 <div>
@@ -99,21 +99,76 @@
         color: $black;
         letter-spacing: 0.2rem;
         text-transform: uppercase;
-
-        a {
-            color: $black;
-        }
     }
 
     .header-text-lg {
         font-family: 'CrackerJack', sans-serif;
-        font-size: 2rem;
+        font-size: 3rem;
         color: $blue;
         letter-spacing: 0.1rem;
         text-transform: uppercase;
+    }
 
-        a {
-            color: $black;
+    // Extra small devices (portrait phones, less than 576px)
+    @media (max-width: 575px) {
+        .header-text-xxl {
+            font-family: 'CrackerJack', sans-serif;
+            font-size: 2rem;
         }
+
+        .header-text-lg {
+            font-size: 1rem;
+            color: $blue;
+        }
+
+        .img-height {
+            max-height: 200px;
+        }
+
+        .btn-lg {
+            font-size: 1rem;
+        }
+    }
+
+    // Small devices (landscape phones, 576px and up)
+    @media (min-width: 576px) and (max-width: 767px) {
+        .header-text-xxl {
+            font-family: 'CrackerJack', sans-serif;
+            font-size: 2rem;
+        }
+
+        .header-text-lg {
+            font-size: 1rem;
+            color: $blue;
+        }
+
+        .img-height {
+            max-height: 200px;
+        }
+
+        .btn-lg {
+            font-size: 1rem;
+        }
+    }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) and (max-width: 991px) {
+        .header-text-xxl {
+            font-family: 'CrackerJack', sans-serif;
+            font-size: 4rem;
+        }
+
+        .header-text-lg {
+            font-size: 2rem;
+            color: $blue;
+        }
+    }
+
+    // Large devices (desktops, 992px and up)
+    @media (min-width: 992px) and (max-width: 1199px) {
+    }
+
+    // Extra large devices (large desktops, 1200px and up)
+    @media (min-width: 1200px) {
     }
 </style>
