@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-4 col-12">
                 <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
-                   <scoreboard :score="team.squadAverage"></scoreboard>
+                    <scoreboard :score="team.squadAverage"></scoreboard>
                 </div>
             </div>
         </div>
@@ -27,7 +27,8 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-sm-4"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-orange" v-for="card in team.team.strikers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-orange" v-for="card in team.team.strikers"
+                     v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
@@ -44,7 +45,8 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-sm-2"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-blue" v-for="card in team.team.midfield" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-blue" v-for="card in team.team.midfield"
+                     v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
@@ -58,7 +60,8 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-sm-2"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-purple" v-for="card in team.team.defence" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-purple" v-for="card in team.team.defence"
+                     v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
@@ -72,7 +75,8 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-3 offset-sm-5"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-lime" v-for="card in team.team.goalkeepers" v-bind:key="card.tokenId ? card.tokenId : Math.random()">
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-lime" v-for="card in team.team.goalkeepers"
+                     v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
@@ -92,7 +96,7 @@
 </template>
 <script>
     import Vue2Filters from 'vue2-filters';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import Loading from '../components/Loading';
     import Card from '../components/Card';
     import PageTitle from '../components/PageTitle';
@@ -103,7 +107,7 @@
     export default {
         components: {NoSquad, Scoreboard, TeamTitle, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 nickname: null,
                 team: null,
@@ -116,9 +120,6 @@
             ]),
         },
         methods: {
-            editEthAccountName () {
-                this.nickname = `Real Madras`;
-            },
             dotDotDot: function (ethAccount) {
                 if (ethAccount && ethAccount.startsWith(`0x`)) {
                     return ethAccount.substr(0, 4) + '...' + ethAccount.substr(ethAccount.length - 4, ethAccount.length);
@@ -126,19 +127,27 @@
                 return ethAccount;
             },
         },
-        async created () {
-            const loadTeam = async () => {
-                this.cardsApiService.loadTeam(this.ethAccount).then((team) => {
-                    this.team = team;
-                });
+        async created() {
+            const loadTeam = () => {
+                if (this.ethAccount) {
+                    this.cardsApiService.loadTeam(this.ethAccount)
+                        .then((team) => {
+                            this.team = team;
+                        });
+                }
             };
+
+            this.$store.watch(
+                () => this.ethAccount,
+                () => loadTeam()
+            );
 
             this.$store.watch(
                 () => this.cardsApiService.network,
                 () => loadTeam()
             );
 
-            if (this.cardsApiService.network) {
+            if (this.ethAccount && this.cardsApiService.network) {
                 loadTeam();
             }
 
