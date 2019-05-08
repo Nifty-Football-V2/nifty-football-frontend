@@ -28,6 +28,12 @@
                 <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/"
                                                       target="_blank">Stanley Chow</a></span>
             </div>
+
+            <div class="mt-5 small text-muted">
+                <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
+                <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}</router-link>
+                <router-link to="/about" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.about') }}</router-link>
+            </div>
         </footer>
     </div>
 </template>

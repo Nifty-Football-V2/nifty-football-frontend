@@ -27,8 +27,8 @@
             </div>
 
             <div class="row">
-                <div class="col text-right">
-                    <p class="small">activity updated every 10 mins</p>
+                <div class="col text-right mr-2">
+                    <p class="small text-muted">* Activity updated every 10 mins</p>
                 </div>
             </div>
         </div>

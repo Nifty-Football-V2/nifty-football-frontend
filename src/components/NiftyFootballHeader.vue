@@ -8,7 +8,9 @@
                     <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
                     <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}</router-link>
                 </div>
-                <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto" style="max-height: 25px;" v-else/>
+                <div v-else>
+                    <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
+                </div>
             </div>
             <div class="d-none d-sm-block col-sm-4 header-text text-center mt-2">
                 <router-link to="/">

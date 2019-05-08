@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid mt-3">
         <div class="row pb-4">
             <div class="col">
                 <page-title :text="$t('nav.about')"></page-title>
