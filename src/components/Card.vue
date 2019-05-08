@@ -42,21 +42,21 @@
     // Extra small devices (portrait phones, less than 576px)
     @media (max-width: 575px) {
         .card-height {
-            height: 280px;
+            height: 330px;
         }
     }
 
     // Small devices (landscape phones, 576px and up)
     @media (min-width: 576px) and (max-width: 767px) {
         .card-height {
-            height: 450px;
+            height: 140px;
         }
     }
 
     // Medium devices (tablets, 768px and up)
     @media (min-width: 768px) and (max-width: 991px) {
         .card-height {
-            height: 180px;
+            height: 200px;
         }
     }
 
@@ -70,7 +70,7 @@
     // Extra large devices (large desktops, 1200px and up)
     @media (min-width: 1200px) {
         .card-height {
-            height: 310px;
+            height: 370px;
         }
     }
 
