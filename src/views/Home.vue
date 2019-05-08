@@ -1,13 +1,22 @@
 <template>
     <div class="container-fluid text-center">
 
-        <router-link to="/buy" class="pb-3 pt-3">
-            <img src="../assets/logo.svg" style="max-height: 300px" class=""/>
-        </router-link>
-
-        <div class="row pb-3 pt-5">
-            <div class="col">
-                <div class="header-text mb-5">KICKING OFF MAY 8TH 2019</div>
+        <div class="row pb-0 pt-5 bg-light mt-0">
+            <div class="col-4 text-left ml-0" style="position: relative; left: -15px;">
+                <img src="../assets/header_image.png"/>
+            </div>
+            <div class="col-8 text-left">
+                <div class="header-text-xxl mb-5">
+                    FOOTBALL<br/>TRADING CARDS
+                </div>
+                <div class="header-text-lg mb-5">
+                    COLLECT. TRADE. PLAY.
+                </div>
+                <div>
+                    <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg">
+                        Start Collecting
+                    </router-link>
+                </div>
             </div>
         </div>
 
@@ -24,7 +33,7 @@
             <div class="col-md-4">&nbsp;</div>
         </div>
 
-        <div class="row justify-content-sm-center pb-3 pt-5">
+        <div class="row justify-content-sm-center pb-3 pt-5 pb-5 bg-light">
             <div class="col col-md-4">
                 <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
                       name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -80,3 +89,31 @@
         methods: {},
     };
 </script>
+
+<style lang="scss" scoped>
+    @import "../colours";
+
+    .header-text-xxl {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 6rem;
+        color: $black;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+
+        a {
+            color: $black;
+        }
+    }
+
+    .header-text-lg {
+        font-family: 'CrackerJack', sans-serif;
+        font-size: 2rem;
+        color: $blue;
+        letter-spacing: 0.1rem;
+        text-transform: uppercase;
+
+        a {
+            color: $black;
+        }
+    }
+</style>

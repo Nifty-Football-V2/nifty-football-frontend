@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container-fluid">
+        <div class="container-fluid mt-3">
             <div class="row pb-4 text-center" v-if="!squad || !squad">
                 <div class="col mb-5 text-primary mx-auto">
                     <loading></loading>

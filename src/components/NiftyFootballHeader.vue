@@ -1,5 +1,5 @@
 <template>
-    <header class="mb-3">
+    <header class="mb-0">
         <div class="row pb-3 mt-0 bg-light-grey">
             <div class="col-6 col-sm-4 header-text-sm text-left mt-2">
                 <div v-if="route.path !== '/'">
@@ -8,19 +8,16 @@
                     <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
                     <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}</router-link>
                 </div>
-                <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto" v-else/>
+                <img src="../assets/live_ropsten.svg" class="img-fluid mx-auto" style="max-height: 25px;" v-else/>
             </div>
             <div class="d-none d-sm-block col-sm-4 header-text text-center mt-2">
                 <router-link to="/">
-                    <img src="../assets/gray_logo.svg" style="width: 75px;" class="mx-auto"/>
+                    <img src="../assets/gray_logo.svg" style="width: 50px;" class="mx-auto"/>
                 </router-link>
             </div>
             <div class="col-6 col-sm-4 text-right mt-2">
-                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary" v-if="route.path !== '/'">
+                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary">
                     Buy
-                </router-link>
-                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg" v-else>
-                    Start Collecting
                 </router-link>
             </div>
         </div>

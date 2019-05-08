@@ -22,8 +22,8 @@
         font-family: 'CrackerJack', sans-serif;
         font-size: 2rem;
         text-transform: uppercase;
-        border: 3px solid $purple;
-        box-shadow: 0 6px 0 0 $purple;
+        border: 4px solid $purple;
+        box-shadow: 0 8px 0 0 $purple;
         margin-bottom: 15px;
         padding-top: 5px;
         padding-bottom: 5px;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container-fluid">
+        <div class="container-fluid mt-3">
             <page-title text="Buy Packs" @click="setState('idle')"></page-title>
 
             <div class="row pb-4 text-center"

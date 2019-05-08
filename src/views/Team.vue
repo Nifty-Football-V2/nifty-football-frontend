@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
         <div class="row text-center">
             <div class="col-sm-4 col-12">&nbsp;</div>
             <div class="col-sm-4 col-12">
@@ -147,7 +147,7 @@
     };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import "../colours";
 
     .border-bottom-orange {

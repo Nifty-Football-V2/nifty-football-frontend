@@ -29,17 +29,15 @@
         padding-left: 50px;
         padding-right: 50px;
         letter-spacing: 1px;
-
-
     }
 
     .border-orange {
-        border: 2px solid $orange;
-        box-shadow: 0 4px 0 0 $orange;
+        border: 3px solid $orange;
+        box-shadow: 0 6px 0 0 $orange;
     }
 
     .border-blue {
-        border: 2px solid $blue;
-        box-shadow: 0 4px 0 0 $blue;
+        border: 3px solid $blue;
+        box-shadow: 0 6px 0 0 $blue;
     }
 </style>
