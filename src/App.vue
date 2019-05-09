@@ -24,15 +24,20 @@
                 <font-awesome-icon :icon="['fab', 'medium']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
 
-            <div class="mt-3">
+            <div class="mt-4">
                 <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/"
                                                       target="_blank">Stanley Chow</a></span>
             </div>
 
-            <div class="mt-5 small text-muted">
+            <div class="mt-4 small text-muted">
                 <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
                 <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}</router-link>
                 <router-link to="/about" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.about') }}</router-link>
+            </div>
+
+            <div class="mt-4 small text-muted">
+                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> <br/>
+                For the love of Football from the heart of Manchester, UK.
             </div>
         </footer>
     </div>
