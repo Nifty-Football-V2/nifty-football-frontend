@@ -33,7 +33,7 @@ export default class BlindPackContractService {
         // wait for tx to be mined
         return this.contract.buyBatch(number, {
             // The maximum units of gas for the transaction to use
-            gasLimit: gasLimit.add(250000),
+            gasLimit: gasLimit.add(500000),
             // The price (in wei) per unit of gas
             gasPrice: gasPrice,
             value: price,
@@ -54,7 +54,7 @@ export default class BlindPackContractService {
         // wait for tx to be mined
         return this.eliteContract.buyBatch(number, {
             // The maximum units of gas for the transaction to use
-            gasLimit: gasLimit.add(250000),
+            gasLimit: gasLimit.add(500000),
             // The price (in wei) per unit of gas
             gasPrice: gasPrice,
             value: totalPrice,
