@@ -44,6 +44,7 @@
     import Loading from '../components/Loading';
     import Card from '../components/Card';
     import PageTitle from '../components/PageTitle';
+    import _ from 'lodash';
 
     export default {
         components: {PageTitle, Card, Loading},
