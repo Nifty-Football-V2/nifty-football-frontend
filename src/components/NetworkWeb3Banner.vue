@@ -6,7 +6,7 @@
             </div>
             <div class="col-10 mt-2 mb-2 text-left">
                 Please install the <code><a href="https://metamask.io/" target="_blank">METAMASK</a></code> or similar Web3 provider and
-                switch to a test network!
+                switch to a live Ethereum network!
             </div>
         </div>
     </div>
