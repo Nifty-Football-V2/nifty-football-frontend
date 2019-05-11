@@ -11,8 +11,9 @@
         <div v-if="rankings && rankings.length > 0">
             <div class="row">
                 <div class="col mb-3 text-left">
-                    <code>You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the top
-                        50 cards</code>
+                    <code>
+                        You have {{ countMyCards() }} {{ parseInt(countMyCards()) | pluralize('card') }} in the top {{ rankings.length }} cards
+                    </code>
                 </div>
             </div>
 
