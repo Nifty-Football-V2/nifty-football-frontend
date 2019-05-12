@@ -16,7 +16,7 @@
             </div>
 
             <div class="row">
-                <div class="col-6 col-sm-2 mb-5" v-for="(rank, index) in activity" v-bind:key="rank.tokenId">
+                <div class="col-6 col-sm-2 mb-5" v-for="rank in activity" v-bind:key="rank.tokenId">
                     <div class="text-center">
                         <card :card="rank"></card>
                     </div>
@@ -26,11 +26,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col text-right mr-2">
-                    <p class="small text-muted">* Activity updated every 10 mins</p>
-                </div>
-            </div>
+            <ten-min-warning></ten-min-warning>
         </div>
     </div>
 </template>
@@ -40,9 +36,10 @@
     import Loading from '../components/Loading';
     import Card from '../components/Card';
     import PageTitle from '../components/PageTitle';
+    import TenMinWarning from '../components/TenMinWarning';
 
     export default {
-        components: {PageTitle, Card, Loading},
+        components: {TenMinWarning, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
@@ -99,17 +96,4 @@
 <style lang="scss">
     @import "../colours";
 
-    .numberCircle {
-        font-size: 1.3rem;
-        border-radius: 50%;
-
-        width: 45px;
-        height: 45px;
-        padding: 10px;
-
-        background: $tertiary;
-        border: 2px solid $primary;
-        color: $secondary;
-        text-align: center;
-    }
 </style>

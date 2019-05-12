@@ -69,6 +69,15 @@ export default new Router({
                 web3Required: true
             }
         },
+        {
+            path: '/team/:account',
+            name: 'team-share',
+            component: Team,
+            props: true,
+            meta: {
+                web3Required: false
+            }
+        },
         // {
         //     path: '/card/:tokenId',
         //     name: 'card',

@@ -39,11 +39,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col text-right mr-2">
-                    <p class="small text-muted">* Rankings updated every 10 mins</p>
-                </div>
-            </div>
+            <ten-min-warning></ten-min-warning>
         </div>
     </div>
 </template>
@@ -54,9 +50,10 @@
     import Card from '../components/Card';
     import PageTitle from '../components/PageTitle';
     import _ from 'lodash';
+    import TenMinWarning from '../components/TenMinWarning';
 
     export default {
-        components: {PageTitle, Card, Loading},
+        components: {TenMinWarning, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
         data () {
             return {
