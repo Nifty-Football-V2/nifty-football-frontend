@@ -4,7 +4,8 @@
         <div class="row text-center">
             <div class="col-sm-4 col-12">&nbsp;</div>
             <div class="col-sm-4 col-12">
-                <page-title text="Best Team"></page-title>
+                <page-title :text="dotDotDot($route.params.account)" v-if="$route.params.account"></page-title>
+                <page-title text="Best Team" v-else></page-title>
             </div>
             <div class="col-sm-4 col-12">
                 <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
