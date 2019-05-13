@@ -4,7 +4,7 @@
             <page-title text="Buy Packs" @click="setState('idle')"></page-title>
 
             <div class="row pb-4 text-center"
-                 v-if="buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
+                 v-if="!pricesSet || buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
                 <div class="col mb-5 text-primary">
                     <loading></loading>
                 </div>
@@ -147,14 +147,13 @@
 
 <script>
     import { mapState } from 'vuex';
-    import NetworkWeb3Banner from '../components/NetworkWeb3Banner';
     import Loading from '../components/Loading';
     import BuyPlayerReveal from '../components/BuyPlayerReveal';
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
 
     export default {
-        components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading, NetworkWeb3Banner},
+        components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading},
         data () {
             return {
                 packPrices: null,

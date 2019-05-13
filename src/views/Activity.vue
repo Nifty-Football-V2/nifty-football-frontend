@@ -44,7 +44,7 @@
         data () {
             return {
                 activity: [],
-                limit: 50,
+                limit: 11,
                 loading: false
             };
         },
