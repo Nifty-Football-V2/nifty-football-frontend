@@ -59,7 +59,7 @@
 <style scoped lang="scss">
     .full-name {
         font-family: 'Anton', sans-serif;
-        font-size: 138px;
+        font-size: 124px;
         letter-spacing: 2px;
         text-transform: uppercase;
     }

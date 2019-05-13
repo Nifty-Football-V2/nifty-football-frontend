@@ -1,9 +1,11 @@
 <template>
     <div class="container-fluid mt-3">
+
         <div class="row text-center">
             <div class="col-sm-4 col-12">&nbsp;</div>
             <div class="col-sm-4 col-12">
-                <page-title text="Best Team"></page-title>
+                <page-title :text="dotDotDot($route.params.account)" v-if="$route.params.account"></page-title>
+                <page-title text="Best Team" v-else></page-title>
             </div>
             <div class="col-sm-4 col-12">
                 <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
@@ -33,8 +35,7 @@
                     <img src="../assets/missing-card.svg" v-else/>
                 </div>
                 <div class="offset-2"></div>
-                <div class="col-2">
-                </div>
+                <div class="col-2"></div>
             </div>
 
             <div class="row m-0 p-0">
@@ -87,15 +88,10 @@
             <no-squad></no-squad>
         </div>
 
-        <div class="row">
-            <div class="col text-right mr-2">
-                <p class="small text-muted">* Team updated every 10 mins</p>
-            </div>
-        </div>
+        <ten-min-warning></ten-min-warning>
     </div>
 </template>
 <script>
-    import Vue2Filters from 'vue2-filters';
     import {mapState} from 'vuex';
     import Loading from '../components/Loading';
     import Card from '../components/Card';
@@ -103,10 +99,10 @@
     import TeamTitle from '../components/TeamTitle';
     import Scoreboard from '../components/Scoreboard';
     import NoSquad from '../components/NoSquad';
+    import TenMinWarning from '../components/TenMinWarning';
 
     export default {
-        components: {NoSquad, Scoreboard, TeamTitle, PageTitle, Card, Loading},
-        mixins: [Vue2Filters.mixin],
+        components: {TenMinWarning, NoSquad, Scoreboard, TeamTitle, PageTitle, Card, Loading},
         data() {
             return {
                 nickname: null,
@@ -129,8 +125,8 @@
         },
         async created() {
             const loadTeam = () => {
-                if (this.ethAccount) {
-                    this.cardsApiService.loadTeam(this.ethAccount)
+                if (this.$route.params.account || this.ethAccount) {
+                    this.cardsApiService.loadTeam(this.$route.params.account || this.ethAccount)
                         .then((team) => {
                             this.team = team;
                         });
@@ -147,7 +143,7 @@
                 () => loadTeam()
             );
 
-            if (this.ethAccount && this.cardsApiService.network) {
+            if ((this.$route.params.account || this.ethAccount) && this.cardsApiService.network) {
                 loadTeam();
             }
 

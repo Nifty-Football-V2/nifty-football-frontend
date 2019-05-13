@@ -44,9 +44,7 @@
 </template>
 
 <script>
-    /* global web3 */
     // import LocaleChanger from './components/LocaleChanger';
-    import {mapState} from 'vuex';
     import NiftyFootballHeader from './components/NiftyFootballHeader';
 
     export default {
@@ -147,6 +145,10 @@
         color: $black;
         font-size: 1.2rem;
         cursor: pointer;
+
+        &.nf-link-active {
+            color: $secondary;
+        }
     }
 
     .badge {
