@@ -33,7 +33,7 @@ export default class CardsApiService extends BaseApiService {
         return res.data;
     }
 
-    async loadLatestCards(limit = 50) {
+    async loadLatestCards(limit = 11) {
         console.log(`Load latest cards`);
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/activity/latest/cards?limit=${limit}`, AXIOS_CONFIG);
         return res.data;
