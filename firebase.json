@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "futbol-cards",
     "public": "dist",
     "ignore": [
       "firebase.json",

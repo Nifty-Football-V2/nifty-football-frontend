@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "futbol-cards"
+  },
+  "targets": {
+    "futbol-cards": {
+      "hosting": {
+        "futbol-cards": [
+          "futbol-cards"
+        ]
+      }
+    }
   }
 }
