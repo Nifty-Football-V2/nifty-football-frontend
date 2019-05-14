@@ -1,5 +1,5 @@
 <template>
-    <span class="account-name" v-b-tooltip.hover :title="account"> {{ currentSquadName }}</span>
+    <span v-b-tooltip.hover :title="account"> {{ currentSquadName }}</span>
 </template>
 
 <script>
