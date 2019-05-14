@@ -87,7 +87,7 @@ export default class ThreeBoxService {
 
     async _getProfileSafe(account) {
         try {
-            return Box.getProfile(account);
+            return await Box.getProfile(account);
         } catch (e) {
             return null;
         }
@@ -95,7 +95,7 @@ export default class ThreeBoxService {
 
     async _getSpaceSafe(account) {
         try {
-            return Box.getSpace(account, NIFTY_FOOTY_SPACE);
+            return await Box.getSpace(account, NIFTY_FOOTY_SPACE);
         } catch (e) {
             return null;
         }

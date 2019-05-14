@@ -21,10 +21,10 @@
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Squad Name</th>
-                    <th scope="col">Squad Avg.</th>
-                    <th scope="col">Squad Total</th>
+                    <th scope="col" width="50px"></th>
+                    <th scope="col" width="250px">Name</th>
+                    <th scope="col">Avg.</th>
+                    <th scope="col">Total</th>
                 </tr>
                 </thead>
                 <tbody>
