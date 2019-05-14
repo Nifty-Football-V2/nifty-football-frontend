@@ -21,10 +21,10 @@
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Squad Total</th>
-                    <th scope="col">Squad Avg.</th>
+                    <th scope="col"></th>
                     <th scope="col">Squad Name</th>
+                    <th scope="col">Squad Avg.</th>
+                    <th scope="col">Squad Total</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,11 +32,11 @@
                     <th>
                         <h4>#{{$index + 1}}</h4>
                     </th>
-                    <td>{{team.squadTotal}}</td>
-                    <td>{{team.squadAverage}}</td>
                     <td>
                         <squad-display-name :account="team.owner"></squad-display-name>
                     </td>
+                    <td>{{team.squadAverage}}</td>
+                    <td class="text-muted">{{team.squadTotal}}</td>
                 </tr>
                 </tbody>
             </table>
