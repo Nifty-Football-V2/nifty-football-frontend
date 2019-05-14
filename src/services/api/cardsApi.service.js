@@ -56,4 +56,10 @@ export default class CardsApiService extends BaseApiService {
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/rarities/packs`, AXIOS_CONFIG);
         return res.data;
     }
+
+    async loadTopTeams(limit = 50) {
+        console.log(`Load top teams`);
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/squad/league?limit=${limit}`, AXIOS_CONFIG);
+        return res.data;
+    }
 }

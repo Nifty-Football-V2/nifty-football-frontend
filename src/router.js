@@ -7,7 +7,7 @@ import Team from './views/Team.vue';
 import Buy from './views/Buy.vue';
 import About from './views/About.vue';
 import Activity from './views/Activity.vue';
-// import DeeplinkCard from "./views/DeeplinkCard";
+import League from "./views/League";
 
 Vue.use(Router);
 
@@ -59,6 +59,14 @@ export default new Router({
             component: Squad,
             meta: {
                 web3Required: true
+            }
+        },
+        {
+            path: '/league',
+            name: 'league',
+            component: League,
+            meta: {
+                web3Required: false
             }
         },
         {

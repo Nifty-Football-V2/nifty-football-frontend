@@ -10,6 +10,7 @@ export default {
             account: 'Squad',
             team: 'Team',
             activity: 'Activity',
+            league: 'League',
             head2head: 'Head 2 Head Battles',
         },
         common: {
