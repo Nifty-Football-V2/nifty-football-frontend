@@ -21,16 +21,21 @@
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
-                    <th scope="col" width="50px"></th>
-                    <th scope="col" width="250px">Name</th>
-                    <th scope="col">Avg.</th>
-                    <th scope="col">Total</th>
+                    <th scope="col" width="50"></th>
+                    <th scope="col" width="250">Name</th>
+                    <th scope="col" width="100">Avg.</th>
+                    <th scope="col" width="100">Total</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="(team, $index) in teams">
                     <th>
-                        <h4>#{{$index + 1}}</h4>
+                        <span :class="{
+                        'leader': $index === 0,
+                        'top-three': $index >0 && $index < 3,
+                        'top-ten': $index >= 3 && $index <= 9,
+                        'text-muted': $index > 9,
+                        }">#{{$index + 1}}</span>
                     </th>
                     <td>
                         <squad-display-name :account="team.owner"></squad-display-name>
@@ -102,4 +107,15 @@
 <style lang="scss">
     @import "../colours";
 
+    .leader {
+        font-size: 2rem;
+    }
+
+    .top-three {
+        font-size: 1.5rem;
+    }
+
+    .top-ten {
+        font-size: 1rem;
+    }
 </style>

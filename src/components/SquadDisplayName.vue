@@ -1,5 +1,10 @@
 <template>
-    <span v-b-tooltip.hover :title="account"> {{ currentSquadName }}</span>
+    <span>
+        <span :id="'tooltip-' + account">{{ currentSquadName }}</span>
+        <b-tooltip :target="'tooltip-' + account" placement="right" v-if="account !== currentSquadName">
+            <strong>{{account}}</strong>
+        </b-tooltip>
+    </span>
 </template>
 
 <script>
