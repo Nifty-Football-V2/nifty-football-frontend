@@ -1,6 +1,6 @@
 <template>
     <span>
-        <span :id="'tooltip-' + account">{{ calcSquadName }}</span>
+        <span :id="'tooltip-' + account">{{ calcSquadName || calcAccountName(account) }}</span>
         <b-tooltip :target="'tooltip-' + account" placement="right" v-if="account !== currentSquadName">
             <strong>{{account}}</strong>
         </b-tooltip>
@@ -28,6 +28,11 @@
                     return dotDotDotAccount(this.currentSquadName);
                 }
                 return "";
+            },
+        },
+        methods: {
+            calcAccountName(acc) {
+                return dotDotDotAccount(acc);
             },
         },
         watch: {

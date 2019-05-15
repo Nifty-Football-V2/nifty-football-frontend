@@ -7,44 +7,42 @@
                 <loading></loading>
             </div>
         </div>
+        <transition name="fade">
+            <div v-if="!loading && topTeams && topTeams.length > 0">
 
-        <div v-if="!loading && topTeams && topTeams.length > 0">
+                <div class="row">
+                    <div class="col mb-3 text-left">
+                        <code>
+                            <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong> incomplete
+                            teams
+                        </code>
+                    </div>
 
-
-            <div class="row">
-                <div class="col mb-3 text-left">
-                    <code>
-                        <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong> incomplete
-                        teams
-                    </code>
+                    <div class="col mb-3 text-right">
+                        <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'top'}"
+                           @click="setFilter('top')">Best</a>
+                        <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'worst'}"
+                           @click="setFilter('worst')">Worst</a>
+                    </div>
                 </div>
 
-                <div class="col mb-3 text-right">
-                    <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'top'}"
-                       @click="setFilter('top')">Top</a>
-                    <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'worst'}"
-                       @click="setFilter('worst')">Worst</a>
-                </div>
-            </div>
-
-            <table class="table table-borderless">
-                <tbody>
-                <tr v-for="(team, $index) in selectedTeam" :class="{
+                <table class="table table-borderless">
+                    <tbody>
+                    <tr v-for="(team, $index) in selectedTeam" :class="{
                         'leader': $index === 0,
                         'top-three': $index > 0 && $index < 3,
                         'top-ten': $index >= 3 && $index <= 9,
                         'others': $index > 9,
                         'mine': ethAccount === team.owner,
                         }"
-                    :key="$index">
-                    <th>
-                        <span>{{$index + 1}}</span>
-                    </th>
-                    <td>
-                        <squad-display-name :account="team.owner"></squad-display-name>
-                    </td>
-                    <td>
-
+                        :key="$index">
+                        <th>
+                            <span>{{$index + 1}}</span>
+                        </th>
+                        <td>
+                            <squad-display-name :account="team.owner"></squad-display-name>
+                        </td>
+                        <td>
                         <span v-b-tooltip.hover
                               :title="`Avg. ${team.topTeam.teamAverage} Total ${team.topTeam.teamTotal}`"
                               placement="right"
@@ -52,20 +50,18 @@
                         {{team.topTeamAverageFloored}}
                        </span>
 
-                        <span v-b-tooltip.hover
-                              :title="`Avg. ${team.worstTeam.teamAverage} Total ${team.worstTeam.teamTotal}`"
-                              placement="right"
-                              v-if="rankingsFilter === 'worst'">
+                            <span v-b-tooltip.hover
+                                  :title="`Avg. ${team.worstTeam.teamAverage} Total ${team.worstTeam.teamTotal}`"
+                                  placement="right"
+                                  v-if="rankingsFilter === 'worst'">
                         {{team.worstTeamAverageFloored}}
                        </span>
-
-
-                    </td>
-                    <!--<td class="text-muted">{{team.teamTotal}}</td>-->
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </transition>
     </div>
 </template>
 <script>
