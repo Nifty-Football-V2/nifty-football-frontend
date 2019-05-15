@@ -63,7 +63,7 @@
                 new vConsole();
             }
 
-            this.$store.dispatch('loadImageData');
+            this.$store.dispatch('loadFlags');
         }
     };
 </script>

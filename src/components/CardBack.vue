@@ -31,7 +31,7 @@
 
         <text x="150" y="270" class="full-name" fill="black">{{ card.fullName }}</text>
         <text x="150" y="400" class="position" fill="black">{{ card.positionText }}</text>
-        <image x="150" y="420" xmlns="http://www.w3.org/2000/svg" id="flag_img" width="200" height="200" :href="imageData.flags[card.nationality]"/>
+        <image x="150" y="420" xmlns="http://www.w3.org/2000/svg" id="flag_img" width="200" height="200" :href="flags[card.nationality]"/>
         <text x="1150" y="600" class="avg" fill="black">{{ card.attributeAvg }}</text>
         <text x="420" y="1040" class="attrs" fill="black">{{ card.strength }}</text>
         <text x="850" y="1040" class="attrs" fill="black">{{ card.skill }}</text>
@@ -49,7 +49,7 @@
         components: {},
         computed: {
             ...mapState([
-                'imageData',
+                'flags',
             ]),
         },
         props: ['card'],
