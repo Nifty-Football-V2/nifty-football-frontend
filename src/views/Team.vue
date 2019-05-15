@@ -8,8 +8,8 @@
                 <page-title text="Best Team" v-else></page-title>
             </div>
             <div class="col-sm-4 col-12">
-                <div v-if="team && team.team && team.teamAverage && team.teamAverage > 0">
-                    <scoreboard :score="team.teamAverage"></scoreboard>
+                <div v-if="team && team.topTeamAverageFloored && team.topTeamAverageFloored > 0">
+                    <scoreboard :score="team.topTeamAverageFloored"></scoreboard>
                 </div>
             </div>
         </div>
