@@ -36,7 +36,7 @@
 
             <div class="mt-4 small text-muted">
                 Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> in Manchester, UK<br/>
-                We ❤️ Football
+                We ❤ Football
             </div>
         </footer>
     </div>

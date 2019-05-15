@@ -28,20 +28,19 @@
             </div>
 
             <table class="table table-borderless">
-                <thead>
-                <tr>
-                    <th scope="col" width="50"></th>
-                    <th scope="col" width="250">Name</th>
-                    <th scope="col" width="100">Avg.</th>
-                    <th scope="col" width="100">Total</th>
-                </tr>
-                </thead>
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th scope="col" width="50"></th>-->
+                    <!--<th scope="col" width="250">Name</th>-->
+                    <!--<th scope="col" width="100">Avg.</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
                 <tbody>
                 <tr v-for="(team, $index) in selectedTeam" :class="{
                         'leader': $index === 0,
                         'top-three': $index > 0 && $index < 3,
                         'top-ten': $index >= 3 && $index <= 9,
-                        'text-muted': $index > 9,
+                        'others': $index > 9,
                         }"
                         :key="$index">
                     <th>
@@ -51,19 +50,11 @@
                         <squad-display-name :account="team.owner"></squad-display-name>
                     </td>
                     <td>
-
-                        <span v-b-tooltip.hover :title="team.topTeamAverage" placement="right"
-                              v-if="rankingsFilter === 'top'">
-                        {{team.topTeamAverageFloored}}
+                        <span v-b-tooltip.hover :title="`Avg. ${team.teamAverage} Total ${team.teamTotal}`" placement="left">
+                        {{team.teamAverageFloored}}
                        </span>
-
-                        <span v-b-tooltip.hover :title="team.worstTeamAverage" placement="right"
-                              v-if="rankingsFilter === 'worst'">
-                        {{team.worstTeamAverageFloored}}
-                       </span>
-
                     </td>
-                    <td class="text-muted">{{team.teamTotal}}</td>
+                    <!--<td class="text-muted">{{team.teamTotal}}</td>-->
                 </tr>
                 </tbody>
             </table>
@@ -142,9 +133,10 @@
 
     .leader {
         font-size: 2.5rem;
-        color: $purple;
+        color: $orange;
         font-family: 'CrackerJack', sans-serif;
         letter-spacing: 1px;
+        border-bottom: 3px solid $orange;
     }
 
     .top-three {
@@ -152,9 +144,17 @@
         color: $blue;
         font-family: 'CrackerJack', sans-serif;
         letter-spacing: 1px;
+        border-bottom: 2px solid $blue;
     }
 
     .top-ten {
         font-size: 1rem;
+        border-bottom: 1px solid $black;
+    }
+
+    .others {
+        font-size: 1rem;
+        color: $gray;
+        border-bottom: 1px solid $gray;
     }
 </style>
