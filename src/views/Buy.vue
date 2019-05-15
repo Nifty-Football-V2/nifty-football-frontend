@@ -185,35 +185,25 @@
                 console.log(`Buying ${this.packType} = ${num} cards`);
 
                 try {
-                    this.notificationService.showPurchaseNotification();
-
                     // call the respective contract to buy
-                    let tx = null;
+                    let receipt = null;
                     if (this.packType.startsWith('reg')) {
-                        tx = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
+                        receipt = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
                     } else {
-                        tx = await this.blindPackService.buyEliteBlindPack(num);
+                        receipt = await this.blindPackService.buyEliteBlindPack(num);
                     }
-                    // console.log(tx);
 
-                    this.notificationService.showProcessingNotification(tx.hash);
 
-                    // wait for tx to be mined
-                    await tx.wait(1);
-
-                    const txRes = await this.cardsApiService.loadTokensForTx(tx.hash);
+                    const txRes = await this.cardsApiService.loadTokensForTx(receipt.transactionHash);
                     this.cards = txRes.cards;
 
                     this.buyState = 'confirmed';
-
-                    this.notificationService.showConfirmedNotification(tx.hash);
 
                     // Refresh credit limit
                     this.loadCreditsForAccount();
 
                 } catch (e) {
                     console.error('TXS failed', e);
-                    this.notificationService.showFailureNotification('Transaction rejected');
                     this.buyState = 'idle';
                 }
             },
