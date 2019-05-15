@@ -34,7 +34,7 @@ const lookupEtherscanAddress = (id) => {
 
 const dotDotDotAccount = (ethAccount) => {
     if (ethAccount && ethAccount.startsWith(`0x`)) {
-        return ethAccount.substr(0, 4) + '...' + ethAccount.substr(ethAccount.length - 4, ethAccount.length);
+        return ethAccount.substr(0, 6) + '...' + ethAccount.substr(ethAccount.length - 6, ethAccount.length);
     }
     return ethAccount;
 };

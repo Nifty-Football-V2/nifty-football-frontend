@@ -1,7 +1,6 @@
 <template>
     <div id="app">
-        <nifty-football-header :route="$router.currentRoute" :meta="$router.currentRoute.meta">
-        </nifty-football-header>
+        <nifty-football-header :route="$router.currentRoute" :meta="$router.currentRoute.meta"></nifty-football-header>
 
         <router-view class="pb-5"/>
 
@@ -36,8 +35,11 @@
             </div>
 
             <div class="mt-4 small text-muted">
-                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> <br/>
-                For the love of Football from the heart of Manchester, UK.
+                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> in Manchester, UK<br/><br/>
+            </div>
+
+            <div class="mt-4 smallest text-muted text-right mr-3" v-if="ethAccountDotDotDot && networkName">
+               {{ ethAccountDotDotDot }} on {{ networkName.toUpperCase() }}
             </div>
         </footer>
     </div>
@@ -46,6 +48,7 @@
 <script>
     // import LocaleChanger from './components/LocaleChanger';
     import NiftyFootballHeader from './components/NiftyFootballHeader';
+    import { mapState } from 'vuex';
 
     export default {
         components: {
@@ -55,7 +58,12 @@
         data() {
             return {};
         },
-        computed: {},
+        computed: {
+            ...mapState([
+                'networkName',
+                'ethAccountDotDotDot',
+            ]),
+        },
         created: async function () {
             if (window.location.href.indexOf("__debug") > -1) {
                 // eslint-disable-next-line new-cap,no-new
@@ -132,6 +140,10 @@
 
     code {
         color: $primary;
+    }
+
+    .smallest {
+        font-size: 0.6rem;
     }
 
     .crackerjack {
@@ -219,7 +231,7 @@
 
     .header-text-sm {
         font-family: 'CrackerJack', sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         color: $black;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -295,5 +307,30 @@
         a {
             color: $black;
         }
+    }
+
+    /* Enter and leave animations can use different */
+    /* durations and timing functions.              */
+    .slide-fade-enter-active {
+        transition: all .2s ease;
+    }
+
+    .slide-fade-leave-active {
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active below version 2.1.8 */
+    {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .75s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
 </style>

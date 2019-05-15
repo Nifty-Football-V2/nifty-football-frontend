@@ -8,8 +8,8 @@
                 <page-title text="Best Team" v-else></page-title>
             </div>
             <div class="col-sm-4 col-12">
-                <div v-if="team && team.team && team.squadAverage && team.squadAverage > 0">
-                    <scoreboard :score="team.squadAverage"></scoreboard>
+                <div v-if="team && team.topTeamAverageFloored && team.topTeamAverageFloored > 0">
+                    <scoreboard :score="team.topTeamAverageFloored"></scoreboard>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div v-if="team && team.team && !team.hasEmptySquad">
+        <div v-if="team && team.topTeam">
             <div class="row m-0 p-0">
                 <div class="offset-sm-4"></div>
                 <div class="col-12 col-sm-4 text-center">
@@ -29,7 +29,7 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-sm-4"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-orange" v-for="card in team.team.strikers"
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-orange" v-for="card in team.topTeam.strikers"
                      v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
@@ -46,7 +46,7 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-sm-2"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-blue" v-for="card in team.team.midfield"
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-blue" v-for="card in team.topTeam.midfield"
                      v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
@@ -61,7 +61,7 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-sm-2"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-purple" v-for="card in team.team.defence"
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-purple" v-for="card in team.topTeam.defence"
                      v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
@@ -76,7 +76,7 @@
             </div>
             <div class="row mb-4">
                 <div class="offset-3 offset-sm-5"></div>
-                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-lime" v-for="card in team.team.goalkeepers"
+                <div class="col-6 col-sm-2 bg-light p-3 border-bottom-lime" v-for="card in team.topTeam.goalkeepers"
                      v-bind:key="card.tokenId ? card.tokenId : Math.random()">
                     <card :card="card" v-if="card.tokenId"></card>
                     <img src="../assets/missing-card.svg" v-else/>
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div v-else-if="team && team.team && team.hasEmptySquad">
+        <div v-else-if="team && team.topTeam && team.hasEmptySquad">
             <no-squad></no-squad>
         </div>
 
@@ -126,7 +126,7 @@
         async created() {
             const loadTeam = () => {
                 if (this.$route.params.account || this.ethAccount) {
-                    this.cardsApiService.loadTeam(this.$route.params.account || this.ethAccount)
+                    this.cardsApiService.loadTopTeam(this.$route.params.account || this.ethAccount)
                         .then((team) => {
                             this.team = team;
                         });

@@ -17,7 +17,7 @@ export default class ThreeBoxService {
     }
 
     async getReadOnlyProfile() {
-        const profile = await Box.getProfile(this.account);
+        const profile = await this._getProfileSafe(this.account);
         console.log(`Found read only 3box profile`, profile);
         return profile;
     }
@@ -67,4 +67,37 @@ export default class ThreeBoxService {
         return space.public.get(SQUAD_NAME);
     }
 
+    async getBox3SquadDisplayName(account) {
+
+        // Try open space
+        const niftySpace = await this._getSpaceSafe(account);
+        if (niftySpace && niftySpace[SQUAD_NAME]) {
+            return niftySpace[SQUAD_NAME];
+        }
+
+        // Try get public name
+        const profile = await this._getProfileSafe(account);
+        if (profile && profile.name) {
+            return profile.name;
+        }
+
+        // Fallback to eth account
+        return account;
+    }
+
+    async _getProfileSafe(account) {
+        try {
+            return await Box.getProfile(account);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async _getSpaceSafe(account) {
+        try {
+            return await Box.getSpace(account, NIFTY_FOOTY_SPACE);
+        } catch (e) {
+            return null;
+        }
+    }
 }
