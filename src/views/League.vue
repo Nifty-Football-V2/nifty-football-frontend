@@ -21,26 +21,20 @@
 
                 <div class="col mb-3 text-right">
                     <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'top'}"
-                       @click="setFilter('top')">Top Team</a>
+                       @click="setFilter('top')">Top</a>
                     <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'worst'}"
-                       @click="setFilter('worst')">Worst Team</a>
+                       @click="setFilter('worst')">Worst</a>
                 </div>
             </div>
 
             <table class="table table-borderless">
-                <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th scope="col" width="50"></th>-->
-                    <!--<th scope="col" width="250">Name</th>-->
-                    <!--<th scope="col" width="100">Avg.</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
                 <tbody>
                 <tr v-for="(team, $index) in selectedTeam" :class="{
                         'leader': $index === 0,
                         'top-three': $index > 0 && $index < 3,
                         'top-ten': $index >= 3 && $index <= 9,
                         'others': $index > 9,
+                        'mine': ethAccount === team.owner,
                         }"
                         :key="$index">
                     <th>
@@ -58,7 +52,6 @@
                 </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 </template>
@@ -156,5 +149,9 @@
         font-size: 1rem;
         color: $gray;
         border-bottom: 1px solid $gray;
+    }
+
+    .mine {
+        background-color: $lime;
     }
 </style>
