@@ -59,7 +59,6 @@ export default class BlindPackContractService {
 
         const totalPrice = await this.eliteContract.methods.totalPrice(number).call();
 
-        console.log('hello');
         // broadcast transaction
         const {txPromise} = await this.eliteContract.methods.buyBatch(number).send({
             from: window.web3.eth.defaultAccount,
