@@ -41,11 +41,11 @@
                         <squad-display-name :account="team.owner"></squad-display-name>
                     </td>
                     <td>
-                       <span v-b-tooltip.hover :title="team.squadAverage" placement="right">
-                        {{team.squadAverageRounded}}
+                       <span v-b-tooltip.hover :title="team.teamAverage" placement="right">
+                        {{team.teamAverageFloored}}
                        </span>
                     </td>
-                    <td class="text-muted">{{team.squadTotal}}</td>
+                    <td class="text-muted">{{team.teamTotal}}</td>
                 </tr>
                 </tbody>
             </table>
