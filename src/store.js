@@ -13,8 +13,10 @@ import NotificationService from './services/notification.service';
 import ThreeBoxService from './services/api/threeBox.service';
 import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 
-Vue.use(Vuex);
+import {contracts} from 'nifty-football-contract-tools';
+import {dotDotDotAccount} from './utils';
 
+Vue.use(Vuex);
 
 /* global web3 */
 
@@ -22,11 +24,13 @@ export default new Vuex.Store({
     // plugins: debug ? [createLogger()] : [],
     state: {
         networkId: 1,
+        networkName: null,
         etherscanUrl: 'https://etherscan.io',
         web3Enabled: false,
 
         ethAccount: null,
-        imageData: null,
+        ethAccountDotDotDot: null,
+        flags: null,
         squad: null,
         cards: null,
         web3Provider: null,
@@ -44,8 +48,10 @@ export default new Vuex.Store({
     mutations: {
         ethAccount(state, ethAccount) {
             console.log("Setting ethAccount", ethAccount);
-            state.ethAccount = ethAccount;
-            state.threeBoxService.setAccount(ethAccount);
+
+            state.ethAccount = ethers.utils.getAddress(ethAccount);
+            state.ethAccountDotDotDot = dotDotDotAccount(state.ethAccount);
+            state.threeBoxService.setAccount(state.ethAccount);
         },
         squad(state, squad) {
             state.squad = squad;
@@ -53,8 +59,8 @@ export default new Vuex.Store({
         cards(state, cards) {
             state.cards = cards;
         },
-        imageData(state, imageData) {
-            state.imageData = imageData;
+        flags(state, flags) {
+            state.flags = flags;
         },
         etherscanUrl(state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
@@ -80,11 +86,13 @@ export default new Vuex.Store({
             state.cardsApiService.setNetworkId(networkId);
             state.notificationService.setNetworkId(networkId);
             state.blindPackPriceService.setNetworkId(networkId);
+
+            state.networkName = contracts.getNetwork(networkId);
         },
     },
     actions: {
         async bootstrapApp({commit, dispatch}) {
-            dispatch('loadImageData');
+            dispatch('loadFlags');
             commit('etherscanUrl', lookupEtherscanAddress(1));
         },
         async lazyLoadWeb3({commit, dispatch, state}) {
@@ -178,10 +186,10 @@ export default new Vuex.Store({
                 }
             }
         },
-        async loadImageData({commit, state}) {
-            console.log("Loading image data");
-            const imageData = await state.cardsApiService.loadImageData();
-            commit('imageData', imageData);
+        async loadFlags({commit, state}) {
+            console.log("Loading flags");
+            const data = await state.cardsApiService.loadFlags();
+            commit('flags', data.flags);
         },
     }
 });

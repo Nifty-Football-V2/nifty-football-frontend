@@ -7,6 +7,7 @@
                     <router-link to="/team" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.team') }}</router-link>
                     <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
                     <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}</router-link>
+                    <router-link to="/league" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.league') }}</router-link>
                 </div>
                 <div v-else>
                     <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>

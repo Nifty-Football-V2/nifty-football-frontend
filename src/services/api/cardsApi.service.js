@@ -39,21 +39,27 @@ export default class CardsApiService extends BaseApiService {
         return res.data;
     }
 
-    async loadTeam(ethAccount) {
-        console.log(`Load team`, ethAccount);
+    async loadTopTeam(ethAccount) {
+        console.log(`Load top team`, ethAccount);
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/squad/${ethAccount}/top`, AXIOS_CONFIG);
         return res.data;
     }
 
-    async loadImageData() {
-        console.log(`Load image data`);
-        const res = await axios.get(`${this.BASE_API}/network/${this.network}/image/data`, AXIOS_CONFIG);
+    async loadFlags() {
+        console.log(`Load flags`);
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/image/flags`, AXIOS_CONFIG);
         return res.data;
     }
 
     async loadRarities() {
         console.log(`Load rarities data`);
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/rarities/packs`, AXIOS_CONFIG);
+        return res.data;
+    }
+
+    async loadLeagueTable(limit = 50) {
+        console.log(`Load top teams`);
+        const res = await axios.get(`${this.BASE_API}/network/${this.network}/squad/league?limit=${limit}`, AXIOS_CONFIG);
         return res.data;
     }
 }
