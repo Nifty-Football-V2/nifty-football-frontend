@@ -1,7 +1,6 @@
 <template>
     <div id="app">
-        <nifty-football-header :route="$router.currentRoute" :meta="$router.currentRoute.meta">
-        </nifty-football-header>
+        <nifty-football-header :route="$router.currentRoute" :meta="$router.currentRoute.meta"></nifty-football-header>
 
         <router-view class="pb-5"/>
 
@@ -37,7 +36,7 @@
 
             <div class="mt-4 small text-muted">
                 Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> <br/>
-                For the love of Football from the heart of Manchester, UK.
+                ❤️ Football ❤️ Manchester, UK.
             </div>
         </footer>
     </div>
@@ -219,7 +218,7 @@
 
     .header-text-sm {
         font-family: 'CrackerJack', sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         color: $black;
         letter-spacing: 1px;
         text-transform: uppercase;

@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <table class="table table-borderless table-striped">
+            <table class="table table-borderless">
                 <thead>
                 <tr>
                     <th scope="col" width="50"></th>
@@ -27,14 +27,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(team, $index) in teams">
-                    <th>
-                        <span :class="{
+                <tr v-for="(team, $index) in teams" :class="{
                         'leader': $index === 0,
                         'top-three': $index >0 && $index < 3,
                         'top-ten': $index >= 3 && $index <= 9,
                         'text-muted': $index > 9,
-                        }">#{{$index + 1}}</span>
+                        }">
+                    <th>
+                        <span >#{{$index + 1}}</span>
                     </th>
                     <td>
                         <squad-display-name :account="team.owner"></squad-display-name>
@@ -82,7 +82,7 @@
                 this.loading = true;
                 this.cardsApiService.loadTopTeams()
                     .then(async (teams) => {
-                        this.teams = teams.results;
+                        this.teams = teams.results.topTeam;
                         this.totalComplete = teams.totalComplete;
                         this.totalPartial = teams.totalPartial;
                     })
@@ -107,11 +107,17 @@
     @import "../colours";
 
     .leader {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        color: $purple;
+        font-family: 'CrackerJack', sans-serif;
+        letter-spacing: 1px;
     }
 
     .top-three {
         font-size: 1.5rem;
+        color: $blue;
+        font-family: 'CrackerJack', sans-serif;
+        letter-spacing: 1px;
     }
 
     .top-ten {

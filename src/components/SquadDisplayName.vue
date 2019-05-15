@@ -1,6 +1,6 @@
 <template>
     <span>
-        <span :id="'tooltip-' + account">{{ currentSquadName }}</span>
+        <span :id="'tooltip-' + account">{{ calcSquadName(currentSquadName) }}</span>
         <b-tooltip :target="'tooltip-' + account" placement="right" v-if="account !== currentSquadName">
             <strong>{{account}}</strong>
         </b-tooltip>
@@ -9,6 +9,7 @@
 
 <script>
     import {mapState} from 'vuex';
+    import {dotDotDotAccount} from "../utils";
 
     export default {
         name: 'squad-display-name',
@@ -22,6 +23,13 @@
             ...mapState([
                 'threeBoxService',
             ]),
+        },
+        methods: {
+            calcSquadName() {
+                if (this.currentSquadName) {
+                    return dotDotDotAccount(this.currentSquadName);
+                }
+            },
         },
         created() {
             if (this.account) {
