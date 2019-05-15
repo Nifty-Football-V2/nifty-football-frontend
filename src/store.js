@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {ethers} from 'ethers';
+import Web3 from 'web3'
 // import createLogger from 'vuex/dist/logger';
 
 import CardsApiService from './services/api/cardsApi.service';
 import {lookupEtherscanAddress} from './utils';
 
 import BlindPackContractService from './services/contracts/blindPackContract.service';
-import FootballCardsContractService from './services/contracts/footballCardsContract.service';
 import NotificationService from './services/notification.service';
 
 import ThreeBoxService from './services/api/threeBox.service';
@@ -62,14 +62,16 @@ export default new Vuex.Store({
         provider(state, provider) {
             console.log(`Setting provider for network [${state.networkId}]`, provider);
             state.provider = provider;
-            state.providerSigner = provider.getSigner();
-            state.blindPackService = new BlindPackContractService(state.networkId, state.providerSigner);
-            state.footballCardsContractService = new FootballCardsContractService(state.networkId, state.providerSigner);
-
-            state.web3Enabled = true;
 
             // This needs to not be a etherjs provider...?
             state.threeBoxService.setProvider(window.ethereum);
+        },
+        web3(state, web3) {
+            console.log(`Setting web3 for network [${state.networkId}]`, web3);
+            state.web3 = web3;
+            state.blindPackService = new BlindPackContractService(state.networkId, web3);
+
+            state.web3Enabled = true;
         },
         networkId(state, networkId) {
             state.networkId = networkId;
@@ -87,7 +89,6 @@ export default new Vuex.Store({
         },
         async lazyLoadWeb3({commit, dispatch, state}) {
             /* global ethereum */
-            /* global Web3 */
             if (typeof window.ethereum === 'undefined') {
                 console.log('Looks like you need a Dapp browser to get started.');
             }
@@ -140,15 +141,15 @@ export default new Vuex.Store({
         async bootstrapWeb3({commit, dispatch}) {
             try {
                 console.log("Bootstrapping application", window.ethereum);
-
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-                const {chainId, name} = await provider.getNetwork();
+                const web3 = new Web3(window.web3.currentProvider);
+                const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+                const {chainId, name} = await ethersProvider.getNetwork();
                 console.log(`Working on network [${chainId}] [${name}]`);
 
                 commit('networkId', chainId);
                 commit('etherscanUrl', lookupEtherscanAddress(chainId));
-                commit('provider', provider);
+                commit('provider', ethersProvider);
+                commit('web3', web3);
 
                 dispatch('loadSquad');
             } catch (e) {
