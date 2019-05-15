@@ -13,8 +13,10 @@ import NotificationService from './services/notification.service';
 import ThreeBoxService from './services/api/threeBox.service';
 import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 
-Vue.use(Vuex);
+import {contracts} from 'nifty-football-contract-tools';
+import {dotDotDotAccount} from './utils';
 
+Vue.use(Vuex);
 
 /* global web3 */
 
@@ -22,10 +24,12 @@ export default new Vuex.Store({
     // plugins: debug ? [createLogger()] : [],
     state: {
         networkId: 1,
+        networkName: null,
         etherscanUrl: 'https://etherscan.io',
         web3Enabled: false,
 
         ethAccount: null,
+        ethAccountDotDotDot: null,
         flags: null,
         squad: null,
         cards: null,
@@ -44,8 +48,10 @@ export default new Vuex.Store({
     mutations: {
         ethAccount(state, ethAccount) {
             console.log("Setting ethAccount", ethAccount);
-            state.ethAccount = ethAccount;
-            state.threeBoxService.setAccount(ethAccount);
+
+            state.ethAccount = ethers.utils.getAddress(ethAccount);
+            state.ethAccountDotDotDot = dotDotDotAccount(state.ethAccount);
+            state.threeBoxService.setAccount(state.ethAccount);
         },
         squad(state, squad) {
             state.squad = squad;
@@ -78,6 +84,8 @@ export default new Vuex.Store({
             state.cardsApiService.setNetworkId(networkId);
             state.notificationService.setNetworkId(networkId);
             state.blindPackPriceService.setNetworkId(networkId);
+
+            state.networkName = contracts.getNetwork(networkId);
         },
     },
     actions: {

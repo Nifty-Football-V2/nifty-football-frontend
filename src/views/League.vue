@@ -36,9 +36,9 @@
                         'others': $index > 9,
                         'mine': ethAccount === team.owner,
                         }"
-                        :key="$index">
+                    :key="$index">
                     <th>
-                        <span>#{{$index + 1}}</span>
+                        <span>{{$index + 1}}</span>
                     </th>
                     <td>
                         <squad-display-name :account="team.owner"></squad-display-name>
@@ -69,15 +69,15 @@
     </div>
 </template>
 <script>
-    import {mapState} from 'vuex';
+    import { mapState } from 'vuex';
     import Loading from '../components/Loading';
     import PageTitle from '../components/PageTitle';
-    import SquadDisplayName from "../components/SquadDisplayName";
+    import SquadDisplayName from '../components/SquadDisplayName';
 
     export default {
         components: {SquadDisplayName, PageTitle, Loading},
         mixins: [],
-        data() {
+        data () {
             return {
                 rankingsFilter: 'top',
                 topTeams: [],
@@ -95,7 +95,7 @@
             ]),
         },
         methods: {
-            loadTopTeams() {
+            loadTopTeams () {
                 this.loading = true;
                 this.cardsApiService.loadLeagueTable()
                     .then(async (teams) => {
@@ -121,7 +121,7 @@
                 }
             },
         },
-        async created() {
+        async created () {
             this.$store.watch(
                 () => this.cardsApiService.network,
                 () => this.loadTopTeams()

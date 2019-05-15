@@ -35,8 +35,11 @@
             </div>
 
             <div class="mt-4 small text-muted">
-                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> in Manchester, UK<br/>
-                We ❤ Football
+                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> in Manchester, UK<br/><br/>
+            </div>
+
+            <div class="mt-4 smallest text-muted text-right mr-3" v-if="ethAccountDotDotDot && networkName">
+               {{ ethAccountDotDotDot }} on {{ networkName.toUpperCase() }}
             </div>
         </footer>
     </div>
@@ -45,6 +48,7 @@
 <script>
     // import LocaleChanger from './components/LocaleChanger';
     import NiftyFootballHeader from './components/NiftyFootballHeader';
+    import { mapState } from 'vuex';
 
     export default {
         components: {
@@ -54,7 +58,12 @@
         data() {
             return {};
         },
-        computed: {},
+        computed: {
+            ...mapState([
+                'networkName',
+                'ethAccountDotDotDot',
+            ]),
+        },
         created: async function () {
             if (window.location.href.indexOf("__debug") > -1) {
                 // eslint-disable-next-line new-cap,no-new
@@ -131,6 +140,10 @@
 
     code {
         color: $primary;
+    }
+
+    .smallest {
+        font-size: 0.6rem;
     }
 
     .crackerjack {
