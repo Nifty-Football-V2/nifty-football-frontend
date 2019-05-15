@@ -12,8 +12,7 @@
             <div class="row">
                 <div class="col mb-3 text-left">
                     <code>
-                        <strong>{{totalComplete}}</strong> full squads / <strong>{{totalPartial}}</strong> incomplete
-                        squads
+                        <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong> incomplete teams
                     </code>
                 </div>
             </div>
