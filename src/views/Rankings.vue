@@ -69,7 +69,7 @@
         },
         methods: {
             setFilter: function (position) {
-                console.log(position, this.rankingsFilter);
+                // console.log(position, this.rankingsFilter);
                 if (!position) {
                     this.rankingsFilter = position;
                     return;

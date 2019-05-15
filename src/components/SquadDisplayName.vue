@@ -1,6 +1,6 @@
 <template>
     <span>
-        <span :id="'tooltip-' + account">{{ calcSquadName(currentSquadName) }}</span>
+        <span :id="'tooltip-' + account">{{ calcSquadName }}</span>
         <b-tooltip :target="'tooltip-' + account" placement="right" v-if="account !== currentSquadName">
             <strong>{{account}}</strong>
         </b-tooltip>
@@ -23,13 +23,22 @@
             ...mapState([
                 'threeBoxService',
             ]),
-        },
-        methods: {
             calcSquadName() {
                 if (this.currentSquadName) {
                     return dotDotDotAccount(this.currentSquadName);
                 }
+                return "";
             },
+        },
+        watch: {
+            account: function (newVal, oldVal) {
+                if (newVal && newVal !== oldVal) {
+                    this.threeBoxService.getBox3SquadDisplayName(newVal)
+                        .then((name) => {
+                            this.currentSquadName = name;
+                        });
+                }
+            }
         },
         created() {
             if (this.account) {

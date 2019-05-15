@@ -39,8 +39,8 @@ export default class CardsApiService extends BaseApiService {
         return res.data;
     }
 
-    async loadTeam(ethAccount) {
-        console.log(`Load team`, ethAccount);
+    async loadTopTeam(ethAccount) {
+        console.log(`Load top team`, ethAccount);
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/squad/${ethAccount}/top`, AXIOS_CONFIG);
         return res.data;
     }
@@ -57,7 +57,7 @@ export default class CardsApiService extends BaseApiService {
         return res.data;
     }
 
-    async loadTopTeams(limit = 50) {
+    async loadLeagueTable(limit = 50) {
         console.log(`Load top teams`);
         const res = await axios.get(`${this.BASE_API}/network/${this.network}/squad/league?limit=${limit}`, AXIOS_CONFIG);
         return res.data;

@@ -8,12 +8,22 @@
             </div>
         </div>
 
-        <div v-if="!loading && teams && teams.length > 0">
+        <div v-if="!loading && topTeams && topTeams.length > 0">
+
+
             <div class="row">
                 <div class="col mb-3 text-left">
                     <code>
-                        <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong> incomplete teams
+                        <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong> incomplete
+                        teams
                     </code>
+                </div>
+
+                <div class="col mb-3 text-right">
+                    <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'top'}"
+                       @click="setFilter('top')">Top Team</a>
+                    <a href="#" class="nf-link mr-3" :class="{'nf-link-active': rankingsFilter === 'worst'}"
+                       @click="setFilter('worst')">Worst Team</a>
                 </div>
             </div>
 
@@ -27,22 +37,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(team, $index) in teams" :class="{
+                <tr v-for="(team, $index) in selectedTeam" :class="{
                         'leader': $index === 0,
-                        'top-three': $index >0 && $index < 3,
+                        'top-three': $index > 0 && $index < 3,
                         'top-ten': $index >= 3 && $index <= 9,
                         'text-muted': $index > 9,
-                        }">
+                        }"
+                        :key="$index">
                     <th>
-                        <span >#{{$index + 1}}</span>
+                        <span>#{{$index + 1}}</span>
                     </th>
                     <td>
                         <squad-display-name :account="team.owner"></squad-display-name>
                     </td>
                     <td>
-                       <span v-b-tooltip.hover :title="team.teamAverage" placement="right">
-                        {{team.teamAverageFloored}}
+
+                        <span v-b-tooltip.hover :title="team.topTeamAverage" placement="right"
+                              v-if="rankingsFilter === 'top'">
+                        {{team.topTeamAverageFloored}}
                        </span>
+
+                        <span v-b-tooltip.hover :title="team.worstTeamAverage" placement="right"
+                              v-if="rankingsFilter === 'worst'">
+                        {{team.worstTeamAverageFloored}}
+                       </span>
+
                     </td>
                     <td class="text-muted">{{team.teamTotal}}</td>
                 </tr>
@@ -56,15 +75,17 @@
     import {mapState} from 'vuex';
     import Loading from '../components/Loading';
     import PageTitle from '../components/PageTitle';
-    import SquadName from "../components/SquadName";
     import SquadDisplayName from "../components/SquadDisplayName";
 
     export default {
-        components: {SquadDisplayName, SquadName, PageTitle, Loading},
+        components: {SquadDisplayName, PageTitle, Loading},
         mixins: [],
         data() {
             return {
-                teams: [],
+                rankingsFilter: 'top',
+                topTeams: [],
+                worstTeams: [],
+                selectedTeam: [],
                 totalComplete: 0,
                 totalPartial: 0,
                 loading: false
@@ -76,28 +97,41 @@
                 'ethAccount',
             ]),
         },
-        methods: {},
-        async created() {
-            const loadTeams = async () => {
+        methods: {
+            loadTopTeams() {
                 this.loading = true;
-                this.cardsApiService.loadTopTeams()
+                this.cardsApiService.loadLeagueTable()
                     .then(async (teams) => {
-                        this.teams = teams.results.topTeam;
+                        this.topTeams = teams.results.topTeams;
+                        this.worstTeams = teams.results.worstTeams;
                         this.totalComplete = teams.totalComplete;
                         this.totalPartial = teams.totalPartial;
+
+                        // Set default to top teams
+                        this.selectedTeam = this.topTeams;
                     })
                     .finally(() => {
                         this.loading = false;
                     });
-            };
-
+            },
+            setFilter: function (type) {
+                this.rankingsFilter = type;
+                if (type === 'top') {
+                    this.selectedTeam = this.topTeams;
+                }
+                if (type === 'worst') {
+                    this.selectedTeam = this.worstTeams;
+                }
+            },
+        },
+        async created() {
             this.$store.watch(
                 () => this.cardsApiService.network,
-                () => loadTeams()
+                () => this.loadTopTeams()
             );
 
             if (this.cardsApiService.network) {
-                loadTeams();
+                this.loadTopTeams();
             }
         },
     };
