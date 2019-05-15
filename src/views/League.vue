@@ -44,9 +44,22 @@
                         <squad-display-name :account="team.owner"></squad-display-name>
                     </td>
                     <td>
-                        <span v-b-tooltip.hover :title="`Avg. ${team.teamAverage} Total ${team.teamTotal}`" placement="left">
-                        {{team.teamAverageFloored}}
+
+                        <span v-b-tooltip.hover
+                              :title="`Avg. ${team.topTeam.teamAverage} Total ${team.topTeam.teamTotal}`"
+                              placement="right"
+                              v-if="rankingsFilter === 'top'">
+                        {{team.topTeamAverageFloored}}
                        </span>
+
+                        <span v-b-tooltip.hover
+                              :title="`Avg. ${team.worstTeam.teamAverage} Total ${team.worstTeam.teamTotal}`"
+                              placement="right"
+                              v-if="rankingsFilter === 'worst'">
+                        {{team.worstTeamAverageFloored}}
+                       </span>
+
+
                     </td>
                     <!--<td class="text-muted">{{team.teamTotal}}</td>-->
                 </tr>
