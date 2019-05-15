@@ -3,11 +3,21 @@ import {ethers} from 'ethers';
 
 import {abi, contracts} from 'nifty-football-contract-tools';
 
+import {ASSIST_KEY} from '../../utils';
+
 export default class BlindPackContractService {
 
     constructor(networkId, web3) {
         this.networkId = networkId;
-        this.assistInstance = assist.init({ web3, dappId: '8bf348fd-d9df-4b54-b8b1-1ad14d15e4c3', networkId });
+        this.assistInstance = assist.init({ 
+            web3, 
+            dappId: ASSIST_KEY, 
+            networkId,
+            messages: {
+                txPending: () => 'Your new cards are minting...',
+                txConfirmed: () => 'Your cards were minted sucessfully!'
+            }
+        });
         const {address} = contracts.getNiftyFootballBlindPack(networkId);
         const {address: eliteAddress} = contracts.getNiftyFootballEliteBlindPack(networkId);
         const undecContract = new web3.eth.Contract(abi.NiftyFootballTradingCardBlindPackAbi, address);

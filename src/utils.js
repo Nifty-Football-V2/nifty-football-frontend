@@ -1,5 +1,7 @@
 const INFURA_KEY = "6e7a3de11d3745fe8763bab4466ec8de";
 
+const ASSIST_KEY = "8bf348fd-d9df-4b54-b8b1-1ad14d15e4c3"
+
 const API_CONFIG = {
     local: "http://localhost:5000/futbol-cards/us-central1/main/api",
     live: "https://niftyfootball.cards/api"
@@ -44,5 +46,6 @@ export {
     lookupEtherscanAddress,
     dotDotDotAccount,
     AXIOS_CONFIG,
-    INFURA_KEY
+    INFURA_KEY,
+    ASSIST_KEY
 };
