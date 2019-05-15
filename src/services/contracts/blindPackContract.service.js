@@ -38,7 +38,10 @@ export default class BlindPackContractService {
         });
 
         // return promise that resolves once tx is mined
-        return new Promise(resolve => {txPromise.on('confirmation', (undefined, receipt) => resolve(receipt))})
+        return new Promise((resolve, reject) => {
+            txPromise.on('confirmation', (undefined, receipt) => resolve(receipt));
+            txPromise.on('error', (e) => reject(e));
+        });
     }
 
     async buyEliteBlindPack(number) {
@@ -56,7 +59,10 @@ export default class BlindPackContractService {
         });
 
         // return promise that resolves once tx is mined
-        return new Promise(resolve => {txPromise.on('confirmation', (undefined, receipt) => resolve(receipt))})
+        return new Promise((resolve, reject) => {
+            txPromise.on('confirmation', (undefined, receipt) => resolve(receipt))
+            txPromise.on('error', (e) => reject(e));
+        });
     }
 
 
