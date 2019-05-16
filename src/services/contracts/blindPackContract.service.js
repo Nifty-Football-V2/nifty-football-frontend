@@ -1,33 +1,21 @@
-import assist from 'bnc-assist';
 import {ethers} from 'ethers';
 
 import {abi, contracts} from 'nifty-football-contract-tools';
 
-import {ASSIST_KEY} from '../../utils';
+import {decorateContract} from '../assist.service';
 
 export default class BlindPackContractService {
 
-    constructor(networkId, web3) {
+    constructor(networkId, web3, ethAccount) {
         this.networkId = networkId;
-        this.assistInstance = assist.init({ 
-            web3, 
-            dappId: ASSIST_KEY, 
-            networkId,
-            messages: {
-                txPending: () => 'Your new cards are minting...',
-                txConfirmed: () => 'Your cards were minted sucessfully!'
-            }
-        });
+        this.ethAccount = ethAccount;
         const {address} = contracts.getNiftyFootballBlindPack(networkId);
         const {address: eliteAddress} = contracts.getNiftyFootballEliteBlindPack(networkId);
-        const undecContract = new web3.eth.Contract(abi.NiftyFootballTradingCardBlindPackAbi, address);
-        const undecEliteContract = new web3.eth.Contract(abi.NiftyFootballTradingCardEliteBlindPackAbi, eliteAddress);
-        this.contract = this.assistInstance.Contract(undecContract);
-        this.eliteContract = this.assistInstance.Contract(undecEliteContract);
+        this.contract = decorateContract(new web3.eth.Contract(abi.NiftyFootballTradingCardBlindPackAbi, address));
+        this.eliteContract = decorateContract(new web3.eth.Contract(abi.NiftyFootballTradingCardEliteBlindPackAbi, eliteAddress));
     }
 
     async buyBlindPack(number, useCredits = false) {
-
         console.log(`buying regular ${number} using credit ${useCredits}`);
 
         const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
@@ -41,15 +29,15 @@ export default class BlindPackContractService {
 
         // broadcast transaction
         const {txPromise} = await this.contract.methods.buyBatch(number).send({
-            from: window.web3.eth.defaultAccount,
+            from: this.ethAccount,
             // The price (in wei) per unit of gas
-            gasPrice: gasPrice,
-            value: price,
+            gasPrice: gasPrice.toString(),
+            value: price.toString(),
         });
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
-            txPromise.on('confirmation', (undefined, receipt) => resolve(receipt));
+            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
             txPromise.on('error', (e) => reject(e));
         });
     }

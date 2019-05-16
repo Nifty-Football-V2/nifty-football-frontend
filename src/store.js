@@ -13,6 +13,8 @@ import NotificationService from './services/notification.service';
 import ThreeBoxService from './services/api/threeBox.service';
 import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 
+import {initializeAssist} from './services/assist.service';
+
 import {contracts} from 'nifty-football-contract-tools';
 import {dotDotDotAccount} from './utils';
 
@@ -75,7 +77,7 @@ export default new Vuex.Store({
         web3(state, web3) {
             console.log(`Setting web3 for network [${state.networkId}]`, web3);
             state.web3 = web3;
-            state.blindPackService = new BlindPackContractService(state.networkId, web3);
+            state.blindPackService = new BlindPackContractService(state.networkId, web3, state.ethAccount);
 
             state.web3Enabled = true;
         },
@@ -149,9 +151,11 @@ export default new Vuex.Store({
         async bootstrapWeb3({commit, dispatch}) {
             try {
                 console.log("Bootstrapping application", window.ethereum);
-                const web3 = new Web3(window.web3.currentProvider);
                 const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
                 const {chainId, name} = await ethersProvider.getNetwork();
+                const web3 = new Web3(window.ethereum);
+                initializeAssist(web3, {networkId: chainId})
+
                 console.log(`Working on network [${chainId}] [${name}]`);
 
                 commit('networkId', chainId);
