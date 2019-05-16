@@ -49,7 +49,7 @@ export default class BlindPackContractService {
 
         // broadcast transaction
         const {txPromise} = await this.eliteContract.methods.buyBatch(number).send({
-            from: window.web3.eth.defaultAccount,
+            from: this.ethAccount,
             // The price (in wei) per unit of gas
             gasPrice: gasPrice,
             value: totalPrice,
