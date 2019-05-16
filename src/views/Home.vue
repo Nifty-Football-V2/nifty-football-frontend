@@ -33,7 +33,7 @@
             <div class="col-md-4">&nbsp;</div>
         </div>
 
-        <div class="row justify-content-sm-center pb-3 pt-5 pb-5 bg-light">
+        <div class="row justify-content-sm-center pt-5 pb-5 bg-light">
             <div class="col col-md-4">
                 <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
                       name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -46,7 +46,6 @@
                         <div class="header-text-sm mb-2">GET UPDATES</div>
                         <label for="mce-EMAIL" class="sr-only">Email Address</label>
                         <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="you@email.com">
-                        <!--<img src="../assets/join_list.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto mt-3" onclick="document.getElementById('mc-embedded-subscribe-form').submit();"/>-->
                         <b-button variant="secondary" size="lg" class="mt-3" type="submit">Join List</b-button>
                     </div>
 
@@ -61,10 +60,6 @@
 
         <div class="row pb-3 pt-1">
             <div class="col">
-                <!--<router-link to="/buy" class="">-->
-                <!--<img src="../assets/start_collecting.svg" style="max-height: 50px; cursor: pointer;" class="mx-auto"/>-->
-                <!--</router-link>-->
-
                 <p class="mt-5">
                     Join the community on <a href="https://t.me/niftyfootball" target="_blank">telegram</a>
                 </p>
@@ -74,18 +69,21 @@
         <router-link to="/buy" class="btn btn-secondary btn-lg">
             Start Collecting
         </router-link>
+
+        <partners></partners>
     </div>
 </template>
 
 <script>
 
+    import Partners from "../components/Partners";
     export default {
         name: 'home',
         data () {
             return {};
         },
         computed: {},
-        components: {},
+        components: {Partners},
         methods: {},
     };
 </script>

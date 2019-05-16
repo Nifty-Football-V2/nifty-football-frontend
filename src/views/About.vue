@@ -26,7 +26,7 @@
                         <th>Positions</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in regular.positions">
+                    <tr v-for="(value, key) in regular.positions" :key="key">
                         <td>{{key}}</td>
                         <td>{{value}}</td>
                     </tr>
@@ -36,7 +36,7 @@
                         <th>Nationalities</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in regular.nationalities">
+                    <tr v-for="(value, key) in regular.nationalities" :key="key">
                         <td>{{key}}</td>
                         <td>{{value}}</td>
                     </tr>
@@ -46,7 +46,7 @@
                         <th>Colours</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in regular.colours">
+                    <tr v-for="(value, key) in regular.colours" :key="key">
                         <td>{{key}}</td>
                         <td>{{value.percentage}}</td>
                     </tr>
@@ -56,7 +56,7 @@
                         <th>Kits</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in regular.kits">
+                    <tr v-for="(value, key) in regular.kits" :key="key">
                         <td>{{key}}</td>
                         <td>{{value}}</td>
                     </tr>
@@ -77,7 +77,7 @@
                         <th>Positions</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in elite.positions">
+                    <tr v-for="(value, key) in elite.positions" :key="key">
                         <td>{{key}}</td>
                         <td>{{value}}</td>
                     </tr>
@@ -87,7 +87,7 @@
                         <th>Nationalities</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in elite.nationalities">
+                    <tr v-for="(value, key) in elite.nationalities" :key="key">
                         <td>{{key}}</td>
                         <td>{{value}}</td>
                     </tr>
@@ -97,7 +97,7 @@
                         <th>Colours</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in elite.colours">
+                    <tr v-for="(value, key) in elite.colours" :key="key">
                         <td>{{key}}</td>
                         <td>{{value.percentage}}</td>
                     </tr>
@@ -107,7 +107,7 @@
                         <th>Kits</th>
                         <th>%</th>
                     </tr>
-                    <tr v-for="(value, key) in elite.kits">
+                    <tr v-for="(value, key) in elite.kits" :key="key">
                         <td>{{key}}</td>
                         <td>{{value}}</td>
                     </tr>

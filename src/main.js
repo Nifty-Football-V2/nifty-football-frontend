@@ -72,7 +72,6 @@ Vue.filter('toHumanState', function (state) {
     }
 });
 
-/* global web3 */
 Vue.filter('toEth', function (value) {
     if (!value) return '';
     try {

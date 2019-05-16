@@ -2,7 +2,7 @@
     <div id="app">
         <nifty-football-header :route="$router.currentRoute" :meta="$router.currentRoute.meta"></nifty-football-header>
 
-        <router-view class="pb-5"/>
+        <router-view class="pb-3"/>
 
         <vue-snotify></vue-snotify>
 
@@ -13,9 +13,9 @@
             <a href="https://www.instagram.com/niftyfootball/" target="_blank">
                 <font-awesome-icon :icon="['fab', 'instagram']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
-            <!--<a href="https://discord.gg/gcbWFf" target="_blank">-->
-            <!--<font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-primary"/>-->
-            <!--</a>-->
+            <a href="https://discord.gg/zANdfd" target="_blank">
+            <font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-secondary"/>
+            </a>
             <a href="https://t.me/niftyfootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'telegram']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
@@ -23,15 +23,15 @@
                 <font-awesome-icon :icon="['fab', 'medium']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
 
-            <div class="mt-4">
-                <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/"
-                                                      target="_blank">Stanley Chow</a></span>
-            </div>
-
-            <div class="mt-4 small text-muted">
+            <div class="mt-4 text-muted">
                 <router-link to="/activity" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.activity') }}</router-link>
                 <router-link to="/rankings" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.rankings') }}</router-link>
                 <router-link to="/about" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.about') }}</router-link>
+            </div>
+
+            <div class="mt-4 text-muted">
+                <span class="small">Card Design by <a href="http://www.stanleychow.co.uk/"
+                                                      target="_blank">Stanley Chow</a></span>
             </div>
 
             <div class="mt-4 small text-muted">
@@ -49,9 +49,11 @@
     // import LocaleChanger from './components/LocaleChanger';
     import NiftyFootballHeader from './components/NiftyFootballHeader';
     import { mapState } from 'vuex';
+    import Partners from "./components/Partners";
 
     export default {
         components: {
+            Partners,
             NiftyFootballHeader
             // LocaleChanger
         },
