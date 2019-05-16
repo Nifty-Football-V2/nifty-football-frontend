@@ -70,6 +70,7 @@ export default new Vuex.Store({
         provider(state, provider) {
             console.log(`Setting provider for network [${state.networkId}]`, provider);
             state.provider = provider;
+            state.providerSigner = provider.getSigner();
 
             // This needs to not be a etherjs provider...?
             state.threeBoxService.setProvider(window.ethereum);
