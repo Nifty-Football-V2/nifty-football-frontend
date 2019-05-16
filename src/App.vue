@@ -49,11 +49,9 @@
     // import LocaleChanger from './components/LocaleChanger';
     import NiftyFootballHeader from './components/NiftyFootballHeader';
     import { mapState } from 'vuex';
-    import Partners from "./components/Partners";
 
     export default {
         components: {
-            Partners,
             NiftyFootballHeader
             // LocaleChanger
         },

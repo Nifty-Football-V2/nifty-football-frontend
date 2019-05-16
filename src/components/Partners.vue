@@ -1,7 +1,7 @@
 <template>
-    <div class="justify-content-sm-center mt-5 pt-5 pb-5 bg-secondary">
+    <div class="row mt-5 mb-5 pt-5 pb-5 bg-dark">
 
-        <div class="row">
+        <div class="row mx-auto">
             <div class="col pb-4">
                 <page-sub-title text="Partners" variant="orange"></page-sub-title>
             </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="col-6 col-sm p-4">
                 <a href="http://blockrocket.tech" target="_blank">
-                    <img src="../assets/partners/BlockR_black_logo.svg" class="img-fluid" style="max-height: 100px"/>
+                    <img src="../assets/partners/BlockR_WhiteLogo.svg" class="img-fluid" style="max-height: 100px"/>
                 </a>
             </div>
             <div class="col-6 col-sm p-4">

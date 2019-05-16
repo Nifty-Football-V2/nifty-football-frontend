@@ -63,7 +63,6 @@
             loadAccountAndSquad() {
                 this.threeBoxService.getSquadName()
                     .then(({found, name}) => {
-                        console.log(name);
                         this.currentSquadName = name;
                         if (found) {
                             this.form.squadName = name;
