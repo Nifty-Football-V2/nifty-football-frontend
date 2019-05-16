@@ -13,7 +13,8 @@
                 <div class="row">
                     <div class="col mb-3 text-left">
                         <code>
-                            <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong> incomplete
+                            <strong>{{totalComplete}}</strong> full teams / <strong>{{totalPartial}}</strong>
+                            incomplete
                             teams
                         </code>
                     </div>
@@ -28,19 +29,14 @@
 
                 <table class="table table-borderless">
                     <tbody>
-                    <tr v-for="(team, $index) in selectedTeam" :class="{
-                        'leader': $index === 0,
-                        'top-three': $index > 0 && $index < 3,
-                        'top-ten': $index >= 3 && $index <= 9,
-                        'others': $index > 9,
-                        'mine': ethAccount === team.owner,
-                        }"
-                        :key="$index">
+                    <tr v-for="(team, $index) in selectedTeam" :class="buildStyle($index, team)" :key="$index">
                         <th>
                             <span>{{$index + 1}}</span>
                         </th>
                         <td>
-                            <squad-display-name :account="team.owner"></squad-display-name>
+                            <router-link :to="{ name: 'team-share', params: { account: team.owner }}" :class="buildStyle($index, team)">
+                                <squad-display-name :account="team.owner"></squad-display-name>
+                            </router-link>
                         </td>
                         <td>
                         <span v-b-tooltip.hover
@@ -65,7 +61,7 @@
     </div>
 </template>
 <script>
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import Loading from '../components/Loading';
     import PageTitle from '../components/PageTitle';
     import SquadDisplayName from '../components/SquadDisplayName';
@@ -73,7 +69,7 @@
     export default {
         components: {SquadDisplayName, PageTitle, Loading},
         mixins: [],
-        data () {
+        data() {
             return {
                 rankingsFilter: 'top',
                 topTeams: [],
@@ -91,7 +87,7 @@
             ]),
         },
         methods: {
-            loadTopTeams () {
+            loadTopTeams() {
                 this.loading = true;
                 this.cardsApiService.loadLeagueTable()
                     .then(async (teams) => {
@@ -116,8 +112,17 @@
                     this.selectedTeam = this.worstTeams;
                 }
             },
+            buildStyle($index, team) {
+                return {
+                    'leader': $index === 0,
+                    'top-three': $index > 0 && $index < 3,
+                    'top-ten': $index >= 3 && $index <= 9,
+                    'others': $index > 9,
+                    'mine': this.ethAccount === team.owner,
+                };
+            }
         },
-        async created () {
+        async created() {
             this.$store.watch(
                 () => this.cardsApiService.network,
                 () => this.loadTopTeams()
@@ -139,6 +144,14 @@
         font-family: 'CrackerJack', sans-serif;
         letter-spacing: 1px;
         border-bottom: 3px solid $orange;
+
+        a {
+            border-bottom: none;
+        }
+
+        a:hover {
+            color: $orange;
+        }
     }
 
     .top-three {
@@ -147,17 +160,42 @@
         font-family: 'CrackerJack', sans-serif;
         letter-spacing: 1px;
         border-bottom: 2px solid $blue;
+
+        a {
+            border-bottom: none;
+        }
+
+        a:hover {
+            color: $blue;
+        }
     }
 
     .top-ten {
+        color: $black;
         font-size: 1rem;
         border-bottom: 1px solid $black;
+
+        a {
+            border-bottom: none;
+        }
+
+        a:hover {
+            color: $black;
+        }
     }
 
     .others {
         font-size: 1rem;
         color: $gray;
         border-bottom: 1px solid $gray;
+
+        a {
+            border-bottom: none;
+        }
+
+        a:hover {
+            color: $gray;
+        }
     }
 
     .mine {
