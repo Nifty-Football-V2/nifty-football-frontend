@@ -155,7 +155,9 @@ export default new Vuex.Store({
                 const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
                 const {chainId, name} = await ethersProvider.getNetwork();
                 const web3 = new Web3(window.ethereum);
-                initializeAssist(web3, {networkId: chainId})
+
+                // initialize assist library with instantiated web3 and networkId
+                initializeAssist(web3, {networkId: chainId});
 
                 console.log(`Working on network [${chainId}] [${name}]`);
 
