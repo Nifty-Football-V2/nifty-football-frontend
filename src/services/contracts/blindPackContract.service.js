@@ -57,7 +57,7 @@ export default class BlindPackContractService {
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
-            txPromise.on('confirmation', (undefined, receipt) => resolve(receipt))
+            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt))
             txPromise.on('error', (e) => reject(e));
         });
     }
