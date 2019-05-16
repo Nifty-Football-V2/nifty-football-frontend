@@ -2,64 +2,66 @@ import {ethers} from 'ethers';
 
 import {abi, contracts} from 'nifty-football-contract-tools';
 
+import {decorateContract, messages as assistMessages} from '../assist.service';
+
 export default class BlindPackContractService {
 
-    constructor(networkId, providerSigner) {
+    constructor(networkId, web3, ethAccount) {
         this.networkId = networkId;
-        this.providerSigner = providerSigner;
+        this.ethAccount = ethAccount;
         const {address} = contracts.getNiftyFootballBlindPack(networkId);
         const {address: eliteAddress} = contracts.getNiftyFootballEliteBlindPack(networkId);
-        this.contract = new ethers.Contract(address, abi.NiftyFootballTradingCardBlindPackAbi, this.providerSigner);
-        this.eliteContract = new ethers.Contract(eliteAddress, abi.NiftyFootballTradingCardEliteBlindPackAbi, this.providerSigner);
+
+        // decorate the contracts to gain transaction notifications
+        this.contract = decorateContract(new web3.eth.Contract(abi.NiftyFootballTradingCardBlindPackAbi, address));
+        this.eliteContract = decorateContract(new web3.eth.Contract(abi.NiftyFootballTradingCardEliteBlindPackAbi, eliteAddress));
     }
 
     async buyBlindPack(number, useCredits = false) {
-
         console.log(`buying regular ${number} using credit ${useCredits}`);
 
         const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
 
-        const totalPrice = await this.contract.totalPrice(number);
-
-        const gasLimit = await this.contract.estimate.buyBatch(number, {
-            value: totalPrice
-        });
+        const totalPrice = await this.contract.methods.totalPrice(number).call();
 
         // Supply zero value if using credits up
         const price = useCredits
             ? 0
             : totalPrice;
 
-        // wait for tx to be mined
-        return this.contract.buyBatch(number, {
-            // The maximum units of gas for the transaction to use
-            gasLimit: gasLimit.add(500000),
+        // broadcast transaction
+        const {txPromise} = await this.contract.methods.buyBatch(number).send({
+            from: this.ethAccount,
             // The price (in wei) per unit of gas
-            gasPrice: gasPrice,
-            value: price,
-        });
+            gasPrice: gasPrice.toString(),
+            value: price.toString(),
+        }, {messages: assistMessages({isElite: false})});
 
+        // return promise that resolves once tx is mined
+        return new Promise((resolve, reject) => {
+            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
+            txPromise.on('error', (e) => reject(e));
+        });
     }
 
     async buyEliteBlindPack(number) {
-
         const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
 
-        const totalPrice = await this.eliteContract.totalPrice(number);
+        const totalPrice = await this.eliteContract.methods.totalPrice(number).call();
 
-        const gasLimit = await this.eliteContract.estimate.buyBatch(number, {
-            value: totalPrice
-        });
-
-        // wait for tx to be mined
-        return this.eliteContract.buyBatch(number, {
-            // The maximum units of gas for the transaction to use
-            gasLimit: gasLimit.add(500000),
+        // broadcast transaction
+        const {txPromise} = await this.eliteContract.methods.buyBatch(number).send({
+            from: this.ethAccount,
             // The price (in wei) per unit of gas
             gasPrice: gasPrice,
             value: totalPrice,
-        });
+        }, {messages: assistMessages({isElite: true})});
 
+        // return promise that resolves once tx is mined
+        return new Promise((resolve, reject) => {
+            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt))
+            txPromise.on('error', (e) => reject(e));
+        });
     }
 
 
