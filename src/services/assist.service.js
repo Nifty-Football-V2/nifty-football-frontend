@@ -14,12 +14,13 @@ function nCards(contractCall) {
   return contractCall.parameters[0]
 }
 
+// custom messages for transaction notifications
 export const messages = ({isElite}) => ({
   txRequest: () => `Waiting for you to confirm the purchase`,
   txStall: () => `Minting is taking longer than expected...`,
-  txSent: ({contract}) => `Asking the network to mint your new ${isElite ? 'elite' : ''} card${nCards(contract) > 1 ? 's' : ''}`,
-  txPending: ({contract}) => `Minting your new ${isElite ? 'elite' : ''} card${nCards(contract) > 1 ? 's' : ''}...`,
-  txConfirmed: ({contract}) => `Your new ${isElite ? 'elite' : ''} card${nCards(contract) > 1 ? 's have' : ' has'} been minted!`
+  txSent: ({contract}) => `Asking the network to mint your new ${isElite ? 'elite ' : ''}card${nCards(contract) > 1 ? 's' : ''}`,
+  txPending: ({contract}) => `Minting your new ${isElite ? 'elite ' : ''}card${nCards(contract) > 1 ? 's' : ''}...`,
+  txConfirmed: ({contract}) => `Your new ${isElite ? 'elite ' : ''}card${nCards(contract) > 1 ? 's have' : ' has'} been minted!`
 })
 
 // Returns initialized assist object if previously initialized.
