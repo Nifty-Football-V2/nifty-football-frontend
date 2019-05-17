@@ -7,15 +7,9 @@ const API_CONFIG = {
     live: "https://niftyfootball.cards/api"
 };
 
-const getApi = () => {
-    switch (window.location.hostname) {
-        case "localhost":
-        case "127.0.0.1":
-            return API_CONFIG.local;
-        default:
-            return API_CONFIG.live;
-    }
-};
+const live = window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1"
+
+const getApi = () => live ? API_CONFIG.live : API_CONFIG.local 
 
 const AXIOS_CONFIG = {headers: {'Access-Control-Allow-Origin': '*'}};
 
@@ -47,5 +41,6 @@ export {
     dotDotDotAccount,
     AXIOS_CONFIG,
     INFURA_KEY,
-    ASSIST_KEY
+    ASSIST_KEY,
+    live
 };
