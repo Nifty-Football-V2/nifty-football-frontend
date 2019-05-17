@@ -1,24 +1,39 @@
 <template>
-    <div class="justify-content-sm-center mt-5 pt-5 pb-5 bg-secondary">
+    <div class="row justify-content-center mt-5 pt-5 pb-5 bg-light text-center">
+        <div class="col">
 
-        <div class="row">
-            <div class="col pb-4">
-                <page-sub-title text="Supported Wallets" variant="orange"></page-sub-title>
-            </div>
-        </div>
+            <page-sub-title text="Supported Wallets" variant="orange"></page-sub-title>
 
-        <div class="row">
-            <div class="col-6 col-sm p-4">
-                Trust Wallet
-            </div>
-            <div class="col-6 col-sm p-4">
-                IM TOken
-            </div>
-            <div class="col-6 col-sm p-4">
-               Coinbase
-            </div>
-            <div class="col-6 col-sm p-4">
-                Opera Mobile
+            <div class="row">
+                <div class="col-6 col-sm p-4">
+                    <a href="https://trustwallet.com" target="_blank">
+                        <img src="../assets/wallets/trustwallet.png" class="img-fluid primary"
+                             style="max-height: 100px"/>
+                    </a>
+                </div>
+                <div class="col-6 col-sm p-4">
+                    <a href="https://token.im" target="_blank">
+                        <img src="../assets/wallets/imtoken.png" class="img-fluid primary" style="max-height: 100px"/>
+                    </a>
+                </div>
+                <div class="col-6 col-sm p-4">
+                    <a href="https://wallet.coinbase.com/" target="_blank">
+                        <img src="../assets/wallets/coinbasewallet-logomark.png" class="img-fluid primary"
+                             style="max-height: 100px"/>
+                    </a>
+                </div>
+                <div class="col-6 col-sm p-4">
+                    <a href="https://www.opera.com/mobile" target="_blank">
+                        <img src="../assets/wallets/opera_logo_full-color_red_positive_horizontal_rgb.png"
+                             class="img-fluid primary" style="max-height: 75px"/>
+                    </a>
+                </div>
+                <div class="col-6 col-sm p-4">
+                    <a href="https://metamask.io/" target="_blank">
+                        <img src="../assets/wallets/metamask.png"
+                             class="img-fluid primary" style="max-height: 75px"/>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

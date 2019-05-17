@@ -100,11 +100,8 @@ export default new Vuex.Store({
         },
         async lazyLoadWeb3({commit, dispatch, state}) {
             /* global ethereum */
-            if (typeof window.ethereum === 'undefined') {
-                console.log('Looks like you need a Dapp browser to get started.');
-            }
             // enable ethereum
-            else if (!state.ethAccount && window.ethereum) {
+            if (!state.ethAccount && window.ethereum) {
                 console.log('Enabled Web3');
                 ethereum.enable()
                     .catch((reason) => {

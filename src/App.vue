@@ -49,17 +49,14 @@
 
 <script>
     // import LocaleChanger from './components/LocaleChanger';
-    import NiftyFootballHeader from './components/NiftyFootballHeader';
     import { mapState } from 'vuex';
-    import Partners from "./components/Partners";
     import Wallets from "./components/Wallets";
+    import NiftyFootballHeader from "./components/NiftyFootballHeader";
 
     export default {
         components: {
+            NiftyFootballHeader,
             Wallets,
-            Partners,
-            NiftyFootballHeader
-            // LocaleChanger
         },
         data() {
             return {};
