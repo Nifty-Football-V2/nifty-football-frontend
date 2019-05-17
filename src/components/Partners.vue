@@ -1,7 +1,7 @@
 <template>
-    <div class="row mt-5 mb-5 pt-5 pb-5 bg-dark">
+    <div class="row mt-5 mb-5 pt-5 pb-5 bg-dark justify-content-center">
 
-        <div class="row mx-auto">
+        <div class="row">
             <div class="col pb-4">
                 <page-sub-title text="Partners" variant="orange"></page-sub-title>
             </div>
