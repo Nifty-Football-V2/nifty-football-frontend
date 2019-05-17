@@ -40,18 +40,21 @@
                {{ ethAccountDotDotDot }} on {{ networkName.toUpperCase() }}
             </div>
         </footer>
+
+        <wallets></wallets>
     </div>
 </template>
 
 <script>
     // import LocaleChanger from './components/LocaleChanger';
-    import NiftyFootballHeader from './components/NiftyFootballHeader';
     import { mapState } from 'vuex';
+    import Wallets from "./components/Wallets";
+    import NiftyFootballHeader from "./components/NiftyFootballHeader";
 
     export default {
         components: {
-            NiftyFootballHeader
-            // LocaleChanger
+            NiftyFootballHeader,
+            Wallets,
         },
         data() {
             return {};

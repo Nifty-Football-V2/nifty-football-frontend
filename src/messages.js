@@ -27,7 +27,8 @@ export default {
             name: 'Name',
             edit: 'Edit',
             team: 'Team',
-            missing_squad_message: 'You have an empty squad! Buy your first pack?'
+            missing_squad_message: 'You have an empty squad! Buy your first pack?',
+            start_collecting: "Start Collecting"
         },
         message: {
             hello_world: 'hello world'
@@ -36,6 +37,21 @@ export default {
             head_to_head: {
                 short_intro_1: "Battle your players against one another in a game of winner takes all.",
                 short_intro_2: "Select your best players in a head to head match",
+            }
+        },
+        about: {
+            sub_heading: "Welcome to Nifty Football, an Ethereum powered football collectibles game, with provably scarce digital trading cards available to purchase.",
+            regular: {
+                heading: "Regular packs will contain the all core attributes and traits."
+            },
+            elite: {
+                heading: "Elite packs will contain different and extra possibilities than regular packs."
+            },
+            stats: {
+                positions: "Positions",
+                nationalities: "Nationalities",
+                colours: "Colours",
+                kits: "Kits",
             }
         }
     },
