@@ -24,13 +24,16 @@
                 </router-link>
             </div>
         </div>
+        <network-web3-banner v-if="meta && meta.web3Required"></network-web3-banner>
     </header>
 </template>
 
 <script>
+    import NetworkWeb3Banner from "./NetworkWeb3Banner";
 
     export default {
         name: 'nifty-football-header',
+        components: {NetworkWeb3Banner},
         props: ['route', 'meta'],
     };
 </script>
