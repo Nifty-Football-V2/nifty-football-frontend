@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mt-0" v-if="!web3Enabled" v-cloak>
+    <div class="container-fluid mt-0" v-if="showInstallMMBanner" v-cloak>
         <div class="row no-metamask text-left">
             <div class="col-2 mt-2 mb-2">
                 <img src="../assets/metamask.png" style="max-height: 35px" class="mr-3"/>
@@ -23,7 +23,7 @@
         computed: {
             ...mapState([
                 'networkId',
-                'web3Enabled',
+                'showInstallMMBanner',
             ])
         },
         components: {},
