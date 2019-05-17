@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-6 col-sm p-4">
                 <a href="https://www.brewdog.com/" target="_blank">
-                    <img src="../assets/partners/BD_Logo_Full_Smooth_Black-1492x2093-3dee766.svg" class="img-fluid"
+                    <img src="../assets/partners/BD_Logo_Full_Smooth_White.png" class="img-fluid"
                          style="max-height: 100px"/>
                 </a>
             </div>
