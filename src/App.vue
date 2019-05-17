@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    // import LocaleChanger from './components/LocaleChanger';
+    import LocaleChanger from './components/LocaleChanger';
     import { mapState } from 'vuex';
     import Wallets from "./components/Wallets";
     import NiftyFootballHeader from "./components/NiftyFootballHeader";

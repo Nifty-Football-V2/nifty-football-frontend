@@ -53,7 +53,34 @@ export default {
                 colours: "Colours",
                 kits: "Kits",
             }
+        },
+        activity: {
+            title: "Activity",
+            last_players: "Last {limit} players"
+        },
+        buy: {
+            title: "Buy Packs",
+            no_players: "Add more cards to your squad?",
+            card_single: "1 Card",
+            card_multiple: "{count} Cards",
+            pack_single: "1 Pack",
+            purchase: "Purchase",
+            pack_multiple: "{count} Packs",
+            pack_distribution: "Full distribution",
+            elite: {
+                nationalities: "4 Nationalities",
+                kits: "22 Kits",
+                colourways: "22 Colourways",
+                attributes: "Genesis Attributes",
+            },
+            regular: {
+                nationalities: "+2 Nationalities",
+                kits: "+8 Kits",
+                colourways: "+8 Colourways",
+                attributes: "10% Attribute Boost",
+            }
         }
+
     },
     // ja: {
     //     nav: {

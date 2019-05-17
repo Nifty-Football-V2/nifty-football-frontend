@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid mt-3">
-        <page-title text="Activity"></page-title>
+        <page-title :text="$tc('activity.title')"></page-title>
 
         <div class="row pb-4 text-center" v-if="loading">
             <div class="col mb-5 text-primary">
@@ -11,7 +11,7 @@
         <div v-if="!loading && activity && activity.length > 0">
             <div class="row">
                 <div class="col mb-3 text-left">
-                    <code>Last {{limit}} players</code>
+                    <code>{{ $tc('activity.last_players', 0, { limit }) }}</code>
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
 </template>
 <script>
     import Vue2Filters from 'vue2-filters';
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex';
     import Loading from '../components/Loading';
     import Card from '../components/Card';
     import PageTitle from '../components/PageTitle';
@@ -41,7 +41,7 @@
     export default {
         components: {TenMinWarning, PageTitle, Card, Loading},
         mixins: [Vue2Filters.mixin],
-        data () {
+        data() {
             return {
                 activity: [],
                 limit: 11,
@@ -55,21 +55,21 @@
             ]),
         },
         methods: {
-            setOrder (field) {
+            setOrder(field) {
                 return this.order ? this.order = field : this.order;
             },
-            isMine (owner) {
+            isMine(owner) {
                 if (!this.ethAccount) return false;
 
                 return owner.toUpperCase() === this.ethAccount.toUpperCase();
             },
-            countMyCards () {
+            countMyCards() {
                 if (!this.ethAccount && !this.activity) return 0;
 
                 return this.activity.filter(ranking => ranking.owner.toUpperCase() === this.ethAccount.toUpperCase()).length;
             }
         },
-        async created () {
+        async created() {
             const loadActivity = async () => {
                 this.loading = true;
                 this.cardsApiService.loadLatestCards(this.limit)

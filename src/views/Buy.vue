@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container-fluid mt-3">
-            <page-title text="Buy Packs" @click="setState('idle')"></page-title>
+            <page-title :text="$tc('buy.title')" @click="setState('idle')"></page-title>
 
             <div class="row pb-4 text-center"
                  v-if="!pricesSet || buyState === 'mining' || (buyState === 'confirmed' && cards && cards.length === 0)">
@@ -18,7 +18,7 @@
 
             <div class="row pb-4 text-center" v-show="cards && cards.length > 0 && buyState === 'confirmed'">
                 <div class="col">
-                    <a href="#" @click="setState('idle')" class="nf-link">Add more cards to your squad?</a>
+                    <a href="#" @click="setState('idle')" class="nf-link">{{$tc('buy.no_players')}}</a>
                 </div>
             </div>
 
@@ -32,22 +32,22 @@
 
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">1 Card</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-1')" :class="{'buy-button-active': packType === 'reg-1'}">{{$tc('buy.card_single')}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-3')" :class="{'buy-button-active': packType === 'reg-3'}">1 Pack</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-3')" :class="{'buy-button-active': packType === 'reg-3'}">{{$tc('buy.pack_single')}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-6')" :class="{'buy-button-active': packType === 'reg-6'}">2 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-6')" :class="{'buy-button-active': packType === 'reg-6'}">{{$tc('buy.pack_multiple', 0, {count: 2})}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('reg-9')" :class="{'buy-button-active': packType === 'reg-9'}">3 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('reg-9')" :class="{'buy-button-active': packType === 'reg-9'}">{{$tc('buy.pack_multiple', 0, {count: 3})}}</div>
                                     <div class="col"></div>
                                 </div>
 
@@ -67,7 +67,7 @@
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('elite') || (accountCredits > 0 && selectedNum() > accountCredits)" @click="buyCard()">{{$tc('buy.purchase')}}</button>
 
                                 <div class="row mt-2" v-if="accountCredits > 0">
                                     <div class="col"></div>
@@ -77,11 +77,11 @@
 
                                 <hr/>
                                 <div class="text-left">
-                                    <span class="text-purple-lg">4 Nationalities</span><br/>
-                                    <span class="text-orange-lg">22 Kits</span><br/>
-                                    <span class="text-blue-lg">22 Colourways</span><br/>
-                                    <span class="text-lime-lg">Genesis Attributes</span><br/>
-                                    <router-link to="/about" class="small text-muted">Full distribution</router-link>
+                                    <span class="text-purple-lg">{{$tc('buy.regular.nationalities')}}</span><br/>
+                                    <span class="text-orange-lg">{{$tc('buy.regular.kits')}}</span><br/>
+                                    <span class="text-blue-lg">{{$tc('buy.regular.colourways')}}</span><br/>
+                                    <span class="text-lime-lg">{{$tc('buy.regular.attributes')}}</span><br/>
+                                    <router-link to="/about" class="small text-muted">{{$tc('buy.pack_distribution')}}</router-link>
                                 </div>
                             </div>
                         </div>
@@ -93,22 +93,22 @@
 
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-3')" :class="{'buy-button-active': packType === 'elite-3'}">1 Pack</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-3')" :class="{'buy-button-active': packType === 'elite-3'}">{{$tc('buy.pack_single')}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-6')" :class="{'buy-button-active': packType === 'elite-6'}">2 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-6')" :class="{'buy-button-active': packType === 'elite-6'}">{{$tc('buy.pack_multiple', 0, {count: 1})}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-9')" :class="{'buy-button-active': packType === 'elite-9'}">3 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-9')" :class="{'buy-button-active': packType === 'elite-9'}">{{$tc('buy.pack_multiple', 0, {count: 3})}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-12')" :class="{'buy-button-active': packType === 'elite-12'}">4 Packs</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-12')" :class="{'buy-button-active': packType === 'elite-12'}">{{$tc('buy.pack_multiple', 0, {count: 4})}}</div>
                                     <div class="col"></div>
                                 </div>
 
@@ -125,15 +125,15 @@
                                     <div class="col-2"></div>
                                 </div>
 
-                                <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('reg')" @click="buyCard()">Purchase</button>
+                                <button class="btn btn-secondary mt-3" :disabled="!ethAccount || packType.startsWith('reg')" @click="buyCard()">{{$tc('buy.purchase')}}</button>
 
                                 <hr/>
                                 <div class="text-left">
-                                    <span class="text-purple-lg">+2 Nationalities</span><br/>
-                                    <span class="text-orange-lg">+8 Kits</span><br/>
-                                    <span class="text-blue-lg">+8 Colourways</span><br/>
-                                    <span class="text-lime-lg">10% Attribute Boost</span><br/>
-                                    <router-link to="/about" class="small text-muted">Full distribution</router-link>
+                                    <span class="text-purple-lg">{{$tc('buy.regular.nationalities')}}</span><br/>
+                                    <span class="text-orange-lg">{{$tc('buy.regular.kits')}}</span><br/>
+                                    <span class="text-blue-lg">{{$tc('buy.regular.colourways')}}</span><br/>
+                                    <span class="text-lime-lg">{{$tc('buy.regular.attributes')}}</span><br/>
+                                    <router-link to="/about" class="small text-muted">{{$tc('buy.pack_distribution')}}</router-link>
                                 </div>
                             </div>
                         </div>
