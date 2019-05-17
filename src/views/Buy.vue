@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="row m-2">
                                     <div class="col"></div>
-                                    <div class="col-8 buy-button" @click="setPackType('elite-6')" :class="{'buy-button-active': packType === 'elite-6'}">{{$tc('buy.pack_multiple', 0, {count: 1})}}</div>
+                                    <div class="col-8 buy-button" @click="setPackType('elite-6')" :class="{'buy-button-active': packType === 'elite-6'}">{{$tc('buy.pack_multiple', 0, {count: 2})}}</div>
                                     <div class="col"></div>
                                 </div>
                                 <div class="row m-2">
