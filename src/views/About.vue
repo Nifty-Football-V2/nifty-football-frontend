@@ -117,7 +117,7 @@
         <div class="row mb-4">
             <div class="col text-center">
                 <router-link to="/buy" class="btn btn-secondary btn-lg">
-                    {{$t('about.common.start_collecting')}}
+                    {{$t('common.start_collecting')}}
                 </router-link>
             </div>
         </div>
