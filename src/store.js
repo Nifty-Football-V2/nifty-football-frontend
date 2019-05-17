@@ -15,7 +15,7 @@ import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 import {initializeAssist, onboardUser} from './services/assist.service';
 
 import {contracts} from 'nifty-football-contract-tools';
-import {dotDotDotAccount, live, lookupEtherscanAddress} from './utils';
+import {dotDotDotAccount, lookupEtherscanAddress} from './utils';
 
 Vue.use(Vuex);
 
@@ -120,10 +120,9 @@ export default new Vuex.Store({
                     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
                     web3 = null
                 }
-                const {chainId, name} = await ethersProvider.getNetwork();
                 // initialize assist
                 // if in production onboard users to mainnet 
-                initializeAssist(web3, {networkId: live ? 1 : chainId});
+                initializeAssist(web3);
                 // full state object returned by assist: https://github.com/blocknative/assist#state
                 let state;
                 try {
@@ -142,6 +141,7 @@ export default new Vuex.Store({
                 console.log(`Account`, state.accountAddress);
                 commit('ethAccount', state.accountAddress);
 
+                const {chainId, name} = await ethersProvider.getNetwork();
                 console.log(`Working on network [${chainId}] [${name}]`);
 
                 commit('networkId', chainId);

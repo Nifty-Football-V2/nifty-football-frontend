@@ -9,6 +9,9 @@ const API_CONFIG = {
 
 const live = window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1"
 
+// if live use mainnet, otherwise use rinkeby
+const NETWORK_ID = live ? 1 : 4;
+
 const getApi = () => live ? API_CONFIG.live : API_CONFIG.local 
 
 const AXIOS_CONFIG = {headers: {'Access-Control-Allow-Origin': '*'}};
@@ -42,5 +45,5 @@ export {
     AXIOS_CONFIG,
     INFURA_KEY,
     ASSIST_KEY,
-    live
+    NETWORK_ID
 };

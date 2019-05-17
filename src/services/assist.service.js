@@ -1,5 +1,5 @@
 import bnc from 'bnc-assist'
-import {ASSIST_KEY} from '../utils';
+import {ASSIST_KEY, NETWORK_ID} from '../utils';
 
 let initializedAssist
 
@@ -29,7 +29,7 @@ export function getAssist(web3, options) {
   if (!initializedAssist) {
     initializedAssist = bnc.init(
       {
-        networkId: 1,
+        networkId: NETWORK_ID,
         dappId: ASSIST_KEY, // from https://accounts.blocknative.com
         web3,
         ...options
