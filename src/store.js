@@ -4,8 +4,8 @@ import {ethers} from 'ethers';
 import Web3 from 'web3'
 // import createLogger from 'vuex/dist/logger';
 
+import router from './router';
 import CardsApiService from './services/api/cardsApi.service';
-import {lookupEtherscanAddress} from './utils';
 
 import BlindPackContractService from './services/contracts/blindPackContract.service';
 import NotificationService from './services/notification.service';
@@ -13,10 +13,10 @@ import NotificationService from './services/notification.service';
 import ThreeBoxService from './services/api/threeBox.service';
 import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
 
-import {initializeAssist} from './services/assist.service';
+import {initializeAssist, onboardUser} from './services/assist.service';
 
 import {contracts} from 'nifty-football-contract-tools';
-import {dotDotDotAccount} from './utils';
+import {dotDotDotAccount, live, lookupEtherscanAddress} from './utils';
 
 Vue.use(Vuex);
 
@@ -94,6 +94,12 @@ export default new Vuex.Store({
         },
     },
     actions: {
+        loadAssist(undefined, {web3 = null, networkId = 1}) {
+            // if in production onboard the user to mainnet 
+            // if in local env set networkId to whatever metamask is set to
+            initializeAssist(web3, {networkId: live ? 1 : networkId});
+            onboardUser();
+        },
         async bootstrapApp({commit, dispatch}) {
             dispatch('loadFlags');
             commit('etherscanUrl', lookupEtherscanAddress(1));
@@ -144,6 +150,8 @@ export default new Vuex.Store({
             // Non-dapp browsers...
             else {
                 console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+                // if on the buy page, dispatch loadAssist which will onboard the user
+                if (router.currentRoute.name === 'buy') dispatch('loadAssist', {})
             }
         },
         async bootstrapWeb3({commit, dispatch}) {
@@ -152,9 +160,9 @@ export default new Vuex.Store({
                 const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
                 const {chainId, name} = await ethersProvider.getNetwork();
                 const web3 = new Web3(window.ethereum);
-
-                // initialize assist library with instantiated web3 and networkId
-                initializeAssist(web3, {networkId: chainId});
+                // if on the buy page, dispatch loadAssist which will onboard the user
+                // and setup notifications
+                if (router.currentRoute.name === 'buy') dispatch('loadAssist', {web3, networkId: chainId})
 
                 console.log(`Working on network [${chainId}] [${name}]`);
 
