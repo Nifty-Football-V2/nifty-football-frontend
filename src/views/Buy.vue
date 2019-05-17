@@ -256,7 +256,7 @@
                 () => this.loadCreditsForAccount()
             );
 
-            this.$store.dispatch('lazyLoadWeb3');
+            this.$store.dispatch('bootstrapWeb3');
         }
     };
 </script>
