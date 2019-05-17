@@ -68,16 +68,16 @@ export default {
             pack_multiple: "{count} Packs",
             pack_distribution: "Full distribution",
             elite: {
-                nationalities: "4 Nationalities",
-                kits: "22 Kits",
-                colourways: "22 Colourways",
-                attributes: "Genesis Attributes",
-            },
-            regular: {
                 nationalities: "+2 Nationalities",
                 kits: "+8 Kits",
                 colourways: "+8 Colourways",
                 attributes: "10% Attribute Boost",
+            },
+            regular: {
+                nationalities: "4 Nationalities",
+                kits: "22 Kits",
+                colourways: "22 Colourways",
+                attributes: "Genesis Attributes",
             }
         }
 
