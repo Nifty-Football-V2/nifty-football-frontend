@@ -42,6 +42,8 @@
         </footer>
 
         <wallets></wallets>
+
+<!--        <locale-changer></locale-changer>-->
     </div>
 </template>
 
@@ -54,6 +56,7 @@
     export default {
         components: {
             NiftyFootballHeader,
+            LocaleChanger,
             Wallets,
         },
         data() {

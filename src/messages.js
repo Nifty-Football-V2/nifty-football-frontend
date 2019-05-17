@@ -12,6 +12,7 @@ export default {
             activity: 'Activity',
             league: 'League',
             head2head: 'Head 2 Head Battles',
+            terms: 'Terms',
         },
         common: {
             nifty_football: 'Nifty Football',
@@ -28,7 +29,12 @@ export default {
             edit: 'Edit',
             team: 'Team',
             missing_squad_message: 'You have an empty squad! Buy your first pack?',
-            start_collecting: "Start Collecting"
+            start_collecting: "Start Collecting",
+            email_address: "Email Address",
+            join_list: "Join List",
+            join_the_community: "Join the community on <a href=\"https://t.me/niftyfootball\" target=\"_blank\">telegram</a>",
+            add_team_name: "Add Team Name",
+            cancel: "cancel"
         },
         message: {
             hello_world: 'hello world'
@@ -38,6 +44,12 @@ export default {
                 short_intro_1: "Battle your players against one another in a game of winner takes all.",
                 short_intro_2: "Select your best players in a head to head match",
             }
+        },
+        home: {
+            header_title: "FOOTBALL<br/>TRADING CARDS",
+            sub_heading: "COLLECT. TRADE. PLAY.",
+            build_a_team: "BUILD A TEAM",
+            get_updates: "GET UPDATES",
         },
         about: {
             sub_heading: "Welcome to Nifty Football, an Ethereum powered football collectibles game, with provably scarce digital trading cards available to purchase.",
@@ -79,7 +91,7 @@ export default {
                 colourways: "22 Colourways",
                 attributes: "Genesis Attributes",
             }
-        }
+        },
 
     },
     // ja: {
