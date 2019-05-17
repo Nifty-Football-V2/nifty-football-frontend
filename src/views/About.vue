@@ -7,15 +7,14 @@
         </div>
         <div class="row mb-4 pb-4">
             <div class="col text-left">
-                Welcome to Nifty Football, an Ethereum powered football collectibles game, with provably scarce digital
-                trading cards available to purchase.
+                {{$t('about.sub_heading')}}
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-12 col-sm-6 text-left">
                 <page-sub-title text="Regular" variant="orange"></page-sub-title>
 
-                <p>Regular packs will contain the all core attributes and traits.</p>
+                <p>{{$t('about.regular.heading')}}</p>
 
                 <loading v-if="loading"></loading>
 
@@ -23,7 +22,7 @@
                     <tbody>
                     <!-- Positions -->
                     <tr>
-                        <th>Positions</th>
+                        <th>{{$t('about.stats.positions')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in regular.positions" :key="key">
@@ -33,7 +32,7 @@
 
                     <!-- Nationalities -->
                     <tr>
-                        <th>Nationalities</th>
+                        <th>{{$t('about.stats.nationalities')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in regular.nationalities" :key="key">
@@ -43,7 +42,7 @@
 
                     <!-- COLOURS -->
                     <tr>
-                        <th>Colours</th>
+                        <th>{{$t('about.stats.colours')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in regular.colours" :key="key">
@@ -53,7 +52,7 @@
 
                     <!-- Kits -->
                     <tr>
-                        <th>Kits</th>
+                        <th>{{$t('about.stats.kits')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in regular.kits" :key="key">
@@ -66,7 +65,7 @@
             <div class="col-12 col-sm-6 text-left">
                 <page-sub-title text="Elite" variant="blue"></page-sub-title>
 
-                <p>Elite packs will contain different and extra possibilities than regular packs.</p>
+                <p>{{$t('about.elite.heading')}}</p>
 
                 <loading v-if="loading"></loading>
 
@@ -74,7 +73,7 @@
                     <tbody>
                     <!-- Positions -->
                     <tr>
-                        <th>Positions</th>
+                        <th>{{$t('about.stats.positions')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in elite.positions" :key="key">
@@ -84,7 +83,7 @@
 
                     <!-- Nationalities -->
                     <tr>
-                        <th>Nationalities</th>
+                        <th>{{$t('about.stats.nationalities')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in elite.nationalities" :key="key">
@@ -94,7 +93,7 @@
 
                     <!-- COLOURS -->
                     <tr>
-                        <th>Colours</th>
+                        <th>{{$t('about.stats.colours')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in elite.colours" :key="key">
@@ -104,7 +103,7 @@
 
                     <!-- Kits -->
                     <tr>
-                        <th>Kits</th>
+                        <th>{{$t('about.stats.kits')}}</th>
                         <th>%</th>
                     </tr>
                     <tr v-for="(value, key) in elite.kits" :key="key">
@@ -118,7 +117,7 @@
         <div class="row mb-4">
             <div class="col text-center">
                 <router-link to="/buy" class="btn btn-secondary btn-lg">
-                    Start Collecting
+                    {{$t('common.start_collecting')}}
                 </router-link>
             </div>
         </div>
