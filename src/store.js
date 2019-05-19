@@ -152,9 +152,10 @@ export default new Vuex.Store({
         async bootstrapWeb3({commit, dispatch}) {
             try {
                 console.log("Bootstrapping application", window.ethereum);
-                const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+                const web3Provider = window.ethereum || window.web3 && window.web3.currentProvider
+                const ethersProvider = new ethers.providers.Web3Provider(web3Provider);
                 const {chainId, name} = await ethersProvider.getNetwork();
-                const web3 = new Web3(window.ethereum);
+                const web3 = new Web3(web3Provider);
 
                 // initialize assist library with instantiated web3 and networkId
                 initializeAssist(web3, {networkId: chainId});

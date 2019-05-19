@@ -2,7 +2,7 @@ import {ethers} from 'ethers';
 
 import {abi, contracts} from 'nifty-football-contract-tools';
 
-import {decorateContract, messages as assistMessages} from '../assist.service';
+import {decorateContract} from '../assist.service';
 
 export default class BlindPackContractService {
 
@@ -30,17 +30,21 @@ export default class BlindPackContractService {
             : totalPrice;
 
         // broadcast transaction
-        const {txPromise} = await this.contract.methods.buyBatch(number).send({
+        const result = await this.contract.methods.buyBatch(number).send({
             from: this.ethAccount,
             // The price (in wei) per unit of gas
             gasPrice: gasPrice.toString(),
             value: price.toString(),
-        }, {messages: assistMessages({isElite: false})});
+        });
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
-            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
-            txPromise.on('error', (e) => reject(e));
+            if (result.txPromise) {
+                result.txPromise.once('confirmation', (confirms, receipt) => resolve(receipt));
+                result.txPromise.on('error', (e) => reject(e));
+            } else {
+                resolve(result)
+            }
         });
     }
 
@@ -55,7 +59,7 @@ export default class BlindPackContractService {
             // The price (in wei) per unit of gas
             gasPrice: gasPrice,
             value: totalPrice,
-        }, {messages: assistMessages({isElite: true})});
+        });
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
