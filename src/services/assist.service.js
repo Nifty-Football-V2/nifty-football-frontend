@@ -1,5 +1,5 @@
 import bnc from 'bnc-assist'
-import {ASSIST_KEY} from '../utils';
+import { ASSIST_KEY } from '../utils';
 
 let initializedAssist
 
@@ -14,15 +14,6 @@ function nCards(contractCall) {
   return contractCall.parameters[0]
 }
 
-// custom messages for transaction notifications
-export const messages = ({isElite}) => ({
-  txRequest: () => `Waiting for you to confirm the purchase`,
-  txStall: () => `Minting is taking longer than expected...`,
-  txSent: ({contract}) => `Asking the network to mint your new ${isElite ? 'elite ' : ''}card${nCards(contract) > 1 ? 's' : ''}`,
-  txPending: ({contract}) => `Minting your new ${isElite ? 'elite ' : ''}card${nCards(contract) > 1 ? 's' : ''}...`,
-  txConfirmed: ({contract}) => `Your new ${isElite ? 'elite ' : ''}card${nCards(contract) > 1 ? 's have' : ' has'} been minted!`
-})
-
 // Returns initialized assist object if previously initialized.
 // Otherwise will initialize assist with the config object
 export function getAssist(web3, options) {
@@ -32,6 +23,13 @@ export function getAssist(web3, options) {
         networkId: 1,
         dappId: ASSIST_KEY, // from https://accounts.blocknative.com
         web3,
+        messages: {
+          txRequest: () => `Waiting for you to confirm the purchase`,
+          txStall: () => `Minting is taking longer than expected...`,
+          txSent: ({contract}) => `Asking the network to mint your new card${nCards(contract) > 1 ? 's' : ''}`,
+          txPending: ({contract}) => `Minting your new card${nCards(contract) > 1 ? 's' : ''}...`,
+          txConfirmed: ({contract}) => `Your new card${nCards(contract) > 1 ? 's have' : ' has'} been minted!`
+        },
         ...options
       }
     )
