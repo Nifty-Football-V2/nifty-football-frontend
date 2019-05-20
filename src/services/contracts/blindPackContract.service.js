@@ -1,5 +1,3 @@
-import {ethers} from 'ethers';
-
 import {abi, contracts} from 'nifty-football-contract-tools';
 
 import {decorateContract} from '../assist.service';
@@ -20,8 +18,6 @@ export default class BlindPackContractService {
     async buyBlindPack(number, useCredits = false) {
         console.log(`buying regular ${number} using credit ${useCredits}`);
 
-        const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
-
         const totalPrice = await this.contract.methods.totalPrice(number).call();
 
         // Supply zero value if using credits up
@@ -32,8 +28,6 @@ export default class BlindPackContractService {
         // broadcast transaction
         const result = await this.contract.methods.buyBatch(number).send({
             from: this.ethAccount,
-            // The price (in wei) per unit of gas
-            gasPrice: gasPrice.toString(),
             value: price.toString(),
         });
 
@@ -49,15 +43,11 @@ export default class BlindPackContractService {
     }
 
     async buyEliteBlindPack(number) {
-        const gasPrice = await ethers.getDefaultProvider(this.getNetworkString(this.networkId)).getGasPrice();
-
         const totalPrice = await this.eliteContract.methods.totalPrice(number).call();
 
         // broadcast transaction
         const result = await this.eliteContract.methods.buyBatch(number).send({
             from: this.ethAccount,
-            // The price (in wei) per unit of gas
-            gasPrice: gasPrice,
             value: totalPrice,
         });
 
