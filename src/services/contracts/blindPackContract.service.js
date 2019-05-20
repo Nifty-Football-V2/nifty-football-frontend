@@ -40,10 +40,10 @@ export default class BlindPackContractService {
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
             if (result.txPromise) {
-                result.txPromise.once('confirmation', (confirms, receipt) => resolve(receipt));
+                result.txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
                 result.txPromise.on('error', (e) => reject(e));
             } else {
-                resolve(result)
+                resolve(result);
             }
         });
     }
@@ -54,7 +54,7 @@ export default class BlindPackContractService {
         const totalPrice = await this.eliteContract.methods.totalPrice(number).call();
 
         // broadcast transaction
-        const {txPromise} = await this.eliteContract.methods.buyBatch(number).send({
+        const result = await this.eliteContract.methods.buyBatch(number).send({
             from: this.ethAccount,
             // The price (in wei) per unit of gas
             gasPrice: gasPrice,
@@ -63,8 +63,12 @@ export default class BlindPackContractService {
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
-            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt))
-            txPromise.on('error', (e) => reject(e));
+            if (result.txPromise) {
+                result.txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
+                result.txPromise.on('error', (e) => reject(e));
+            } else {
+                resolve(result);
+            }
         });
     }
 
