@@ -145,7 +145,6 @@ export default new Vuex.Store({
 
                 commit('networkId', userCurrentNetworkId);
                 commit('etherscanUrl', lookupEtherscanAddress(userCurrentNetworkId));
-                // commit('provider', ethersProvider);
                 commit('web3', web3);
                 commit('mobileDevice', mobileDevice)
 
