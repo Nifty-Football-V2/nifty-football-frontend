@@ -101,11 +101,16 @@ export default new Vuex.Store({
             try {
                 let ethersProvider
                 let web3
+                const web3Provider = window.ethereum || window.web3 && window.web3.currentProvider
+
+                // initialize assist library with instantiated web3 and networkId
+                initializeAssist(web3, {networkId: chainId});
+
                 // create a web3 ethers instance
                 if (window.ethereum) {
                     console.log('Modern web3');
-                    web3 = new Web3(window.ethereum);
-                    ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+                    web3 = new Web3(web3Provider);
+                    ethersProvider = new ethers.providers.Web3Provider(web3Provider);
                     // Reload the account logic if we see a change
                     window.ethereum.on('accountsChanged', (accounts) => {
                         console.log('accountsChanged', accounts);
@@ -114,8 +119,8 @@ export default new Vuex.Store({
                     });
                 } else if (window.web3) {
                     console.log('Legacy web3');
-                    web3 = new Web3(window.web3.currentProvider);
-                    ethersProvider = new ethers.providers.Web3Provider(window.web3.currentProvider);
+                    web3 = new Web3(web3Provider);
+                    ethersProvider = new ethers.providers.Web3Provider(web3Provider);
                 } else {
                     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
                     web3 = null

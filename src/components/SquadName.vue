@@ -14,8 +14,8 @@
                     placeholder="Squad Name"
                     v-model="form.squadName"
                     :disabled="form.saving"></b-form-input>
-            <b-button @click="onSaveSquad" variant="secondary" class="mr-2" :disabled="form.saving">Add Team Name</b-button>
-            <b-button type="reset" variant="default" :disabled="form.saving">cancel</b-button>
+            <b-button @click="onSaveSquad" variant="secondary" class="mr-2" :disabled="form.saving">{{$tc('common.add_team_name')}}</b-button>
+            <b-button type="reset" variant="default" :disabled="form.saving">{{$tc('common.cancel')}}</b-button>
         </b-form>
     </div>
 </template>
