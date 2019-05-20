@@ -11,7 +11,6 @@ export default {
             team: 'Team',
             activity: 'Activity',
             league: 'League',
-            head2head: 'Head 2 Head Battles',
             terms: 'Terms',
         },
         common: {
@@ -20,7 +19,6 @@ export default {
             buy: 'Buy',
             loading: 'Loading',
             play: 'Play',
-            head_to_head: 'Head to Head',
             sort_by: 'Sort by',
             position: 'Position',
             rating: 'Rating',
@@ -36,18 +34,8 @@ export default {
             add_team_name: "Add Team Name",
             cancel: "cancel"
         },
-        message: {
-            hello_world: 'hello world'
-        },
-        games: {
-            head_to_head: {
-                short_intro_1: "Battle your players against one another in a game of winner takes all.",
-                short_intro_2: "Select your best players in a head to head match",
-            }
-        },
         home: {
             header_title: "FOOTBALL<br/>TRADING CARDS",
-            sub_heading: "COLLECT. TRADE. PLAY.",
             build_a_team: "BUILD A TEAM",
             get_updates: "GET UPDATES",
         },

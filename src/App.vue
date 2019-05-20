@@ -41,8 +41,6 @@
             </div>
         </footer>
 
-        <wallets></wallets>
-
 <!--        <locale-changer></locale-changer>-->
     </div>
 </template>
