@@ -103,9 +103,6 @@ export default new Vuex.Store({
                 let web3
                 const web3Provider = window.ethereum || window.web3 && window.web3.currentProvider
 
-                // initialize assist library with instantiated web3 and networkId
-                initializeAssist(web3, {networkId: chainId});
-
                 // create a web3 ethers instance
                 if (window.ethereum) {
                     console.log('Modern web3');
@@ -125,8 +122,7 @@ export default new Vuex.Store({
                     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
                     web3 = null
                 }
-                // initialize assist
-                // if in production onboard users to mainnet 
+
                 initializeAssist(web3);
                 // full state object returned by assist: https://github.com/blocknative/assist#state
                 let state;
