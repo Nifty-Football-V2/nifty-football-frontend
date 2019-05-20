@@ -173,6 +173,7 @@
                 'cardsApiService',
                 'notificationService',
                 'rankings',
+                'mobileDevice'
             ]),
         },
         methods: {
@@ -185,6 +186,10 @@
                 console.log(`Buying ${this.packType} = ${num} cards`);
 
                 try {
+                    if (this.mobileDevice) {
+                        this.notificationService.showPurchaseNotification();
+                    }
+
                     // call the respective contract to buy
                     let receipt = null;
                     if (this.packType.startsWith('reg')) {
@@ -193,17 +198,28 @@
                         receipt = await this.blindPackService.buyEliteBlindPack(num);
                     }
 
+                    if (this.mobileDevice) {
+                        this.notificationService.showProcessingNotification(receipt.transactionHash);
+                    }
+
 
                     const txRes = await this.cardsApiService.loadTokensForTx(receipt.transactionHash);
                     this.cards = txRes.cards;
 
                     this.buyState = 'confirmed';
 
+                    if (this.mobileDevice) {
+                        this.notificationService.showConfirmedNotification(receipt.transactionHash);
+                    }
+
                     // Refresh credit limit
                     this.loadCreditsForAccount();
 
                 } catch (e) {
                     console.error('TXS failed', e);
+                    if (this.mobileDevice) {
+                        this.notificationService.showFailureNotification('Transaction rejected');
+                    }
                     this.buyState = 'idle';
                 }
             },
