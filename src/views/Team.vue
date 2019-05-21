@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div v-else-if="team && team.topTeam && team.hasEmptySquad">
+        <div v-else-if="team && team.hasEmptySquad">
             <no-squad></no-squad>
         </div>
 

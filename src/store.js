@@ -33,6 +33,7 @@ export default new Vuex.Store({
         squad: null,
         cards: null,
         web3Provider: null,
+        mobileDevice: false,
 
         // API Services
         cardsApiService: new CardsApiService(),
@@ -63,6 +64,9 @@ export default new Vuex.Store({
         },
         flags(state, flags) {
             state.flags = flags;
+        },
+        mobileDevice(state, mobileDevice) {
+          state.mobileDevice = mobileDevice
         },
         etherscanUrl(state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
@@ -99,55 +103,50 @@ export default new Vuex.Store({
         async bootstrapWeb3({commit, dispatch}) {
             console.log("Bootstrapping application");
             try {
-                let ethersProvider
-                let web3
-                // create a web3 ethers instance
-                if (window.ethereum) {
-                    console.log('Modern web3');
-                    web3 = new Web3(window.ethereum);
-                    ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
-                    // Reload the account logic if we see a change
-                    window.ethereum.on('accountsChanged', (accounts) => {
-                        console.log('accountsChanged', accounts);
-                        const account = accounts[0];
-                        commit('ethAccount', account); dispatch('bootstrapWeb3');
-                    });
-                } else if (window.web3) {
-                    console.log('Legacy web3');
-                    web3 = new Web3(window.web3.currentProvider);
-                    ethersProvider = new ethers.providers.Web3Provider(window.web3.currentProvider);
-                } else {
-                    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-                    web3 = null
-                }
-                // initialize assist
-                // if in production onboard users to mainnet 
+                const web3Provider = window.ethereum || (window.web3 && window.web3.currentProvider);
+                const web3 = new Web3(web3Provider);
+             
+                // Reload the account logic if we see a change
+                // coinbase on android doesn't have 'on' method defined on provider
+                window.ethereum && window.ethereum.on && window.ethereum.on('accountsChanged', (accounts) => {
+                    console.log('accountsChanged', accounts);
+                    const account = accounts[0];
+                    commit('ethAccount', account); dispatch('bootstrapWeb3');
+                });
+            
                 initializeAssist(web3);
                 // full state object returned by assist: https://github.com/blocknative/assist#state
-                let state;
+                let userEnvironment;
                 try {
-                    state = await onboardUser()
+                    userEnvironment = await onboardUser();
                 } catch (rejectedState) {
                     // user exited onboarding
-                    state = rejectedState;
+                    userEnvironment = rejectedState;
                 }
+
+                // Available state parameters that come back from call to onboard
+                const {
+                    mobileDevice,
+                    accountAddress,
+                    userCurrentNetworkId
+                } = userEnvironment;
+
                 // user exited onboarding without logged in MM account
-                if (!state.accountAddress) {
+                if (!accountAddress) {
                     commit('showInstallMMBanner', true);
                     return;
                 }
-                // user onboarded sucesfully
+                // user onboarded sucessfully
                 commit('showInstallMMBanner', false);
-                console.log(`Account`, state.accountAddress);
-                commit('ethAccount', state.accountAddress);
+                console.log(`Account`, accountAddress);
+                commit('ethAccount', accountAddress);
 
-                const {chainId, name} = await ethersProvider.getNetwork();
-                console.log(`Working on network [${chainId}] [${name}]`);
+                console.log(`Working on network [${userCurrentNetworkId}]`);
 
-                commit('networkId', chainId);
-                commit('etherscanUrl', lookupEtherscanAddress(chainId));
-                commit('provider', ethersProvider);
+                commit('networkId', userCurrentNetworkId);
+                commit('etherscanUrl', lookupEtherscanAddress(userCurrentNetworkId));
                 commit('web3', web3);
+                commit('mobileDevice', mobileDevice)
 
                 dispatch('loadSquad');
             } catch (e) {

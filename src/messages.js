@@ -12,6 +12,7 @@ export default {
             activity: 'Activity',
             league: 'League',
             head2head: 'Head 2 Head Battles',
+            terms: 'Terms',
         },
         common: {
             nifty_football: 'Nifty Football',
@@ -27,7 +28,13 @@ export default {
             name: 'Name',
             edit: 'Edit',
             team: 'Team',
-            missing_squad_message: 'You have an empty squad! Buy your first pack?'
+            missing_squad_message: 'You have an empty squad! Buy your first pack?',
+            start_collecting: "Start Collecting",
+            email_address: "Email Address",
+            join_list: "Join List",
+            join_the_community: "Join the community on <a href=\"https://t.me/niftyfootball\" target=\"_blank\">telegram</a>",
+            add_team_name: "Add Team Name",
+            cancel: "cancel"
         },
         message: {
             hello_world: 'hello world'
@@ -37,7 +44,55 @@ export default {
                 short_intro_1: "Battle your players against one another in a game of winner takes all.",
                 short_intro_2: "Select your best players in a head to head match",
             }
-        }
+        },
+        home: {
+            header_title: "FOOTBALL<br/>TRADING CARDS",
+            sub_heading: "COLLECT. TRADE. PLAY.",
+            build_a_team: "BUILD A TEAM",
+            get_updates: "GET UPDATES",
+        },
+        about: {
+            sub_heading: "Welcome to Nifty Football, an Ethereum powered football collectibles game, with provably scarce digital trading cards available to purchase.",
+            regular: {
+                heading: "Regular packs will contain the all core attributes and traits."
+            },
+            elite: {
+                heading: "Elite packs will contain different and extra possibilities than regular packs."
+            },
+            stats: {
+                positions: "Positions",
+                nationalities: "Nationalities",
+                colours: "Colours",
+                kits: "Kits",
+            }
+        },
+        activity: {
+            title: "Activity",
+            last_players: "Last {limit} players"
+        },
+        buy: {
+            title: "Buy Packs",
+            no_players: "Add more cards to your squad?",
+            card_single: "1 Card",
+            card_multiple: "{count} Cards",
+            pack_single: "1 Pack",
+            purchase: "Purchase",
+            pack_multiple: "{count} Packs",
+            pack_distribution: "Full distribution",
+            elite: {
+                nationalities: "+2 Nationalities",
+                kits: "+8 Kits",
+                colourways: "+8 Colourways",
+                attributes: "10% Attribute Boost",
+            },
+            regular: {
+                nationalities: "4 Nationalities",
+                kits: "22 Kits",
+                colourways: "22 Colourways",
+                attributes: "Genesis Attributes",
+            }
+        },
+
     },
     // ja: {
     //     nav: {

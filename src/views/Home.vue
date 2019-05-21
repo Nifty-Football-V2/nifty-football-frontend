@@ -7,14 +7,14 @@
             </div>
             <div class="col-8 text-left">
                 <div class="header-text-xxl mb-2 mb-sm-4">
-                    FOOTBALL<br/>TRADING CARDS
+                    <span v-html="$tc('home.header_title')"></span>
                 </div>
                 <div class="header-text-lg mb-2 mb-sm-4">
-                    COLLECT. TRADE. PLAY.
+                    {{$tc('home.sub_heading')}}
                 </div>
                 <div>
                     <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg">
-                        Start Collecting
+                        {{$tc('common.start_collecting')}}
                     </router-link>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-md-4">&nbsp;</div>
             <div class="col">
                 <div>
-                    <div class="header-text mb-5 text-secondary">BUILD A TEAM</div>
+                    <div class="header-text mb-5 text-secondary">{{$tc('home.build_a_team')}}</div>
                     <router-link to="/buy" class="">
                         <img src="../assets/build.png" style="cursor: pointer;" class="img-fluid"/>
                     </router-link>
@@ -43,10 +43,10 @@
                     </div>
 
                     <div class="mc-field-group">
-                        <div class="header-text-sm mb-2">GET UPDATES</div>
-                        <label for="mce-EMAIL" class="sr-only">Email Address</label>
+                        <div class="header-text-sm mb-2">{{$tc('home.get_updates')}}</div>
+                        <label for="mce-EMAIL" class="sr-only">{{$tc('common.email_address')}}</label>
                         <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="you@email.com">
-                        <b-button variant="secondary" size="lg" class="mt-3" type="submit">Join List</b-button>
+                        <b-button variant="secondary" size="lg" class="mt-3" type="submit">{{$tc('common.join_list')}}</b-button>
                     </div>
 
                     <div id="mce-responses">
@@ -61,13 +61,13 @@
         <div class="row pb-3 pt-1">
             <div class="col">
                 <p class="mt-5">
-                    Join the community on <a href="https://t.me/niftyfootball" target="_blank">telegram</a>
+                    <span v-html="$tc('common.join_the_community')"></span>
                 </p>
             </div>
         </div>
 
         <router-link to="/buy" class="btn btn-secondary btn-lg">
-            Start Collecting
+            {{$tc('common.start_collecting')}}
         </router-link>
 
         <partners></partners>
