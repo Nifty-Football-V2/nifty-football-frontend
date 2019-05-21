@@ -10,7 +10,7 @@
                     <span v-html="$tc('home.header_title')"></span>
                 </div>
                 <div class="header-text-lg mb-2 mb-sm-4">
-                    {{$tc('home.sub_heading')}}
+                    {{$tc('common.collect_trade_play')}}
                 </div>
                 <div>
                     <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg">
@@ -58,32 +58,27 @@
             </div>
         </div>
 
-        <div class="row pb-3 pt-1">
-            <div class="col">
-                <p class="mt-5">
-                    <span v-html="$tc('common.join_the_community')"></span>
-                </p>
-            </div>
-        </div>
-
-        <router-link to="/buy" class="btn btn-secondary btn-lg">
+        <router-link to="/buy" class="btn btn-secondary btn-lg mt-5">
             {{$tc('common.start_collecting')}}
         </router-link>
 
         <partners></partners>
+
+        <wallets></wallets>
     </div>
 </template>
 
 <script>
 
     import Partners from "../components/Partners";
+    import Wallets from '../components/Wallets';
     export default {
         name: 'home',
         data () {
             return {};
         },
         computed: {},
-        components: {Partners},
+        components: {Wallets, Partners},
         methods: {},
     };
 </script>

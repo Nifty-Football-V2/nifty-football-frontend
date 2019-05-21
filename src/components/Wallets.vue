@@ -1,8 +1,8 @@
 <template>
-    <div class="row justify-content-center mt-5 pt-5 pb-5 bg-light text-center">
+    <div class="row justify-content-center mt-5 mb-5 pt-5 pb-5 text-center">
         <div class="col">
 
-            <page-sub-title text="Supported Wallets" variant="orange"></page-sub-title>
+            <page-sub-title text="Supported Wallets" variant="blue"></page-sub-title>
 
             <div class="row">
                 <div class="col-6 col-sm p-4">
