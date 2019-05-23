@@ -7,14 +7,14 @@ const API_CONFIG = {
     live: 'https://niftyfootball.cards/api'
 };
 
-const live = window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1"
+const live = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
 
 // if live use mainnet, otherwise use rinkeby
 const DEV_NETWORK_ID = 4;
 const PROD_NETWORK_ID = 1;
-const NETWORK_ID = live ? PROD_NETWORK_ID : DEV_NETWORK_ID;
+const NETWORK_ID = live ? PROD_NETWORK_ID : PROD_NETWORK_ID;
 
-const getApi = () => live ? API_CONFIG.live : API_CONFIG.local 
+const getApi = () => live ? API_CONFIG.live : API_CONFIG.local;
 
 const AXIOS_CONFIG = {headers: {'Access-Control-Allow-Origin': '*'}};
 
@@ -40,6 +40,12 @@ const dotDotDotAccount = (ethAccount) => {
     return ethAccount;
 };
 
+const waitForMillis = (duration) => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), duration);
+    });
+};
+
 export {
     getApi,
     lookupEtherscanAddress,
@@ -47,5 +53,6 @@ export {
     AXIOS_CONFIG,
     INFURA_KEY,
     ASSIST_KEY,
-    NETWORK_ID
+    NETWORK_ID,
+    waitForMillis
 };

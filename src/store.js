@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {ethers} from 'ethers';
-import Web3 from 'web3'
+import Web3 from 'web3';
 // import createLogger from 'vuex/dist/logger';
 
 import CardsApiService from './services/api/cardsApi.service';
@@ -10,7 +10,7 @@ import BlindPackContractService from './services/contracts/blindPackContract.ser
 import NotificationService from './services/notification.service';
 
 import ThreeBoxService from './services/api/threeBox.service';
-import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
+import BlindPackPriceService from './services/contracts/blindPackPrice.service';
 
 import {initializeAssist, onboardUser} from './services/assist.service';
 
@@ -30,8 +30,6 @@ export default new Vuex.Store({
         ethAccount: null,
         ethAccountDotDotDot: null,
         flags: null,
-        squad: null,
-        cards: null,
         web3Provider: null,
         mobileDevice: false,
 
@@ -47,26 +45,20 @@ export default new Vuex.Store({
     },
     mutations: {
         showInstallMMBanner(state, showInstallMMBanner) {
-            state.showInstallMMBanner = showInstallMMBanner
+            state.showInstallMMBanner = showInstallMMBanner;
         },
         ethAccount(state, ethAccount) {
-            console.log("Setting ethAccount", ethAccount);
+            console.log('Setting ethAccount', ethAccount);
 
             state.ethAccount = ethers.utils.getAddress(ethAccount);
             state.ethAccountDotDotDot = dotDotDotAccount(state.ethAccount);
             state.threeBoxService.setAccount(state.ethAccount);
         },
-        squad(state, squad) {
-            state.squad = squad;
-        },
-        cards(state, cards) {
-            state.cards = cards;
-        },
         flags(state, flags) {
             state.flags = flags;
         },
         mobileDevice(state, mobileDevice) {
-          state.mobileDevice = mobileDevice
+            state.mobileDevice = mobileDevice;
         },
         etherscanUrl(state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
@@ -101,19 +93,20 @@ export default new Vuex.Store({
             commit('etherscanUrl', lookupEtherscanAddress(1));
         },
         async bootstrapWeb3({commit, dispatch}) {
-            console.log("Bootstrapping application");
+            console.log('Bootstrapping application');
             try {
                 const web3Provider = window.ethereum || (window.web3 && window.web3.currentProvider);
                 const web3 = new Web3(web3Provider);
-             
+
                 // Reload the account logic if we see a change
                 // coinbase on android doesn't have 'on' method defined on provider
                 window.ethereum && window.ethereum.on && window.ethereum.on('accountsChanged', (accounts) => {
                     console.log('accountsChanged', accounts);
                     const account = accounts[0];
-                    commit('ethAccount', account); dispatch('bootstrapWeb3');
+                    commit('ethAccount', account);
+                    dispatch('bootstrapWeb3');
                 });
-            
+
                 initializeAssist(web3);
                 // full state object returned by assist: https://github.com/blocknative/assist#state
                 let userEnvironment;
@@ -146,37 +139,13 @@ export default new Vuex.Store({
                 commit('networkId', userCurrentNetworkId);
                 commit('etherscanUrl', lookupEtherscanAddress(userCurrentNetworkId));
                 commit('web3', web3);
-                commit('mobileDevice', mobileDevice)
-
-                dispatch('loadSquad');
+                commit('mobileDevice', mobileDevice);
             } catch (e) {
                 console.error(`Something went big bang`, e);
             }
         },
-        async loadSquad({commit, state}) {
-            console.log("Loading squad for account", state.ethAccount);
-            if (state.ethAccount) {
-                const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
-                commit('squad', squad);
-
-                // FIXME move to API
-                if (squad) {
-
-                    const promises = squad.map((id) => state.cardsApiService.loadTokenForTokenId(id));
-
-                    const cards = await Promise.all(promises);
-
-                    const cardsMap = cards.reduce((map, obj) => {
-                        map[obj.tokenId] = obj;
-                        return map;
-                    }, {});
-
-                    commit('cards', cardsMap);
-                }
-            }
-        },
         async loadFlags({commit, state}) {
-            console.log("Loading flags");
+            console.log('Loading flags');
             const data = await state.cardsApiService.loadFlags();
             commit('flags', data.flags);
         },

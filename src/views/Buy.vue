@@ -151,6 +151,7 @@
     import BuyPlayerReveal from '../components/BuyPlayerReveal';
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
+    import {waitForMillis} from '../utils';
 
     export default {
         components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading},
@@ -202,6 +203,8 @@
                         this.notificationService.showProcessingNotification(receipt.transactionHash);
                     }
 
+                    // Adding delay to allow for API service loadTokensForTx() to sync the data
+                    await waitForMillis(5000);
 
                     const txRes = await this.cardsApiService.loadTokensForTx(receipt.transactionHash);
                     this.cards = txRes.cards;
