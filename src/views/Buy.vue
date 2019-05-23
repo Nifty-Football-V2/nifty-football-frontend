@@ -186,13 +186,13 @@
 
                 console.log(`Buying ${this.packType} = ${num} cards`);
 
+                let receipt = null;
                 try {
                     if (this.mobileDevice) {
                         this.notificationService.showPurchaseNotification();
                     }
 
                     // call the respective contract to buy
-                    let receipt = null;
                     if (this.packType.startsWith('reg')) {
                         receipt = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
                     } else {
@@ -221,7 +221,7 @@
                 } catch (e) {
                     console.error('TXS failed', e);
                     if (this.mobileDevice) {
-                        this.notificationService.showFailureNotification('Transaction rejected');
+                        this.notificationService.showFailureNotification(receipt.transactionHash);
                     }
                     this.buyState = 'idle';
                 }
