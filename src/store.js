@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {ethers} from 'ethers';
-import Web3 from 'web3'
+import { ethers } from 'ethers';
+import Web3 from 'web3';
 // import createLogger from 'vuex/dist/logger';
 
 import CardsApiService from './services/api/cardsApi.service';
@@ -10,12 +10,12 @@ import BlindPackContractService from './services/contracts/blindPackContract.ser
 import NotificationService from './services/notification.service';
 
 import ThreeBoxService from './services/api/threeBox.service';
-import BlindPackPriceService from "./services/contracts/blindPackPrice.service";
+import BlindPackPriceService from './services/contracts/blindPackPrice.service';
 
-import {initializeAssist, onboardUser} from './services/assist.service';
+import { initializeAssist, onboardUser } from './services/assist.service';
 
-import {contracts} from 'nifty-football-contract-tools';
-import {dotDotDotAccount, lookupEtherscanAddress} from './utils';
+import { contracts } from 'nifty-football-contract-tools';
+import { dotDotDotAccount, lookupEtherscanAddress } from './utils';
 
 Vue.use(Vuex);
 
@@ -32,7 +32,8 @@ export default new Vuex.Store({
         flags: null,
         squad: null,
         cards: null,
-        web3Provider: null,
+
+        web3: null,
         mobileDevice: false,
 
         // API Services
@@ -43,14 +44,13 @@ export default new Vuex.Store({
         // Contract Service
         blindPackService: null,
         blindPackPriceService: new BlindPackPriceService(),
-        footballCardsContractService: null,
     },
     mutations: {
         showInstallMMBanner(state, showInstallMMBanner) {
-            state.showInstallMMBanner = showInstallMMBanner
+            state.showInstallMMBanner = showInstallMMBanner;
         },
         ethAccount(state, ethAccount) {
-            console.log("Setting ethAccount", ethAccount);
+            console.log('Setting ethAccount', ethAccount);
 
             state.ethAccount = ethers.utils.getAddress(ethAccount);
             state.ethAccountDotDotDot = dotDotDotAccount(state.ethAccount);
@@ -66,28 +66,23 @@ export default new Vuex.Store({
             state.flags = flags;
         },
         mobileDevice(state, mobileDevice) {
-          state.mobileDevice = mobileDevice
+            state.mobileDevice = mobileDevice;
         },
         etherscanUrl(state, etherscanUrl) {
             state.etherscanUrl = etherscanUrl;
         },
-        provider(state, provider) {
-            console.log(`Setting provider for network [${state.networkId}]`, provider);
-            state.provider = provider;
-            state.providerSigner = provider.getSigner();
-
-            // This needs to not be a etherjs provider...?
-            state.threeBoxService.setProvider(window.ethereum);
-        },
         web3(state, web3) {
             console.log(`Setting web3 for network [${state.networkId}]`, web3);
             state.web3 = web3;
+
             state.blindPackService = new BlindPackContractService(state.networkId, web3, state.ethAccount);
+            state.threeBoxService.setProvider(state.web3.givenProvider);
         },
         networkId(state, networkId) {
             state.networkId = networkId;
             // Override the default network of mainnet if we are switching
             console.log(`Setting network ID [${state.networkId}] on services`);
+
             state.cardsApiService.setNetworkId(networkId);
             state.notificationService.setNetworkId(networkId);
             state.blindPackPriceService.setNetworkId(networkId);
@@ -101,20 +96,21 @@ export default new Vuex.Store({
             commit('etherscanUrl', lookupEtherscanAddress(1));
         },
         async bootstrapWeb3({commit, dispatch}) {
-            console.log("Bootstrapping application");
+            console.log('Bootstrapping application');
             try {
-                const web3Provider = window.ethereum || (window.web3 && window.web3.currentProvider);
-                const web3 = new Web3(web3Provider);
-             
+                const web3 = new Web3(window.ethereum || (window.web3 && window.web3.currentProvider));
+
                 // Reload the account logic if we see a change
                 // coinbase on android doesn't have 'on' method defined on provider
                 window.ethereum && window.ethereum.on && window.ethereum.on('accountsChanged', (accounts) => {
                     console.log('accountsChanged', accounts);
                     const account = accounts[0];
-                    commit('ethAccount', account); dispatch('bootstrapWeb3');
+                    commit('ethAccount', account);
+                    dispatch('bootstrapWeb3');
                 });
-            
+
                 initializeAssist(web3);
+
                 // full state object returned by assist: https://github.com/blocknative/assist#state
                 let userEnvironment;
                 try {
@@ -136,6 +132,7 @@ export default new Vuex.Store({
                     commit('showInstallMMBanner', true);
                     return;
                 }
+
                 // user onboarded sucessfully
                 commit('showInstallMMBanner', false);
                 console.log(`Account`, accountAddress);
@@ -146,7 +143,7 @@ export default new Vuex.Store({
                 commit('networkId', userCurrentNetworkId);
                 commit('etherscanUrl', lookupEtherscanAddress(userCurrentNetworkId));
                 commit('web3', web3);
-                commit('mobileDevice', mobileDevice)
+                commit('mobileDevice', mobileDevice);
 
                 dispatch('loadSquad');
             } catch (e) {
@@ -154,7 +151,7 @@ export default new Vuex.Store({
             }
         },
         async loadSquad({commit, state}) {
-            console.log("Loading squad for account", state.ethAccount);
+            console.log('Loading squad for account', state.ethAccount);
             if (state.ethAccount) {
                 const squad = await state.cardsApiService.loadTokensForAccount(state.ethAccount);
                 commit('squad', squad);
@@ -176,7 +173,7 @@ export default new Vuex.Store({
             }
         },
         async loadFlags({commit, state}) {
-            console.log("Loading flags");
+            console.log('Loading flags');
             const data = await state.cardsApiService.loadFlags();
             commit('flags', data.flags);
         },
