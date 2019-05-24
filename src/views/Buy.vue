@@ -151,6 +151,7 @@
     import BuyPlayerReveal from '../components/BuyPlayerReveal';
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
+    import {waitForMillis} from '../utils';
 
     export default {
         components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading},
@@ -185,14 +186,17 @@
 
                 console.log(`Buying ${this.packType} = ${num} cards`);
 
+                let receipt = null;
                 try {
                     // call the respective contract to buy
-                    let receipt = null;
                     if (this.packType.startsWith('reg')) {
                         receipt = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
                     } else {
                         receipt = await this.blindPackService.buyEliteBlindPack(num);
                     }
+
+                    // Adding delay to allow for API service loadTokensForTx() to sync the data
+                    await waitForMillis(5000);
 
                     const txRes = await this.cardsApiService.loadTokensForTx(receipt.transactionHash);
                     this.cards = txRes.cards;

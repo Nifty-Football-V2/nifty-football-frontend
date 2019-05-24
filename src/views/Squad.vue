@@ -1,12 +1,6 @@
 <template>
     <div>
         <div class="container-fluid mt-3">
-            <div class="row pb-4 text-center" v-if="!squad || !squad">
-                <div class="col mb-5 text-primary mx-auto">
-                    <loading></loading>
-                </div>
-            </div>
-
             <div class="row mb-5" v-if="ethAccount">
                 <div class="d-none d-sm-block col text-left">
                 </div>
@@ -27,22 +21,22 @@
                 </div>
             </div>
 
-            <div class="row mt-3" v-if="squad && squad.length > 0 && cards">
-                <div class="col-6 col-md-2"
-                     v-for="tokenId in squad" v-bind:key="tokenId">
-                    <card :card="cards[tokenId]"></card>
+            <div class="row pb-4 text-center" v-if="loading">
+                <div class="col mb-5 text-primary mx-auto">
+                    <loading></loading>
                 </div>
             </div>
 
-            <div v-else-if="squad && squad.length === 0">
+            <div class="row mt-3" v-if="!loading  && squad.length > 0">
+                <div class="col-6 col-md-2" v-for="card in squad">
+                    <card :card="card"></card>
+                </div>
+            </div>
+
+            <div v-if="!loading && squad.length === 0">
                 <no-squad></no-squad>
             </div>
 
-            <div class="row pb-4 mt-5 text-center" v-else-if="squad && squad.length > 0 && cards">
-                <div class="col">
-
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -50,10 +44,10 @@
     import Vue2Filters from 'vue2-filters';
     import {mapState} from 'vuex';
     import Loading from '../components/Loading';
-    import SquadName from "../components/SquadName";
-    import Card from "../components/Card";
+    import SquadName from '../components/SquadName';
+    import Card from '../components/Card';
     import NoSquad from '../components/NoSquad';
-    import PageTitle from "../components/PageTitle";
+    import PageTitle from '../components/PageTitle';
 
     export default {
         components: {PageTitle, NoSquad, Card, SquadName, Loading},
@@ -61,12 +55,12 @@
         data() {
             return {
                 order: 'position',
+                squad: [],
+                loading: false
             };
         },
         computed: {
             ...mapState([
-                'squad',
-                'cards',
                 'ethAccount',
                 'cardsApiService'
             ]),
@@ -78,11 +72,23 @@
         },
         created() {
             const loadSquad = () => {
-                this.$store.dispatch('loadSquad');
+                this.loading = true;
+                this.cardsApiService.loadSquad(this.ethAccount)
+                    .then((squad) => {
+                        this.squad = squad;
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    });
             };
 
             this.$store.watch(
-                () => (this.ethAccount, this.cardsApiService.network),
+                () => this.ethAccount,
+                () => loadSquad()
+            );
+
+            this.$store.watch(
+                () => this.cardsApiService.network,
                 () => loadSquad()
             );
 

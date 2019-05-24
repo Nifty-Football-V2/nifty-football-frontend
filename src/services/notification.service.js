@@ -108,7 +108,7 @@ export default class NotificationService {
             });
     }
 
-    showFailureNotification(message) {
+    showFailureNotification(txsHash) {
 
         if (this.notification) {
             Vue.$snotify.remove(this.notification.id);
@@ -118,7 +118,8 @@ export default class NotificationService {
             `<div class="snotifyToast__body">
               <div class="notification-icon">😔</div>
               <div class="notification-msg">
-                ${message}
+                Please check Etherscan as your transaction may be taking longer than expected.
+                <div class="small"><a href="${this.etherscanBase}/tx/${txsHash}" target="_blank">Details</a></div>
               </div>
             </div>`,
             {

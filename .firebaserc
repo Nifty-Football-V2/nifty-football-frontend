@@ -7,6 +7,9 @@
       "hosting": {
         "futbol-cards": [
           "futbol-cards"
+        ],
+        "beta-niftyfootball-cards": [
+          "beta-niftyfootball-cards"
         ]
       }
     }
