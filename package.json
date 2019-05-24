@@ -16,7 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "axios": "^0.18.0",
-    "bnc-assist": "^0.7.5",
+    "bnc-assist": "0.8.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
     "ethers": "4.0.20",

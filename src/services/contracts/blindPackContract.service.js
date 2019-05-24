@@ -26,19 +26,15 @@ export default class BlindPackContractService {
             : totalPrice;
 
         // broadcast transaction
-        const result = await this.contract.methods.buyBatch(number).send({
+        const {txPromise} = await this.contract.methods.buyBatch(number).send({
             from: this.ethAccount,
             value: price.toString(),
         });
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
-            if (result.txPromise) {
-                result.txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
-                result.txPromise.on('error', (e) => reject(e));
-            } else {
-                resolve(result);
-            }
+            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
+            txPromise.on('error', (e) => reject(e));
         });
     }
 
@@ -46,19 +42,15 @@ export default class BlindPackContractService {
         const totalPrice = await this.eliteContract.methods.totalPrice(number).call();
 
         // broadcast transaction
-        const result = await this.eliteContract.methods.buyBatch(number).send({
+        const {txPromise} = await this.eliteContract.methods.buyBatch(number).send({
             from: this.ethAccount,
             value: totalPrice,
         });
 
         // return promise that resolves once tx is mined
         return new Promise((resolve, reject) => {
-            if (result.txPromise) {
-                result.txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
-                result.txPromise.on('error', (e) => reject(e));
-            } else {
-                resolve(result);
-            }
+            txPromise.once('confirmation', (undefined, receipt) => resolve(receipt));
+            txPromise.on('error', (e) => reject(e));
         });
     }
 

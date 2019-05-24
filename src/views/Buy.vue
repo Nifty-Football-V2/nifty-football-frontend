@@ -188,19 +188,11 @@
 
                 let receipt = null;
                 try {
-                    if (this.mobileDevice) {
-                        this.notificationService.showPurchaseNotification();
-                    }
-
                     // call the respective contract to buy
                     if (this.packType.startsWith('reg')) {
                         receipt = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
                     } else {
                         receipt = await this.blindPackService.buyEliteBlindPack(num);
-                    }
-
-                    if (this.mobileDevice) {
-                        this.notificationService.showProcessingNotification(receipt.transactionHash);
                     }
 
                     // Adding delay to allow for API service loadTokensForTx() to sync the data
@@ -211,18 +203,11 @@
 
                     this.buyState = 'confirmed';
 
-                    if (this.mobileDevice) {
-                        this.notificationService.showConfirmedNotification(receipt.transactionHash);
-                    }
-
                     // Refresh credit limit
                     this.loadCreditsForAccount();
 
                 } catch (e) {
                     console.error('TXS failed', e);
-                    if (this.mobileDevice) {
-                        this.notificationService.showFailureNotification(receipt.transactionHash);
-                    }
                     this.buyState = 'idle';
                 }
             },
