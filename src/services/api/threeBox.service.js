@@ -50,21 +50,23 @@ export default class ThreeBoxService {
     }
 
     async setSquadName(name) {
-        const box = await Box.openBox(this.account, this.provider);
+        if (!this.space) {
+            const box = await Box.openBox(this.account, this.provider);
+            this.space = await box.openSpace(NIFTY_FOOTY_SPACE);
+        }
 
-        const space = await box.openSpace(NIFTY_FOOTY_SPACE);
-
-        await space.public.set(SQUAD_NAME, name);
+        await this.space.public.set(SQUAD_NAME, name);
 
         return name;
     }
 
     async getBox3SquadName() {
-        const box = await Box.openBox(this.account, this.provider);
+        if (!this.space) {
+            const box = await Box.openBox(this.account, this.provider);
+            this.space = await box.openSpace(NIFTY_FOOTY_SPACE);
+        }
 
-        const space = await box.openSpace(NIFTY_FOOTY_SPACE);
-
-        return space.public.get(SQUAD_NAME);
+        return this.space.public.get(SQUAD_NAME);
     }
 
     async getBox3SquadDisplayName(account) {

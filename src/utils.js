@@ -12,7 +12,7 @@ const live = window.location.hostname !== 'localhost' && window.location.hostnam
 // if live use mainnet, otherwise use rinkeby
 const DEV_NETWORK_ID = 4;
 const PROD_NETWORK_ID = 1;
-const NETWORK_ID = live ? PROD_NETWORK_ID : PROD_NETWORK_ID;
+const NETWORK_ID = live ? PROD_NETWORK_ID : DEV_NETWORK_ID;
 
 const getApi = () => live ? API_CONFIG.live : API_CONFIG.local;
 

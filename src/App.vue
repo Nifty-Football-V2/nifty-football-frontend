@@ -46,16 +46,12 @@
 </template>
 
 <script>
-    import LocaleChanger from './components/LocaleChanger';
     import { mapState } from 'vuex';
-    import Wallets from "./components/Wallets";
     import NiftyFootballHeader from "./components/NiftyFootballHeader";
 
     export default {
         components: {
             NiftyFootballHeader,
-            LocaleChanger,
-            Wallets,
         },
         data() {
             return {};

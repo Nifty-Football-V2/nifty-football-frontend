@@ -10,13 +10,13 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "3box": "^1.8.2",
+    "3box": "^1.8.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-brands-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "axios": "^0.18.0",
-    "bnc-assist": "0.8.1",
+    "bnc-assist": "0.8.3",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
     "ethers": "4.0.20",
@@ -33,7 +33,7 @@
     "vue-snotify": "^3.2.1",
     "vue2-filters": "^0.6.0",
     "vuex": "^3.1.0",
-    "web3": "1.0.0-beta.34"
+    "web3": "1.0.0-beta.37"
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
