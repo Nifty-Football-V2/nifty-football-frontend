@@ -39,38 +39,42 @@
 <style lang="scss">
     @import "../colours";
 
+    // 2 cards per row
     // Extra small devices (portrait phones, less than 576px)
     @media (max-width: 575px) {
         .card-height {
-            height: 330px;
+            height: 21rem;
         }
     }
 
+    // 4 cards per row
     // Small devices (landscape phones, 576px and up)
     @media (min-width: 576px) and (max-width: 767px) {
         .card-height {
-            height: 140px;
+            height: 12.5rem;
         }
     }
 
+    // 4 cards per row
     // Medium devices (tablets, 768px and up)
     @media (min-width: 768px) and (max-width: 991px) {
         .card-height {
-            height: 200px;
+            height: 18.5rem;
         }
     }
 
+    // 6 cards per row
     // Large devices (desktops, 992px and up)
     @media (min-width: 992px) and (max-width: 1199px) {
         .card-height {
-            height: 260px;
+            height: 13.5rem;
         }
     }
 
     // Extra large devices (large desktops, 1200px and up)
     @media (min-width: 1200px) {
         .card-height {
-            height: 370px;
+            height: 17rem;
         }
     }
 

@@ -26,11 +26,11 @@
             </div>
 
             <div class="row">
-                <div class="col-6 col-sm-2 mb-5" v-for="(rank, index) in filterBy(rankings, rankingsFilter, 'position')" v-bind:key="rank.tokenId">
+                <div class="col-6 col-lg-2 col-md-3 col-sm-3 mb-2" v-for="(rank, index) in filterBy(rankings, rankingsFilter, 'position')" v-bind:key="rank.tokenId">
                     <h3 class="text-left">
                         #{{ index + 1 }}
                     </h3>
-                    <div class="text-center">
+                    <div class="text-center mb-5">
                         <card :card="rank"></card>
                     </div>
                     <div>

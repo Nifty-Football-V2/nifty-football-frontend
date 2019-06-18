@@ -80,7 +80,6 @@
                                     <span class="text-purple-lg">{{$tc('buy.regular.nationalities')}}</span><br/>
                                     <span class="text-orange-lg">{{$tc('buy.regular.kits')}}</span><br/>
                                     <span class="text-blue-lg">{{$tc('buy.regular.colourways')}}</span><br/>
-                                    <span class="text-lime-lg">{{$tc('buy.regular.attributes')}}</span><br/>
                                     <router-link to="/about" class="small text-muted">{{$tc('buy.pack_distribution')}}</router-link>
                                 </div>
                             </div>
@@ -132,7 +131,6 @@
                                     <span class="text-purple-lg">{{$tc('buy.elite.nationalities')}}</span><br/>
                                     <span class="text-orange-lg">{{$tc('buy.elite.kits')}}</span><br/>
                                     <span class="text-blue-lg">{{$tc('buy.elite.colourways')}}</span><br/>
-                                    <span class="text-lime-lg">{{$tc('buy.elite.attributes')}}</span><br/>
                                     <router-link to="/about" class="small text-muted">{{$tc('buy.pack_distribution')}}</router-link>
                                 </div>
                             </div>
