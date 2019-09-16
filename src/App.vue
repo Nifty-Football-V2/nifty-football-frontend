@@ -14,7 +14,7 @@
                 <font-awesome-icon :icon="['fab', 'instagram']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
             <a href="https://discord.gg/zANdfd" target="_blank">
-            <font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-secondary"/>
+                <font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
             <a href="https://t.me/niftyfootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'telegram']" size="2x" class="ml-3 mr-3 text-secondary"/>
@@ -32,22 +32,25 @@
             </div>
 
             <div class="mt-4 small text-muted">
-                Card Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a><br/>
-                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket.tech</a> in Manchester, UK
+                Card Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a>
+            </div>
+
+            <div class="mt-4 small text-muted">
+                Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket</a>
             </div>
 
             <div class="mt-4 smallest text-muted text-right mr-3" v-if="ethAccountDotDotDot && networkName">
-               {{ ethAccountDotDotDot }} on {{ networkName.toUpperCase() }}
+                {{ ethAccountDotDotDot }} on {{ networkName.toUpperCase() }}
             </div>
         </footer>
 
-<!--        <locale-changer></locale-changer>-->
+        <!--        <locale-changer></locale-changer>-->
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
-    import NiftyFootballHeader from "./components/NiftyFootballHeader";
+    import NiftyFootballHeader from './components/NiftyFootballHeader';
 
     export default {
         components: {
@@ -63,7 +66,7 @@
             ]),
         },
         created: async function () {
-            if (window.location.href.indexOf("__debug") > -1) {
+            if (window.location.href.indexOf('__debug') > -1) {
                 // eslint-disable-next-line new-cap,no-new
                 const vConsole = require('vconsole');
                 new vConsole();
@@ -230,7 +233,7 @@
     .header-text-sm {
         font-family: 'CrackerJack', sans-serif;
         font-size: 1.3rem;
-        color: $black;
+        color: $white;
         letter-spacing: 1px;
         text-transform: uppercase;
 

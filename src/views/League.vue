@@ -30,7 +30,7 @@
                 <table class="table table-borderless">
                     <tbody>
                     <tr v-for="(team, $index) in selectedTeam" :class="buildStyle($index, team)" :key="$index">
-                        <th>
+                        <th width="8%">
                             <span>{{$index + 1}}</span>
                         </th>
                         <td>
@@ -139,11 +139,11 @@
     @import "../colours";
 
     .leader {
-        font-size: 2.5rem;
+        font-size: 1rem;
         color: $orange;
         font-family: 'CrackerJack', sans-serif;
         letter-spacing: 1px;
-        border-bottom: 3px solid $orange;
+        border-bottom: 1px solid $orange;
 
         a {
             border-bottom: none;
@@ -155,11 +155,11 @@
     }
 
     .top-three {
-        font-size: 1.5rem;
+        font-size: 1rem;
         color: $blue;
         font-family: 'CrackerJack', sans-serif;
         letter-spacing: 1px;
-        border-bottom: 2px solid $blue;
+        border-bottom: 1px solid $blue;
 
         a {
             border-bottom: none;
@@ -173,7 +173,8 @@
     .top-ten {
         color: $black;
         font-size: 1rem;
-        border-bottom: 1px solid $black;
+        font-family: 'CrackerJack', sans-serif;
+        border-bottom: 1px solid $gray;
 
         a {
             border-bottom: none;
@@ -187,6 +188,7 @@
     .others {
         font-size: 1rem;
         color: $gray;
+        font-family: 'CrackerJack', sans-serif;
         border-bottom: 1px solid $gray;
 
         a {

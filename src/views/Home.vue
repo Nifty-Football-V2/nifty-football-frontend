@@ -20,23 +20,22 @@
             </div>
         </div>
 
-        <div class="row pb-5 pt-5 bg-dark">
-            <div class="col-md-4">&nbsp;</div>
-            <div class="col">
-                <div>
-                    <div class="header-text mb-5 text-secondary">{{$tc('home.build_a_team')}}</div>
-                    <router-link to="/buy" class="">
-                        <img src="../assets/build.png" style="cursor: pointer;" class="img-fluid"/>
-                    </router-link>
-                </div>
-            </div>
-            <div class="col-md-4">&nbsp;</div>
-        </div>
+        <!--<div class="row pb-5 pt-5 bg-dark">-->
+            <!--<div class="col-md-4">&nbsp;</div>-->
+            <!--<div class="col">-->
+                <!--<div>-->
+                    <!--<div class="header-text mb-5 text-secondary">{{$tc('home.build_a_team')}}</div>-->
+                    <!--<router-link to="/buy" class="">-->
+                        <!--<img src="../assets/build.png" style="cursor: pointer;" class="img-fluid"/>-->
+                    <!--</router-link>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-4">&nbsp;</div>-->
+        <!--</div>-->
 
-        <div class="row justify-content-sm-center pt-5 pb-5 bg-light">
+        <div class="row justify-content-sm-center pt-5 pb-5 bg-dark">
             <div class="col col-md-4">
-                <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form"
-                      name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <form action="https://niftyfootball.us20.list-manage.com/subscribe/post?u=71540c8d07bdbeb5dcf53c9ba&amp;id=3f4c4bba1e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 
                     <div style="position: absolute; left: -5000px;" aria-hidden="true">
                         <input type="text" name="b_f7fcffd059cde2df667ed71e0_b59497a580" tabindex="-1" value="">
@@ -58,27 +57,28 @@
             </div>
         </div>
 
-        <router-link to="/buy" class="btn btn-secondary btn-lg mt-5">
-            {{$tc('common.start_collecting')}}
-        </router-link>
+        <div class="row mt-5 mb-5 pt-5 pb-5 bg-white justify-content-center text-center">
+            <div class="col">
+                <router-link to="/buy" class="btn btn-secondary btn-lg">
+                    {{$tc('common.start_collecting')}}
+                </router-link>
+            </div>
+        </div>
 
         <partners></partners>
-
-        <wallets></wallets>
     </div>
 </template>
 
 <script>
 
     import Partners from "../components/Partners";
-    import Wallets from '../components/Wallets';
     export default {
         name: 'home',
         data () {
             return {};
         },
         computed: {},
-        components: {Wallets, Partners},
+        components: {Partners},
         methods: {},
     };
 </script>
