@@ -16,7 +16,7 @@
             </div>
 
             <div class="row">
-                <div class="col-6 col-lg-2 col-md-3 col-sm-3 mb-4" v-for="rank in activity" v-bind:key="rank.tokenId">
+                <div class="col-6 col-lg-2 col-md-3 col-sm-3" v-for="rank in activity" v-bind:key="rank.tokenId">
                     <div class="text-center">
                         <card :card="rank"></card>
                     </div>
