@@ -2,11 +2,11 @@
     <div id="app">
         <nifty-football-header :route="$router.currentRoute" :meta="$router.currentRoute.meta"></nifty-football-header>
 
-        <router-view class="pb-3"/>
+        <router-view/>
 
         <vue-snotify></vue-snotify>
 
-        <footer class="text-center">
+        <footer class="text-center bg-dark pt-5 pb-5">
             <a href="https://twitter.com/NiftyFootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'twitter']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
@@ -31,15 +31,15 @@
                 <router-link to="/terms" class="ml-sm-3 ml-2 d-block d-sm-inline">{{ $t('nav.terms') }}</router-link>
             </div>
 
-            <div class="mt-4 small text-muted">
+            <div class="mt-4 small text-white">
                 Card Design by <a href="http://www.stanleychow.co.uk/" target="_blank">Stanley Chow</a>
             </div>
 
-            <div class="mt-4 small text-muted">
+            <div class="mt-4 small text-white">
                 Built by <a href="http://blockrocket.tech" target="_blank">BlockRocket</a>
             </div>
 
-            <div class="mt-4 smallest text-muted text-right mr-3" v-if="ethAccountDotDotDot && networkName">
+            <div class="mt-4 smallest text-white text-right mr-3" v-if="ethAccountDotDotDot && networkName">
                 {{ ethAccountDotDotDot }} on {{ networkName.toUpperCase() }}
             </div>
         </footer>
@@ -135,8 +135,19 @@
     }
 
     footer {
-        margin-bottom: 120px;
-        margin-top: 50px;
+        margin-bottom: 0;
+        margin-top: 0;
+
+        a {
+            color: $secondary;
+
+            &:hover {
+                color: $secondary;
+            }
+            &:active {
+                color: $secondary;
+            }
+        }
     }
 
     code {

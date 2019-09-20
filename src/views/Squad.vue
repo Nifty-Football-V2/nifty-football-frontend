@@ -28,7 +28,7 @@
             </div>
 
             <div class="row mt-3" v-if="!loading  && squad.length > 0">
-                <div class="col-6 col-lg-2 col-md-3 col-sm-3 mb-2" v-for="card in squad">
+                <div class="col-6 col-lg-2 col-md-3 col-sm-3 mb-4" v-for="card in squad">
                     <card :card="card"></card>
                 </div>
             </div>

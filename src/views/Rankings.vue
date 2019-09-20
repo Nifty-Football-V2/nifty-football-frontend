@@ -30,10 +30,10 @@
                     <h3 class="text-left">
                         #{{ index + 1 }}
                     </h3>
-                    <div class="text-center mb-5">
+                    <div class="text-center mb-2">
                         <card :card="rank"></card>
                     </div>
-                    <div>
+                    <div class="text-center mb-2">
                         <img src="../assets/yourCard.svg" v-if="isMine(rank.owner)" style="max-height: 25px"/>
                     </div>
                 </div>

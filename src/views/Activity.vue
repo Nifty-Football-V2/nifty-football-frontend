@@ -16,11 +16,11 @@
             </div>
 
             <div class="row">
-                <div class="col-6 col-lg-2 col-md-3 col-sm-3" v-for="rank in activity" v-bind:key="rank.tokenId">
-                    <div class="text-center">
+                <div class="col-6 col-lg-2 col-md-3 col-sm-3 mb-2" v-for="rank in activity" v-bind:key="rank.tokenId">
+                    <div class="text-center mb-2">
                         <card :card="rank"></card>
                     </div>
-                    <div>
+                    <div class="text-center mb-2">
                         <img src="../assets/yourCard.svg" v-if="isMine(rank.owner)" style="max-height: 25px"/>
                     </div>
                 </div>
