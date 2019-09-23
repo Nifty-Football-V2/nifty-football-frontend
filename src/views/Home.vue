@@ -12,7 +12,7 @@
                 <div class="header-text-lg mb-2 mb-sm-4">
                     {{$tc('common.collect_trade_play')}}
                 </div>
-                <div>
+                <div class="d-none d-sm-block">
                     <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg">
                         {{$tc('common.start_collecting')}}
                     </router-link>
