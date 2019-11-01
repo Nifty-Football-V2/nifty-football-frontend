@@ -12,7 +12,7 @@ import NotificationService from './services/notification.service';
 import ThreeBoxService from './services/api/threeBox.service';
 import BlindPackPriceService from './services/contracts/blindPackPrice.service';
 
-import { initializeAssist, onboardUser } from './services/assist.service';
+import { initializeOnboard } from "./services/blocknative.service"
 
 import { contracts } from 'nifty-football-contract-tools';
 import { dotDotDotAccount, lookupEtherscanAddress } from './utils';
@@ -29,8 +29,10 @@ export default new Vuex.Store({
 
         ethAccount: null,
         ethAccountDotDotDot: null,
+        balance: null,
         flags: null,
         web3: null,
+        provider: null,
         mobileDevice: false,
 
         // API Services
@@ -52,6 +54,12 @@ export default new Vuex.Store({
             state.ethAccount = ethers.utils.getAddress(ethAccount);
             state.ethAccountDotDotDot = dotDotDotAccount(state.ethAccount);
             state.threeBoxService.setAccount(state.ethAccount);
+            state.web3 = new Web3(state.provider);
+            state.blindPackService = new BlindPackContractService(state.networkId, state.web3, state.ethAccount);
+            state.threeBoxService.setProvider(state.web3.givenProvider);
+        },
+        balance(state, balance) {
+          state.balance = balance
         },
         flags(state, flags) {
             state.flags = flags;
@@ -64,10 +72,7 @@ export default new Vuex.Store({
         },
         web3(state, web3) {
             console.log(`Setting web3 for network [${state.networkId}]`, web3);
-            state.web3 = web3;
-
-            state.blindPackService = new BlindPackContractService(state.networkId, web3, state.ethAccount);
-            state.threeBoxService.setProvider(state.web3.givenProvider);
+            
         },
         networkId(state, networkId) {
             state.networkId = networkId;
@@ -80,61 +85,33 @@ export default new Vuex.Store({
 
             state.networkName = contracts.getNetwork(networkId);
         },
+        provider(state, provider) {
+          state.provider = provider
+        }
     },
     actions: {
         async bootstrapApp({commit, dispatch}) {
             dispatch('loadFlags');
             commit('etherscanUrl', lookupEtherscanAddress(1));
         },
-        async bootstrapWeb3({commit, dispatch}) {
+        async bootstrapWeb3({commit}) {
             console.log('Bootstrapping application');
             try {
-                const web3 = new Web3(window.ethereum || (window.web3 && window.web3.currentProvider));
-
-                // Reload the account logic if we see a change
-                // coinbase on android doesn't have 'on' method defined on provider
-                window.ethereum && window.ethereum.on && window.ethereum.on('accountsChanged', (accounts) => {
-                    console.log('accountsChanged', accounts);
-                    const account = accounts[0];
-                    commit('ethAccount', account);
-                    dispatch('bootstrapWeb3');
-                });
-
-                initializeAssist(web3);
-
-                // full state object returned by assist: https://github.com/blocknative/assist#state
-                let userEnvironment;
-                try {
-                    userEnvironment = await onboardUser();
-                } catch (rejectedState) {
-                    // user exited onboarding
-                    userEnvironment = rejectedState;
-                }
-
-                // Available state parameters that come back from call to onboard
-                const {
-                    mobileDevice,
-                    accountAddress,
-                    userCurrentNetworkId
-                } = userEnvironment;
-
-                // user exited onboarding without logged in MM account
-                if (!accountAddress) {
-                    commit('showInstallMMBanner', true);
-                    return;
-                }
-
-                // user onboarded sucessfully
-                commit('showInstallMMBanner', false);
-                console.log(`Account`, accountAddress);
-                commit('ethAccount', accountAddress);
-
-                console.log(`Working on network [${userCurrentNetworkId}]`);
-
-                commit('networkId', userCurrentNetworkId);
-                commit('etherscanUrl', lookupEtherscanAddress(userCurrentNetworkId));
-                commit('web3', web3);
-                commit('mobileDevice', mobileDevice);
+              const onboard = initializeOnboard({
+                address: address => commit('ethAccount', address),
+                network: networkId => {
+                  commit('networkId', networkId),
+                    commit('etherscanUrl', lookupEtherscanAddress(networkId))
+                },
+                wallet: wallet => commit('provider', wallet.provider),
+                balance: balance => commit('balance', balance)
+              })
+      
+              const walletSelected = await onboard.walletSelect()
+              const walletReady = walletSelected && (await onboard.walletReady())
+              if (!walletReady) {
+                commit("showInstallMMBanner", true)
+              }
             } catch (e) {
                 console.error(`Something went big bang`, e);
             }
