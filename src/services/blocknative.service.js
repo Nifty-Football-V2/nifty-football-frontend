@@ -3,6 +3,14 @@ import notify from 'bnc-notify'
 
 import { ASSIST_KEY, NETWORK_ID } from '../utils'
 
+// to add these wallets to the wallet select screen
+// get api keys and place them below
+
+// const FORTMATIC_KEY = 'YOUR FORTMATIC KEY'
+// const PORTIS_KEY = 'YOUR PORTIS KEY'
+// const INFURA_KEY = 'YOUR INFURA KEY'
+// const SQUARELINK_KEY = 'YOUR SQUARELINK KEY'
+
 let initializedOnboard
 let initializedNotify
 
@@ -14,18 +22,19 @@ export function initializeOnboard(subscriptions) {
       subscriptions,
       modules: {
         walletSelect: onboard.modules.select.defaults({
-          fortmaticInit: { apiKey: 'pk_test_886ADCAB855632AA' },
-          portisInit: { apiKey: 'd7d72646-709a-45ab-aa43-8de5307ae0df' },
-          walletConnectInit: { infuraKey: '19ac568d0464497a9451cf9f388de2c3' },
-          squarelinkInit: {
-            apiKey: '87288b677f8cfb09a986',
-            networkId: NETWORK_ID
-          },
+          // fortmaticInit: { apiKey: FORTMATIC_KEY },
+          // portisInit: { apiKey: PORTIS_KEY },
+          // walletConnectInit: { infuraKey: INFURA_KEY },
+          // squarelinkInit: {
+          //   apiKey: SQUARELINK_KEY,
+          //   networkId: NETWORK_ID
+          // },
           networkId: NETWORK_ID
         }),
         walletReady: onboard.modules.ready.defaults({
-          networkId: NETWORK_ID,
-          minimumBalance: '100000'
+          networkId: NETWORK_ID
+          // set a minimum balance below (optional):
+          // minimumBalance: '100000'
         })
       }
     })
