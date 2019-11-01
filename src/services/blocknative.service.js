@@ -8,7 +8,7 @@ import { ASSIST_KEY, NETWORK_ID } from '../utils'
 
 // const FORTMATIC_KEY = 'YOUR FORTMATIC KEY'
 // const PORTIS_KEY = 'YOUR PORTIS KEY'
-// const INFURA_KEY = 'YOUR INFURA KEY'
+// const INFURA_KEY = 'YOUR INFURA KEY' (walletConnect)
 // const SQUARELINK_KEY = 'YOUR SQUARELINK KEY'
 
 let initializedOnboard
