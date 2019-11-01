@@ -150,6 +150,7 @@
     import PageTitle from '../components/PageTitle';
     import PageSubTitle from '../components/PageSubTitle';
     import {waitForMillis} from '../utils';
+    import { getNotify, getOnboard } from "../services/blocknative.service";
 
     export default {
         components: {PageSubTitle, PageTitle, BuyPlayerReveal, Loading},
@@ -167,12 +168,14 @@
         computed: {
             ...mapState([
                 'ethAccount',
+                'balance',
                 'blindPackService',
                 'blindPackPriceService',
                 'cardsApiService',
                 'notificationService',
                 'rankings',
-                'mobileDevice'
+                'mobileDevice',
+                'web3'
             ]),
         },
         methods: {
@@ -184,26 +187,106 @@
 
                 console.log(`Buying ${this.packType} = ${num} cards`);
 
-                let receipt = null;
+                let hash;
+
+                const onboard = getOnboard();
+                const notify = getNotify();
+
+                if (!this.web3) {
+                    const walletSelected = await onboard.walletSelect();
+                    if (!walletSelected) return;
+                }
+
+                if (!this.ethAccount) {
+                    const walletReady = await onboard.walletReady();
+                    if (!walletReady) return;
+                }
+
                 try {
                     // call the respective contract to buy
-                    if (this.packType.startsWith('reg')) {
-                        receipt = await this.blindPackService.buyBlindPack(num, this.selectedNum() <= this.accountCredits);
+                    if (this.packType.startsWith("reg")) {
+                        const contractCall = {
+                            methodName: "buyBatch",
+                            params: [num]
+                        };
+
+                        const sendTransaction = () =>
+                            this.blindPackService.buyBlindPack(
+                            ...contractCall.params,
+                            this.selectedNum() <= this.accountCredits
+                            );
+
+                        const { emitter, result } = await notify.transaction({
+                            sendTransaction,
+                            contractCall
+                        });
+
+                        await new Promise(resolve => {
+                            emitter.on("txSent", () => ({
+                                message: `Asking the network to mint your new card${num > 1 ? "s" : ""}`
+                            }));
+
+                            emitter.on("txPool", () => ({
+                                message: `Minting your new card${num > 1 ? "s" : ""}...`
+                            }));
+
+                            emitter.on("txConfirmed", transaction => {
+                                hash = transaction.hash;
+                                resolve();
+
+                                return {
+                                    message: `Your new card${
+                                    num > 1 ? "s have" : " has"
+                                    } been minted!`
+                                };
+                            });
+                        })
                     } else {
-                        receipt = await this.blindPackService.buyEliteBlindPack(num);
+                        const contractCall = {
+                            methodName: "buyBatch",
+                            params: [num]
+                        };
+
+                        const sendTransaction = () =>
+                            this.blindPackService.buyEliteBlindPack(...contractCall.params);
+
+                        const { emitter, result } = await notify.transaction({
+                            sendTransaction,
+                            contractCall
+                        });
+
+                        await new Promise(resolve => {
+                            emitter.on("txSent", transaction => ({
+                            message: `Asking the network to mint your new elite card${
+                                num > 1 ? "s" : ""
+                            }`
+                            }));
+                            emitter.on("txPool", transaction => ({
+                            message: `Minting your new elite card${num > 1 ? "s" : ""}...`
+                            }));
+                            emitter.on("txConfirmed", transaction => {
+                            hash = transaction.hash;
+                            resolve();
+
+                            return {
+                                message: `Your new elite card${
+                                num > 1 ? "s have" : " has"
+                                } been minted!`
+                            };
+                            });
+                        });
                     }
 
                     // Adding delay to allow for API service loadTokensForTx() to sync the data
                     await waitForMillis(5000);
 
-                    const txRes = await this.cardsApiService.loadTokensForTx(receipt.transactionHash);
+                    const txRes = await this.cardsApiService.loadTokensForTx(hash);
                     this.cards = txRes.cards;
 
-                    this.buyState = 'confirmed';
+                    this.buyState = "confirmed";
 
                     // Refresh credit limit
                     this.loadCreditsForAccount();
-
                 } catch (e) {
                     console.error('TXS failed', e);
                     this.buyState = 'idle';
