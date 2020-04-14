@@ -13,9 +13,9 @@
             <a href="https://www.instagram.com/niftyfootball/" target="_blank">
                 <font-awesome-icon :icon="['fab', 'instagram']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>
-            <a href="https://discord.gg/zANdfd" target="_blank">
-                <font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-secondary"/>
-            </a>
+<!--            <a href="https://discord.gg/zANdfd" target="_blank">-->
+<!--                <font-awesome-icon :icon="['fab', 'discord']" size="2x" class="ml-3 mr-3 text-secondary"/>-->
+<!--            </a>-->
             <a href="https://t.me/niftyfootball" target="_blank">
                 <font-awesome-icon :icon="['fab', 'telegram']" size="2x" class="ml-3 mr-3 text-secondary"/>
             </a>

@@ -19,12 +19,12 @@
                 </router-link>
             </div>
             <div class="col-6 col-sm-4 text-right mt-2">
-                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary">
-                    Buy
-                </router-link>
+<!--                <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary">-->
+<!--                    Buy-->
+<!--                </router-link>-->
             </div>
         </div>
-        <network-web3-banner v-if="meta && meta.web3Required"></network-web3-banner>
+<!--        <network-web3-banner v-if="meta && meta.web3Required"></network-web3-banner>-->
     </header>
 </template>
 

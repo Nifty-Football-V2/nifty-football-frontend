@@ -12,11 +12,11 @@
                 <div class="header-text-lg mb-2 mb-sm-4">
                     {{$tc('common.collect_trade_play')}}
                 </div>
-                <div class="d-none d-sm-block">
-                    <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg">
-                        {{$tc('common.start_collecting')}}
-                    </router-link>
-                </div>
+<!--                <div class="d-none d-sm-block">-->
+<!--                    <router-link to="/buy" class="mr-sm-3 mr-2 btn btn-secondary btn-lg">-->
+<!--                        {{$tc('common.start_collecting')}}-->
+<!--                    </router-link>-->
+<!--                </div>-->
             </div>
         </div>
 
@@ -57,15 +57,15 @@
             </div>
         </div>
 
-        <div class="row mt-5 mb-5 pt-5 pb-5 bg-white justify-content-center text-center">
-            <div class="col">
-                <router-link to="/buy" class="btn btn-secondary btn-lg">
-                    {{$tc('common.start_collecting')}}
-                </router-link>
-            </div>
-        </div>
+<!--        <div class="row mt-5 mb-5 pt-5 pb-5 bg-white justify-content-center text-center">-->
+<!--            <div class="col">-->
+<!--                <router-link to="/buy" class="btn btn-secondary btn-lg">-->
+<!--                    {{$tc('common.start_collecting')}}-->
+<!--                </router-link>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <partners></partners>
+<!--        <partners></partners>-->
     </div>
 </template>
 
