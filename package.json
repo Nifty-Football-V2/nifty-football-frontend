@@ -21,7 +21,7 @@
     "bootstrap-vue": "^2.0.0-rc.13",
     "ethers": "4.0.20",
     "intersection-observer": "^0.6.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "nifty-football-contract-tools": "^1.6.0",
     "vconsole": "^3.3.0",
     "vue": "^2.6.10",
